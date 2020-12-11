@@ -1,0 +1,573 @@
+body {
+    background-color: rgb(230, 220, 220);
+    padding: 0;
+    margin: 0;
+    color: rgb(26, 26, 26);
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    overscroll-behavior-y: contain;
+    text-align: center;
+}
+
+body::-webkit-scrollbar { width: 0 }
+body::-webkit-scrollbar {display: none;}
+body { overflow: -moz-scrollbars-none; }
+body { -ms-overflow-style: none; }
+
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgb(230, 220, 220);
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    z-index: 10;
+}
+
+
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(230, 220, 220);
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+}
+
+.logo {
+    /* font-size: 24px; */
+    /* letter-spacing: 5px; */
+    line-height: 24px;
+}
+
+.navbar li {
+    float: right;
+    padding: 10px;
+    line-height: 24px;
+}
+
+.navbar li a {
+    display: block;
+    color: rgb(26, 26, 26);
+    text-align: center;
+    /* padding: 14px 16px; */
+    text-decoration: none;
+}
+.navbar li a:hover {
+    color: rgb(100, 75, 75);
+}
+
+  /* The progress container (grey background) */
+  .progress-container {
+    width: 100%;
+    /* height: 8px; */
+    /* background: rgb(26, 26, 26); */
+  }
+  
+  /* The progress bar (scroll indicator) */
+  .progress-bar {
+    height: 4px;
+    background: rgb(100, 75, 75);
+    width: 0%;
+  }
+
+
+
+
+
+h1 {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-weight: normal;
+    color: rgb(26, 26, 26);
+    font-size: 24px;
+    z-index: 1;
+    background-color: rgb(230, 220, 220);
+}
+
+.section {
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+}
+
+.line {
+    margin: 0;
+    padding: 0;
+    margin-left: 30%;
+    margin-right: 30%;
+    color: rgb(26, 26, 26);
+    background-color: rgb(26, 26, 26);
+    border-color: rgb(100, 75, 75);
+    height: 0;
+}
+
+.about {
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 48px;
+    /* padding-bottom: 2.5%; */
+}
+
+.cardRow {
+    display: flex;
+    flex-wrap: wrap;
+    /* padding-left: 2.5%;
+    padding-bottom: 2.5%; */
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.cardColumn {
+    flex: 30%;
+    max-width: 30%;
+    /* width: 300px; */
+    padding-left: 2.5%;
+    padding-bottom: 2.5%;
+    height: 400px;
+}
+
+.card {
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: left;
+    min-width: 300px;
+    background-color: rgb(200, 185, 185);
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px 6px rgb(100, 75, 75);/*, -4px 0 4px rgba(10, 0, 150, 0.726), 0 8px 4px rgba(10, 0, 150, 0.726);*/
+    cursor: pointer;
+}
+
+
+.cardUpper {
+    height: 200px;
+    z-index: 1;
+    position: relative;
+    text-align: center;
+}
+
+.cardUpper span {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    bottom: 0; 
+
+    color: #ffffff; 
+    left: 0;
+    text-align: center;
+
+    text-decoration: none;
+}
+
+span.single {
+    background-color: rgba(240, 240, 240, 0.65);
+    color:rgb(26, 26, 26);
+    line-height: 200px;
+    opacity: 0;
+}
+
+span.single a {
+    color:rgb(26, 26, 26);
+    text-decoration: none;
+    visibility: hidden;
+}
+
+span.double {
+    background-color: rgba(240, 240, 240, 0.65);
+    color:rgb(26, 26, 26);
+    line-height: 100px;
+    opacity: 0;
+}
+
+span.double a {
+    color:rgb(26, 26, 26);
+    text-decoration: none;
+    visibility: hidden;
+}
+
+.cardCover {
+    background-color: rgb(200, 185, 185);
+    height: 0px;
+    /* display: none; */
+    visibility: hidden;
+}
+
+.cardLower {
+    padding: 0 2.5% 0 2.5%;
+    height: 170px;
+}
+
+.cardLanguages {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    padding: 0 2.5% 0 2.5%;
+    height: 30px;
+    vertical-align: middle;
+    line-height: 30px;
+    /* color: rgb(100, 75, 75); */
+}
+
+.cardLanguages li{
+    float: left;
+    padding-right: 10px;
+    list-style-type: none;
+}
+
+
+.arrow {
+    justify-self: right;
+    margin: 0;
+    padding: 0;
+    padding-top: 2.5%;
+    /* writing-mode: tb-lr; */
+
+    float: right;
+    -webkit-transform: rotate(-90deg);   
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    color: rgb(100, 75, 75);
+    font-size: 14px;
+}
+
+.cardText {
+    margin: 0;
+    padding: 0;
+    padding-top: 2.5%;
+}
+
+/* .hide3 {
+    opacity: 0;
+}
+
+.hide4 {
+    opacity: 0;
+} */
+
+.button {
+    background-color: rgb(200, 185, 185);
+    border: none;
+    /* color: rgb(200, 185, 185); */
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    outline: none;
+
+    border-radius: 4px;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* transition: 0.3s; */
+}
+
+.button:hover {
+    box-shadow: 0 0px 4px 4px rgb(100, 75, 75);
+    color: rgb(110, 110, 110);
+    background-color: rgb(200, 185, 185);
+}
+
+/* Make sure that padding behaves as expected */
+.skill-container {
+    width: 80%;
+    /* padding-left: 10%; */
+    text-align: left;
+}
+
+/* Container for skill bars */
+.container {
+  width: 100%; /* Full width */
+  background-color: rgb(230, 220, 220); /* Grey background */
+}
+
+.skillRow {
+    display: flex;
+    flex-wrap: wrap;
+    /* padding-left: 2.5%;
+    padding-bottom: 2.5%; */
+    padding-left: 5%;
+    padding-right: 5%;
+    
+}
+
+.skillColumn {
+    flex: 44%;
+    max-width: 44%;
+    padding-left: 4%;
+    padding-bottom: 2.5%;
+    height: 400px;
+    
+}
+.skills {
+    /* padding-left: 10%; */
+      text-align: right; /* Right-align text */
+      /* padding-top: 10px; 
+      padding-bottom: 10px;  */
+      color: rgb(240, 240, 240); /* White text color */
+      background-color: rgb(100, 75, 75);
+      padding-right: 2.5%;
+      
+    }
+
+.skill {
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 400px;
+    padding-left: 15%;
+    background-color: rgb(200, 185, 185);
+    
+}
+
+.skillName {
+    text-align: center; 
+    line-height: 40px;
+    letter-spacing: 2px; 
+    font-size: 20px;
+}
+
+/* .libraries {
+    padding: 0;
+    color: rgb(48, 6, 6);
+} */
+
+.novice {
+    width: 33.33%;
+}
+
+.proficient {
+    width: 66.66%;
+}
+
+.advanced {
+    width: 97%;
+}
+
+.skill:hover {
+    box-shadow: 0 4px 8px 6px rgb(100, 75, 75);/*, -4px 0 4px rgba(10, 0, 150, 0.726), 0 8px 4px rgba(10, 0, 150, 0.726);*/
+    /* cursor: pointer; */
+}
+
+.skillColumn2 {
+    flex: 44%;
+    max-width: 44%;
+    padding-left: 4%;
+    padding-bottom: 2.5%;
+    height: 200px;
+    /* letter-spacing: 2px;  */
+    font-size: 20;
+}
+
+.skill2 {
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 200px;
+    /* padding-left: 15%; */
+    background-color: rgb(200, 185, 185);
+    
+}
+
+.skillTable {
+    /* background-color: aqua; */
+    border: 1px solid black;
+    padding: 5%;
+    width: 100%;
+    text-align: left;
+    color: rgb(100, 74, 74);
+}
+
+
+
+.tableLeft {
+    text-align: right;
+    width: 50%;
+    padding-right: 5%;
+    letter-spacing: 2px;
+    color: rgb(26, 26, 26);
+}
+
+
+.expRow {
+    display: flex;
+    flex-wrap: wrap;
+    /* padding-left: 2.5%;
+    padding-bottom: 2.5%; */
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 2.5%;
+}
+
+.expColumn {
+    flex: 60%;
+    max-width: 60%;
+    padding-left: 20%;
+    padding-bottom: 2.5%;
+    height: 400px;
+}
+
+.exp {
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: left;
+    padding: 2.5%;
+    padding-bottom: 2.5%;
+    background-color: rgb(200, 185, 185);
+    
+}
+
+.exp:hover {
+    box-shadow: 0 4px 8px 6px rgb(100, 74, 74);/*, -4px 0 4px rgba(10, 0, 150, 0.726), 0 8px 4px rgba(10, 0, 150, 0.726);*/
+}
+
+#tr-footer{
+    height: 32px;
+    width:100%;
+    background:transparent;
+}
+
+.footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(100, 75, 75);
+  text-align: center;
+  height: 48px;
+}
+
+@media (max-width: 2048px) {
+    .cardColumn {
+        flex: 22%;
+        max-width: 22%;
+        padding-left: 2.4%;
+    }
+    .hide4 {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 1536px) {
+    .cardColumn {
+        flex: 30%;
+        max-width: 30%;
+        padding-left: 2.5%;
+    }
+
+    .hide3 {
+        opacity: 0;
+    }
+
+    .hide4 {
+        opacity: 0;
+    }
+}
+
+
+
+@media (max-width: 1280px) {
+    .cardRow {
+        padding-left: 2.5%;
+        padding-right: 2.5%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .cardRow {
+        padding-left: 1.25%;
+        padding-right: 1.25%;
+    }
+}
+
+@media (max-width: 992px) {
+    .cardColumn {
+        flex: 44%;
+        max-width: 44%;
+        padding-left: 4%;
+    }
+}
+
+@media (max-width: 700px) {
+    .cardColumn {
+        flex: 60%;
+        max-width: 60%;
+        padding-left: 20%;
+    }
+    .logo {
+        display: none;
+    }
+    .navbar li {
+        float: center;
+    }
+
+    .skillColumn {
+        flex: 60%;
+        max-width: 60%;
+        padding-left: 20%;
+    }
+
+    .expColumn {
+        flex: 80%;
+        max-width: 80%;
+        padding-left: 10%;
+    }
+
+    .footer {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .cardColumn {
+        flex: 70%;
+        max-width: 70%;
+        padding-left: 15%;
+    }
+    .skillColumn {
+        flex: 70%;
+        max-width: 70%;
+        padding-left: 15%;
+    }
+    .navbar li  {
+        display: none;
+    }
+
+    .skillColumn {
+        padding-left: 10%;
+        height: 100%;
+    }
+
+    .skill {
+        height: 100%;
+        padding-bottom: 2.5%;
+    }
+
+}
+
+@media (max-width: 500px) {
+    .cardColumn {
+        flex: 80%;
+        max-width: 80%;
+        padding-left: 10%;
+    }
+    .skillColumn {
+        flex: 80%;
+        max-width: 80%;
+        padding-left: 10%;
+        height: 100%;
+    }
+
+    .skill {
+        height: 100%;
+        padding-bottom: 2.5%;
+    }
+}
+
