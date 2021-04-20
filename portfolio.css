@@ -305,7 +305,7 @@ span.double a {
     max-width: 44%;
     padding-left: 4%;
     padding-bottom: 2.5%;
-    height: 400px;
+    height: 320px;
     
 }
 .skills {
@@ -322,7 +322,7 @@ span.double a {
 .skill {
     box-sizing: border-box;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    height: 400px;
+    height: 320px;
     padding-left: 15%;
     background-color: rgb(200, 185, 185);
     
@@ -400,7 +400,7 @@ span.double a {
     flex: 60%;
     max-width: 60%;
     padding-left: 20%;
-    /* padding-bottom: 2.5%; */
+    padding-bottom: 2.5%;
     
 
     
@@ -409,11 +409,11 @@ span.double a {
 .expColumn {
     display: flex;
     flex-wrap: wrap;
-    /* padding-left: 2.5%;
-    padding-bottom: 2.5%; */
+    /* /* padding-left: 2.5%; */
+    /* padding-bottom: 2.5%; */
     padding-left: 5%;
     padding-right: 5%;
-    height: 400px;
+    /* height: 400px; */
 }
 
 .exp {
