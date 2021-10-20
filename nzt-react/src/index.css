@@ -6,6 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  overscroll-behavior-y: contain;
+
   background-color: rgb(230, 220, 220);
   color: rgb(26, 26, 26);
   text-align: center;
@@ -13,6 +15,48 @@ body {
   font-size: 18pt;
   font-family: 'Poppins', sans-serif;
 }
+
+body::-webkit-scrollbar { width: 0 }
+body::-webkit-scrollbar {display: none;}
+body { overflow: -moz-scrollbars-none; }
+body { -ms-overflow-style: none; }
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  z-index: 10;
+}
+
+.navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+}
+
+.navbar li {
+  float: right;
+  padding: 10px;
+  line-height: 24px;
+}
+
+.navbar li a {
+  display: block;
+  color: rgb(26, 26, 26);
+  text-decoration: none;
+}
+.navbar li a:hover {
+  color: rgb(100, 75, 75);
+}
+
+
+
 
 .body {
   min-height: 100vh;
