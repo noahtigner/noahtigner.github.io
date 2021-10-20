@@ -4,6 +4,7 @@ import './index.css';
 import logo from './logo.svg';
 // import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
 import Header from './components/header.jsx';
+import Footer from './components/footer.jsx';
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.render(
 			</p>
 			{/* <AccessAlarmIcon /> */}
 		</div>
+		<Footer/>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

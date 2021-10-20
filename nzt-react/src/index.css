@@ -12,7 +12,7 @@ body {
   color: rgb(26, 26, 26);
   text-align: center;
 
-  font-size: 18pt;
+  font-size: 12pt;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -70,6 +70,25 @@ body { -ms-overflow-style: none; }
   height: 40vmin;
   pointer-events: none;
 }
+
+
+#tr-footer{
+  height: 32px;
+  width:100%;
+  background:transparent;
+}
+
+.footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+}
+
+
+
+
 
 @media (prefers-reduced-motion: no-preference) {
   .spin {
