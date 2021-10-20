@@ -6,9 +6,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: white;
-  color: black;
+  background-color: rgb(230, 220, 220);
+  color: rgb(26, 26, 26);
   text-align: center;
+
+  font-size: 18pt;
+  font-family: 'Poppins', sans-serif;
 }
 
 .body {
@@ -17,7 +20,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 16pt;
 }
 
 .spin {
