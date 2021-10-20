@@ -1,7 +1,7 @@
 {
   "name": "noahtigner-github-io",
   "version": "3.1.0",
-  "homepage": "https://noahtigner.com",
+  "homepage": "https://noahtigner.github.io",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
