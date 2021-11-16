@@ -10,9 +10,9 @@ body {
 
   background-color: rgb(230, 220, 220);
   color: rgb(26, 26, 26);
-  text-align: center;
+  /* text-align: center; */
 
-  font-size: 12pt;
+  font-size: 12px;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -29,6 +29,9 @@ body { -ms-overflow-style: none; }
   text-transform: uppercase;
   letter-spacing: 2px;
   z-index: 10;
+  background-color: rgb(230, 220, 220);
+  border-bottom: 1px solid rgb(230, 220, 220);
+  vertical-align: middle;
 }
 
 .navbar {
@@ -58,24 +61,16 @@ body { -ms-overflow-style: none; }
 
 
 
-.body {
+.appBody {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  /* /* display: flex; */
+  /* flex-direction: column;
   align-items: center;
-  justify-content: center;
-}
-
-.spin {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-
-#tr-footer{
-  height: 32px;
-  width:100%;
-  background:transparent;
+  justify-content: center; 
+  width: 90vw; */
+  /* top: 48px; */
+  padding-top: 56px;
+  
 }
 
 .footer {
@@ -90,18 +85,5 @@ body { -ms-overflow-style: none; }
 
 
 
-@media (prefers-reduced-motion: no-preference) {
-  .spin {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
