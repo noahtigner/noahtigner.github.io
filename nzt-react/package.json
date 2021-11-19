@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
+    "@mui/styles": "^5.1.1",
     "gh-pages": "^3.2.3",
     "randomcolor": "^0.6.2",
     "react": "^17.0.2",

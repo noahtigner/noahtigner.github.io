@@ -7,13 +7,13 @@
             "languages": ["Python", "Rasterio", "NumPy"],
             "links": [
                 { "description": "Git Repository", "target": "https://github.com/noahtigner/Number-of-Islands" },
-                { "description": "Youtube Visualization", "target": "https://youtu.be/kEoZuNdHLasc" }
+                { "description": "Visualization", "target": "https://youtu.be/kEoZuNdHLasc" }
             ]
         },
         {
             "title": "SiteStall",
             "description": "A Firefox extension that improves concentration. A modern implementation of Dr. Richard Patterson\"s ideal 'commitment device'.",
-            "image": "images/siteStall2.png",
+            "image": "images/sitestall2.png",
             "languages": ["JavaScript", "HTML/CSS", "Firefox API"],
             "links": [
                 { "description": "Git Repository", "target": "https://github.com/SiteStall/SiteStall" }
@@ -26,7 +26,7 @@
             "languages": ["Python", "C++", "FFmpeg"],
             "links": [
                 { "description": "Git Repository", "target": "https://github.com/noahtigner/IcelandVisualization" },
-                { "description": "Youtube Visualization", "target": "https://youtu.be/YKv8r7G7pbc" }
+                { "description": "Visualization", "target": "https://youtu.be/YKv8r7G7pbc" }
             ]
         },
         {
@@ -42,7 +42,7 @@
             "title": "PriceDrop",
             "description": "Compares current deals for an amazon product to historic prices and notifies you in case of a good deal. Uses BeautifulSoup, SQLite, and SMTPlib for email notifications.",
             "image": "images/pricedrop.png",
-            "languages": ["Python", "SQL", "Pandas", "BeautifulSoup"],
+            "languages": ["Python", "SQL", "Pandas"],
             "links": [
                 { "description": "Git Repository", "target": "https://bitbucket.org/noahtigner/pricedrop" }
             ]
