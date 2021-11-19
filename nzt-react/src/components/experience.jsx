@@ -3,12 +3,23 @@ import React from 'react';
 import { useTheme } from '@mui/styles';
 import { Container, Grid, Stepper, Step, StepLabel, StepContent } from '@mui/material/';
 import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
+import BuildIcon from '@mui/icons-material/Build';
+import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import CloudCircleOutlinedIcon from '@mui/icons-material/CloudCircleOutlined';
+import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
+import AvTimerIcon from '@mui/icons-material/AvTimer';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 import experienceItems from '../experienceItems.json';
 
 export default function Experience() {
 	const theme = useTheme();
+
+	const iconMap = {
+		'HP': <CloudOutlinedIcon color='primary' />,
+		'Air-Weigh': <BuildOutlinedIcon color='primary' />,
+		'TDS': <SettingsOutlinedIcon color='primary' />
+	}
 	
 	return (
 		<Container width='100%'>
@@ -18,7 +29,7 @@ export default function Experience() {
 						{experienceItems.items.map((item, index) => (
 							<Step key={item.label} active={true} style={{ padding: 0 }} >
 								<StepLabel
-									StepIconComponent={() => item.subtitle === 'HP' ? <CloudCircleOutlinedIcon color='primary' sx={{ fontSize: 25 }}/> :  <BuildCircleOutlinedIcon color='primary' />}
+									StepIconComponent={() => iconMap[item.subtitle]}
 								>
 									<span style={{ lineHeight: '12px', padding: 0, margin: 0 }}>{item.label}</span>
 									<br/>

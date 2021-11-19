@@ -6,7 +6,7 @@
             "description": [
                 "Designed, developed, and delivered cloud-based services interfacing with multiple platforms and organizations across HP.",
                 "Architected and implemented containerized cloud native full-stack software solutions to enable automated data processing.",
-                "Implemented reverse proxies, task queuing, distributed multitasking, and asynchronous monitoring to improve system scalability."
+                "Implemented reverse proxies, message queuing, distributed multitasking, and asynchronous monitoring to improve system scalability."
             ]
         },
         {
@@ -20,10 +20,11 @@
         },
         {
             "label": "Software Engineering Intern",
-            "subtitle": "TDS Telecommunications",
+            "subtitle": "TDS",
             "description": [
                 "Developed ETL pipelines using Python and SQL for network diagnostics and capacity reporting.",
-                "Rewrote legacy Perl, shell, and SQL code into scalable, maintainable Python scripts."
+                "Followed Test-Driven Development to integrate coding, testing, and design into a unified process.",
+                "Optimized automated processes to reduce server load."
             ]
         }
     ]
