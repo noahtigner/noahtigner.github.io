@@ -11,8 +11,17 @@
             ]
         },
         {
+            "title": "DiscoverDaily",
+            "description": "A Spotify Recommender System. Trains a Classifier on your musical tastes and recommends songs daily. Uses the Spotify API and scikit-learn for machine learning.",
+            "image": "images/discoverdaily.png",
+            "languages": ["Python", "SQL", "Spotify API", "scikit-learn"],
+            "links": [
+                { "description": "Git Repository", "target": "https://github.com/noahtigner/DiscoverDaily" }
+            ]
+        },
+        {
             "title": "SiteStall",
-            "description": "A Firefox extension that improves concentration. A modern implementation of Dr. Richard Patterson\"s ideal 'commitment device'.",
+            "description": "A Firefox extension that improves concentration. A modern implementation of Dr. Richard Patterson's ideal 'commitment device'.",
             "image": "images/sitestall2.png",
             "languages": ["JavaScript", "HTML/CSS", "Firefox API"],
             "links": [
@@ -30,12 +39,12 @@
             ]
         },
         {
-            "title": "DiscoverDaily",
-            "description": "A Spotify Recommender System. Trains a Classifier on your musical tastes and recommends songs daily. Uses the Spotify API and scikit-learn for machine learning.",
-            "image": "images/discoverdaily.png",
-            "languages": ["Python", "SQL", "Spotify API", "scikit-learn"],
+            "title": "Blue",
+            "description": "A polyphonic MIDI audio synthesizer. Written with the JUCE audio framework.",
+            "image": "images/blue.png",
+            "languages": ["C++", "JUCE"],
             "links": [
-                { "description": "Git Repository", "target": "https://github.com/noahtigner/DiscoverDaily" }
+                { "description": "Git Repository", "target": "https://github.com/noahtigner/Blue" }
             ]
         },
         {
@@ -54,15 +63,6 @@
             "languages": ["JavaScript", "HTML/CSS", "D3.js"],
             "links": [
                 { "description": "Git Repository", "target": "https://github.com/noahtigner/BudgetVis" }
-            ]
-        },
-        {
-            "title": "Blue",
-            "description": "A polyphonic MIDI audio synthesizer. Written with the JUCE audio framework.",
-            "image": "images/blue.png",
-            "languages": ["C++", "JUCE"],
-            "links": [
-                { "description": "Git Repository", "target": "https://github.com/noahtigner/Blue" }
             ]
         }
     ]

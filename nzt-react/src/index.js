@@ -1,34 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+
+import ReactGA from 'react-ga';
+
 import './index.css';
-
 import CssBaseline from "@mui/material/CssBaseline";
-import { useTheme } from '@mui/styles';
-import { createTheme, ThemeProvider, Divider, Button, Box } from '@mui/material/';
+import { createTheme, ThemeProvider, Box, Grid, Container } from '@mui/material/';
 
-import Header from './components/header.jsx';
-import Footer from './components/footer.jsx';
+import Header from './components/generic/header.jsx';
+import Footer from './components/generic/footer.jsx';
+import Divider from './components/generic/divider.jsx';
 
 import Experience from './components/experience.jsx';
 import Portfolio from './components/portfolio.jsx';
+import BudgetVis from './components/budgetVis.jsx';
 
-const SectionHeader = (props) => {
-	return (
-		<Divider style={{textAlign: 'center', fontSize: '16px', width: '80%', marginLeft: '10%', marginRight: '10%' }}>{props.content}</Divider>
-	)
-}
-
-// const breakpoints = {
-// 	breakpoints: {
-// 		values: {
-// 			xs: 0,
-// 			sm: 600,
-// 			md: 700,
-// 			lg: 900,
-// 			xl: 1200,
-// 		},
-// 	}
-// }
 
 const themeLight = createTheme({
 	typography: {
@@ -74,6 +62,7 @@ const themeLight = createTheme({
 				root: {
 					"::before": {
 						borderColor: 'rgb(150, 150, 150)'
+						// borderColor: '#1976d2'
 					},
 					"::after": {
 						// borderColor: 'rgb(189, 189, 189)'
@@ -103,25 +92,51 @@ const themeLight = createTheme({
   });
 
 const App = () => {
-	const [dark, setDark] = React.useState(true);
+	const history = createBrowserHistory();
+
+	const trackingId = "G-CBV6MH0KTB";
+	ReactGA.initialize(trackingId);
+
+	// Initialize google analytics page view tracking
+	history.listen(location => {
+		ReactGA.set({ page: location.pathname }); // Update the user's current page
+		ReactGA.pageview(location.pathname); // Record a pageview for the given page
+	});
+
+	const [dark, setDark] = React.useState(false);
 
 	return (
 		<ThemeProvider theme={dark ? themeDark : themeLight}>
 			<CssBaseline />
-			<Header style={{ backgroundColor: dark ? themeDark.palette.background.default : themeLight.palette.background.default }} dark={dark} clickHandler={() => setDark((prev) => !prev)}/>
-			<span id={'portfolio'} />
-			<Box sx={{ zIndex: 1 }} className='appBody'>
-				<SectionHeader content="Some Things I've Built" />
-				<br/>
-				<Portfolio />
-				{/* <br id={'experience'} /> */}
-				<br/>
-				<SectionHeader content="Experience" />
-				<Experience/>
-				<br id={'contact'} />
-			</Box>
+				<HashRouter>
+					<span id={'portfolio'} />
+					<Header style={{ backgroundColor: dark ? themeDark.palette.background.default : themeLight.palette.background.default }} dark={dark} clickHandler={() => setDark((prev) => !prev)}/>
 
-			<Footer />
+						<Box sx={{ zIndex: 1, width: '100vw' }} className='appBody'>
+							<Routes>
+								
+
+								<Route exact path='/' element={
+									<>
+										<Divider content="Some Things I've Built" />
+										<br/>
+										<Portfolio />
+										{/* <br id={'experience'} /> */}
+										<br/>
+										<Divider content="Experience" />
+										<Experience/>
+										<br id={'contact'} />
+									</>
+								} />
+
+								<Route exact path='/budget-vis' element={<BudgetVis />} />
+
+							</Routes>
+							{/* </HashRouter> */}
+						</Box>
+
+					<Footer />
+				</HashRouter>
 		</ThemeProvider>
 	);
 };

@@ -4,6 +4,7 @@ import { useTheme } from '@mui/styles';
 import { styled } from '@mui/system';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
 
 import portfolioItems from '../portfolioItems.json';
 
@@ -35,12 +36,12 @@ const Portfolio = (props) => {
 
     const getLinkIcon = (description) => {
         if(description.includes('Visualization')) {
-            return (<YouTubeIcon />)
+            return <YouTubeIcon />;
         }
         else if(description.includes('Git')) {
-            return (<GitHubIcon />)
+            return <GitHubIcon />;
         }
-        return null;
+        return <LinkOutlinedIcon />;
     }
 
     return (
@@ -70,7 +71,7 @@ const Portfolio = (props) => {
                                             color="primary"
                                             clickable
                                             size='small'
-                                            sx={{ marginRight: '4px', marginBottom: '4px' }}
+                                            sx={{ marginRight: '4px', marginBottom: '4px', borderRadius: '8px' }}
                                         />
                                     ))}
                                     <div style={{ fontSize: '12px' }}>
@@ -91,7 +92,7 @@ const Portfolio = (props) => {
             <br/>
             <span id={'experience'}></span>
             <div style={{display: 'flex', justifyContent: 'center'}}>
-                <Button variant="outlined" onClick={() => { setAmountToShow({showMore: !amountToShow.showMore, shownAmount: amountToShow.showMore !== true ? portfolioItems.items.length : window.innerWidth < 900 && window.innerWidth > 600 ? 2 : 3}); }}>{amountToShow.showMore === true ? 'Show Less' : 'Show More'}</Button>
+                <Button variant="outlined" style={{ borderRadius: '8px' }} onClick={() => { setAmountToShow({showMore: !amountToShow.showMore, shownAmount: amountToShow.showMore !== true ? portfolioItems.items.length : window.innerWidth < 900 && window.innerWidth > 600 ? 2 : 3}); }}>{amountToShow.showMore === true ? 'Show Less' : 'Show More'}</Button>
             </div>
         </>
     )

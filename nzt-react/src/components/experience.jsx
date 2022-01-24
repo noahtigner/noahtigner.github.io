@@ -9,6 +9,7 @@ import CloudCircleOutlinedIcon from '@mui/icons-material/CloudCircleOutlined';
 import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
 import AvTimerIcon from '@mui/icons-material/AvTimer';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 
 import experienceItems from '../experienceItems.json';
 
@@ -18,7 +19,8 @@ export default function Experience() {
 	const iconMap = {
 		'HP': <CloudOutlinedIcon color='primary' />,
 		'Air-Weigh': <BuildOutlinedIcon color='primary' />,
-		'TDS': <SettingsOutlinedIcon color='primary' />
+		'TDS': <SettingsOutlinedIcon color='primary' />,
+		'University of Oregon': <SchoolOutlinedIcon color='primary' />,
 	}
 	
 	return (
