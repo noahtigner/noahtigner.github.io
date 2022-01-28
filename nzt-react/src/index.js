@@ -25,7 +25,7 @@ const themeLight = createTheme({
 	palette: {
 		background: {
 			// default: "#e4f0e2"
-			default: "rgb(230, 240, 230)"
+			default: "rgb(250, 250, 250)"
 		},
 		text: {
 			primary: 'rgb(35, 35, 35)',
