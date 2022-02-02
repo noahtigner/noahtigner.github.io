@@ -5,14 +5,14 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 import CssBaseline from "@mui/material/CssBaseline";
-import { createTheme, ThemeProvider, Box, Grid, Container } from '@mui/material/';
+import { createTheme, ThemeProvider, Box } from '@mui/material/';
 
-import Header from './components/generic/header.jsx';
-import Footer from './components/generic/footer.jsx';
-import Divider from './components/generic/divider.jsx';
+import Header from './components/generic/header';
+import Footer from './components/generic/footer';
+import Divider from './components/generic/divider';
 
-import Experience from './components/experience.jsx';
-import Portfolio from './components/portfolio.jsx';
+import Experience from './components/experience';
+import Portfolio from './components/portfolio';
 
 
 const themeLight = createTheme({
