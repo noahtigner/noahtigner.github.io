@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, FC, ReactElement } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
@@ -88,7 +88,7 @@ const themeLight = createTheme({
 	}
   });
 
-const App = () => {
+const App: FC<any> = (): ReactElement => {
 	const [dark, setDark] = useState<boolean>(false);
 
 	return (

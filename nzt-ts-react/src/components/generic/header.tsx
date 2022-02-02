@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { useTheme } from '@mui/styles';
 import { FormControlLabel, Switch, Stack, Box } from '@mui/material/';
 
-import { HashLink } from 'react-router-hash-link';
-import Link from './link.jsx';
+import Link from './link';
 
-const Header = (props) => {
-    const theme = useTheme();
+interface Props {
+    clickHandler(): any,
+    dark: boolean
+}
+
+const Header: FC<any> = (props: Props): ReactElement => {
+
+    interface Theme {
+        palette: {
+            [key: string]: any
+        },
+        [key: string]: any
+    }
+    const theme: Theme = useTheme();
+
     return (
         <Box
             sx={{
