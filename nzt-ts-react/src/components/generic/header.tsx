@@ -53,7 +53,7 @@ const Header: FC<any> = (props: Props): ReactElement => {
                     // direction={{ xs: 'column', sm: 'row' }}
                 >
                     Noah Tigner
-                    <FormControlLabel  onClick={props.clickHandler} control={<Switch size="small" defaultChecked checked={props.dark} />} label={<span style={{ fontSize: '12px' }}>{props.dark ? 'Dark' : 'Light'}</span>} />
+                    <FormControlLabel  onClick={props.clickHandler} control={<Switch size="small" checked={props.dark} />} label={<span style={{ fontSize: '12px' }}>{props.dark ? 'Dark' : 'Light'}</span>} />
                 </Stack>
                 <Stack
                     justifyContent="space-between"

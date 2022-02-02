@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, FC, ReactElement} from 'react';
 import { darken, Container, Grid, Button, Chip } from '@mui/material/';
 import { useTheme } from '@mui/styles';
 import { styled } from '@mui/system';
@@ -8,8 +8,18 @@ import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
 
 import portfolioItems from '../portfolioItems.json';
 
-const Portfolio = (props) => {
-    const theme = useTheme();
+const Portfolio: FC<any> = (props): ReactElement => {
+    interface Theme {
+        palette: {
+            backgound: {
+                default: string,
+                [key: string]: any
+            }
+            [key: string]: any
+        },
+        [key: string]: any
+    }
+    const theme: Theme = useTheme();
 
     const Card = styled('div') ({
         height: '400px',
@@ -34,7 +44,7 @@ const Portfolio = (props) => {
         return () => window.removeEventListener('resize', handleResize);
       }, [amountToShow.showMore, amountToShow.shownAmount]);
 
-    const getLinkIcon = (description) => {
+    const getLinkIcon = (description: string): any => {
         if(description.includes('Visualization')) {
             return <YouTubeIcon />;
         }
@@ -46,7 +56,7 @@ const Portfolio = (props) => {
 
     return (
         <>
-            <Container width='100%'>
+            <Container sx={{ width: '100%' }}>
                 <Grid container spacing={3} justifyContent="space-evenly">
                     {portfolioItems.items.slice(0, amountToShow.shownAmount).map((item, index) => (
                         <Grid item key={`${item.title}-${item.description}`} xs={12} sm={6} md={6} lg={4} xl={4} >
