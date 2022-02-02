@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Stack, Box } from '@mui/material/';
 
-import Link from './link.jsx';
+import Link from './link';
 
-const Footer = () => {
+const Footer: FC<any> = (): ReactElement => {
     return (
         <Box
             sx={{

@@ -13,6 +13,10 @@ const Header: FC<any> = (props: Props): ReactElement => {
 
     interface Theme {
         palette: {
+            background: {
+                default: string,
+                [key: string]: any
+            }
             [key: string]: any
         },
         [key: string]: any

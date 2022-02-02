@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { styled } from '@mui/system';
 import { useTheme } from '@mui/styles';
 import { Link as MuiLink } from '@mui/material/';
 
+const Link: FC<any> = (props: { target: string, text: string, isAnchor: boolean }): ReactElement => {
+    interface Theme {
+        palette: {
+            text: {
+                secondary: string,
+                [key: string]: any
+            }
+            [key: string]: any
+        },
+        [key: string]: any
+    }
+    const theme: Theme = useTheme();
 
-// import { HashLink } from 'react-router-hash-link';
 
-
-const Link = (props) => {
-    const theme = useTheme();
     const A = styled('a') ({
         textDecoration: 'none',
         color: 'inherit',

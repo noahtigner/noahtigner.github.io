@@ -49,7 +49,7 @@ const Portfolio = (props) => {
             <Container width='100%'>
                 <Grid container spacing={3} justifyContent="space-evenly">
                     {portfolioItems.items.slice(0, amountToShow.shownAmount).map((item, index) => (
-                        <Grid item key={item.title} xs={12} sm={6} md={6} lg={4} xl={4} >
+                        <Grid item key={`${item.title}-${item.description}`} xs={12} sm={6} md={6} lg={4} xl={4} >
                             <Card>
                                 <div style={{letterSpacing: '2px', fontSize: '16px', marginLeft: '8px' }}>{item.title}</div>
                                 {/* <CardMedia

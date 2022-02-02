@@ -29,7 +29,7 @@ export default function Experience() {
 				<Grid item xs={12}>
 					<Stepper orientation="vertical">
 						{experienceItems.items.map((item, index) => (
-							<Step key={item.label} active={true} style={{ padding: 0 }} >
+							<Step key={`${item.label}-${item.subtitle}`} active={true} style={{ padding: 0 }} >
 								<StepLabel
 									StepIconComponent={() => iconMap[item.subtitle]}
 								>
