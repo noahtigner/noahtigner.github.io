@@ -2,14 +2,11 @@ import React, { FC, ReactElement } from 'react';
 
 import { useTheme } from '@mui/styles';
 import { Container, Grid, Stepper, Step, StepLabel, StepContent } from '@mui/material/';
-// import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
-// import BuildIcon from '@mui/icons-material/Build';
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
-// import CloudCircleOutlinedIcon from '@mui/icons-material/CloudCircleOutlined';
 import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
-// import AvTimerIcon from '@mui/icons-material/AvTimer';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 
 import experienceItems from '../experienceItems.json';
 
@@ -27,9 +24,10 @@ const Experience: FC<any> = (): ReactElement => {
 	const theme: Theme = useTheme();
 
 	const iconMap: { [key: string]: any } = {
+		'Alteryx': <CodeOutlinedIcon color='primary' />,
 		'HP': <CloudOutlinedIcon color='primary' />,
 		'Air-Weigh': <BuildOutlinedIcon color='primary' />,
-		'TDS': <SettingsOutlinedIcon color='primary' />,
+		'TDS Telecom': <SettingsOutlinedIcon color='primary' />,
 		'University of Oregon': <SchoolOutlinedIcon color='primary' />,
 	}
 	
@@ -50,7 +48,7 @@ const Experience: FC<any> = (): ReactElement => {
 								<StepContent style={{ paddingBottom: 0, marginBottom: 0 }} >
 									<ul style={{ margin: 0, paddingLeft: '12px' }}>
 										{item.description.map((line) => (
-											<li style={{ fontSize: '8px' }}><span style={{ fontSize: '12px', lineHeight: '16px' }}>{line}</span></li>
+											<li key={`${item.label}-${line.replaceAll(' ', '')}`} style={{ fontSize: '8px' }}><span style={{ fontSize: '12px', lineHeight: '16px' }}>{line}</span></li>
 										))}
 									</ul>
 								</StepContent>

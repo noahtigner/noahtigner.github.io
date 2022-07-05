@@ -72,6 +72,7 @@ const Portfolio: FC<any> = (props): ReactElement => {
                                 <div style={{ marginLeft: '8px', marginRight: '8px' }}>
                                     {item.links.map((link) => (
                                         <Chip
+                                            key={`link-${item.title.replace(' ', '')}-${link.target}`}
                                             label={link.description}
                                             icon={getLinkIcon(link.description)}
                                             component="a"
@@ -89,7 +90,7 @@ const Portfolio: FC<any> = (props): ReactElement => {
                                     </div>
                                     <div style={{ marginTop: '4px', marginBottom: '4px', position: 'absolute', bottom: 0 }}>
                                         {item.languages.map((language) => (
-                                            <Chip label={language} size='small' style={{ marginRight: '4px', marginBottom: '4px', backgroundColor: darken(theme.palette.background.default, 0.2) }}/>
+                                            <Chip key={`lang-${item.title.replace(' ', '')}-${language}`} label={language} size='small' style={{ marginRight: '4px', marginBottom: '4px', backgroundColor: darken(theme.palette.background.default, 0.2) }}/>
                                         ))}
                                     </div>
                                 </div>
