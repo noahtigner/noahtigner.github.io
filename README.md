@@ -4,13 +4,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 
 ## TODO:
 
-- [ ] Scaffold project with Vite
-    - [ ] Choose a template
-        - `react-swc-ts`
-        - [react community templates](https://github.com/vitejs/awesome-vite#react)
-    - [ ] `npm create vite@latest`
-    - [ ] `npm install`
-    - [ ] `npm run dev`
+- [x] Scaffold React / TS project with Vite
 - [ ] Configure prettier
     - [ ] `npm install --save-dev prettier`
     - [ ] `npm install --save-dev eslint-plugin-prettier`
@@ -55,3 +49,14 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [ ] Test
     - [ ] Unit / Component Testing
     - [ ] Accessibility Testing
+
+## Available Scripts:
+
+- `npm run dev` - Runs the app in the development mode.
+- `npm run build` - Builds the app for production to the `dist` folder.
+- `npm run preview` - Serves the production build from the `dist` folder.
+- `npm run lint` - Checks the source code for linting issues.
+- `npm run lint:fix` - Checks the source code for linting issues and fixes as many as possible.
+- `npm run format` - Checks the source code for formatting issues.
+- `npm run format:fix` - Checks the source code for formatting issues and fixes as many as possible.
+
