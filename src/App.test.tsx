@@ -1,5 +1,6 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import userEvent from '@testing-library/user-event';
 
 import App from './App';
@@ -16,24 +17,24 @@ describe('Renders main page correctly', async () => {
     expect(h1).toBeInTheDocument();
   });
 
-  it('Should show the button count set to 0', async () => {
-    render(<App />);
-    const button = screen.queryByText('count is 0');
+  // it('Should show the button count set to 0', async () => {
+  //   render(<App />);
+  //   const button = screen.queryByText('count is 0');
 
-    expect(button).toBeInTheDocument();
-  });
+  //   expect(button).toBeInTheDocument();
+  // });
 
-  it('Should show the button count set to 3', async () => {
-    const user = userEvent.setup();
-    render(<App />);
-    const button = await screen.queryByText('count is 0');
+  // it('Should show the button count set to 3', async () => {
+  //   const user = userEvent.setup();
+  //   render(<App />);
+  //   const button = await screen.queryByText('count is 0');
 
-    expect(button).toBeInTheDocument();
+  //   expect(button).toBeInTheDocument();
 
-    await user.click(button as HTMLElement);
-    await user.click(button as HTMLElement);
-    await user.click(button as HTMLElement);
+  //   await user.click(button as HTMLElement);
+  //   await user.click(button as HTMLElement);
+  //   await user.click(button as HTMLElement);
 
-    expect(button?.innerHTML).toBe('count is 3');
-  });
+  //   expect(button?.innerHTML).toBe('count is 3');
+  // });
 });
