@@ -8,12 +8,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [x] Configure prettier
 - [x] Configure eslint
     - [ ] Add extra rules
-- [ ] Configure testing
-    - [ ] Choose testing framework
-        - Jest / RTL
-        - Cypress
-        - Vitest
-    - [] Configure
+- [x] Configure Vitest
 - [ ] Husky pre-commit hooks
     - [ ] `npm install --save-dev husky`
     - [ ] configure
@@ -53,4 +48,5 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - `npm run lint:fix` - Checks the source code for linting issues and fixes as many as possible.
 - `npm run format` - Checks the source code for formatting issues.
 - `npm run format:fix` - Checks the source code for formatting issues and fixes as many as possible.
+- `npm run test` - Runs Vitest and outputs a coverage report.
 
