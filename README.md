@@ -5,15 +5,9 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 ## TODO:
 
 - [x] Scaffold React / TS project with Vite
-- [ ] Configure prettier
-    - [ ] `npm install --save-dev prettier`
-    - [ ] `npm install --save-dev eslint-plugin-prettier`
-    - [ ] .prettierrc.json & .prettierignore
-- [ ] Configure eslint
-    - [ ] extend prettier and add plugin
-    - [ ] `npm install --save-dev eslint-plugin-jsx-a11y`
-    - [ ] `npm install --save-dev eslint-plugin-import`
-    - [ ] ... other rulesets
+- [x] Configure prettier
+- [x] Configure eslint
+    - [ ] Add extra rules
 - [ ] Configure testing
     - [ ] Choose testing framework
         - Jest / RTL
