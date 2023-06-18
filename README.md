@@ -2,18 +2,20 @@
 
 Noah Tigner's [Portfolio Website](https://noahtigner.com)
 
-## TODO:
+## Checklist:
 
-- [x] Scaffold React / TS project with Vite
-- [x] Configure prettier
-- [x] Configure eslint
+- [x] Scaffold React / TypeScript project with Vite
+- [x] Configure Prettier
+- [x] Configure ESLint
   - [ ] Add extra rules
 - [x] Configure Vitest
 - [x] Add new scripts to package.json & README
 - [x] Configure Husky pre-commit hooks
-- [ ] Configure CICD for gitlab pages
-  - [ ] `npm install --save-dev gh-pages`
-  - [ ] configure
+- [x] Configure CICD for Github Pages
+  - [x] quality.yml: Checks formatting, lints, and tests code
+  - [x] codeql.yml: Checks for security vulnerabilities
+  - [x] dependabot.yml: Checks for outdated dependencies
+  - [x] deploy.yml: Builds and deploys to Github Pages
 - [ ] Configure UI Library
   - [ ] Choose Library
     - Material UI
