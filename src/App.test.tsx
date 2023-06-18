@@ -9,9 +9,9 @@ describe('Renders main page correctly', async () => {
     cleanup();
   });
 
-  it('Should render the page correctly', async () => {
+  it.only('Should render the page correctly', async () => {
     render(<App />);
-    const h1 = screen.queryByText('Vite + React');
+    const h1 = screen.queryByText("It's not you, it's me...");
 
     expect(h1).toBeInTheDocument();
   });

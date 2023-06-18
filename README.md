@@ -12,10 +12,13 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [x] Add new scripts to package.json & README
 - [x] Configure Husky pre-commit hooks
 - [x] Configure CICD for Github Pages
-  - [x] quality.yml: Checks formatting, lints, and tests code
-  - [x] codeql.yml: Checks for security vulnerabilities
-  - [x] dependabot.yml: Checks for outdated dependencies
-  - [x] deploy.yml: Builds and deploys to Github Pages
+  - [x] [quality.yml](https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/workflows/quality.yml): Checks formatting, lints, and tests code
+  - [x] [codeql.yml](https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/workflows/codeql.yml): Checks for security vulnerabilities
+  - [x] [dependabot.yml](https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/workflows/dependabot.yml): Checks for outdated dependencies
+  - [x] [deploy.yml](https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/workflows/deploy.yml): Builds and deploys to Github Pages
+- [ ] Remove Vite placeholders
+- [ ] Set up meta tags and OGP tags
+- [ ] Choose color palette and font family
 - [ ] Configure UI Library
   - [ ] Choose Library
     - Material UI
@@ -23,7 +26,6 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
     - Mantine
     - Tailwind
   - [ ] Configure
-- [ ] Set up meta tags and OGP tags
 - [ ] Build UI
   - [ ] Intro or Hero section
   - [ ] `Card` component for portfolio items
