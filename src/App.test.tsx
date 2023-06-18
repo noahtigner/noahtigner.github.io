@@ -10,7 +10,7 @@ describe('Renders main page correctly', async () => {
     cleanup();
   });
 
-  it.only('Should render the page correctly', async () => {
+  it('Should render the page correctly', async () => {
     render(<App />);
     const h1 = screen.queryByText("It's not you, it's me...");
 
