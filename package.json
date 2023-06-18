@@ -2,6 +2,11 @@
   "name": "noahtigner.github.io",
   "private": true,
   "version": "0.0.0",
+  "author": {
+    "name": "Noah Tigner",
+    "email": "noahzanetigner@gmail.com",
+    "url": "https://github.com/noahtigner"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
