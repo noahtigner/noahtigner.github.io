@@ -9,11 +9,8 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [x] Configure eslint
   - [ ] Add extra rules
 - [x] Configure Vitest
-- [ ] Husky pre-commit hooks
-  - [ ] `npm install --save-dev husky`
-  - [ ] configure
-- [ ] Add new scripts to package.json & README
-- [ ] Add .gitignore
+- [x] Add new scripts to package.json & README
+- [x] Configure Husky pre-commit hooks
 - [ ] Configure CICD for gitlab pages
   - [ ] `npm install --save-dev gh-pages`
   - [ ] configure
@@ -35,6 +32,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [ ] optimize images
   - [ ] lazy-load sections
   - [ ] lazy-load images
+- [ ] Pull data from Github???
 - [ ] Test
   - [ ] Unit / Component Testing
   - [ ] Accessibility Testing

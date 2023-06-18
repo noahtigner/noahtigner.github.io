@@ -16,7 +16,8 @@
     "format": "prettier --check . --ignore-path .gitignore",
     "format:fix": "prettier --write . --ignore-path .gitignore",
     "test": "vitest run --coverage.enabled --coverage.all",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky install"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -40,6 +41,7 @@
     "prettier": "2.8.8",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
-    "vitest": "^0.32.2"
+    "vitest": "^0.32.2",
+    "husky": "^8.0.0"
   }
 }
