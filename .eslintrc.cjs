@@ -5,6 +5,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'prettier',
   ],
@@ -18,6 +19,7 @@ module.exports = {
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
     // overrides
+    'react/react-in-jsx-scope': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react-refresh/only-export-components': 'warn',
   },
