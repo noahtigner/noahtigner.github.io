@@ -7,7 +7,6 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [x] Scaffold React / TypeScript project with Vite
 - [x] Configure Prettier
 - [x] Configure ESLint
-  - [ ] Add extra rules
 - [x] Configure Vitest
 - [x] Add new scripts to package.json & README
 - [x] Configure Husky pre-commit hooks
