@@ -12,6 +12,13 @@ module.exports = {
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   plugins: ['react-refresh'],
   rules: {
+    // fix js/ts conflicts
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
+    // overrides
+    'react/jsx-props-no-spreading': 'off',
     'react-refresh/only-export-components': 'warn',
   },
 };
