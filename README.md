@@ -19,12 +19,12 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [x] Set up meta tags and [Open Graph Protocol](https://ogp.me/) (OGP) tags
 - [ ] Choose color palette and font family
 - [ ] Configure UI Library
-  - [ ] Choose Library
-    - Material UI
-    - Chakra UI
-    - Mantine
-    - Tailwind
-  - [ ] Configure
+  - [x] Choose Library
+    - [Material UI](https://material-ui.com/) :white_check_mark:
+    - ~~Chakra UI~~
+    - ~~Mantine~~
+    - ~~Tailwind~~
+  - [x] Configure
 - [ ] Build UI
   - [ ] Intro or Hero section
   - [ ] `Card` component for portfolio items
