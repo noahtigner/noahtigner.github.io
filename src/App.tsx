@@ -1,37 +1,43 @@
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import vitestLogo from '/vitest.svg';
-import './App.css';
+import { ThemeProvider, createTheme } from '@mui/material';
+import Index from './pages/Index';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Poppins, sans-serif',
+  },
+  palette: {
+    background: {
+      default: 'rgb(35, 35, 35)',
+    },
+    text: {
+      primary: 'rgb(230, 240, 230)',
+      secondary: 'rgb(150, 150, 150)',
+    },
+  },
+  components: {
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          '::before': {
+            borderColor: 'rgb(150, 150, 150)',
+          },
+          '::after': {
+            borderColor: 'rgb(150, 150, 150)',
+          },
+          textAlign: 'center',
+          fontSize: '16px',
+        },
+      },
+    },
+  },
+});
 
 function App() {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" width={64} alt="Vite logo" />
-        </a>
-        <a href="https://vitest.dev/" target="_blank">
-          <img
-            src={vitestLogo}
-            className="logo vitest"
-            width={64}
-            alt="Vitest logo"
-          />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img
-            src={reactLogo}
-            className="logo react"
-            width={64}
-            alt="React logo"
-          />
-        </a>
-      </div>
-      <h1>It's not you, it's me...</h1>
-      <p className="read-the-docs">
-        I'm rebuilding my site with some fun new tools. <br /> Check back soon!
-      </p>
-    </>
+    <ThemeProvider theme={theme}>
+      {/* <CssBaseline /> */}
+      <Index />
+    </ThemeProvider>
   );
 }
 
