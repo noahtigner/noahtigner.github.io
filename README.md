@@ -17,7 +17,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] [dependabot.yml](https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/workflows/dependabot.yml): Checks for outdated dependencies
   - [x] [deploy.yml](https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/workflows/deploy.yml): Builds and deploys to Github Pages
 - [ ] Remove Vite placeholders
-- [ ] Set up meta tags and OGP tags
+- [x] Set up meta tags and [Open Graph Protocol](https://ogp.me/) (OGP) tags
 - [ ] Choose color palette and font family
 - [ ] Configure UI Library
   - [ ] Choose Library
