@@ -13,7 +13,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [x] Configure CICD for Github Pages
   - [x] [quality.yml](https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/workflows/quality.yml): Checks formatting, lints, and tests code
   - [x] [codeql.yml](https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/workflows/codeql.yml): Checks for security vulnerabilities
-  - [x] [dependabot.yml](https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/workflows/dependabot.yml): Checks for outdated dependencies
+  - [x] [dependabot.yml](https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/dependabot.yml): Checks for outdated dependencies
   - [x] [deploy.yml](https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/workflows/deploy.yml): Builds and deploys to Github Pages
 - [ ] Remove Vite placeholders
 - [x] Set up meta tags and [Open Graph Protocol](https://ogp.me/) (OGP) tags
