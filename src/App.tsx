@@ -2,27 +2,32 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import Index from './pages/Index';
 
 const theme = createTheme({
-  typography: {
-    fontFamily: 'Poppins, sans-serif',
-  },
   palette: {
+    mode: 'dark',
     background: {
-      default: 'rgb(35, 35, 35)',
+      default: '#202020',
+      paper: '#242424',
     },
     text: {
-      primary: 'rgb(230, 240, 230)',
-      secondary: 'rgb(150, 150, 150)',
+      primary: '#E6F0E6',
+      secondary: '#969696',
     },
+    primary: {
+      main: '#1976D0',
+    },
+  },
+  typography: {
+    fontFamily: 'Poppins, sans-serif',
   },
   components: {
     MuiDivider: {
       styleOverrides: {
         root: {
           '::before': {
-            borderColor: 'rgb(150, 150, 150)',
+            borderColor: '#969696',
           },
           '::after': {
-            borderColor: 'rgb(150, 150, 150)',
+            borderColor: '#969696',
           },
           textAlign: 'center',
           fontSize: '16px',
@@ -35,7 +40,6 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      {/* <CssBaseline /> */}
       <Index />
     </ThemeProvider>
   );
