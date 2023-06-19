@@ -1,12 +1,21 @@
-import { Container, Divider } from '@mui/material';
+import { Container, Divider, styled } from '@mui/material';
 import reactLogo from '../assets/react.svg';
 import viteLogo from '/vite.svg';
 import vitestLogo from '/vitest.svg';
 import Experience from '../components/Experience';
 
+const FlexContainer = styled(Container)(({ theme }) => ({
+  marginY: 0,
+  marginX: 'auto',
+  padding: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(4),
+}));
+
 function Index() {
   return (
-    <Container maxWidth="xl" sx={{ margin: 0, padding: 0 }}>
+    <FlexContainer maxWidth="lg">
       <div style={{ textAlign: 'center' }}>
         <div>
           <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
@@ -35,9 +44,10 @@ function Index() {
           <br /> Check back soon!
         </p>
       </div>
-      <Divider>Some Things I&apos;ve Built</Divider>
+      {/* <Divider>A Few Things I&apos;ve Built</Divider> */}
+      <Divider>Experience</Divider>
       <Experience />
-    </Container>
+    </FlexContainer>
   );
 }
 
