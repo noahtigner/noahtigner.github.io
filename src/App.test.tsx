@@ -1,7 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import userEvent from '@testing-library/user-event';
 
 import App from './App';
 
