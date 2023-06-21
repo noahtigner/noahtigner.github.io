@@ -1,12 +1,13 @@
-import { ThemeProvider, createTheme } from '@mui/material';
+import { Container, ThemeProvider, createTheme } from '@mui/material';
 import Index from './pages/Index';
+import TopNav from './components/TopNav';
 
 const theme = createTheme({
   palette: {
     mode: 'dark',
     background: {
       default: '#202020',
-      paper: '#242424',
+      paper: '#282828',
     },
     text: {
       primary: '#E6F0E6',
@@ -15,6 +16,9 @@ const theme = createTheme({
     primary: {
       main: '#1976D0',
     },
+  },
+  shape: {
+    borderRadius: 8,
   },
   typography: {
     fontFamily: 'Poppins, sans-serif',
@@ -40,7 +44,10 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Index />
+      <Container maxWidth="lg">
+        <TopNav />
+        <Index />
+      </Container>
     </ThemeProvider>
   );
 }

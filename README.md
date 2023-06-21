@@ -17,8 +17,8 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] [deploy.yml](https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/workflows/deploy.yml): Builds and deploys to Github Pages
 - [ ] Remove Vite placeholders
 - [x] Set up meta tags and [Open Graph Protocol](https://ogp.me/) (OGP) tags
-- [ ] Choose color palette and font family
-- [ ] Configure UI Library
+- [x] Choose color palette and font family
+- [x] Configure UI Library
   - [x] Choose Library
     - [Material UI](https://material-ui.com/) :white_check_mark:
     - ~~Chakra UI~~
@@ -28,8 +28,10 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [ ] Build UI
   - [ ] Intro or Hero section
   - [ ] `Card` component for portfolio items
-  - [ ] `Timeline` component for experience / work history
+  - [x] `Timeline` component for experience / work history
   - [ ] Contact Section
+    - [x] Contact Dropdown
+    - [ ] Contact Footer
 - [ ] Optimization
   - [ ] skeletons for sections and components
   - [ ] optimize images
