@@ -1,7 +1,4 @@
-import GitHubIcon from '@mui/icons-material/GitHub';
-import YoutubeIcon from '@mui/icons-material/Youtube';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import EmailIcon from '@mui/icons-material/Email';
+import { GitHub, YouTube, LinkedIn, Email } from '@mui/icons-material';
 
 import contactItems from '../../data/contactItems.json';
 
@@ -12,13 +9,13 @@ interface ContactIconProps {
 function ContactIcon({ label }: ContactIconProps) {
   switch (label) {
     case 'LinkedIn':
-      return <LinkedInIcon fontSize="small" />;
+      return <LinkedIn fontSize="small" />;
     case 'Email':
-      return <EmailIcon fontSize="small" />;
+      return <Email fontSize="small" />;
     case 'GitHub':
-      return <GitHubIcon fontSize="small" />;
+      return <GitHub fontSize="small" />;
     case 'YouTube':
-      return <YoutubeIcon fontSize="small" />;
+      return <YouTube fontSize="small" />;
     default:
       throw new Error(`Unknown contact item label: ${label}`);
   }
