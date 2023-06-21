@@ -1,6 +1,6 @@
 import { Stepper } from '@mui/material/';
 
-import experienceItems from './experienceItems.json';
+import experienceItems from '../../data/experienceItems.json';
 import ExperienceStep from './ExperienceStep';
 
 function Experience() {
