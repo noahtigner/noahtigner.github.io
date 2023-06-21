@@ -27,15 +27,15 @@ function Heading({ children }: { children: string }) {
 
 export default function TopNav() {
   const theme = useTheme();
-  const [contactDialogOpen, setContactDialogOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
-    setContactDialogOpen(true);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <Box
       sx={{
@@ -66,14 +66,14 @@ export default function TopNav() {
         >
           <Heading>Hey, I&apos;m Noah Tigner</Heading>
           <Button
+            id="contact-button"
             variant="outlined"
             color="primary"
             size="small"
+            aria-controls={anchorEl ? 'contact-menu' : undefined}
+            aria-haspopup
+            aria-expanded={!!anchorEl}
             onClick={handleClick}
-            id="contact-button"
-            aria-controls={contactDialogOpen ? 'contact-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={contactDialogOpen ? 'true' : undefined}
           >
             Get in Touch
           </Button>
