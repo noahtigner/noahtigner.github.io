@@ -1,6 +1,7 @@
 import { Container, ThemeProvider, createTheme } from '@mui/material';
 import Index from './pages/Index';
 import TopNav from './components/TopNav';
+import Footer from './components/Footer';
 
 const theme = createTheme({
   palette: {
@@ -48,6 +49,7 @@ function App() {
         <TopNav />
         <Index />
       </Container>
+      <Footer />
     </ThemeProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { GitHub, YouTube, LinkedIn, Email } from '@mui/icons-material';
+import { GitHub, YouTube, LinkedIn, EmailOutlined } from '@mui/icons-material';
 
 import contactItems from '../../data/contactItems.json';
 
@@ -11,7 +11,7 @@ function ContactIcon({ label }: ContactIconProps) {
     case 'LinkedIn':
       return <LinkedIn fontSize="small" />;
     case 'Email':
-      return <Email fontSize="small" />;
+      return <EmailOutlined fontSize="small" />;
     case 'GitHub':
       return <GitHub fontSize="small" />;
     case 'YouTube':

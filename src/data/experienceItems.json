@@ -1,6 +1,6 @@
 [
   {
-    "title": "Professional Software Engineer (Software Engineer II)",
+    "title": "Professional Software Engineer (SWE II)",
     "organization": "Alteryx",
     "description": [
       "Collaborated with key stakeholders to shape the design and implementation of several client-facing software systems",
@@ -9,7 +9,7 @@
     ]
   },
   {
-    "title": "Cloud Developer (Software Engineer II)",
+    "title": "Cloud Developer (SWE II)",
     "organization": "HP",
     "description": [
       "Maintained full product ownership of an internal software service; optimized the Django backend to reduce average API latency by 20% while simultaneously introducing a React frontend",
