@@ -54,6 +54,7 @@ export default function TopNav() {
           paddingY: theme.spacing(1),
           minHeight: '32px',
           borderRadius: '8px',
+          boxShadow: theme.shadows[2],
         }}
       >
         <Stack

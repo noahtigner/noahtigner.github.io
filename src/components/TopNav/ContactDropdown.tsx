@@ -14,7 +14,7 @@ import ContactIcon from '../ContactIcon';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
-    elevation={3}
+    elevation={4}
     anchorOrigin={{
       vertical: 'bottom',
       horizontal: 'right',
@@ -79,7 +79,7 @@ function ContactDropdown({ anchorEl, onClose }: ContactDropdownProps) {
             component="a"
             href={url}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             <ListItemIcon>
               <ContactIcon label={label} />
