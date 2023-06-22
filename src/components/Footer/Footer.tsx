@@ -33,7 +33,7 @@ function Footer() {
           color="text.secondary"
           fontSize={{ xs: '12px', sm: '14px' }}
         >
-          Built in TypeScript with React & Material-UI
+          Built with TypeScript & React
         </Typography>
         <Stack
           direction="row"
