@@ -5,8 +5,9 @@ import {
   Button,
   Typography,
   styled,
+  useMediaQuery,
 } from '@mui/material';
-import contactItems from '../../data/contactItems.json';
+import contactItems from '../../assets/data/contactItems.json';
 import ContactIcon from '../ContactIcon';
 
 const FooterWrapper = styled(Box)(({ theme }) => ({
@@ -20,25 +21,29 @@ const FooterWrapper = styled(Box)(({ theme }) => ({
 
 function Footer() {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <FooterWrapper>
       <Stack
         direction="row"
-        justifyContent="space-between"
+        justifyContent={{ xs: 'center', sm: 'space-between' }}
         alignItems="center"
         spacing={1}
       >
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          fontSize={{ xs: '12px', sm: '14px' }}
-        >
-          Built with TypeScript & React
-        </Typography>
+        {!isMobile && (
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            fontSize={{ xs: '12px', sm: '14px' }}
+          >
+            Built with TypeScript & React
+          </Typography>
+        )}
         <Stack
           direction="row"
           justifyContent="space-between"
-          spacing={{ xs: 0.5, sm: 1, md: 2 }}
+          spacing={{ xs: 4, sm: 1 }}
         >
           {contactItems.map(({ label, url }) => (
             <Button
@@ -46,12 +51,11 @@ function Footer() {
               aria-label={label}
               color="primary"
               variant="outlined"
-              size="small"
               component="a"
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              sx={{ padding: theme.spacing(0.25), margin: 0, minWidth: 0 }}
+              sx={{ padding: theme.spacing(0.5), margin: 0, minWidth: 0 }}
             >
               <ContactIcon label={label} />
             </Button>

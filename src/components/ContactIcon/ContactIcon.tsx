@@ -1,6 +1,6 @@
 import { GitHub, YouTube, LinkedIn, EmailOutlined } from '@mui/icons-material';
 
-import contactItems from '../../data/contactItems.json';
+import contactItems from '../../assets/data/contactItems.json';
 
 interface ContactIconProps {
   label: (typeof contactItems)[number]['label'];
