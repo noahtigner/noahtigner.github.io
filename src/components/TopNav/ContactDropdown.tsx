@@ -9,7 +9,7 @@ import {
   alpha,
 } from '@mui/material';
 
-import contactItems from '../../data/contactItems.json';
+import contactItems from '../../assets/data/contactItems.json';
 import ContactIcon from '../ContactIcon';
 
 const StyledMenu = styled((props: MenuProps) => (
