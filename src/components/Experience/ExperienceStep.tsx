@@ -7,7 +7,7 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import DataObjectOutlinedIcon from '@mui/icons-material/DataObjectOutlined';
 
-const getIcon = (organization: string): ReactNode => {
+function ExperienceIcon({ organization }: { organization: string }): ReactNode {
   switch (organization) {
     case 'Alteryx':
       return <CodeOutlinedIcon color="primary" />;
@@ -22,7 +22,7 @@ const getIcon = (organization: string): ReactNode => {
     default:
       return <DataObjectOutlinedIcon color="primary" />;
   }
-};
+}
 
 function ExperienceStep({
   title,
@@ -34,7 +34,9 @@ function ExperienceStep({
 
   return (
     <Step active style={{ padding: 0 }} {...rest}>
-      <StepLabel StepIconComponent={() => getIcon(organization)}>
+      <StepLabel
+        StepIconComponent={() => <ExperienceIcon organization={organization} />}
+      >
         <span style={{ lineHeight: '12px', padding: 0, margin: 0 }}>
           {title}
         </span>
