@@ -3,6 +3,7 @@ import reactLogo from '../assets/react.svg';
 import viteLogo from '/vite.svg';
 import vitestLogo from '/vitest.svg';
 import Experience from '../components/Experience';
+import Portfolio from '../components/Portfolio';
 
 const FlexContainer = styled(Container)(({ theme }) => ({
   marginY: 0,
@@ -44,7 +45,8 @@ function Index() {
           <br /> Check back soon!
         </p>
       </div>
-      {/* <Divider>A Few Things I&apos;ve Built</Divider> */}
+      <Divider>A Few Things I&apos;ve Built</Divider>
+      <Portfolio />
       <Divider>Experience</Divider>
       <Experience />
     </FlexContainer>

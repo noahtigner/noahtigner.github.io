@@ -1,0 +1,91 @@
+[
+  {
+    "title": "Number of Islands",
+    "description": "A tool used to identify the number and location of distinct islands in geospatial imagery. Includes a visualization comparing different traversal algorithms.",
+    "image": {
+      "src": "number-of-islands.png",
+      "alt": "Number of Islands Analysis",
+      "bg": "rgb(33, 33, 33)"
+    },
+    "tools": ["Python", "Rasterio", "NumPy"],
+    "links": [
+      {
+        "description": "Git Repository",
+        "target": "https://github.com/noahtigner/Number-of-Islands"
+      },
+      {
+        "description": "Visualization",
+        "target": "https://youtu.be/kEoZuNdHLasc"
+      }
+    ]
+  },
+  {
+    "title": "DiscoverDaily",
+    "description": "A Spotify Recommender System. Trains a classifier on your musical tastes and recommends songs daily. Uses the Spotify API and scikit-learn for machine learning.",
+    "image": {
+      "src": "discover-daily.png",
+      "alt": "DiscoverDaily Spotify App",
+      "bg": "rgb(33, 33, 33)"
+    },
+    "tools": ["Python", "SQL", "Spotify API", "scikit-learn"],
+    "links": [
+      {
+        "description": "Git Repository",
+        "target": "https://github.com/noahtigner/DiscoverDaily"
+      }
+    ]
+  },
+  {
+    "title": "Blue",
+    "description": "A polyphonic MIDI audio synthesizer. Written with the JUCE audio framework.",
+    "image": {
+      "src": "blue.png",
+      "alt": "Blue Synthesizer",
+      "bg": "rgb(33, 33, 33)"
+    },
+    "tools": ["C++", "JUCE"],
+    "links": [
+      {
+        "description": "Git Repository",
+        "target": "https://github.com/noahtigner/Blue"
+      }
+    ]
+  },
+  {
+    "title": "SiteStall",
+    "description": "A Firefox extension that improves concentration. A modern implementation of Dr. Richard Patterson's ideal 'commitment device'.",
+    "tools": ["JavaScript", "HTML/CSS", "Firefox API"],
+    "links": [
+      {
+        "description": "Git Repository",
+        "target": "https://github.com/SiteStall/SiteStall"
+      }
+    ]
+  },
+  {
+    "title": "GeoSpatial Visualization",
+    "description": "A geospatial visualization of Iceland. Rendered with VisIt, automated with Python, video processed with FFmpeg. Available on Youtube.",
+    "tools": ["Python", "C++", "FFmpeg"],
+    "links": [
+      {
+        "description": "Git Repository",
+        "target": "https://github.com/noahtigner/IcelandVisualization"
+      },
+      {
+        "description": "Visualization",
+        "target": "https://youtu.be/YKv8r7G7pbc"
+      }
+    ]
+  },
+  {
+    "title": "PriceDrop",
+    "description": "Compares current deals for an amazon product to historic prices and notifies you in case of a good deal. Uses BeautifulSoup, SQLite, and SMTPlib for email notifications.",
+    "tools": ["Python", "SQL", "Pandas"],
+    "links": [
+      {
+        "description": "Git Repository",
+        "target": "https://bitbucket.org/noahtigner/pricedrop"
+      }
+    ]
+  }
+]
