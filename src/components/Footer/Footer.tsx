@@ -55,7 +55,13 @@ function Footer() {
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              sx={{ padding: theme.spacing(0.5), margin: 0, minWidth: 0 }}
+              sx={{
+                padding: theme.spacing(0.5),
+                margin: 0,
+                minWidth: 0,
+                transition: 'transform 0.2s ease-in-out',
+                '&:hover': { transform: 'scale(1.075)' },
+              }}
             >
               <ContactIcon label={label} />
             </Button>

@@ -11,14 +11,17 @@ import {
 import portfolioItems from '../../assets/data/portfolioItems.json';
 import ContactIcon from '../ContactIcon';
 
-const StyledCard = styled(Card)(() => ({
+const StyledCard = styled(Card)(({ theme }) => ({
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  transition: 'transform 0.25s ease-in-out',
-  '&:hover': {
-    transform: 'scale(1.025)',
+  [theme.breakpoints.up('md')]: {
+    transition: 'transform 0.2s ease-in-out',
+    '&:hover': {
+      // transform: 'scale(1.025)',
+      transform: 'translateY(-8px)',
+    },
   },
 }));
 
@@ -45,13 +48,14 @@ type ItemCardProps = (typeof portfolioItems)[0];
 
 function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
   const theme = useTheme();
+  const primaryLink = links.find((link) => link.primary) ?? links[0];
   return (
     <StyledCard variant="outlined">
       <StyledCardContent>
         {image && (
           <a
-            aria-label={links[0].description}
-            href={links[0].target}
+            aria-label={primaryLink.description}
+            href={primaryLink.target}
             target="_blank"
             rel="noopener noreferrer"
           >
