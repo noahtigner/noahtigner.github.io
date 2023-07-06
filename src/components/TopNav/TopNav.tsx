@@ -76,7 +76,7 @@ export default function TopNav() {
             aria-expanded={!!anchorEl}
             onClick={handleClick}
           >
-            Get in Touch
+            Get In Touch
           </Button>
           <ContactDropdown anchorEl={anchorEl} onClose={handleClose} />
         </Stack>
