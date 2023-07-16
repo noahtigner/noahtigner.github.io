@@ -41,6 +41,7 @@ const StyledCardActions = styled(CardActions)(({ theme }) => ({
   padding: theme.spacing(1),
   paddingTop: theme.spacing(1.5),
   flexWrap: 'wrap',
+  justifyContent: 'space-between',
   gap: theme.spacing(0.5),
 }));
 
@@ -84,28 +85,13 @@ function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
             marginBottom: theme.spacing(1),
           }}
         >
-          {links.map(({ description: linkDescription, target }) => (
+          {tools.map((tool) => (
             <Chip
-              key={target}
-              label={linkDescription}
+              key={`${title}-${tool}`}
+              label={tool}
               size="small"
-              color="primary"
               variant="outlined"
-              component="a"
-              href={target}
-              target="_blank"
-              rel="noopener noreferrer"
-              clickable
-              sx={{ padding: theme.spacing(0.5), borderRadius: '8px' }}
-              icon={
-                <ContactIcon
-                  label={
-                    target.includes('github') || target.includes('bitbucket')
-                      ? 'GitHub'
-                      : 'YouTube'
-                  }
-                />
-              }
+              sx={{ color: theme.palette.text.secondary }}
             />
           ))}
         </div>
@@ -115,13 +101,32 @@ function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
         </Typography>
       </StyledCardContent>
       <StyledCardActions disableSpacing>
-        {tools.map((tool) => (
+        {links.map(({ description: linkDescription, target }) => (
           <Chip
-            key={`${title}-${tool}`}
-            label={tool}
+            key={target}
+            label={linkDescription}
             size="small"
+            color="primary"
             variant="outlined"
-            sx={{ color: theme.palette.text.secondary }}
+            component="a"
+            href={target}
+            target="_blank"
+            rel="noopener noreferrer"
+            clickable
+            sx={{
+              padding: theme.spacing(0.5),
+              // borderRadius: '4px',
+              flexGrow: 1,
+            }}
+            icon={
+              <ContactIcon
+                label={
+                  target.includes('github') || target.includes('bitbucket')
+                    ? 'GitHub'
+                    : 'YouTube'
+                }
+              />
+            }
           />
         ))}
       </StyledCardActions>
@@ -132,8 +137,15 @@ function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
 function Portfolio() {
   return (
     <Grid container spacing={2}>
-      {portfolioItems.slice(0, 3).map(({ title, ...props }) => (
-        <Grid key={title} item xs={12} sm={6} md={4}>
+      {portfolioItems.slice(0, 3).map(({ title, ...props }, i) => (
+        <Grid
+          key={title}
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          sx={{ animation: `fadeIn ${(i + 1) * 750}ms` }}
+        >
           <ItemCard title={title} {...props} />
         </Grid>
       ))}
