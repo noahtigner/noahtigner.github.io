@@ -15,7 +15,7 @@ const theme = createTheme({
       secondary: '#969696',
     },
     primary: {
-      main: '#1976D0',
+      main: '#6EDFCA',
     },
   },
   shape: {
@@ -43,6 +43,14 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
+          borderRadius: '4px',
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: '4px',
         },
       },
     },
