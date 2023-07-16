@@ -10,7 +10,7 @@ describe('Renders main page correctly', async () => {
 
   it('Should render the page correctly', async () => {
     render(<App />);
-    const h1 = screen.queryByText("It's not you, it's me...");
+    const h1 = screen.queryByText("Hey, I'm Noah Tigner");
 
     expect(h1).toBeInTheDocument();
   });

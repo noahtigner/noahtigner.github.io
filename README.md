@@ -29,7 +29,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] Configure
 - [ ] Build UI
   - [ ] Intro or Hero section
-  - [ ] `Card` component for portfolio items
+  - [x] `Card` component for portfolio items
   - [x] `Timeline` component for experience / work history
   - [x] Contact Section
     - [x] Contact Dropdown

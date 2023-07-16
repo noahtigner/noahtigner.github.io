@@ -73,13 +73,14 @@ function ContactDropdown({ anchorEl, onClose }: ContactDropdownProps) {
       }}
     >
       <MenuList>
-        {contactItems.map(({ label, url }) => (
+        {contactItems.map(({ label, url }, i) => (
           <MenuItem
             key={url}
             component="a"
             href={url}
             target="_blank"
             rel="noopener noreferrer"
+            sx={{ animation: `fadeIn ${(i + 1) * 500}ms` }}
           >
             <ListItemIcon>
               <ContactIcon label={label} />
