@@ -3,7 +3,8 @@ import Experience from '../components/Experience';
 import Portfolio from '../components/Portfolio';
 
 const FlexContainer = styled(Container)(({ theme }) => ({
-  marginY: 0,
+  marginTop: theme.spacing(4),
+  marginBottom: 0,
   marginX: 'auto',
   padding: 0,
   display: 'flex',
