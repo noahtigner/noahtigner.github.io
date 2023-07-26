@@ -74,7 +74,10 @@ function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
             />
           </a>
         )}
-        <Typography sx={{ fontSize: '1.25rem' }} variant="h2">
+        <Typography
+          sx={{ fontSize: '1.25rem', marginBottom: theme.spacing(0.5) }}
+          variant="h2"
+        >
           {title}
         </Typography>
         <div
