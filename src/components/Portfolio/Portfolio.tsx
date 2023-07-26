@@ -118,7 +118,7 @@ function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
             clickable
             sx={{
               padding: theme.spacing(0.5),
-              // borderRadius: '4px',
+              minWidth: 'calc(100% / 2 - 2px)',
               flexGrow: 1,
             }}
             icon={
