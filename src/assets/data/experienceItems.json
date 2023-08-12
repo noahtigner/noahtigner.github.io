@@ -12,7 +12,7 @@
     "title": "Cloud Developer (SWE II)",
     "organization": "HP",
     "description": [
-      "Maintained full product ownership of an internal software service; optimized the Django backend to reduce average API latency by 20% while simultaneously introducing a React frontend",
+      "Solely maintained an internal software service; optimized the Django backend to reduce average API latency by 20% while simultaneously introducing a React frontend",
       "Improved system scalability and resilience through containerization, distributed multitasking, etc.",
       "Implemented cloud-based services that seamlessly integrated with platforms and organizations across HP"
     ]
@@ -41,7 +41,8 @@
     "description": [
       "B.S. in Computer Science (Departmental Honors) - Software Development Track",
       "B.S. in Spatial Data Science (Departmental Honors)",
-      "Minor in Music Technology"
+      "Minor in Music Technology",
+      "Phi Beta Kappa Honor Society"
     ]
   }
 ]

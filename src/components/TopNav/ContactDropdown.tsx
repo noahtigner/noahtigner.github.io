@@ -88,6 +88,18 @@ function ContactDropdown({ anchorEl, onClose }: ContactDropdownProps) {
             <ListItemText>{label}</ListItemText>
           </MenuItem>
         ))}
+        <MenuItem
+          component="a"
+          href="/NoahTignerResume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{ animation: `fadeIn ${(contactItems.length + 1) * 500}ms` }}
+        >
+          <ListItemIcon>
+            <ContactIcon label="Résumé" />
+          </ListItemIcon>
+          <ListItemText>Résumé</ListItemText>
+        </MenuItem>
       </MenuList>
     </StyledMenu>
   );
