@@ -1,5 +1,11 @@
 import { Icon, styled } from '@mui/material';
-import { GitHub, YouTube, LinkedIn, EmailOutlined } from '@mui/icons-material';
+import {
+  GitHub,
+  YouTube,
+  LinkedIn,
+  EmailOutlined,
+  InsertDriveFileOutlined,
+} from '@mui/icons-material';
 
 import contactItems from '../../assets/data/contactItems.json';
 
@@ -22,8 +28,11 @@ function ContactIcon({ label }: ContactIconProps) {
       return <StyledIcon as={GitHub} />;
     case 'YouTube':
       return <StyledIcon as={YouTube} />;
+    case 'Résumé':
+      return <StyledIcon as={InsertDriveFileOutlined} />;
     default:
-      throw new Error(`Unknown contact item label: ${label}`);
+      console.error(`Unknown contact item label: ${label}`);
+      return null;
   }
 }
 
