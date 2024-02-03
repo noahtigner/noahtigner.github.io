@@ -1,15 +1,9 @@
 import { z } from 'zod';
+import { envObject, envNonEmptyString, envEnum } from 'validate-env-vars';
 
-const nonEmptyString = z
-  .string()
-  .min(1, { message: 'String cannot be empty' })
-  .refine((val) => val != 'undefined', {
-    message: `String cannot equal 'undefined'`,
-  });
-
-const envConfigSchema = z.object({
-  NODE_ENV: z.enum(['development', 'production', 'test']),
-  GITHUB_USERNAME: nonEmptyString,
+const envConfigSchema = envObject({
+  NODE_ENV: envEnum(['development', 'production', 'test']),
+  GITHUB_USERNAME: envNonEmptyString(),
 });
 
 declare global {
