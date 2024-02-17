@@ -1,9 +1,10 @@
 import { z } from 'zod';
-import { envObject, envNonEmptyString, envEnum } from 'validate-env-vars';
+import { envNonEmptyString, envEnum } from 'validate-env-vars';
 
-const envConfigSchema = envObject({
+const envConfigSchema = z.object({
   NODE_ENV: envEnum(['development', 'production', 'test']),
   GITHUB_USERNAME: envNonEmptyString(),
+  GOOGLE_ANALYTICS_ID: envNonEmptyString(),
 });
 
 declare global {
