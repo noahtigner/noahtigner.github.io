@@ -3,8 +3,8 @@ import { envNonEmptyString, envEnum } from 'validate-env-vars';
 
 const envConfigSchema = z.object({
   NODE_ENV: envEnum(['development', 'production', 'test']),
-  GITHUB_USERNAME: envNonEmptyString(),
-  GOOGLE_ANALYTICS_ID: envNonEmptyString(),
+  VITE_GITHUB_USERNAME: envNonEmptyString(),
+  VITE_GOOGLE_ANALYTICS_ID: envNonEmptyString(),
 });
 
 declare global {
