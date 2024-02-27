@@ -8,8 +8,8 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: '#202020',
-      paper: '#282828',
+      default: '#141414',
+      paper: '#202020',
     },
     text: {
       primary: '#E6F0E6',
@@ -61,8 +61,8 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <TopNav />
       <Container maxWidth="lg">
-        <TopNav />
         <Index />
       </Container>
       <Footer />
