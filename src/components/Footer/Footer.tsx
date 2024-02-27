@@ -6,6 +6,7 @@ import {
   Typography,
   styled,
   useMediaQuery,
+  Tooltip,
 } from '@mui/material';
 import contactItems from '../../assets/data/contactItems.json';
 import ContactIcon from '../ContactIcon';
@@ -47,25 +48,26 @@ function Footer() {
           spacing={{ xs: 4, sm: 1 }}
         >
           {contactItems.map(({ label, url }) => (
-            <Button
-              key={url}
-              aria-label={label}
-              color="primary"
-              variant="outlined"
-              component="a"
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{
-                padding: theme.spacing(0.5),
-                margin: 0,
-                minWidth: 0,
-                transition: 'transform 0.2s ease-in-out',
-                '&:hover': { transform: 'scale(1.075)' },
-              }}
-            >
-              <ContactIcon label={label} />
-            </Button>
+            <Tooltip key={url} title={label} arrow>
+              <Button
+                aria-label={label}
+                color="primary"
+                variant="outlined"
+                component="a"
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  padding: theme.spacing(0.5),
+                  margin: 0,
+                  minWidth: 0,
+                  transition: 'transform 0.2s ease-in-out',
+                  '&:hover': { transform: 'scale(1.075)' },
+                }}
+              >
+                <ContactIcon label={label} />
+              </Button>
+            </Tooltip>
           ))}
         </Stack>
       </Stack>
