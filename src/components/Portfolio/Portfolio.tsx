@@ -11,18 +11,18 @@ import {
 import portfolioItems from '../../assets/data/portfolioItems.json';
 import ContactIcon from '../ContactIcon';
 
-const StyledCard = styled(Card)(({ theme }) => ({
+const StyledCard = styled(Card)(() => ({
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  [theme.breakpoints.up('md')]: {
-    transition: 'transform 0.2s ease-in-out',
-    '&:hover': {
-      // transform: 'scale(1.025)',
-      transform: 'translateY(-8px)',
-    },
-  },
+  // [theme.breakpoints.up('md')]: {
+  //   transition: 'transform 0.2s ease-in-out',
+  //   '&:hover': {
+  //     // transform: 'scale(1.025)',
+  //     transform: 'translateY(-8px)',
+  //   },
+  // },
 }));
 
 const StyledCardContent = styled(CardContent)(({ theme }) => ({

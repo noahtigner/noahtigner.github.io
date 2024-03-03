@@ -80,7 +80,7 @@ function ContactDropdown({ anchorEl, onClose }: ContactDropdownProps) {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            sx={{ animation: `fadeIn ${(i + 1) * 500}ms` }}
+            sx={{ animation: `fadeIn ${(i + 1) * 250}ms` }}
           >
             <ListItemIcon>
               <ContactIcon label={label} />
