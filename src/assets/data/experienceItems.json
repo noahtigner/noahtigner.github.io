@@ -4,12 +4,13 @@
     "organization": "Alteryx",
     "description": [
       "Collaborated with stakeholders to shape the design and implementation of several client-facing software systems",
+      "Built numerous applications, including 2 which generated $1.8M and $1.4M in annual recurring revenue (ARR)",
       "Spearheaded various initiatives, including the creation of a shared component library, the implementation of linting and formatting guidelines, unit and end-to-end testing, CI/CD, etc.",
       "Guided and onboarded new hires while serving as a subject matter expert (SME) in critical areas"
     ]
   },
   {
-    "title": "Cloud Developer (SWE II)",
+    "title": "Cloud Services Developer (SWE II)",
     "organization": "HP",
     "description": [
       "Solely maintained an internal software service; optimized the Django backend to reduce average API latency by 20% while simultaneously introducing a React frontend",
