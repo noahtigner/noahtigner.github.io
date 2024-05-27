@@ -48,7 +48,7 @@
     "prettier": "3.0.1",
     "typescript": "^5.1.6",
     "validate-env-vars": "^0.3.11",
-    "vite": "^5.1.5",
+    "vite": "^5.2.11",
     "vitest": "^0.34.1"
   }
 }
