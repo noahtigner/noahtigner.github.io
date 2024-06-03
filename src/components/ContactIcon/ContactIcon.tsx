@@ -30,6 +30,8 @@ function ContactIcon({ label }: ContactIconProps) {
       return <StyledIcon as={YouTube} />;
     case 'Résumé':
       return <StyledIcon as={InsertDriveFileOutlined} />;
+    case 'JavaScript':
+      return null;
     default:
       console.error(`Unknown contact item label: ${label}`);
       return null;

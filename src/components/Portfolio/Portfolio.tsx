@@ -47,6 +47,16 @@ const StyledCardActions = styled(CardActions)(({ theme }) => ({
 
 type ItemCardProps = (typeof portfolioItems)[0];
 
+const getIconType = (target: string) => {
+  if (target.includes('github') || target.includes('bitbucket')) {
+    return 'GitHub';
+  }
+  if (target.includes('npm')) {
+    return 'JavaScript';
+  }
+  return 'YouTube';
+};
+
 function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
   const theme = useTheme();
   const primaryLink = links.find((link) => link.primary) ?? links[0];
@@ -124,15 +134,7 @@ function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
               minWidth: 'calc(100% / 2 - 2px)',
               flexGrow: 1,
             }}
-            icon={
-              <ContactIcon
-                label={
-                  target.includes('github') || target.includes('bitbucket')
-                    ? 'GitHub'
-                    : 'YouTube'
-                }
-              />
-            }
+            icon={<ContactIcon label={getIconType(target)} />}
           />
         ))}
       </StyledCardActions>
