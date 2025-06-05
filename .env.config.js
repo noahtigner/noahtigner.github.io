@@ -7,8 +7,4 @@ const envConfigSchema = z.object({
   VITE_GOOGLE_ANALYTICS_ID: envNonEmptyString(),
 });
 
-declare global {
-  type Env = z.infer<typeof envConfigSchema>;
-}
-
 export default envConfigSchema;
