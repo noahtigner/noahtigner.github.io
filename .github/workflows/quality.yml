@@ -23,7 +23,7 @@ jobs:
             - recursive: true
               args: [--frozen-lockfile]
       - name: Typecheck with TypeScript
-        run: cd ./dashboard && npm run typecheck
+        run: npm run typecheck
       - name: Check formatting with Prettier
         run: pnpm run format
       - name: Lint with ESLint
