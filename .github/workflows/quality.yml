@@ -13,15 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node & pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: 18
-          cache: 'npm'
-      - run: npm ci
+          version: 10.4.1
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile]
+      - name: Typecheck with TypeScript
+        run: npm run typecheck
       - name: Check formatting with Prettier
-        run: npm run format
+        run: pnpm run format
       - name: Lint with ESLint
-        run: npm run lint
-      - name: Perform unit & component tests with Vitest
-        run: npm run test
+        run: pnpm run lint

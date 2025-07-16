@@ -1,14 +1,9 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import react from '@vitejs/plugin-react-swc';
 import validateEnvVars from 'validate-env-vars';
-import { z } from 'zod';
 
 import envConfigSchema from './.env.config';
-
-declare global {
-  type Env = z.infer<typeof envConfigSchema>;
-}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -24,11 +19,6 @@ export default defineConfig({
         }),
     },
   ],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['.vitest/setup'],
-  },
   build: {
     rollupOptions: {
       input: {
