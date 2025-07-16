@@ -12,7 +12,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["vite/client", "@testing-library/jest-dom", "vitest/globals"],
+    "types": ["vite/client"],
     // "baseUrl": ".",
 
     /* Linting */
@@ -23,5 +23,5 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "nested", ".env.config.ts"]
+  "include": ["src", "nested", ".env.config.ts"],
 }

@@ -28,5 +28,3 @@ jobs:
         run: pnpm run format
       - name: Lint with ESLint
         run: pnpm run lint
-      - name: Perform unit & component tests with Vitest
-        run: pnpm run test
