@@ -23,5 +23,5 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "nested", ".env.config.ts"],
+  "include": ["src", "nested", ".env.config.ts"]
 }

@@ -1,0 +1,15 @@
+# defaults
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+
+# files touched by DependaBot
+**/pnpm-lock.yaml
+./dashboard/pnpm-lock.yaml
+**/package-lock.json
+**/yarn.lock
+
+# build
+dist
+build

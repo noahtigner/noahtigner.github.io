@@ -15,8 +15,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
-    "format": "prettier --check . --ignore-path .gitignore",
-    "format:fix": "prettier --write . --ignore-path .gitignore",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
     "preview": "vite preview",
     "prepare": "husky install"
   },
