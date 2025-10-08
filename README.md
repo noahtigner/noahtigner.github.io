@@ -48,11 +48,11 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 
 ## Available Scripts:
 
-- `npm run dev` - Runs the app in the development mode.
-- `npm run build` - Builds the app for production to the `dist` folder.
-- `npm run preview` - Serves the production build from the `dist` folder.
-- `npm run lint` - Checks the source code for linting issues.
-- `npm run lint:fix` - Checks the source code for linting issues and fixes as many as possible.
-- `npm run format` - Checks the source code for formatting issues.
-- `npm run format:fix` - Checks the source code for formatting issues and fixes as many as possible.
-- `npm run test` - Runs Vitest and outputs a coverage report.
+- `pnpm run dev` - Runs the app in the development mode.
+- `pnpm run build` - Builds the app for production to the `dist` folder.
+- `pnpm run preview` - Serves the production build from the `dist` folder.
+- `pnpm run lint` - Checks the source code for linting issues.
+- `pnpm run lint:fix` - Checks the source code for linting issues and fixes as many as possible.
+- `pnpm run format` - Checks the source code for formatting issues.
+- `pnpm run format:fix` - Checks the source code for formatting issues and fixes as many as possible.
+- `pnpm run test` - Runs Vitest and outputs a coverage report.
