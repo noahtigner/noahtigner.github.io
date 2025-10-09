@@ -12,12 +12,12 @@ const theme = createTheme({
       paper: '#202020',
     },
     text: {
-      primary: '#E6F0E6',
-      secondary: '#b1b1b1ff',
+      primary: '#f8fbf8ff',
+      secondary: '#d2d2d2be',
     },
     primary: {
       // main: '#6EDFCA',
-      main: '#b1b1b1ff',
+      main: '#f8fbf8ff',
     },
   },
   shape: {
