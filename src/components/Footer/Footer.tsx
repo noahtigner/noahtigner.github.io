@@ -12,13 +12,13 @@ import contactItems from '../../assets/data/contactItems.json';
 import ContactIcon from '../ContactIcon';
 
 const FooterWrapper = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  marginTop: theme.spacing(2),
-  padding: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-  },
+  backgroundColor: theme.palette.background.default,
+  borderTop: `1px solid ${theme.palette.divider}`,
+  marginTop: theme.spacing(4),
+  marginLeft: theme.spacing(4),
+  marginRight: theme.spacing(4),
+  paddingTop: theme.spacing(2),
+  paddingBottom: theme.spacing(2),
 }));
 
 function Footer() {
@@ -26,7 +26,7 @@ function Footer() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <FooterWrapper>
+    <FooterWrapper component="footer">
       <Stack
         direction="row"
         justifyContent={{ xs: 'center', sm: 'space-between' }}
