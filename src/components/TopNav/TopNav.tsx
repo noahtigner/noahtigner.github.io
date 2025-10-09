@@ -38,14 +38,15 @@ export default function TopNav() {
 
   return (
     <Box
+      component="nav"
       sx={{
         position: 'sticky',
         top: 0,
         zIndex: 10,
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: theme.palette.background.default,
+        borderBottom: `1px solid ${theme.palette.divider}`,
         paddingX: theme.spacing(2),
-        paddingY: theme.spacing(1),
-        minHeight: '32px',
+        paddingY: theme.spacing(1.5),
         boxShadow: theme.shadows[1],
       }}
     >

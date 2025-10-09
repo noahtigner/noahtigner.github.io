@@ -1,4 +1,5 @@
-import { Container, Divider, styled } from '@mui/material';
+import { type ReactNode } from 'react';
+import { Container, Divider, styled, Typography } from '@mui/material';
 import Experience from '../components/Experience';
 import Portfolio from '../components/Portfolio';
 
@@ -12,12 +13,22 @@ const FlexContainer = styled(Container)(({ theme }) => ({
   gap: theme.spacing(4),
 }));
 
+function DividerWithText({ children }: { children: ReactNode }) {
+  return (
+    <Divider>
+      <Typography variant="h2" sx={{ fontSize: '0.875rem' }}>
+        {children}
+      </Typography>
+    </Divider>
+  );
+}
+
 function Index() {
   return (
     <FlexContainer maxWidth="lg">
-      <Divider>A Few Things I&apos;ve Built</Divider>
+      <DividerWithText>A Few Things I&apos;ve Built</DividerWithText>
       <Portfolio />
-      <Divider>Experience</Divider>
+      <DividerWithText>Experience</DividerWithText>
       <Experience />
     </FlexContainer>
   );

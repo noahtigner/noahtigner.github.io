@@ -13,10 +13,11 @@ const theme = createTheme({
     },
     text: {
       primary: '#E6F0E6',
-      secondary: '#969696',
+      secondary: '#b1b1b1ff',
     },
     primary: {
-      main: '#6EDFCA',
+      // main: '#6EDFCA',
+      main: '#b1b1b1ff',
     },
   },
   shape: {
@@ -29,14 +30,8 @@ const theme = createTheme({
     MuiDivider: {
       styleOverrides: {
         root: {
-          '::before': {
-            borderColor: '#969696',
-          },
-          '::after': {
-            borderColor: '#969696',
-          },
           textAlign: 'center',
-          fontSize: '16px',
+          fontSize: '1rem',
         },
       },
     },
@@ -62,7 +57,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <TopNav />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" component="main">
         <Index />
       </Container>
       <Footer />
