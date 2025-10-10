@@ -37,13 +37,11 @@ function ExperienceStep({
       <StepLabel
         StepIconComponent={() => <ExperienceIcon organization={organization} />}
       >
-        <span style={{ lineHeight: '12px', padding: 0, margin: 0 }}>
-          {title}
-        </span>
+        <span style={{ fontSize: '1rem', padding: 0, margin: 0 }}>{title}</span>
         <br />
         <span
           style={{
-            fontSize: '12px',
+            fontSize: '1rem',
             color: theme.palette.text.secondary,
           }}
         >
@@ -51,15 +49,13 @@ function ExperienceStep({
         </span>
       </StepLabel>
       <StepContent style={{ paddingBottom: 0, marginBottom: 0 }}>
-        <ul style={{ margin: 0, paddingLeft: '12px' }}>
+        <ul style={{ margin: 0, paddingLeft: '8px' }}>
           {description.map((line) => (
             <li
               key={`${title}-${line.replaceAll(' ', '')}`}
-              style={{ fontSize: '8px' }}
+              style={{ fontSize: '0.875rem' }}
             >
-              <span style={{ fontSize: '12px', lineHeight: '16px' }}>
-                {line}
-              </span>
+              {line}
             </li>
           ))}
         </ul>
