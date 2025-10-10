@@ -16,7 +16,7 @@ const FlexContainer = styled(Container)(({ theme }) => ({
 function DividerWithText({ children }: { children: ReactNode }) {
   return (
     <Divider>
-      <Typography variant="h2" sx={{ fontSize: '0.875rem' }}>
+      <Typography variant="h2" sx={{ fontSize: '1.25rem' }}>
         {children}
       </Typography>
     </Divider>

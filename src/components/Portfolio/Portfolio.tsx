@@ -112,7 +112,7 @@ function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
           ))}
         </div>
 
-        <Typography variant="body1" sx={{ fontSize: '0.75rem' }}>
+        <Typography variant="body1" sx={{ fontSize: '1rem' }}>
           {description}
         </Typography>
       </StyledCardContent>
