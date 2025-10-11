@@ -19,7 +19,9 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [x] Set up basic SEO and meta info
   - [x] Set up meta tags
   - [x] Set up [Open Graph Protocol](https://ogp.me/) (OGP) tags and preview image. [Open Graph Debugger](https://www.opengraph.xyz/url/https%3A%2F%2Fwww.noahtigner.com%2F)
-  - [ ] Improve SEO
+  - [x] Semantic HTML & ARIA roles
+  - [x] Sitemap
+  - [x] webp images
 - [x] Choose color palette and font family
 - [x] Configure UI Library
   - [x] Choose Library
@@ -37,10 +39,10 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
     - [x] Contact Footer
 - [ ] Optimization
   - [ ] skeletons for sections and components
-  - [ ] optimize images
+  - [x] optimize images
   - [ ] lazy-load sections
   - [ ] lazy-load images
-- [ ] Telemetry & Analytics
+- [x] Telemetry & Analytics
 - [ ] Pull data from Github???
 - [ ] Test
   - [ ] Unit / Component Testing
@@ -48,11 +50,11 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 
 ## Available Scripts:
 
-- `pnpm run dev` - Runs the app in the development mode.
-- `pnpm run build` - Builds the app for production to the `dist` folder.
-- `pnpm run preview` - Serves the production build from the `dist` folder.
-- `pnpm run lint` - Checks the source code for linting issues.
-- `pnpm run lint:fix` - Checks the source code for linting issues and fixes as many as possible.
-- `pnpm run format` - Checks the source code for formatting issues.
-- `pnpm run format:fix` - Checks the source code for formatting issues and fixes as many as possible.
-- `pnpm run test` - Runs Vitest and outputs a coverage report.
+- `pnpm dev` - Runs the app in the development mode.
+- `pnpm build` - Builds the app for production to the `dist` folder.
+- `pnpm preview` - Serves the production build from the `dist` folder.
+- `pnpm lint` - Checks the source code for linting issues.
+- `pnpm lint:fix` - Checks the source code for linting issues and fixes as many as possible.
+- `pnpm format` - Checks the source code for formatting issues.
+- `pnpm format:fix` - Checks the source code for formatting issues and fixes as many as possible.
+- `pnpm test` - Runs Vitest and outputs a coverage report.

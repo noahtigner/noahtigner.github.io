@@ -1,8 +1,9 @@
-import { NavLink } from 'react-router';
+import { Link as RouterLink } from 'react-router';
 import { Container, Link, styled } from '@mui/material';
 import Experience from '../components/Experience';
 import Portfolio from '../components/Portfolio';
 import DividerWithText from '../components/DividerWithText';
+import paths from '../paths';
 
 const FlexContainer = styled(Container)(({ theme }) => ({
   marginBottom: 0,
@@ -20,7 +21,7 @@ export default function Home() {
       <Portfolio />
       <DividerWithText>Experience</DividerWithText>
       <Experience />
-      <Link component={NavLink} to="/articles">
+      <Link component={RouterLink} to={paths.articles}>
         Articles
       </Link>
     </FlexContainer>
