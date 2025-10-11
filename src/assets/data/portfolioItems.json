@@ -4,8 +4,7 @@
     "description": "A lightweight utility for checking the presence and validity of environment variables, as specified by a Zod schema.",
     "image": {
       "src": "venv.webp",
-      "alt": "validate-env-vars output screenshot",
-      "bg": "rgb(33, 33, 33)"
+      "alt": "validate-env-vars output screenshot"
     },
     "tools": ["TypeScript"],
     "links": [
@@ -26,8 +25,7 @@
     "description": "A tool used to identify the number and location of distinct islands in geospatial imagery. Includes a visualization comparing different traversal algorithms.",
     "image": {
       "src": "number-of-islands.webp",
-      "alt": "Number of Islands Analysis",
-      "bg": "rgb(33, 33, 33)"
+      "alt": "Number of Islands Analysis"
     },
     "tools": ["Python", "Rasterio", "NumPy"],
     "links": [
@@ -48,8 +46,7 @@
     "description": "A Spotify Recommender System. Trains a classifier on your musical tastes and recommends songs daily. Uses the Spotify API and scikit-learn for machine learning.",
     "image": {
       "src": "discover-daily.webp",
-      "alt": "DiscoverDaily Spotify App",
-      "bg": "rgb(33, 33, 33)"
+      "alt": "DiscoverDaily Spotify App"
     },
     "tools": ["Python", "SQL", "Spotify API", "scikit-learn"],
     "links": [

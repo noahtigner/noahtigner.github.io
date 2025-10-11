@@ -45,7 +45,7 @@ const StyledCardActions = styled(CardActions)(({ theme }) => ({
   gap: theme.spacing(0.5),
 }));
 
-type ItemCardProps = (typeof portfolioItems)[0];
+type ItemCardProps = (typeof portfolioItems)[number];
 
 const getIconType = (target: string) => {
   if (target.includes('github') || target.includes('bitbucket')) {
@@ -69,18 +69,40 @@ function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
             href={primaryLink.target}
             target="_blank"
             rel="noopener noreferrer"
+            style={{
+              position: 'relative', // Container for absolute positioning
+              display: 'block',
+              width: '100%',
+              aspectRatio: '16 / 9',
+              overflow: 'hidden', // Prevent overflow
+            }}
           >
+            <img
+              src={image.src.replace('.webp', '-xs.webp')}
+              alt={image.alt}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                filter: 'blur(1rem)',
+                zIndex: 0,
+              }}
+              fetchPriority="high"
+            />
             <img
               src={image.src}
               alt={image.alt}
               style={{
-                // objectFit: 'scale-down',
-                // objectFit: 'contain',
+                position: 'absolute',
+                top: 0,
+                left: 0,
                 width: '100%',
-                aspectRatio: '16 / 9',
-                backgroundColor: image.bg,
-                borderRadius: 8,
+                filter: 'none',
+                zIndex: 1,
               }}
+              fetchPriority="low"
+              loading="lazy"
             />
           </a>
         )}

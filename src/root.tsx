@@ -82,7 +82,7 @@ export function Layout({ children }: { children: ReactNode }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap"
         />
-        <link rel="stylesheet" href="/index.css" />
+        <link rel="stylesheet" href="/index.css" fetchPriority="high" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link
           rel="icon"
