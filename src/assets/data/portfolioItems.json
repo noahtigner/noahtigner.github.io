@@ -3,7 +3,8 @@
     "title": "validate-env-vars",
     "description": "A lightweight utility for checking the presence and validity of environment variables, as specified by a Zod schema.",
     "image": {
-      "src": "venv.webp",
+      "lg": "/images/venv-lg.webp",
+      "sm": "/images/venv-sm.webp",
       "alt": "validate-env-vars output screenshot"
     },
     "tools": ["TypeScript"],
@@ -24,7 +25,8 @@
     "title": "Number of Islands",
     "description": "A tool used to identify the number and location of distinct islands in geospatial imagery. Includes a visualization comparing different traversal algorithms.",
     "image": {
-      "src": "number-of-islands.webp",
+      "lg": "/images/number-of-islands-lg.webp",
+      "sm": "/images/number-of-islands-sm.webp",
       "alt": "Number of Islands Analysis"
     },
     "tools": ["Python", "Rasterio", "NumPy"],
@@ -45,7 +47,8 @@
     "title": "DiscoverDaily",
     "description": "A Spotify Recommender System. Trains a classifier on your musical tastes and recommends songs daily. Uses the Spotify API and scikit-learn for machine learning.",
     "image": {
-      "src": "discover-daily.webp",
+      "lg": "/images/discover-daily-lg.webp",
+      "sm": "/images/discover-daily-sm.webp",
       "alt": "DiscoverDaily Spotify App"
     },
     "tools": ["Python", "SQL", "Spotify API", "scikit-learn"],

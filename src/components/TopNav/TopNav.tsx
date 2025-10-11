@@ -16,9 +16,6 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     fontSize: '1rem',
   },
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '0.75rem',
-  },
 }));
 
 function Heading({ children }: { children: string }) {
@@ -54,8 +51,6 @@ export default function TopNav() {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        justifyItems="center"
-        justifySelf="center"
         spacing={2}
       >
         <Heading>Hey, I&apos;m Noah Tigner</Heading>
