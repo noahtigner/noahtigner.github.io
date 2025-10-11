@@ -11,7 +11,6 @@ import ContactDropdown from './ContactDropdown';
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   color: 'inherit',
-  fontWeight: 300,
   fontSize: '1.25rem',
   [theme.breakpoints.down('md')]: {
     fontSize: '1rem',
