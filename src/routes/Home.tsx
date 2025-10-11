@@ -31,8 +31,8 @@ export default function Home() {
       <Portfolio />
       <DividerWithText>Experience</DividerWithText>
       <Experience />
-      <Link component={NavLink} to="/blogs">
-        Blogs
+      <Link component={NavLink} to="/articles">
+        Articles
       </Link>
     </FlexContainer>
   );

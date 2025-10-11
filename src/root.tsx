@@ -10,7 +10,6 @@ import { Container, ThemeProvider, createTheme } from '@mui/material';
 import type { Route } from '../.react-router/types/src/+types/root';
 import TopNav from './components/TopNav';
 import Footer from './components/Footer';
-import './index.css';
 
 const theme = createTheme({
   palette: {
@@ -100,6 +99,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap"
         />
+        <link rel="stylesheet" href="/index.css" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link
           rel="icon"
@@ -122,6 +122,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="theme-color" content="#141414" />
+        <meta name="color-scheme" content="dark" />
         <meta name="author" content="Noah Tigner" />
         <meta
           name="description"

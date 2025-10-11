@@ -148,10 +148,7 @@ function Portfolio() {
       {portfolioItems.slice(0, 3).map(({ title, ...props }, i) => (
         <Grid
           key={title}
-          item
-          xs={12}
-          sm={6}
-          md={4}
+          size={{ xs: 12, sm: 6, md: 4 }}
           sx={{ animation: `fadeIn ${(i + 1) * 750}ms` }}
         >
           <ItemCard title={title} {...props} />
