@@ -69,40 +69,19 @@ function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
             href={primaryLink.target}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              position: 'relative', // Container for absolute positioning
-              display: 'block',
-              width: '100%',
-              aspectRatio: '16 / 9',
-              overflow: 'hidden', // Prevent overflow
-            }}
           >
             <img
-              src={image.src.replace('.webp', '-xs.webp')}
+              // sizes are 640x360 and 351x198
+              // use srcset for responsive images
+              srcSet={`${image.lg} 640w, ${image.sm} 351w`}
+              src={image.sm}
               alt={image.alt}
               style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
                 width: '100%',
-                filter: 'blur(1rem)',
-                zIndex: 0,
+                aspectRatio: '16 / 9',
+                borderRadius: theme.shape.borderRadius,
               }}
               fetchPriority="high"
-            />
-            <img
-              src={image.src}
-              alt={image.alt}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                filter: 'none',
-                zIndex: 1,
-              }}
-              fetchPriority="low"
-              loading="lazy"
             />
           </a>
         )}

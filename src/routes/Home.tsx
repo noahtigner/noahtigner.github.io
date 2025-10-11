@@ -4,6 +4,8 @@ import Experience from '../components/Experience';
 import Portfolio from '../components/Portfolio';
 import DividerWithText from '../components/DividerWithText';
 import paths from '../paths';
+import portfolioItems from '../assets/data/portfolioItems.json';
+import type { Route } from '../+types/root';
 
 const FlexContainer = styled(Container)(({ theme }) => ({
   marginBottom: 0,
@@ -13,6 +15,18 @@ const FlexContainer = styled(Container)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(4),
 }));
+
+// tell React-Router to preload portfolio images for this page
+// eslint-disable-next-line react-refresh/only-export-components
+export const links: Route.LinksFunction = () => {
+  return portfolioItems.map((item) => ({
+    rel: 'preload',
+    href: item.image.lg,
+    as: 'image',
+    type: 'image/webp',
+    fetchPriority: 'low',
+  }));
+};
 
 export default function Home() {
   return (
