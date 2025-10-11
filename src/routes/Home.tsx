@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react';
-import { Container, Divider, styled, Typography } from '@mui/material';
+import { NavLink } from 'react-router';
+import { Container, Divider, Link, styled, Typography } from '@mui/material';
 import Experience from '../components/Experience';
 import Portfolio from '../components/Portfolio';
 
@@ -23,15 +24,16 @@ function DividerWithText({ children }: { children: ReactNode }) {
   );
 }
 
-function Index() {
+export default function Home() {
   return (
     <FlexContainer maxWidth="lg">
       <DividerWithText>A Few Things I&apos;ve Built</DividerWithText>
       <Portfolio />
       <DividerWithText>Experience</DividerWithText>
       <Experience />
+      <Link component={NavLink} to="/blogs">
+        Blogs
+      </Link>
     </FlexContainer>
   );
 }
-
-export default Index;

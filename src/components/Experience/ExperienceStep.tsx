@@ -1,11 +1,13 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { Step, StepLabel, StepContent, useTheme } from '@mui/material/';
-import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
-import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
-import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
-import DataObjectOutlinedIcon from '@mui/icons-material/DataObjectOutlined';
+import {
+  BuildOutlined as BuildOutlinedIcon,
+  CloudOutlined as CloudOutlinedIcon,
+  SettingsOutlined as SettingsOutlinedIcon,
+  SchoolOutlined as SchoolOutlinedIcon,
+  CodeOutlined as CodeOutlinedIcon,
+  DataObjectOutlined as DataObjectOutlinedIcon,
+} from '@mui/icons-material';
 
 function ExperienceIcon({ organization }: { organization: string }): ReactNode {
   switch (organization) {
