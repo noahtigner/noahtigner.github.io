@@ -1,15 +1,17 @@
-import React from 'react';
+import { StrictMode, useEffect, type ReactNode } from 'react';
 import {
   isRouteErrorResponse,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from 'react-router';
+import ReactGA from 'react-ga';
 import { Container, ThemeProvider, createTheme } from '@mui/material';
 
 import type { Route } from '../.react-router/types/src/+types/root';
 import TopNav from './components/TopNav';
 import Footer from './components/Footer';
+import MetaTags from './components/MetaTags';
 
 const theme = createTheme({
   palette: {
@@ -59,36 +61,15 @@ const theme = createTheme({
     },
   },
 });
-// import ReactDOM from 'react-dom/client';
-// import ReactGA from 'react-ga';
 
-// ReactGA.initialize(import.meta.env.VITE_GOOGLE_ANALYTICS_ID);
-// ReactGA.pageview(window.location.pathname + window.location.search);
-
-// ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>
-// );
-
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        {/* <!-- Google tag (gtag.js) --> */}
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=%VITE_GOOGLE_ANALYTICS_ID%"
         ></script>
-        {/* <script>
-          dataLayer = window.dataLayer || [];
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          gtag('js', new Date());
-          gtag('config', '%VITE_GOOGLE_ANALYTICS_ID%');
-        </script> */}
-        {/* <!-- End Google tag (gtag.js) --> */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -124,31 +105,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="theme-color" content="#141414" />
         <meta name="color-scheme" content="dark" />
         <meta name="author" content="Noah Tigner" />
-        <meta
-          name="description"
-          content="Noah Tigner's portfolio and digital résumé. Check out my projects, view my experience, and get in touch."
+        <MetaTags
+          title="Noah Tigner's Portfolio"
+          description="Noah Tigner's portfolio and digital résumé. Check out my projects, view my experience, and get in touch."
         />
-        <meta
-          name="keywords"
-          content="Noah Tigner, Noah, Zane, Tigner, NoahTigner, noahzanetigner, noahzanetigner@gmail.com, Noah Tigner's Portfolio, Noah Tigner's Resume, Software, Engineer, Developer, Portfolio, Website, Resume, Résumé"
-        />
-        {/* <!-- Open Graph Protocol --> */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://noahtigner.com" />
-        <meta
-          property="og:title"
-          content="Noah Tigner's portfolio and digital résumé"
-        />
-        <meta
-          property="og:description"
-          content="Noah Tigner's portfolio and digital résumé. Check out my projects, view my experience, and get in touch."
-        />
         <meta
           property="og:image"
           content="https://www.noahtigner.com/noah-tigner.jpeg"
         />
-        {/* <!-- End Open Graph Protocol --> */}
-        <title>Noah Tigner&apos;s Portfolio</title>
       </head>
       <body>
         {children}
@@ -214,8 +179,13 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 }
 
 export default function App() {
+  // Google Analytics
+  useEffect(() => {
+    ReactGA.initialize(import.meta.env.VITE_GOOGLE_ANALYTICS_ID);
+  }, []);
+
   return (
-    <React.StrictMode>
+    <StrictMode>
       <ThemeProvider theme={theme}>
         <TopNav />
         <Container maxWidth="lg" component="main">
@@ -223,6 +193,6 @@ export default function App() {
         </Container>
         <Footer />
       </ThemeProvider>
-    </React.StrictMode>
+    </StrictMode>
   );
 }
