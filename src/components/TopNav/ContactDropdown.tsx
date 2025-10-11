@@ -4,9 +4,9 @@ import {
   ListItemIcon,
   ListItemText,
   MenuList,
-  MenuProps,
   styled,
   alpha,
+  type MenuProps,
 } from '@mui/material';
 
 import contactItems from '../../assets/data/contactItems.json';

@@ -1,9 +1,9 @@
-import { Stepper } from '@mui/material/';
+import { Stepper } from '@mui/material';
 
 import experienceItems from '../../assets/data/experienceItems.json';
 import ExperienceStep from './ExperienceStep';
 
-function Experience() {
+export default function Experience() {
   return (
     <Stepper orientation="vertical">
       {experienceItems.map(({ title, organization, description }) => (
@@ -20,5 +20,3 @@ function Experience() {
     </Stepper>
   );
 }
-
-export default Experience;

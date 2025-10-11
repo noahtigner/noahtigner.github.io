@@ -1,0 +1,227 @@
+import React from 'react';
+import {
+  isRouteErrorResponse,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from 'react-router';
+import { Container, ThemeProvider, createTheme } from '@mui/material';
+
+import type { Route } from '../.react-router/types/src/+types/root';
+import TopNav from './components/TopNav';
+import Footer from './components/Footer';
+import './index.css';
+
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+    background: {
+      default: '#141414',
+      paper: '#202020',
+    },
+    text: {
+      primary: '#f8fbf8ff',
+      secondary: '#d2d2d2be',
+    },
+    primary: {
+      // main: '#6EDFCA',
+      main: '#f8fbf8ff',
+    },
+  },
+  shape: {
+    borderRadius: 8,
+  },
+  typography: {
+    fontFamily: 'Poppins, sans-serif',
+  },
+  components: {
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          textAlign: 'center',
+          fontSize: '1rem',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          borderRadius: '4px',
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: '4px',
+        },
+      },
+    },
+  },
+});
+// import ReactDOM from 'react-dom/client';
+// import ReactGA from 'react-ga';
+
+// ReactGA.initialize(import.meta.env.VITE_GOOGLE_ANALYTICS_ID);
+// ReactGA.pageview(window.location.pathname + window.location.search);
+
+// ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>
+// );
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        {/* <!-- Google tag (gtag.js) --> */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=%VITE_GOOGLE_ANALYTICS_ID%"
+        ></script>
+        {/* <script>
+          dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '%VITE_GOOGLE_ANALYTICS_ID%');
+        </script> */}
+        {/* <!-- End Google tag (gtag.js) --> */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap"
+        />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#141414" />
+        <meta name="author" content="Noah Tigner" />
+        <meta
+          name="description"
+          content="Noah Tigner's portfolio and digital résumé. Check out my projects, view my experience, and get in touch."
+        />
+        <meta
+          name="keywords"
+          content="Noah Tigner, Noah, Zane, Tigner, NoahTigner, noahzanetigner, noahzanetigner@gmail.com, Noah Tigner's Portfolio, Noah Tigner's Resume, Software, Engineer, Developer, Portfolio, Website, Resume, Résumé"
+        />
+        {/* <!-- Open Graph Protocol --> */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://noahtigner.com" />
+        <meta
+          property="og:title"
+          content="Noah Tigner's portfolio and digital résumé"
+        />
+        <meta
+          property="og:description"
+          content="Noah Tigner's portfolio and digital résumé. Check out my projects, view my experience, and get in touch."
+        />
+        <meta
+          property="og:image"
+          content="https://www.noahtigner.com/noah-tigner.jpeg"
+        />
+        {/* <!-- End Open Graph Protocol --> */}
+        <title>Noah Tigner&apos;s Portfolio</title>
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+        <noscript>
+          <h1>Noah Tigner&apos;s portfolio and digital résumé</h1>
+          <h2>Contact:</h2>
+          <ul>
+            <li>
+              <a href="mailto:noahzanetigner@gmail.com">
+                noahzanetigner@gmail.com
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/noahtigner/">LinkedIn</a>
+            </li>
+            <li>
+              <a href="https://github.com/noahtigner">GitHub</a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/@noahtigner4283">YouTube</a>
+            </li>
+          </ul>
+          <p>Please enable JavaScript to get the most out of this page</p>
+        </noscript>
+      </body>
+    </html>
+  );
+}
+
+export function HydrateFallback() {
+  return null;
+}
+
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  let message = 'Oops!';
+  let details = 'An unexpected error occurred.';
+  let stack: string | undefined;
+
+  if (isRouteErrorResponse(error)) {
+    message = error.status === 404 ? '404' : 'Error';
+    details =
+      error.status === 404
+        ? 'The requested page could not be found.'
+        : error.statusText || details;
+  } else if (import.meta.env.DEV && error && error instanceof Error) {
+    details = error.message;
+    stack = error.stack;
+  }
+
+  return (
+    <main className="pt-16 p-4 container mx-auto">
+      <h1>{message}</h1>
+      <p>{details}</p>
+      {stack && (
+        <pre className="w-full p-4 overflow-x-auto">
+          <code>{stack}</code>
+        </pre>
+      )}
+    </main>
+  );
+}
+
+export default function App() {
+  return (
+    <React.StrictMode>
+      <ThemeProvider theme={theme}>
+        <TopNav />
+        <Container maxWidth="lg" component="main">
+          <Outlet />
+        </Container>
+        <Footer />
+      </ThemeProvider>
+    </React.StrictMode>
+  );
+}

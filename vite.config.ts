@@ -1,6 +1,7 @@
+// import { resolve } from 'path';
 import { defineConfig } from 'vite';
-import { resolve } from 'path';
-import react from '@vitejs/plugin-react-swc';
+import { reactRouter } from '@react-router/dev/vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import validateEnvVars from 'validate-env-vars';
 
 import envConfigSchema from './.env.config';
@@ -8,7 +9,8 @@ import envConfigSchema from './.env.config';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
+    reactRouter(),
+    tsconfigPaths(),
     {
       name: 'validate-env-vars',
       buildStart: () =>
@@ -19,12 +21,4 @@ export default defineConfig({
         }),
     },
   ],
-  build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        nested: resolve(__dirname, 'nested/index.html'),
-      },
-    },
-  },
 });
