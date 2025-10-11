@@ -1,11 +1,10 @@
-import { type ReactNode } from 'react';
 import { NavLink } from 'react-router';
-import { Container, Divider, Link, styled, Typography } from '@mui/material';
+import { Container, Link, styled } from '@mui/material';
 import Experience from '../components/Experience';
 import Portfolio from '../components/Portfolio';
+import DividerWithText from '../components/DividerWithText';
 
 const FlexContainer = styled(Container)(({ theme }) => ({
-  marginTop: theme.spacing(4),
   marginBottom: 0,
   marginX: 'auto',
   padding: 0,
@@ -13,16 +12,6 @@ const FlexContainer = styled(Container)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(4),
 }));
-
-function DividerWithText({ children }: { children: ReactNode }) {
-  return (
-    <Divider>
-      <Typography variant="h2" sx={{ fontSize: '1.25rem' }}>
-        {children}
-      </Typography>
-    </Divider>
-  );
-}
 
 export default function Home() {
   return (
