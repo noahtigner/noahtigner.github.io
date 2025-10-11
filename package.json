@@ -10,7 +10,7 @@
   "packageManager": "pnpm@10.4.1",
   "type": "module",
   "scripts": {
-    "build": "react-router build && mkdir dist && mv ./build/client/* dist",
+    "build": "react-router build && mv ./dist/client/* ./dist",
     "dev": "react-router dev",
     "typecheck": "react-router typegen && tsc",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",

@@ -21,4 +21,7 @@ export default defineConfig({
         }),
     },
   ],
+  ssr: {
+    noExternal: process.env.NODE_ENV === 'production' ? ['@mui/material'] : [],
+  },
 });
