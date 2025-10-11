@@ -1,4 +1,4 @@
-import { StrictMode, useEffect, type ReactNode } from 'react';
+import { StrictMode, type ReactNode } from 'react';
 import {
   isRouteErrorResponse,
   Outlet,
@@ -12,6 +12,8 @@ import type { Route } from '../.react-router/types/src/+types/root';
 import TopNav from './components/TopNav';
 import Footer from './components/Footer';
 import MetaTags from './components/MetaTags';
+
+ReactGA.initialize(import.meta.env.VITE_GOOGLE_ANALYTICS_ID);
 
 const theme = createTheme({
   palette: {
@@ -179,16 +181,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 }
 
 export default function App() {
-  // Google Analytics
-  useEffect(() => {
-    ReactGA.initialize(import.meta.env.VITE_GOOGLE_ANALYTICS_ID);
-  }, []);
-
   return (
     <StrictMode>
       <ThemeProvider theme={theme}>
         <TopNav />
-        <Container maxWidth="lg" component="main">
+        <Container maxWidth="lg" component="main" sx={{ mt: 4 }}>
           <Outlet />
         </Container>
         <Footer />

@@ -1,3 +1,4 @@
+import DividerWithText from '../components/DividerWithText';
 import MetaTags from '../components/MetaTags';
 
 export default function Articles() {
@@ -7,7 +8,8 @@ export default function Articles() {
         title="Articles"
         description="Articles written by Noah Tigner"
       />
-      <div style={{ minHeight: '80vh', padding: '1rem' }}>
+      <DividerWithText>Articles</DividerWithText>
+      <div style={{ minHeight: '80vh', paddingTop: '1rem' }}>
         Check back soon ;)
       </div>
     </>
