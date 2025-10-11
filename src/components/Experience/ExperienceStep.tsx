@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { Step, StepLabel, StepContent, useTheme } from '@mui/material/';
+import { Step, StepLabel, StepContent, useTheme } from '@mui/material';
 import {
   BuildOutlined as BuildOutlinedIcon,
   CloudOutlined as CloudOutlinedIcon,

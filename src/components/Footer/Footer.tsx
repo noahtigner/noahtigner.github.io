@@ -26,7 +26,7 @@ function Footer() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <FooterWrapper component="footer">
+    <FooterWrapper as="footer">
       <Stack
         direction="row"
         justifyContent={{ xs: 'center', sm: 'space-between' }}
