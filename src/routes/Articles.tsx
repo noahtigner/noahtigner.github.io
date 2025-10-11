@@ -1,9 +1,14 @@
+import MetaTags from '../components/MetaTags';
+
 export default function Articles() {
   return (
     <>
-      <title>Articles</title>
+      <MetaTags
+        title="Articles"
+        description="Articles written by Noah Tigner"
+      />
       <div style={{ minHeight: '80vh', padding: '1rem' }}>
-        Articles will go here some day...
+        Check back soon ;)
       </div>
     </>
   );
