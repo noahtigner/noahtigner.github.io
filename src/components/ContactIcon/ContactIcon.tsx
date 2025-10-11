@@ -7,6 +7,7 @@ import {
   InsertDriveFileOutlined,
 } from '@mui/icons-material';
 
+import NpmSvg from '../../assets/icons/npm.svg?react';
 import contactItems from '../../assets/data/contactItems.json';
 
 interface ContactIconProps {
@@ -31,7 +32,7 @@ function ContactIcon({ label }: ContactIconProps) {
     case 'Résumé':
       return <StyledIcon as={InsertDriveFileOutlined} />;
     case 'JavaScript':
-      return null;
+      return <StyledIcon as={NpmSvg} />;
     default:
       console.error(`Unknown contact item label: ${label}`);
       return null;

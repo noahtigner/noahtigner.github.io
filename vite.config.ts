@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite';
 import { reactRouter } from '@react-router/dev/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import svgr from 'vite-plugin-svgr';
 import validateEnvVars from 'validate-env-vars';
 
 import envConfigSchema from './.env.config';
@@ -11,6 +12,7 @@ export default defineConfig({
   plugins: [
     reactRouter(),
     tsconfigPaths(),
+    svgr(),
     {
       name: 'validate-env-vars',
       buildStart: () =>

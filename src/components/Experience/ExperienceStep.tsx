@@ -51,7 +51,7 @@ function ExperienceStep({
         </span>
       </StepLabel>
       <StepContent style={{ paddingBottom: 0, marginBottom: 0 }}>
-        <ul style={{ margin: 0, paddingLeft: '8px' }}>
+        <ul style={{ margin: 0, paddingLeft: '1rem' }}>
           {description.map((line) => (
             <li
               key={`${title}-${line.replaceAll(' ', '')}`}
