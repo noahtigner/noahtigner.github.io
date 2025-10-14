@@ -77,7 +77,7 @@ export function Layout({ children }: { children: ReactNode }) {
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@300;400&display=swap"
         />
         <style>{inlinedStyles}</style>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />

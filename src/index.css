@@ -10,7 +10,7 @@
   -webkit-text-size-adjust: 100%;
 
   color-scheme: dark;
-  color: #e6f0e6;
+  color: #f8fbf8ff;
   background-color: #141414;
 }
 
@@ -26,4 +26,13 @@ body {
   to {
     opacity: 1;
   }
+}
+
+.code {
+  background-color: #202020;
+  color: #f8fbf8ff;
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
 }

@@ -25,5 +25,5 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["**/*", ".react-router/types/**/*", "src", ".env.config.ts"]
+  "include": [".react-router/types/**/*", "src", ".env.config.ts"]
 }
