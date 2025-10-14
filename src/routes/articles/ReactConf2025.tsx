@@ -257,7 +257,7 @@ function SectionReactNative() {
       <H3>React Native</H3>
       <Typography>
         Since my focus is primarily on web development, the main focus of this
-        article will be on the web-development side of React. However, this is
+        article has been on the web-development side of React. However, this is
         an exciting time for mobile and cross-platform developers, and I
         encourage you to watch the{' '}
         <Link
