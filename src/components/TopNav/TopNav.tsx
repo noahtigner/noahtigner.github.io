@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState, type MouseEvent } from 'react';
 import {
   Box,
   Button,
@@ -25,12 +25,13 @@ export default function TopNav() {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
+  }, []);
+
+  const handleClose = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
   return (
     <Box
