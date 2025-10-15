@@ -1,5 +1,5 @@
 import { Link as RouterLink } from 'react-router';
-import { Divider, Grid, Link, Typography } from '@mui/material';
+import { Divider, Grid, Link, Typography, useMediaQuery } from '@mui/material';
 
 import MetaTags from '../../components/MetaTags';
 import paths from '../../paths';
@@ -349,6 +349,19 @@ function SectionVideos() {
   );
 }
 
+function ArticleLogo() {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
+
+  return (
+    <img
+      src="/images/react-conf-2025.svg"
+      alt="React Conf Logo"
+      width={isMobile ? 200 : 400}
+      style={{ marginTop: 16, marginBottom: 16 }}
+    />
+  );
+}
+
 export default function Articles() {
   return (
     <>
@@ -358,19 +371,13 @@ export default function Articles() {
       />
       <span
         style={{
-          minHeight: '80vh',
           display: 'flex',
           flexDirection: 'column',
           gap: '1rem',
         }}
       >
-        <Divider style={{ minHeight: 164 }}>
-          <img
-            src="https://conf.react.dev/logo.svg"
-            alt="React Conf Logo"
-            width={400}
-            style={{ marginTop: 16, marginBottom: 16 }}
-          />
+        <Divider>
+          <ArticleLogo />
         </Divider>
         <span>
           <H2>2 Keynotes, 25 Talks, and 2 Days of React</H2>
