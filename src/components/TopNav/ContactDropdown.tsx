@@ -6,11 +6,14 @@ import {
   MenuList,
   styled,
   alpha,
+  Divider,
   type MenuProps,
 } from '@mui/material';
+import { Link as RouterLink } from 'react-router';
 
 import contactItems from '../../assets/data/contactItems.json';
 import ContactIcon from '../ContactIcon';
+import paths from '../../paths';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -68,8 +71,10 @@ function ContactDropdown({ anchorEl, onClose }: ContactDropdownProps) {
       anchorEl={anchorEl}
       open={open}
       onClose={onClose}
-      MenuListProps={{
-        'aria-labelledby': 'contact-button',
+      slotProps={{
+        list: {
+          'aria-labelledby': 'contact-button',
+        },
       }}
     >
       <MenuList>
@@ -88,6 +93,17 @@ function ContactDropdown({ anchorEl, onClose }: ContactDropdownProps) {
             <ListItemText>{label}</ListItemText>
           </MenuItem>
         ))}
+        <Divider />
+        <MenuItem
+          component={RouterLink}
+          to={paths.articles}
+          sx={{ animation: `fadeIn ${(contactItems.length + 1) * 250}ms` }}
+        >
+          <ListItemIcon>
+            <ContactIcon label="Article" />
+          </ListItemIcon>
+          <ListItemText>Articles</ListItemText>
+        </MenuItem>
       </MenuList>
     </StyledMenu>
   );

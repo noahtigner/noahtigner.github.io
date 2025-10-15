@@ -3,68 +3,25 @@ import { Divider, Grid, Link, Typography } from '@mui/material';
 
 import MetaTags from '../../components/MetaTags';
 import paths from '../../paths';
-import type { ReactNode } from 'react';
+import {
+  H3,
+  H4,
+  YoutubeIframe,
+  H2,
+  Subtitle,
+  SectionDivider,
+} from '../../components/Articles/ArticleTypography';
 
-const reactNativeVideoUrls = {
-  'React Native Keynote': {
-    direct:
-      'https://www.youtube.com/live/p9OcztRyDl0?si=BFKnf9nEOp5rV-Wp&t=2289',
-    embed:
-      'https://www.youtube.com/embed/p9OcztRyDl0?si=SH1hbh5txKNmzN5_&amp;start=2289',
+const reactConfVideoUrls = [
+  {
+    title: 'React Conf 2025 Day 1',
+    url: 'https://www.youtube.com/embed/zyVRg2QR6LA?si=Y3wCxLevjUF0Basz&amp',
   },
-  'React Strict DOM': {
-    direct:
-      'https://www.youtube.com/live/p9OcztRyDl0?si=Sji5bJSpCRiE8Avw&t=9040',
-    embed:
-      'https://www.youtube.com/embed/p9OcztRyDl0?si=Sji5bJSpCRiE8Avw&amp;start=9040',
+  {
+    title: 'React Conf 2025 Day 2',
+    url: 'https://www.youtube.com/embed/p9OcztRyDl0?si=3Xp8W9p7nwnsSrLX&amp',
   },
-  'Reimagining Lists in React Native': {
-    direct:
-      'https://www.youtube.com/live/p9OcztRyDl0?si=3Xp8W9p7nwnsSrLX&t=10377',
-    embed:
-      'https://www.youtube.com/embed/p9OcztRyDl0?si=3Xp8W9p7nwnsSrLX&amp;start=10377',
-  },
-};
-
-function H3({ children }: { children: ReactNode }) {
-  return (
-    <Typography variant="h3" fontSize="2rem">
-      {children}
-    </Typography>
-  );
-}
-
-function H4({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <Typography variant="h4" fontSize="1.5rem" className={className}>
-      {children}
-    </Typography>
-  );
-}
-
-function YoutubeIframe({ src, title }: { src: string; title: string }) {
-  return (
-    <iframe
-      src={src}
-      title={`YouTube video player - ${title}`}
-      frameBorder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerPolicy="strict-origin-when-cross-origin"
-      allowFullScreen
-      loading="lazy"
-      style={{
-        width: '100%',
-        aspectRatio: '16 / 9',
-      }}
-    />
-  );
-}
+];
 
 function SectionIntro() {
   return (
@@ -194,10 +151,12 @@ function SectionReact19_2() {
         >
           <em>React Performance Tracks</em>
         </Link>
-        , an expansion of Chrome DevTools for performance profiling. The team
-        also maintained the momentum around SSR and RSCs by introducing{' '}
-        <span className="code">cacheSignal()</span>, which tells you when the{' '}
-        <span className="code">cache()</span> lifetime of a RSC has ended, and{' '}
+        , an expansion of Chrome DevTools for performance profiling. Coming soon
+        is the &quot;Suspense Tab&quot; which will display when and why
+        components suspended. The team also maintained the momentum around SSR
+        and RSCs by introducing <span className="code">cacheSignal()</span>,
+        which tells you when the <span className="code">cache()</span> lifetime
+        of a RSC has ended, and{' '}
         <Link
           href="https://react.dev/blog/2025/10/01/react-19-2#batching-suspense-boundaries-for-ssr"
           target="_blank"
@@ -225,7 +184,11 @@ function SectionReact19_2() {
         Notably, state is persisted between mode changes. While these are the
         only two modes currently available, the team intends to add more in the
         future, hence calling the prop <span className="code">mode</span> rather
-        than <span className="code">visible</span>.
+        than <span className="code">visible</span>. During a Q&amp;A panel, the
+        React team hinted that the next mode might be
+        <span className="code">&quot;frozen&quot;</span>, which might behave
+        similarly to <span className="code">&quot;hidden&quot;</span> but with
+        the content still visible.
       </Typography>
       <Typography>
         One example where this behavior is useful is a modal sitting on top of a
@@ -241,12 +204,95 @@ function SectionReact19_2() {
         users visiting page B after page A, we can pre-render page B in the
         background to reduce the navigation time, since data and assets such as
         css and images will already be loaded. This may prove especially useful
-        routing frameworks that do not already have built-in prefetching.
+        for routing frameworks that do not already have built-in prefetching.
       </Typography>
       <H4 className="code">{'useEffectEvent()'}</H4>
-      <Typography>...</Typography>
+      <Typography>
+        The new <span className="code">useEffectEvent()</span> hook allows us to
+        extract non-reactive logic out of events. Notably, functions within this
+        hook see the latest props and state without the need for dependency
+        arrays. These events are also stable and should not be included in the
+        dependency arrays of the hooks that emit them (note that you will need
+        the latest version of the eslint plugin described above to avoid
+        warnings). The React docs have an excellent deep-dive into this new hook
+        titled{' '}
+        <Link
+          href="https://react.dev/learn/separating-events-from-effects#extracting-non-reactive-logic-out-of-effects"
+          target="_blank"
+          rel="noopener"
+        >
+          <em>Extracting non-reactive logic out of Effects</em>
+        </Link>
+        .
+      </Typography>
       <H4>Partial Pre-Rendering</H4>
-      <Typography>...</Typography>
+      <Typography>
+        Developers now have the ability to pre-render parts of their
+        applications and resume rendering later. According to the{' '}
+        <Link
+          href="https://react.dev/blog/2025/10/01/react-19-2#partial-pre-rendering"
+          target="_blank"
+          rel="noopener"
+        >
+          announcement
+        </Link>
+        , this &quot;allows you to pre-render the static parts of your app and
+        serve it from a CDN, and then resume rendering the shell to fill it in
+        with dynamic content later.&quot; There are separate APIs for{' '}
+        <span className="code">react-dom/server</span> and{' '}
+        <span className="code">react-dom/static</span>.
+      </Typography>
+    </>
+  );
+}
+
+function SectionReact19_3() {
+  return (
+    <>
+      <H3>
+        Coming Soon in React 19.3:{' '}
+        <span className="code">{'<ViewTransition />'}</span>
+      </H3>
+      <Typography>
+        Animations? In React? With the power of
+        <span className="code">{'<ViewTransition />'}</span>, we can now
+        declaratively manage animations natively in React. Simply wrapping a
+        component in <span className="code">{'<ViewTransition />'}</span>
+        opts it in to these animations, which can then be triggered by either
+        manually starting the transition via{' '}
+        <span className="code">startTransition()</span>, deferring values with{' '}
+        <span className="code">useDeferredValue()</span>, or by hitting a
+        <span className="code">{'<Suspense />'}</span> boundary. These
+        animations can be styled with CSS, although the docs warn that this API
+        is not intended to replace <strong>all</strong> animations.
+      </Typography>
+      <Typography>
+        The most impressive use case demonstrated at the conference was for
+        animating page transitions. By leveraging
+        <span className="code">{'<ViewTransition />'}</span>, web developers can
+        achieve some of the amazing transitions that are usually only seen on
+        mobile devices. These transitions are composable and can be shared, and
+        you can opt child components out of the transition by wrapping them in
+        their own <span className="code">{'<ViewTransition />'}</span> with a
+        default of <span className="code">none</span>. For example, you may want
+        to animate the transition from one page to another with a
+        &quot;swipe&quot; effect, but you won&apos;t want the next and back
+        buttons to &quot;swipe&quot; along with the rest of the page.
+      </Typography>
+      <Typography>
+        One member of the React team shared that while the combination of{' '}
+        <span className="code">{'<ViewTransition />'}</span>,{' '}
+        <span className="code">{'<Activity />'}</span>,{' '}
+        <span className="code">{'<Suspense />'}</span>, and{' '}
+        <span className="code">{'useOptimistic()'}</span> provide developers
+        with a powerful toolkit for building fantastic and responsive UIs, the
+        developer experience is not ideal. He shared that the team is committed
+        to making it more clear when and where these tools should be used, and
+        he encouraged routing and data-fetching library maintainers to integrate
+        these tools in a way that is unintrusive to the application developer.
+        His hopes are that the next generation of tooling will abstract away
+        much of the complexity of these new APIs.
+      </Typography>
     </>
   );
 }
@@ -261,7 +307,7 @@ function SectionReactNative() {
         an exciting time for mobile and cross-platform developers, and I
         encourage you to watch the{' '}
         <Link
-          href={reactNativeVideoUrls['React Native Keynote'].direct}
+          href="https://www.youtube.com/live/p9OcztRyDl0?si=BFKnf9nEOp5rV-Wp&t=2289"
           target="_blank"
           rel="noopener"
         >
@@ -269,7 +315,7 @@ function SectionReactNative() {
         </Link>
         {', '} and the presentations on{' '}
         <Link
-          href={reactNativeVideoUrls['React Strict DOM'].direct}
+          href="https://www.youtube.com/live/p9OcztRyDl0?si=Sji5bJSpCRiE8Avw&t=9040"
           target="_blank"
           rel="noopener"
           fontStyle="italic"
@@ -278,9 +324,7 @@ function SectionReactNative() {
         </Link>
         {' and '}
         <Link
-          href={
-            reactNativeVideoUrls['Reimagining Lists in React Native'].direct
-          }
+          href="https://www.youtube.com/live/p9OcztRyDl0?si=3Xp8W9p7nwnsSrLX&t=10377"
           target="_blank"
           rel="noopener"
           fontStyle="italic"
@@ -289,14 +333,19 @@ function SectionReactNative() {
         </Link>
         {'.'}
       </Typography>
-      <Grid container spacing={2}>
-        {Object.entries(reactNativeVideoUrls).map(([title, urls]) => (
-          <Grid key={title} size={{ xs: 12, sm: 6, md: 4 }}>
-            <YoutubeIframe src={urls.embed} title={title} />
-          </Grid>
-        ))}
-      </Grid>
     </>
+  );
+}
+
+function SectionVideos() {
+  return (
+    <Grid container spacing={2}>
+      {reactConfVideoUrls.map((video) => (
+        <Grid key={video.title} size={{ xs: 12, sm: 6 }}>
+          <YoutubeIframe src={video.url} title={video.title} />
+        </Grid>
+      ))}
+    </Grid>
   );
 }
 
@@ -305,9 +354,9 @@ export default function Articles() {
     <>
       <MetaTags
         title="React Conf 2025 Highlights"
-        description="React Conf 2025 Highlights written by Noah Tigner"
+        description="React Conf 2025 Highlights by Noah Tigner"
       />
-      <div
+      <span
         style={{
           minHeight: '80vh',
           display: 'flex',
@@ -315,33 +364,33 @@ export default function Articles() {
           gap: '1rem',
         }}
       >
-        <Divider>
+        <Divider style={{ minHeight: 164 }}>
           <img
             src="https://conf.react.dev/logo.svg"
             alt="React Conf Logo"
             width={400}
+            style={{ marginTop: 16, marginBottom: 16 }}
           />
         </Divider>
         <span>
-          <Typography variant="h2" fontSize="2.5rem">
-            2 Keynotes, 25 Talks, and 2 Days of React
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
-            x minutes &bull; October 12, 2025
-          </Typography>
+          <H2>2 Keynotes, 25 Talks, and 2 Days of React</H2>
+          <Subtitle>8 minute read &bull; October 12, 2025</Subtitle>
         </span>
         <SectionIntro />
+        <SectionDivider />
         <SectionCompiler />
+        <SectionDivider />
         <SectionReact19_2 />
-        <H3>Coming Soon: React 19.3</H3>
-        <Typography>...</Typography>
-        <H4 className="code">{'ViewTransitions'}</H4>
-        <Typography>...</Typography>
+        <SectionDivider />
+        <SectionReact19_3 />
+        <SectionDivider />
         <SectionReactNative />
+        <SectionDivider />
+        <SectionVideos />
         <Link component={RouterLink} to={paths.articles}>
-          All Articles
+          &lt; All Articles
         </Link>
-      </div>
+      </span>
     </>
   );
 }

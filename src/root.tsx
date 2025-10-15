@@ -77,7 +77,7 @@ export function Layout({ children }: { children: ReactNode }) {
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@300;400&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,300;1,400&display=swap"
         />
         <style>{inlinedStyles}</style>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -181,11 +181,21 @@ export default function App() {
   return (
     <StrictMode>
       <ThemeProvider theme={theme}>
-        <TopNav />
-        <Container maxWidth="lg" component="main" sx={{ mt: 4 }}>
-          <Outlet />
-        </Container>
-        <Footer />
+        <span
+          style={{
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <span style={{ flexGrow: 1 }}>
+            <TopNav />
+            <Container maxWidth="lg" component="main" sx={{ mt: 4 }}>
+              <Outlet />
+            </Container>
+          </span>
+          <Footer />
+        </span>
       </ThemeProvider>
     </StrictMode>
   );
