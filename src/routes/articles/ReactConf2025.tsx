@@ -1,5 +1,5 @@
 import { Link as RouterLink } from 'react-router';
-import { Divider, Grid, Link, Typography, useMediaQuery } from '@mui/material';
+import { Box, Divider, Grid, Link, Typography } from '@mui/material';
 
 import MetaTags from '../../components/MetaTags';
 import paths from '../../paths';
@@ -11,6 +11,23 @@ import {
   Subtitle,
   SectionDivider,
 } from '../../components/Articles/ArticleTypography';
+import type { Route } from '../+types/Articles';
+
+const confImageUrl = '/images/react-conf-2025.svg';
+
+// tell React-Router to preload images for this page
+// eslint-disable-next-line react-refresh/only-export-components
+export const links: Route.LinksFunction = () => {
+  return [
+    {
+      rel: 'preload',
+      href: confImageUrl,
+      as: 'image',
+      type: 'image/webp',
+      fetchPriority: 'low',
+    },
+  ];
+};
 
 const reactConfVideoUrls = [
   {
@@ -350,15 +367,16 @@ function SectionVideos() {
 }
 
 function LogoDivider() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
-
   return (
-    <Divider sx={{ minHeight: isMobile ? 60 : 100 }}>
-      <img
-        src="/images/react-conf-2025.svg"
+    <Divider sx={{ marginY: { xs: 0, md: 4 } }}>
+      <Box
+        component="img"
+        src={confImageUrl}
         alt="React Conf Logo"
-        height={isMobile ? 60 : 100}
-        style={{ marginTop: 16, marginBottom: 16 }}
+        sx={{
+          height: { xs: 60, md: 100 },
+          // width: 'auto',
+        }}
       />
     </Divider>
   );
