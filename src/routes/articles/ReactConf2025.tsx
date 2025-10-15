@@ -349,16 +349,18 @@ function SectionVideos() {
   );
 }
 
-function ArticleLogo() {
+function LogoDivider() {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
   return (
-    <img
-      src="/images/react-conf-2025.svg"
-      alt="React Conf Logo"
-      width={isMobile ? 200 : 400}
-      style={{ marginTop: 16, marginBottom: 16 }}
-    />
+    <Divider sx={{ minHeight: isMobile ? 60 : 100 }}>
+      <img
+        src="/images/react-conf-2025.svg"
+        alt="React Conf Logo"
+        height={isMobile ? 60 : 100}
+        style={{ marginTop: 16, marginBottom: 16 }}
+      />
+    </Divider>
   );
 }
 
@@ -376,9 +378,7 @@ export default function Articles() {
           gap: '1rem',
         }}
       >
-        <Divider>
-          <ArticleLogo />
-        </Divider>
+        <LogoDivider />
         <span>
           <H2>2 Keynotes, 25 Talks, and 2 Days of React</H2>
           <Subtitle>8 minute read &bull; October 12, 2025</Subtitle>
