@@ -5,6 +5,23 @@ import DividerWithText from '../components/DividerWithText';
 import MetaTags from '../components/MetaTags';
 import paths from '../paths';
 import ArticleCard from '../components/Articles/ArticleCard';
+import type { Route } from './+types/Articles';
+
+const confImageUrl = '/images/react-conf-2025.svg';
+
+// tell React-Router to preload images for this page
+// eslint-disable-next-line react-refresh/only-export-components
+export const links: Route.LinksFunction = () => {
+  return [
+    {
+      rel: 'preload',
+      href: confImageUrl,
+      as: 'image',
+      type: 'image/webp',
+      fetchPriority: 'low',
+    },
+  ];
+};
 
 export default function Articles() {
   return (
@@ -25,7 +42,7 @@ export default function Articles() {
             title="React Conf 2025 Highlights"
             description="A summary of my key takeaways from React Conf 2025. Topics include the new React Compiler, React 19.2, Activity, ViewTransitions, and more."
             to={paths.articleReactConf2025}
-            image="/images/react-conf-2025.svg"
+            image={confImageUrl}
           />
         </Grid>
       </Grid>

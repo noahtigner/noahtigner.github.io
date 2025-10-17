@@ -297,7 +297,7 @@ function SectionReact19_3() {
         buttons to &quot;swipe&quot; along with the rest of the page.
       </Typography>
       <Typography>
-        One member of the React team shared that while the combination of{' '}
+        Rick Hanlon of the React core team shared that while the combination of{' '}
         <span className="code">{'<ViewTransition />'}</span>,{' '}
         <span className="code">{'<Activity />'}</span>,{' '}
         <span className="code">{'<Suspense />'}</span>, and{' '}
@@ -308,7 +308,44 @@ function SectionReact19_3() {
         he encouraged routing and data-fetching library maintainers to integrate
         these tools in a way that is unintrusive to the application developer.
         His hopes are that the next generation of tooling will abstract away
-        much of the complexity of these new APIs.
+        much of the complexity of these new APIs. You can see his wishlist &amp;
+        roadmap for the docs{' '}
+        <Link
+          href="https://github.com/reactwg/async-react/discussions/2"
+          target="_blank"
+          rel="noopener"
+        >
+          here
+        </Link>
+        .{' '}
+        <Link
+          href="https://www.youtube.com/watch?v=zyVRg2QR6LA&t=10907s"
+          target="_blank"
+          rel="noopener"
+        >
+          Async React (pt. I)
+        </Link>{' '}
+        and{' '}
+        <Link
+          href="https://www.youtube.com/watch?v=p9OcztRyDl0&t=29073s"
+          target="_blank"
+          rel="noopener"
+        >
+          Async React (pt. II)
+        </Link>{' '}
+        are his talks on these features. The codebase for the demo is available{' '}
+        <Link
+          href="https://github.com/rickhanlonii/async-react"
+          target="_blank"
+          rel="noopener"
+        >
+          here
+        </Link>
+        {', '} and the live application can be viewed{' '}
+        <Link href="https://async-react.dev/" target="_blank" rel="noopener">
+          here
+        </Link>
+        .
       </Typography>
     </>
   );
