@@ -78,13 +78,12 @@ function SectionCompiler() {
         marking a significant milestone for React optimization. The compiler
         supports React 17, 18, and 19, providing automatic memoization without
         requiring developers to manually wrap components in{' '}
-        <span className="code">React.memo</span> or use{' '}
-        <span className="code">useMemo</span> and{' '}
-        <span className="code">useCallback</span>. What sets this compiler apart
-        from existing linters and build tools is its deep understanding of your
-        codebase, allowing it to make intelligent optimization decisions that
-        were previously the developer&apos;s responsibility (and a common source
-        of bugs).
+        <code>React.memo</code> or use <code>useMemo</code> and{' '}
+        <code>useCallback</code>. What sets this compiler apart from existing
+        linters and build tools is its deep understanding of your codebase,
+        allowing it to make intelligent optimization decisions that were
+        previously the developer&apos;s responsibility (and a common source of
+        bugs).
       </Typography>
       <Typography>
         The compiler is designed with incremental adoption in mind, with{' '}
@@ -130,14 +129,12 @@ function SectionCompiler() {
         optimize, and will signal to the compiler that these components should
         be skipped. While the primary focus of these new rules is to assist with
         gradual adoption of the compiler, many of the rules are incredibly
-        useful on their own. Rules such as{' '}
-        <span className="code">set-state-in-effect</span>,{' '}
-        <span className="code">set-state-in-render</span>, and{' '}
-        <span className="code">immutability</span> identify common pitfalls
-        associated with <span className="code">useState</span>, and rules such
-        as <span className="code">use-memo</span> and{' '}
-        <span className="code">refs</span> help developers steer clear of other
-        common React mistakes. Note that the docs point to version 6, but{' '}
+        useful on their own. Rules such as <code>set-state-in-effect</code>,{' '}
+        <code>set-state-in-render</code>, and <code>immutability</code> identify
+        common pitfalls associated with <code>useState</code>, and rules such as{' '}
+        <code>use-memo</code> and <code>refs</code> help developers steer clear
+        of other common React mistakes. Note that the docs point to version 6,
+        but{' '}
         <Link
           href="https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/CHANGELOG.md#610"
           target="_blank"
@@ -146,8 +143,7 @@ function SectionCompiler() {
           version 7 was released almost immediately
         </Link>{' '}
         after the conference. To get access to all of these new rules, upgrade
-        to v7 and use the <span className="code">recommended-latest</span>{' '}
-        configuration.
+        to v7 and use the <code>recommended-latest</code> configuration.
       </Typography>
     </>
   );
@@ -171,9 +167,8 @@ function SectionReact19_2() {
         , an expansion of Chrome DevTools for performance profiling. Coming soon
         is the &quot;Suspense Tab&quot; which will display when and why
         components suspended. The team also maintained the momentum around SSR
-        and RSCs by introducing <span className="code">cacheSignal()</span>,
-        which tells you when the <span className="code">cache()</span> lifetime
-        of a RSC has ended, and{' '}
+        and RSCs by introducing <code>cacheSignal()</code>, which tells you when
+        the <code>cache()</code> lifetime of a RSC has ended, and{' '}
         <Link
           href="https://react.dev/blog/2025/10/01/react-19-2#batching-suspense-boundaries-for-ssr"
           target="_blank"
@@ -182,30 +177,26 @@ function SectionReact19_2() {
           bug fixes to suspense boundaries in SSR
         </Link>
         . The most notable new features include
-        <span className="code">{'<Activity />'}</span>,{' '}
-        <span className="code">useEffectEvent()</span>, and partial
-        pre-rendering.
+        <code>{'<Activity />'}</code>, <code>useEffectEvent()</code>, and
+        partial pre-rendering.
       </Typography>
       <H4 className="code">{'<Activity />'}</H4>
       <Typography>
-        <span className="code">{'<Activity />'}</span> is a new React component
-        that allows developers to declaratively pre-render and prioritize
-        content. Components can be pre-rendered (and hidden) by setting the mode
-        to <span className="code">&quot;hidden&quot;</span>, and can then be
-        revealed by changing the mode to{' '}
-        <span className="code">&quot;visible&quot;</span>.{' '}
-        <span className="code">&quot;hidden&quot;</span> hides the children,
-        unmounts effects, and de-prioritizes updates, allowing things like
-        images and data to be loaded in the background without blocking the more
-        important <span className="code">&quot;visible&quot;</span> content.
-        Notably, state is persisted between mode changes. While these are the
-        only two modes currently available, the team intends to add more in the
-        future, hence calling the prop <span className="code">mode</span> rather
-        than <span className="code">visible</span>. During a Q&amp;A panel, the
-        React team hinted that the next mode might be
-        <span className="code">&quot;frozen&quot;</span>, which might behave
-        similarly to <span className="code">&quot;hidden&quot;</span> but with
-        the content still visible.
+        <code>{'<Activity />'}</code> is a new React component that allows
+        developers to declaratively pre-render and prioritize content.
+        Components can be pre-rendered (and hidden) by setting the mode to{' '}
+        <code>&quot;hidden&quot;</code>, and can then be revealed by changing
+        the mode to <code>&quot;visible&quot;</code>.{' '}
+        <code>&quot;hidden&quot;</code> hides the children, unmounts effects,
+        and de-prioritizes updates, allowing things like images and data to be
+        loaded in the background without blocking the more important{' '}
+        <code>&quot;visible&quot;</code> content. Notably, state is persisted
+        between mode changes. While these are the only two modes currently
+        available, the team intends to add more in the future, hence calling the
+        prop <code>mode</code> rather than <code>visible</code>. During a
+        Q&amp;A panel, the React team hinted that the next mode might be
+        <code>&quot;frozen&quot;</code>, which might behave similarly to{' '}
+        <code>&quot;hidden&quot;</code> but with the content still visible.
       </Typography>
       <Typography>
         One example where this behavior is useful is a modal sitting on top of a
@@ -225,10 +216,10 @@ function SectionReact19_2() {
       </Typography>
       <H4 className="code">{'useEffectEvent()'}</H4>
       <Typography>
-        The new <span className="code">useEffectEvent()</span> hook allows us to
-        extract non-reactive logic out of events. Notably, functions within this
-        hook see the latest props and state without the need for dependency
-        arrays. These events are also stable and should not be included in the
+        The new <code>useEffectEvent()</code> hook allows us to extract
+        non-reactive logic out of events. Notably, functions within this hook
+        see the latest props and state without the need for dependency arrays.
+        These events are also stable and should not be included in the
         dependency arrays of the hooks that emit them (note that you will need
         the latest version of the eslint plugin described above to avoid
         warnings). The React docs have an excellent deep-dive into this new hook
@@ -256,8 +247,7 @@ function SectionReact19_2() {
         , this &quot;allows you to pre-render the static parts of your app and
         serve it from a CDN, and then resume rendering the shell to fill it in
         with dynamic content later.&quot; There are separate APIs for{' '}
-        <span className="code">react-dom/server</span> and{' '}
-        <span className="code">react-dom/static</span>.
+        <code>react-dom/server</code> and <code>react-dom/static</code>.
       </Typography>
     </>
   );
@@ -267,49 +257,45 @@ function SectionReact19_3() {
   return (
     <>
       <H3>
-        Coming Soon in React 19.3:{' '}
-        <span className="code">{'<ViewTransition />'}</span>
+        Coming Soon in React 19.3: <code>{'<ViewTransition />'}</code>
       </H3>
       <Typography>
         Animations? In React? With the power of
-        <span className="code">{'<ViewTransition />'}</span>, we can now
-        declaratively manage animations natively in React. Simply wrapping a
-        component in <span className="code">{'<ViewTransition />'}</span>
+        <code>{'<ViewTransition />'}</code>, we can now declaratively manage
+        animations natively in React. Simply wrapping a component in{' '}
+        <code>{'<ViewTransition />'}</code>
         opts it in to these animations, which can then be triggered by either
-        manually starting the transition via{' '}
-        <span className="code">startTransition()</span>, deferring values with{' '}
-        <span className="code">useDeferredValue()</span>, or by hitting a
-        <span className="code">{'<Suspense />'}</span> boundary. These
-        animations can be styled with CSS, although the docs warn that this API
-        is not intended to replace <strong>all</strong> animations.
+        manually starting the transition via <code>startTransition()</code>,
+        deferring values with <code>useDeferredValue()</code>, or by hitting a
+        <code>{'<Suspense />'}</code> boundary. These animations can be styled
+        with CSS, although the docs warn that this API is not intended to
+        replace <strong>all</strong> animations.
       </Typography>
       <Typography>
         The most impressive use case demonstrated at the conference was for
         animating page transitions. By leveraging
-        <span className="code">{'<ViewTransition />'}</span>, web developers can
-        achieve some of the amazing transitions that are usually only seen on
-        mobile devices. These transitions are composable and can be shared, and
-        you can opt child components out of the transition by wrapping them in
-        their own <span className="code">{'<ViewTransition />'}</span> with a
-        default of <span className="code">none</span>. For example, you may want
-        to animate the transition from one page to another with a
-        &quot;swipe&quot; effect, but you won&apos;t want the next and back
-        buttons to &quot;swipe&quot; along with the rest of the page.
+        <code>{'<ViewTransition />'}</code>, web developers can achieve some of
+        the amazing transitions that are usually only seen on mobile devices.
+        These transitions are composable and can be shared, and you can opt
+        child components out of the transition by wrapping them in their own{' '}
+        <code>{'<ViewTransition />'}</code> with a default of <code>none</code>.
+        For example, you may want to animate the transition from one page to
+        another with a &quot;swipe&quot; effect, but you won&apos;t want the
+        next and back buttons to &quot;swipe&quot; along with the rest of the
+        page.
       </Typography>
       <Typography>
         Rick Hanlon of the React core team shared that while the combination of{' '}
-        <span className="code">{'<ViewTransition />'}</span>,{' '}
-        <span className="code">{'<Activity />'}</span>,{' '}
-        <span className="code">{'<Suspense />'}</span>, and{' '}
-        <span className="code">{'useOptimistic()'}</span> provide developers
-        with a powerful toolkit for building fantastic and responsive UIs, the
-        developer experience is not ideal. He shared that the team is committed
-        to making it more clear when and where these tools should be used, and
-        he encouraged routing and data-fetching library maintainers to integrate
-        these tools in a way that is unintrusive to the application developer.
-        His hopes are that the next generation of tooling will abstract away
-        much of the complexity of these new APIs. You can see his wishlist &amp;
-        roadmap for the docs{' '}
+        <code>{'<ViewTransition />'}</code>, <code>{'<Activity />'}</code>,{' '}
+        <code>{'<Suspense />'}</code>, and <code>{'useOptimistic()'}</code>{' '}
+        provide developers with a powerful toolkit for building fantastic and
+        responsive UIs, the developer experience is not ideal. He shared that
+        the team is committed to making it more clear when and where these tools
+        should be used, and he encouraged routing and data-fetching library
+        maintainers to integrate these tools in a way that is unintrusive to the
+        application developer. His hopes are that the next generation of tooling
+        will abstract away much of the complexity of these new APIs. You can see
+        his wishlist &amp; roadmap for the docs{' '}
         <Link
           href="https://github.com/reactwg/async-react/discussions/2"
           target="_blank"
