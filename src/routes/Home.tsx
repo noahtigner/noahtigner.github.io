@@ -17,7 +17,6 @@ const FlexContainer = styled(Container)(({ theme }) => ({
 }));
 
 // tell React-Router to preload portfolio images for this page
-// eslint-disable-next-line react-refresh/only-export-components
 export const links: Route.LinksFunction = () => {
   return portfolioItems.map((item) => ({
     rel: 'preload',

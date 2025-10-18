@@ -45,7 +45,18 @@ export default [
       'react/jsx-props-no-spreading': 'off',
       'react-refresh/only-export-components': [
         'warn',
-        { allowConstantExport: true },
+        {
+          allowConstantExport: true,
+          // allow exports used by React Router Framework Mode
+          allowExportNames: [
+            'links',
+            'meta',
+            'loader',
+            'action',
+            'headers',
+            'handle',
+          ],
+        },
       ],
       'prettier/prettier': 'error',
       // Import rules - basic ones that don't require TypeScript resolution
