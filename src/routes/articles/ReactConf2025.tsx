@@ -10,6 +10,7 @@ import {
   H2,
   Subtitle,
   SectionDivider,
+  TalkLink,
 } from '../../components/Articles/ArticleTypography';
 import type { Route } from '../+types/Articles';
 
@@ -37,13 +38,48 @@ const reactConfVideoUrls = [
     title: 'React Conf 2025 Day 2',
     url: 'https://www.youtube.com/embed/p9OcztRyDl0?si=3Xp8W9p7nwnsSrLX&amp',
   },
-];
+] as const;
+
+const frameworkTalks = [
+  {
+    title: 'Build Fast, Deploy Faster — Expo in 2025',
+    url: 'https://www.youtube.com/watch?v=p9OcztRyDl0&t=21350s',
+  },
+  {
+    title: "The React Router's take on RSC",
+    url: 'https://www.youtube.com/watch?v=p9OcztRyDl0&t=22367s',
+  },
+  {
+    title: 'RedwoodSDK: Web Standards Meet Full-Stack React',
+    url: 'https://www.youtube.com/watch?v=p9OcztRyDl0&t=24992s',
+  },
+  {
+    title: 'TanStack Start',
+    url: 'https://www.youtube.com/watch?v=p9OcztRyDl0&t=26065s',
+  },
+  {
+    title: 'React Native, Amplified',
+    url: 'https://www.youtube.com/watch?v=p9OcztRyDl0&t=5737s',
+  },
+  {
+    title: 'React Everywhere: Bringing React Into Native Apps',
+    url: 'https://www.youtube.com/watch?v=p9OcztRyDl0&t=18213s',
+  },
+  {
+    title: 'Modern Emails using React',
+    url: 'https://www.youtube.com/watch?v=zyVRg2QR6LA&t=25521s',
+  },
+  {
+    title: 'How Parcel Bundles React Server Components',
+    url: 'https://www.youtube.com/watch?v=p9OcztRyDl0&t=19538s',
+  },
+] as const;
 
 function SectionIntro() {
   return (
     <>
       <Typography>
-        I was fortunate enough to attend{' '}
+        I was fortunate to attend{' '}
         <Link
           href="https://conf.react.dev/agenda"
           target="_blank"
@@ -59,10 +95,17 @@ function SectionIntro() {
       </Typography>
       <Typography>
         Perhaps the most important announcement for the long-term future of
-        React was the creation of the React Foundation. The foundation will
-        maintain and govern React, React Native, JSX, and several other projects
-        in the ecosystem. This move will bring more voices to the table as React
-        continues to grow and evolve.
+        React was the creation of the{' '}
+        <Link
+          href="https://react.dev/blog/2025/10/07/introducing-the-react-foundation"
+          target="_blank"
+          rel="noopener"
+        >
+          React Foundation
+        </Link>
+        . The foundation will maintain and govern React, React Native, JSX, and
+        several other projects in the ecosystem. This move will bring more
+        voices to the table as React continues to grow and evolve.
       </Typography>
     </>
   );
@@ -73,10 +116,10 @@ function SectionCompiler() {
     <>
       <H3>React Compiler 1.0</H3>
       <Typography>
-        The React Compiler was officially released on day one of the conference,
-        marking a significant milestone for React optimization. The compiler
-        supports React 17, 18, and 19, providing automatic memoization without
-        requiring developers to manually wrap components in{' '}
+        On day one, Lauren Tan announced the official release of React Compiler
+        v1.0, marking a significant milestone for React optimization. The
+        compiler supports React 17, 18, and 19, providing automatic memoization
+        without requiring developers to manually wrap components in{' '}
         <code>React.memo</code> or use <code>useMemo</code> and{' '}
         <code>useCallback</code>. What sets this compiler apart from existing
         linters and build tools is its deep understanding of your codebase,
@@ -117,13 +160,9 @@ function SectionCompiler() {
       <H4>eslint-plugin-react-hooks v7</H4>
       <Typography>
         Alongside the compiler, the React team released version 7 of{' '}
-        <Link
-          href="https://react.dev/blog/2025/10/01/react-19-2#eslint-plugin-react-hooks"
-          target="_blank"
-          rel="noopener"
-        >
-          <em>eslint-plugin-react-hooks</em>
-        </Link>
+        <TalkLink href="https://react.dev/blog/2025/10/01/react-19-2#eslint-plugin-react-hooks">
+          eslint-plugin-react-hooks
+        </TalkLink>
         . One of the new rules identifies components that the compiler cannot
         optimize, and will signal to the compiler that these components should
         be skipped. While the primary focus of these new rules is to assist with
@@ -153,16 +192,12 @@ function SectionReact19_2() {
     <>
       <H3>The Future Is Now: React 19.2</H3>
       <Typography>
-        React 19.2 introduces several exciting new features which will benefit
-        both UX and DevEx. The React team put a strong emphasis on developer
+        React 19.2 introduces several exciting features aimed at improving both
+        UX and DevEx. The React team put a strong emphasis on developer
         experience by introducing{' '}
-        <Link
-          href="https://react.dev/reference/dev-tools/react-performance-tracks"
-          target="_blank"
-          rel="noopener"
-        >
-          <em>React Performance Tracks</em>
-        </Link>
+        <TalkLink href="https://react.dev/reference/dev-tools/react-performance-tracks">
+          React Performance Tracks
+        </TalkLink>
         , an expansion of Chrome DevTools for performance profiling. Coming soon
         is the &quot;Suspense Tab&quot; which will display when and why
         components suspended. The team also maintained the momentum around SSR
@@ -181,9 +216,9 @@ function SectionReact19_2() {
       </Typography>
       <H4 className="code">{'<Activity />'}</H4>
       <Typography>
-        <code>{'<Activity />'}</code> is a new React component that allows
-        developers to declaratively pre-render and prioritize content.
-        Components can be pre-rendered (and hidden) by setting the mode to{' '}
+        <code>The new {'<Activity />'}</code> component allows developers to
+        declaratively pre-render and prioritize content. Components can be
+        pre-rendered (and hidden) by setting the mode to{' '}
         <code>&quot;hidden&quot;</code>, and can then be revealed by changing
         the mode to <code>&quot;visible&quot;</code>.{' '}
         <code>&quot;hidden&quot;</code> hides the children, unmounts effects,
@@ -198,13 +233,12 @@ function SectionReact19_2() {
         <code>&quot;hidden&quot;</code> but with the content still visible.
       </Typography>
       <Typography>
-        One example where this behavior is useful is a modal sitting on top of a
-        busy page. We <em>may</em> still want updates to occur in the
-        background, but render priority should be given to the modal&apos;s
-        content. If the modal is closely associated with an action such as
-        adding an item to a list, we can even pre-render the list with the new
-        item in the background, and then reveal it when the user submits the
-        action and closes the modal.
+        In practice, imagine a modal dialog meant to add items to a list. We{' '}
+        <em>may</em> still want updates to occur in the background, but render
+        priority should be given to the modal&apos;s content. We can even
+        optimistically pre-render the list with the new item in the background,
+        and then reveal it when the user submits the action and closes the
+        modal.
       </Typography>
       <Typography>
         Another use case is for navigation. If there is a strong likelihood of
@@ -215,7 +249,7 @@ function SectionReact19_2() {
       </Typography>
       <H4 className="code">{'useEffectEvent()'}</H4>
       <Typography>
-        The new <code>useEffectEvent()</code> hook allows us to extract
+        The new <code>useEffectEvent</code> hook allows us to extract
         non-reactive logic out of events. Notably, functions within this hook
         see the latest props and state without the need for dependency arrays.
         These events are also stable and should not be included in the
@@ -223,14 +257,12 @@ function SectionReact19_2() {
         the latest version of the eslint plugin described above to avoid
         warnings). The React docs have an excellent deep-dive into this new hook
         titled{' '}
-        <Link
-          href="https://react.dev/learn/separating-events-from-effects#extracting-non-reactive-logic-out-of-effects"
-          target="_blank"
-          rel="noopener"
-        >
-          <em>Extracting non-reactive logic out of Effects</em>
-        </Link>
-        .
+        <TalkLink href="https://react.dev/learn/separating-events-from-effects#extracting-non-reactive-logic-out-of-effects">
+          Extracting non-reactive logic out of Effects
+        </TalkLink>
+        . It has been described as &quot;what <code>useCallback</code> should
+        have been&quot;, but only for events that are dispatched from{' '}
+        <code>useEffect</code> hooks.
       </Typography>
       <H4>Partial Pre-Rendering</H4>
       <Typography>
@@ -302,23 +334,15 @@ function SectionReact19_3() {
         >
           here
         </Link>
-        .{' '}
-        <Link
-          href="https://www.youtube.com/watch?v=zyVRg2QR6LA&t=10907s"
-          target="_blank"
-          rel="noopener"
-        >
-          Async React (pt. I)
-        </Link>{' '}
+        . He covered these topics in{' '}
+        <TalkLink href="https://www.youtube.com/watch?v=zyVRg2QR6LA&t=10907s">
+          Async React (part I)
+        </TalkLink>{' '}
         and{' '}
-        <Link
-          href="https://www.youtube.com/watch?v=p9OcztRyDl0&t=29073s"
-          target="_blank"
-          rel="noopener"
-        >
-          Async React (pt. II)
-        </Link>{' '}
-        are his talks on these features. The codebase for the demo is available{' '}
+        <TalkLink href="https://www.youtube.com/watch?v=p9OcztRyDl0&t=29073s">
+          Async React (part II)
+        </TalkLink>{' '}
+        . The codebase for the demo is available{' '}
         <Link
           href="https://github.com/rickhanlonii/async-react"
           target="_blank"
@@ -345,32 +369,84 @@ function SectionReactNative() {
         article has been on the web-development side of React. However, this is
         an exciting time for mobile and cross-platform developers, and I
         encourage you to watch the{' '}
-        <Link
-          href="https://www.youtube.com/live/p9OcztRyDl0?si=BFKnf9nEOp5rV-Wp&t=2289"
-          target="_blank"
-          rel="noopener"
-        >
+        <TalkLink href="https://www.youtube.com/live/p9OcztRyDl0?si=BFKnf9nEOp5rV-Wp&t=2289">
           React Native Keynote
-        </Link>
+        </TalkLink>
         {', '} and the presentations on{' '}
-        <Link
-          href="https://www.youtube.com/live/p9OcztRyDl0?si=Sji5bJSpCRiE8Avw&t=9040"
-          target="_blank"
-          rel="noopener"
-          fontStyle="italic"
-        >
+        <TalkLink href="https://www.youtube.com/live/p9OcztRyDl0?si=Sji5bJSpCRiE8Avw&t=9040">
           React Strict DOM
-        </Link>
+        </TalkLink>
         {' and '}
+        <TalkLink href="https://www.youtube.com/live/p9OcztRyDl0?si=3Xp8W9p7nwnsSrLX&t=10377">
+          Reimagining Lists in React Native
+        </TalkLink>
+        {'.'}
+      </Typography>
+    </>
+  );
+}
+
+function SectionUX() {
+  return (
+    <>
+      <H3>Putting it all together: User Experience</H3>
+      <Typography>
+        Developers across the React ecosystem continue to raise the bar for UX,
+        and several talks at this year&apos;s conference highlighted exciting
+        new developments. Delba de Oliveira, a DX Engineer at Vercel, showcased
+        how we can effectively leverage <code>{'<ViewTransition />'}</code> in
+        her talk{' '}
+        <TalkLink href="https://www.youtube.com/watch?v=p9OcztRyDl0&t=20640s">
+          Designing Page Transitions
+        </TalkLink>
+        . She walked through the process of implementing and styling smooth page
+        transitions like the &quot;swipe&quot; effect described above. Michał
+        Dudak from MUI shared tricks of the trade for building accessible and
+        user-friendly components in his talk{' '}
+        <TalkLink href="https://www.youtube.com/watch?v=zyVRg2QR6LA&t=23400s">
+          The invisible craft of great UX
+        </TalkLink>
+        . He delved into the nuances of creating components for applications,
+        component libraries, and entire design systems. He also provided an
+        introduction to{' '}
+        <Link href="https://base-ui.com/" target="_blank" rel="noopener">
+          Base UI
+        </Link>
+        , a library of unstyled components from the makers of MUI, Radix, and
+        Floating UI. It offers the flexibility of Radix and shadcn with the
+        robustness and accessibility of Material UI.
+      </Typography>
+    </>
+  );
+}
+
+function SectionFrameworks() {
+  return (
+    <>
+      <H3>What is the framework of the future?</H3>
+      <Typography>
+        Finally, framework authors from across the React ecosystem shared the
+        latest and greatest features coming to their projects. These talks
+        included:
+      </Typography>
+      <ul>
+        {frameworkTalks.map((talk) => (
+          <li key={talk.title}>
+            <TalkLink href={talk.url}>{talk.title}</TalkLink>
+          </li>
+        ))}
+      </ul>
+      <Typography>
+        To wrap things up, Jack Herrington led a{' '}
         <Link
-          href="https://www.youtube.com/live/p9OcztRyDl0?si=3Xp8W9p7nwnsSrLX&t=10377"
+          href="https://www.youtube.com/watch?v=p9OcztRyDl0&t=26812s"
           target="_blank"
           rel="noopener"
-          fontStyle="italic"
         >
-          Reimagining Lists in React Native
-        </Link>
-        {'.'}
+          Q&amp;A panel
+        </Link>{' '}
+        with several of these framework maintainers, discussing the future of
+        frameworks and the challenges they face.
       </Typography>
     </>
   );
@@ -395,10 +471,7 @@ function LogoDivider() {
         component="img"
         src={confImageUrl}
         alt="React Conf Logo"
-        sx={{
-          height: { xs: 60, md: 100 },
-          // width: 'auto',
-        }}
+        sx={{ height: { xs: 60, md: 100 } }}
       />
     </Divider>
   );
@@ -421,7 +494,7 @@ export default function Articles() {
         <LogoDivider />
         <span>
           <H2>2 Keynotes, 25 Talks, and 2 Days of React</H2>
-          <Subtitle>8 minute read &bull; October 12, 2025</Subtitle>
+          <Subtitle>9 minute read &bull; October 12, 2025</Subtitle>
         </span>
         <SectionIntro />
         <SectionDivider />
@@ -430,6 +503,10 @@ export default function Articles() {
         <SectionReact19_2 />
         <SectionDivider />
         <SectionReact19_3 />
+        <SectionDivider />
+        <SectionUX />
+        <SectionDivider />
+        <SectionFrameworks />
         <SectionDivider />
         <SectionReactNative />
         <SectionDivider />

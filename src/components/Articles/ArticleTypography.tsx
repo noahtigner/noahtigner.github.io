@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { Divider, Typography } from '@mui/material';
+import { Divider, Link, Typography } from '@mui/material';
 
 export function H2({ children }: { children: ReactNode }) {
   return (
@@ -25,7 +25,7 @@ export function H4({
   className?: string;
 }) {
   return (
-    <Typography variant="h4" fontSize="1.5rem" className={className}>
+    <Typography variant="h4" fontSize="1.375rem" className={className}>
       {children}
     </Typography>
   );
@@ -41,6 +41,25 @@ export function Subtitle({ children }: { children: ReactNode }) {
 
 export function SectionDivider() {
   return <Divider style={{ marginTop: 16, marginBottom: 16 }} />;
+}
+
+export function TalkLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      target="_blank"
+      rel="noopener"
+      sx={{ fontStyle: 'italic' }}
+    >
+      {children}
+    </Link>
+  );
 }
 
 export function YoutubeIframe({ src, title }: { src: string; title: string }) {
