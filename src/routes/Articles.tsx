@@ -10,7 +10,6 @@ import type { Route } from './+types/Articles';
 const confImageUrl = '/images/react-conf-2025.svg';
 
 // tell React-Router to preload images for this page
-// eslint-disable-next-line react-refresh/only-export-components
 export const links: Route.LinksFunction = () => {
   return [
     {
