@@ -431,6 +431,12 @@ export default function Articles() {
           display: 'flex',
           flexDirection: 'column',
           gap: '1rem',
+          backgroundImage: `url('data:image/svg+xml,<svg fill="%236EDFCA" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="1" height="1" /><rect x="2.5" y="2.5" width="1" height="1" /></svg>')`,
+          backgroundSize: '4px 4px',
+          // backgroundSize: '40px 40px',
+          backgroundRepeat: 'repeat',
+          // imageRendering: 'pixelated',
+          imageRendering: 'crisp-edges',
         }}
       >
         <LogoDivider />
