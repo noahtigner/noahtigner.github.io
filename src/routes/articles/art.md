@@ -2,12 +2,13 @@
 title: Awesome Title
 description: Describe this awesome content
 tags:
-  - "great"
-  - "awesome"
-  - "rad"
+  - 'great'
+  - 'awesome'
+  - 'rad'
 ---
 
 ## 2 Keynotes, 25 Talks, and 2 Days of React
+
 ###### 9 minute read • October 12, 2025
 
 I was fortunate to attend [React Conf 2025](https://conf.react.dev/agenda) in Henderson, NV, and learn from the best in the React community. The conference boasted over 600 attendees and 250k+ livestream viewers. Over the course of 2 days, members of the React team shared their vision for the future of React, and the community gathered to discuss the latest trends in web development.
@@ -44,7 +45,7 @@ Developers now have the ability to pre-render parts of their applications and re
 
 ---
 
-### Coming Soon in React 19.3: `&apos;ViewTransition />`
+### Coming Soon in React 19.3: `<ViewTransition />`
 
 Animations? In React? With the power of `<ViewTransition />`, we can now declaratively manage animations natively in React. Simply wrapping a component in `<ViewTransition />` opts it in to these animations, which can then be triggered by either manually starting the transition via `startTransition()`, deferring values with `useDeferredValue()`, or by hitting a `<Suspense />` boundary. These animations can be styled with CSS, although the docs warn that this API is not intended to replace **all** animations.
 

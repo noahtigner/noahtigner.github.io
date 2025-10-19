@@ -25,26 +25,43 @@ export default defineConfig({
     },
     mdPlugin({
       mode: [Mode.HTML, Mode.REACT],
-      // markdown: (body: string) => {
-      //   // You can customize the markdown-it instance here if needed
-      //   console.log(body);
-      //   return body;
-      // },
       markdownIt: {
         html: true,
         linkify: true,
         typographer: true,
       },
-      markdown: (body: string) => {
-        return body
-          .replaceAll('&lt;', '<')
-          .replaceAll('&gt;', '>')
-          .replaceAll('&amp;', '&')
-          .replaceAll('&quot;', '"')
-          .replaceAll('&#39;', "'")
-          .replaceAll('&nbsp;', ' ');
-      },
     }),
+    {
+      name: 'markdown-entity-decoder',
+      enforce: 'post',
+      transform(code, id) {
+        // Only process markdown files that have been transformed by vite-plugin-markdown
+        if (!id.endsWith('.md')) return null;
+
+        // Fix double-encoded HTML entities in the generated JavaScript code
+        // markdown-it correctly encodes < as &lt;, but somewhere in the pipeline
+        // the & gets encoded again, resulting in &amp;lt; which displays as "&lt;" instead of "<"
+        // We need to decode one level: &amp;lt; -> &lt; (not -> <)
+        const entityMap: Record<string, string> = {
+          '&amp;lt;': '&lt;',
+          '&amp;gt;': '&gt;',
+          '&amp;quot;': '&quot;',
+          '&amp;#39;': '&#39;',
+          '&amp;apos;': '&apos;',
+          '&amp;nbsp;': '&nbsp;',
+        };
+
+        let modifiedCode = code;
+        for (const [entity, char] of Object.entries(entityMap)) {
+          modifiedCode = modifiedCode.replaceAll(entity, char);
+        }
+
+        return {
+          code: modifiedCode,
+          map: null,
+        };
+      },
+    },
   ],
   ssr: {
     noExternal:
