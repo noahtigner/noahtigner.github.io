@@ -5,7 +5,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router';
-import ReactGA from 'react-ga';
 import { Container, ThemeProvider, createTheme } from '@mui/material';
 
 import type { Route } from '../.react-router/types/src/+types/root';
@@ -14,7 +13,7 @@ import Footer from './components/Footer';
 import MetaTags from './components/MetaTags';
 import inlinedStyles from './index.css?inline';
 
-ReactGA.initialize(import.meta.env.VITE_GOOGLE_ANALYTICS_ID);
+const gtmId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 
 const theme = createTheme({
   palette: {
@@ -69,6 +68,7 @@ export function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -79,7 +79,21 @@ export function Layout({ children }: { children: ReactNode }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,300;1,400&display=swap"
         />
+        {/* Google Tag Manager */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});})(window,document,'script','dataLayer','${gtmId}');`,
+          }}
+        />
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(
+            gtmId
+          )}`}
+        />
+        {/* Styles */}
         <style>{inlinedStyles}</style>
+        {/* Favicons */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link
           rel="icon"
@@ -99,6 +113,7 @@ export function Layout({ children }: { children: ReactNode }) {
           href="/apple-touch-icon.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
+        {/* Meta Tags */}
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="theme-color" content="#141414" />
@@ -138,6 +153,13 @@ export function Layout({ children }: { children: ReactNode }) {
             </li>
           </ul>
           <p>Please enable JavaScript to get the most out of this page</p>
+          <iframe
+            title="Google Tag Manager"
+            src={`https://www.googletagmanager.com/ns.html?id=${import.meta.env.VITE_GOOGLE_ANALYTICS_ID}`}
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          ></iframe>
         </noscript>
       </body>
     </html>
