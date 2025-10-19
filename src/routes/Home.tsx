@@ -18,13 +18,25 @@ const FlexContainer = styled(Container)(({ theme }) => ({
 
 // tell React-Router to preload portfolio images for this page
 export const links: Route.LinksFunction = () => {
-  return portfolioItems.map((item) => ({
-    rel: 'preload',
-    href: item.image.lg,
-    as: 'image',
-    type: 'image/webp',
-    fetchPriority: 'low',
-  }));
+  return portfolioItems
+    .map((item) => ({
+      rel: 'preload',
+      href: item.image.lg,
+      as: 'image',
+      type: 'image/webp',
+      fetchPriority: 'high',
+      media: '(min-width: 768px)', // Only preload large on desktop
+    }))
+    .concat(
+      portfolioItems.map((item, i) => ({
+        rel: 'preload',
+        href: item.image.sm, // Small for mobile
+        as: 'image',
+        type: 'image/webp',
+        fetchPriority: i === 0 ? 'high' : 'auto',
+        media: '(max-width: 767px)', // Only preload small on mobile
+      }))
+    );
 };
 
 export default function Home() {
