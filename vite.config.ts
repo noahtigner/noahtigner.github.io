@@ -31,6 +31,35 @@ export default defineConfig({
         typographer: true,
       },
     }),
+    {
+      name: 'markdown-entity-decoder',
+      enforce: 'post',
+      transform(code, id) {
+        // Only process markdown files that have been transformed by vite-plugin-markdown
+        if (!id.endsWith('.md')) return null;
+
+        // Decode HTML entities in the generated JavaScript code
+        // This handles entities that markdown-it creates in code blocks
+        // Replace entities in string literals within the generated code
+        const entityMap: Record<string, string> = {
+          '&amp;lt;': '<',
+          '&amp;gt;': '>',
+          '&amp;quot;': '"',
+          '&amp;#39;': "'",
+          '&amp;apos;': "'",
+        };
+
+        let modifiedCode = code;
+        for (const [entity, char] of Object.entries(entityMap)) {
+          modifiedCode = modifiedCode.replaceAll(entity, char);
+        }
+
+        return {
+          code: modifiedCode,
+          map: null,
+        };
+      },
+    },
   ],
   ssr: {
     noExternal:
