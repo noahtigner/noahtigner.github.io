@@ -31,8 +31,9 @@ function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
             <img
               // sizes are 640x360 and 351x198
               // use srcset for responsive images
-              srcSet={`${image.lg} 640w, ${image.sm} 351w`}
-              src={image.sm}
+              srcSet={`${image.sm} 351w, ${image.lg} 640w`}
+              sizes="(max-width: 767px) 351px, 640px"
+              src={image.lg}
               alt={image.alt}
               style={{
                 width: '100%',
@@ -104,8 +105,15 @@ function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
 function Portfolio() {
   return (
     <Grid container spacing={2}>
-      {portfolioItems.slice(0, 3).map(({ title, ...props }) => (
-        <Grid key={title} size={{ xs: 12, sm: 6, md: 4 }}>
+      {portfolioItems.slice(0, 3).map(({ title, ...props }, i) => (
+        <Grid
+          key={title}
+          size={{ xs: 12, sm: 6, md: 4 }}
+          sx={{
+            animation: `fadeIn 250ms ease-out`,
+            animationDelay: `${i * 100}ms`,
+          }}
+        >
           <ItemCard title={title} {...props} />
         </Grid>
       ))}
