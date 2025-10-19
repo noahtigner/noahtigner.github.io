@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
 import { useLocation } from 'react-router';
-import ReactGA from 'react-ga';
 
 export default function MetaTags({
   title,
@@ -9,13 +7,7 @@ export default function MetaTags({
   title: string;
   description: string;
 }) {
-  const { pathname, search } = useLocation();
-
-  // Google Analytics
-  useEffect(() => {
-    ReactGA.pageview('https://noahtigner.com' + pathname + search);
-  }, [pathname, search]);
-
+  const { pathname } = useLocation();
   return (
     <>
       <title>{title}</title>
