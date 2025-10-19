@@ -7,3 +7,10 @@ interface ImportMetaEnv extends globalThis.Env {}
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+declare module '*.md' {
+  import { VFC } from 'react';
+
+  const ReactComponent: VFC;
+  export { ReactComponent };
+}

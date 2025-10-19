@@ -27,13 +27,3 @@ body {
     opacity: 1;
   }
 }
-
-code,
-.code {
-  background-color: #202020;
-  color: #f8fbf8ff;
-  width: fit-content;
-  padding: 2px 4px;
-  border-radius: 8px;
-  white-space: nowrap;
-}
