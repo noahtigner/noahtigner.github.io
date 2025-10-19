@@ -13,6 +13,8 @@ import {
   TalkLink,
 } from '../../components/Articles/ArticleTypography';
 import type { Route } from '../+types/Articles';
+import { ReactComponent, html } from './art.md';
+// import { raw } from './art.md';
 
 const confImageUrl = '/images/react-conf-2025.svg';
 
@@ -484,7 +486,8 @@ export default function Articles() {
         title="React Conf 2025 Highlights"
         description="React Conf 2025 Highlights by Noah Tigner"
       />
-      <span
+      <section
+        className="article-container"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -492,6 +495,7 @@ export default function Articles() {
         }}
       >
         <LogoDivider />
+        <ReactComponent />
         <span>
           <H2>2 Keynotes, 25 Talks, and 2 Days of React</H2>
           <Subtitle>9 minute read &bull; October 12, 2025</Subtitle>
@@ -514,7 +518,7 @@ export default function Articles() {
         <Link component={RouterLink} to={paths.articles}>
           &lt; All Articles
         </Link>
-      </span>
+      </section>
     </>
   );
 }
