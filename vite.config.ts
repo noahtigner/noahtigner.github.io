@@ -27,8 +27,13 @@ const entityMap: Record<string, string> = {
   '&nbsp;': ' ',
 };
 
-// Create a regex to match all entities at once
-const entityRegex = new RegExp(Object.keys(entityMap).join('|'), 'g');
+// Create a regex to match all entities at once, escaping special regex characters
+const entityRegex = new RegExp(
+  Object.keys(entityMap)
+    .map((entity) => entity.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    .join('|'),
+  'g'
+);
 
 // https://vitejs.dev/config/
 export default defineConfig({
