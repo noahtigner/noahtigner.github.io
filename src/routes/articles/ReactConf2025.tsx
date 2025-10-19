@@ -13,8 +13,7 @@ import {
   TalkLink,
 } from '../../components/Articles/ArticleTypography';
 import type { Route } from '../+types/Articles';
-import { ReactComponent, html } from './art.md';
-// import { raw } from './art.md';
+import { ReactComponent } from './art.md';
 
 const confImageUrl = '/images/react-conf-2025.svg';
 

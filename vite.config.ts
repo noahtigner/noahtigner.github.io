@@ -4,6 +4,7 @@ import { reactRouter } from '@react-router/dev/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import svgr from 'vite-plugin-svgr';
 import { plugin as mdPlugin, Mode } from 'vite-plugin-markdown';
+import MarkdownIt from 'markdown-it';
 import validateEnvVars from 'validate-env-vars';
 
 import envConfigSchema from './.env.config';
@@ -25,24 +26,30 @@ export default defineConfig({
     },
     mdPlugin({
       mode: [Mode.HTML, Mode.REACT],
-      // markdown: (body: string) => {
-      //   // You can customize the markdown-it instance here if needed
-      //   console.log(body);
-      //   return body;
-      // },
-      markdownIt: {
-        html: true,
-        linkify: true,
-        typographer: true,
-      },
       markdown: (body: string) => {
-        return body
+        // Use markdown-it to render the markdown
+        const md = new MarkdownIt({
+          html: true,
+          linkify: true,
+          typographer: true,
+        });
+
+        // Render the markdown to HTML
+        let html = md.render(body);
+
+        // Decode HTML entities in the rendered output
+        // This allows characters like < and > to be properly rendered in JSX
+        // IMPORTANT: Replace &amp; FIRST, otherwise we'll double-decode
+        html = html
+          .replaceAll('&amp;', '&')
           .replaceAll('&lt;', '<')
           .replaceAll('&gt;', '>')
-          .replaceAll('&amp;', '&')
           .replaceAll('&quot;', '"')
           .replaceAll('&#39;', "'")
+          .replaceAll('&apos;', "'")
           .replaceAll('&nbsp;', ' ');
+
+        return html;
       },
     }),
   ],
