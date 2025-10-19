@@ -9,6 +9,27 @@ import validateEnvVars from 'validate-env-vars';
 
 import envConfigSchema from './.env.config';
 
+// Create a single MarkdownIt instance to reuse across all markdown files
+const md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
+});
+
+// Map of HTML entities to their decoded characters
+const entityMap: Record<string, string> = {
+  '&amp;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&#39;': "'",
+  '&apos;': "'",
+  '&nbsp;': ' ',
+};
+
+// Create a regex to match all entities at once
+const entityRegex = new RegExp(Object.keys(entityMap).join('|'), 'g');
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -27,27 +48,12 @@ export default defineConfig({
     mdPlugin({
       mode: [Mode.HTML, Mode.REACT],
       markdown: (body: string) => {
-        // Use markdown-it to render the markdown
-        const md = new MarkdownIt({
-          html: true,
-          linkify: true,
-          typographer: true,
-        });
-
         // Render the markdown to HTML
         let html = md.render(body);
 
-        // Decode HTML entities in the rendered output
+        // Decode HTML entities in the rendered output using a single replace operation
         // This allows characters like < and > to be properly rendered in JSX
-        // IMPORTANT: Replace &amp; FIRST, otherwise we'll double-decode
-        html = html
-          .replaceAll('&amp;', '&')
-          .replaceAll('&lt;', '<')
-          .replaceAll('&gt;', '>')
-          .replaceAll('&quot;', '"')
-          .replaceAll('&#39;', "'")
-          .replaceAll('&apos;', "'")
-          .replaceAll('&nbsp;', ' ');
+        html = html.replace(entityRegex, (match) => entityMap[match]);
 
         return html;
       },
