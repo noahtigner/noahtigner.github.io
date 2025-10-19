@@ -38,15 +38,17 @@ export default defineConfig({
         // Only process markdown files that have been transformed by vite-plugin-markdown
         if (!id.endsWith('.md')) return null;
 
-        // Decode HTML entities in the generated JavaScript code
-        // This handles entities that markdown-it creates in code blocks
-        // Replace entities in string literals within the generated code
+        // Fix double-encoded HTML entities in the generated JavaScript code
+        // markdown-it correctly encodes < as &lt;, but somewhere in the pipeline
+        // the & gets encoded again, resulting in &amp;lt; which displays as "&lt;" instead of "<"
+        // We need to decode one level: &amp;lt; -> &lt; (not -> <)
         const entityMap: Record<string, string> = {
-          '&amp;lt;': '<',
-          '&amp;gt;': '>',
-          '&amp;quot;': '"',
-          '&amp;#39;': "'",
-          '&amp;apos;': "'",
+          '&amp;lt;': '&lt;',
+          '&amp;gt;': '&gt;',
+          '&amp;quot;': '&quot;',
+          '&amp;#39;': '&#39;',
+          '&amp;apos;': '&apos;',
+          '&amp;nbsp;': '&nbsp;',
         };
 
         let modifiedCode = code;
