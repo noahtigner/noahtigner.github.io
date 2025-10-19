@@ -24,7 +24,7 @@ export default defineConfig({
         }),
     },
     mdPlugin({
-      mode: [Mode.HTML, Mode.REACT],
+      mode: [Mode.REACT],
       markdownIt: {
         html: true,
         linkify: true,

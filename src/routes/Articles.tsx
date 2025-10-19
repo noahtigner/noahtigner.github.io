@@ -6,6 +6,7 @@ import MetaTags from '../components/MetaTags';
 import paths from '../paths';
 import ArticleCard from '../components/Articles/ArticleCard';
 import type { Route } from './+types/Articles';
+import articleAttributes from '../assets/content/articles';
 
 const confImageUrl = '/images/react-conf-2025.svg';
 
@@ -37,12 +38,17 @@ export default function Articles() {
         justifyContent={'center'}
       >
         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-          <ArticleCard
-            title="React Conf 2025 Highlights"
-            description="A summary of my key takeaways from React Conf 2025. Topics include the new React Compiler, React 19.2, Activity, ViewTransitions, and more."
-            to={paths.articleReactConf2025}
-            image={confImageUrl}
-          />
+          {Object.entries(articleAttributes).map(([key, attrs]) => {
+            return (
+              <ArticleCard
+                key={key}
+                title={attrs.title}
+                description={attrs.description}
+                to={attrs.path}
+                image={attrs.image}
+              />
+            );
+          })}
         </Grid>
       </Grid>
       <Link
