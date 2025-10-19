@@ -1,13 +1,11 @@
-import { lazy, Suspense } from 'react';
 import { Link as RouterLink } from 'react-router';
-import { Container, Link, Skeleton, styled } from '@mui/material';
+import { Container, Link, styled } from '@mui/material';
 import Portfolio from '../components/Portfolio';
 import DividerWithText from '../components/DividerWithText';
+import Experience from '../components/Experience';
 import paths from '../paths';
 import portfolioItems from '../assets/data/portfolioItems.json';
 import type { Route } from '../+types/root';
-
-const Experience = lazy(() => import('../components/Experience'));
 
 const FlexContainer = styled(Container)(({ theme }) => ({
   marginBottom: 0,
@@ -47,9 +45,7 @@ export default function Home() {
       <DividerWithText>A Few Things I&apos;ve Built</DividerWithText>
       <Portfolio />
       <DividerWithText>Experience</DividerWithText>
-      <Suspense fallback={<Skeleton variant="rectangular" height={400} />}>
-        <Experience />
-      </Suspense>
+      <Experience />
       <Link component={RouterLink} to={paths.articles}>
         Articles
       </Link>
