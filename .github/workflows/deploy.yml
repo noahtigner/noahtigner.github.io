@@ -21,6 +21,11 @@ concurrency:
   group: 'pages'
   cancel-in-progress: true
 
+env:
+  CI: true
+  VITE_GITHUB_USERNAME: ${{ vars.VITE_GITHUB_USERNAME }}
+  VITE_GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
+
 jobs:
   # Single deploy job since we're just deploying
   deploy:
