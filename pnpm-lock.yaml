@@ -102,9 +102,6 @@ importers:
       jsdom:
         specifier: ^22.1.0
         version: 22.1.0
-      lightningcss:
-        specifier: ^1.30.2
-        version: 1.30.2
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
@@ -4822,7 +4819,8 @@ snapshots:
 
   destroy@1.2.0: {}
 
-  detect-libc@2.1.2: {}
+  detect-libc@2.1.2:
+    optional: true
 
   doctrine@2.1.0:
     dependencies:
@@ -5759,6 +5757,7 @@ snapshots:
       lightningcss-linux-x64-musl: 1.30.2
       lightningcss-win32-arm64-msvc: 1.30.2
       lightningcss-win32-x64-msvc: 1.30.2
+    optional: true
 
   lines-and-columns@1.2.4: {}
 

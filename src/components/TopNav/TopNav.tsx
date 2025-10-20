@@ -1,14 +1,5 @@
-import { useCallback, useState, type MouseEvent } from 'react';
-import {
-  Box,
-  Button,
-  Stack,
-  Typography,
-  styled,
-  useTheme,
-} from '@mui/material';
-import ContactDropdownMUI from './ContactDropdownMUI';
-import ContactDropdownBUI from './ContactMenuBaseUI';
+import { Box, Stack, Typography, styled, useTheme } from '@mui/material';
+import ContactMenu from './ContactMenu';
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   color: 'inherit',
@@ -24,15 +15,6 @@ function Heading({ children }: { children: string }) {
 
 export default function TopNav() {
   const theme = useTheme();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  }, []);
-
-  const handleClose = useCallback(() => {
-    setAnchorEl(null);
-  }, []);
 
   return (
     <Box
@@ -55,29 +37,7 @@ export default function TopNav() {
         spacing={2}
       >
         <Heading>Hey, I&apos;m Noah Tigner</Heading>
-        <span
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 8,
-          }}
-        >
-          <Button
-            id="contact-button"
-            variant="outlined"
-            color="primary"
-            size="small"
-            aria-controls={anchorEl ? 'contact-menu' : undefined}
-            aria-haspopup
-            aria-expanded={!!anchorEl}
-            onClick={handleClick}
-          >
-            Get In Touch
-          </Button>
-          <ContactDropdownBUI />
-        </span>
-        <ContactDropdownMUI anchorEl={anchorEl} onClose={handleClose} />
+        <ContactMenu />
       </Stack>
     </Box>
   );
