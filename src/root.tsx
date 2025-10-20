@@ -1,6 +1,7 @@
 import { StrictMode, type ReactNode } from 'react';
 import {
   isRouteErrorResponse,
+  Links,
   Outlet,
   Scripts,
   ScrollRestoration,
@@ -96,6 +97,8 @@ export function Layout({ children }: { children: ReactNode }) {
         />
         {/* Styles */}
         <style>{inlinedStyles}</style>
+        {/* React Router Links - injects CSS and other asset links */}
+        <Links />
         {/* Favicons */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link
