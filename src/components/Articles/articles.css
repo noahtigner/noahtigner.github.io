@@ -1,7 +1,7 @@
 code,
 .code {
-  background-color: #202020;
-  color: #f8fbf8ff;
+  background-color: var(--color-paper);
+  color: var(--color-text-primary);
   width: fit-content;
   padding: 2px 4px;
   border-radius: 8px;
@@ -25,19 +25,19 @@ code,
   h6 {
     font-weight: 300;
     font-size: 1rem;
-    color: #d2d2d2be;
+    color: var(--color-border);
     margin: 0;
     margin-bottom: 2rem;
   }
   hr {
     border: none;
     height: 1px;
-    background-color: #2c2c2c;
+    background-color: var(--color-divider);
     margin: 2rem 0;
   }
   a {
     color: inherit;
-    text-decoration-color: rgba(248, 251, 248, 0.4);
+    text-decoration-color: var(--color-ripple);
     text-decoration-line: underline;
     text-decoration-style: solid;
     text-decoration-thickness: auto;

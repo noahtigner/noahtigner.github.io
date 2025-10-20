@@ -1,44 +1,24 @@
-import { Box, Stack, Typography, styled, useTheme } from '@mui/material';
 import ContactMenu from './ContactMenu';
+import styled from '@emotion/styled';
 
-const StyledTypography = styled(Typography)(({ theme }) => ({
-  color: 'inherit',
-  fontSize: '1.25rem',
-  [theme.breakpoints.down('md')]: {
-    fontSize: '1rem',
-  },
-}));
-
-function Heading({ children }: { children: string }) {
-  return <StyledTypography variant="h1">{children}</StyledTypography>;
-}
+const StyledNav = styled.nav`
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--color-black);
+  border-bottom: 1px solid var(--color-divider);
+  box-shadow: var(--shadow-1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+`;
 
 export default function TopNav() {
-  const theme = useTheme();
-
   return (
-    <Box
-      component="nav"
-      sx={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 10,
-        backgroundColor: theme.palette.background.default,
-        borderBottom: `1px solid ${theme.palette.divider}`,
-        paddingX: theme.spacing(2),
-        paddingY: theme.spacing(1.5),
-        boxShadow: theme.shadows[1],
-      }}
-    >
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        spacing={2}
-      >
-        <Heading>Hey, I&apos;m Noah Tigner</Heading>
-        <ContactMenu />
-      </Stack>
-    </Box>
+    <StyledNav>
+      <h1>Hey, I&apos;m Noah Tigner</h1>
+      <ContactMenu />
+    </StyledNav>
   );
 }
