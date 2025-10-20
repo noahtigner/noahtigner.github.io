@@ -7,7 +7,8 @@ import {
   styled,
   useTheme,
 } from '@mui/material';
-import ContactDropdown from './ContactDropdown';
+import ContactDropdownMUI from './ContactDropdownMUI';
+import ContactDropdownBUI from './ContactMenuBaseUI';
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   color: 'inherit',
@@ -54,19 +55,29 @@ export default function TopNav() {
         spacing={2}
       >
         <Heading>Hey, I&apos;m Noah Tigner</Heading>
-        <Button
-          id="contact-button"
-          variant="outlined"
-          color="primary"
-          size="small"
-          aria-controls={anchorEl ? 'contact-menu' : undefined}
-          aria-haspopup
-          aria-expanded={!!anchorEl}
-          onClick={handleClick}
+        <span
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 8,
+          }}
         >
-          Get In Touch
-        </Button>
-        <ContactDropdown anchorEl={anchorEl} onClose={handleClose} />
+          <Button
+            id="contact-button"
+            variant="outlined"
+            color="primary"
+            size="small"
+            aria-controls={anchorEl ? 'contact-menu' : undefined}
+            aria-haspopup
+            aria-expanded={!!anchorEl}
+            onClick={handleClick}
+          >
+            Get In Touch
+          </Button>
+          <ContactDropdownBUI />
+        </span>
+        <ContactDropdownMUI anchorEl={anchorEl} onClose={handleClose} />
       </Stack>
     </Box>
   );
