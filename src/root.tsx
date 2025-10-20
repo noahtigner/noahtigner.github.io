@@ -97,7 +97,7 @@ export function Layout({ children }: { children: ReactNode }) {
         />
         {/* Styles */}
         <style>{inlinedStyles}</style>
-        {/* React Router Links - injects CSS and other asset links */}
+        {/* React Router Links - injects CSS modules, stylesheets, and other bundled asset links */}
         <Links />
         {/* Favicons */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
