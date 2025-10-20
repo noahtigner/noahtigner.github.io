@@ -8,6 +8,11 @@ on:
   pull_request:
     branches: ['*']
 
+env:
+  CI: true
+  VITE_GITHUB_USERNAME: ${{ vars.VITE_GITHUB_USERNAME }}
+  VITE_GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
+
 jobs:
   quality_checks:
     runs-on: ubuntu-latest
