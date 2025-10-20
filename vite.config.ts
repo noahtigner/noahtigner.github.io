@@ -21,6 +21,7 @@ export default defineConfig({
           schema: envConfigSchema,
           logVars: false,
           exitOnError: true,
+          envPath: '/dev/null',
         }),
     },
     mdPlugin({
