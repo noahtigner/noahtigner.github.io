@@ -69,4 +69,18 @@ export default defineConfig({
         ? ['@mui/material', '@mui/icons-material']
         : [],
   },
+  server: {
+    open: true,
+    host: true,
+  },
+  preview: {
+    open: true,
+    host: true,
+  },
+  build: {
+    cssMinify: 'lightningcss',
+  },
+  css: {
+    transformer: 'lightningcss',
+  },
 });

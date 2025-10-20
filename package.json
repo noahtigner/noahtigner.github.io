@@ -21,6 +21,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@base-ui-components/react": "1.0.0-beta.4",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.4",
@@ -53,6 +54,7 @@
     "eslint-plugin-react-refresh": "^0.4.23",
     "husky": "^9.1.7",
     "jsdom": "^22.1.0",
+    "lightningcss": "^1.30.2",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.0",

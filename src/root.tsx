@@ -209,6 +209,7 @@ export default function App() {
             display: 'flex',
             flexDirection: 'column',
           }}
+          className="root"
         >
           <span style={{ flexGrow: 1 }}>
             <TopNav />
