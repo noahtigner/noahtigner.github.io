@@ -21,6 +21,7 @@ export default defineConfig({
           schema: envConfigSchema,
           logVars: false,
           exitOnError: true,
+          envPath: '/dev/null',
         }),
     },
     mdPlugin({
@@ -76,11 +77,5 @@ export default defineConfig({
   preview: {
     open: true,
     host: true,
-  },
-  build: {
-    cssMinify: 'lightningcss',
-  },
-  css: {
-    transformer: 'lightningcss',
   },
 });
