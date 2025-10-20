@@ -12,6 +12,9 @@ import TopNav from './components/TopNav';
 import Footer from './components/Footer';
 import MetaTags from './components/MetaTags';
 import inlinedStyles from './index.css?inline';
+// Import CSS modules to ensure they're included in the build
+import './components/Button.module.css';
+import './components/TopNav/ContactMenu.module.css';
 
 const gtmId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 

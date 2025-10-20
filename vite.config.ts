@@ -81,6 +81,11 @@ export default defineConfig({
     cssMinify: 'lightningcss',
   },
   css: {
-    transformer: 'lightningcss',
+    lightningcss: {
+      cssModules: {
+        // Enable CSS modules transformation with descriptive pattern
+        pattern: '[name]_[local]_[hash]',
+      },
+    },
   },
 });

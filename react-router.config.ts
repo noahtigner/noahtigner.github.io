@@ -2,7 +2,7 @@ import type { Config } from '@react-router/dev/config';
 import paths from './src/paths';
 
 export default {
-  ssr: false,
+  ssr: true,
   appDirectory: 'src',
   buildDirectory: 'dist',
   async prerender() {
