@@ -105,15 +105,8 @@ function ItemCard({ title, description, image, links, tools }: ItemCardProps) {
 function Portfolio() {
   return (
     <Grid container spacing={2}>
-      {portfolioItems.slice(0, 3).map(({ title, ...props }, i) => (
-        <Grid
-          key={title}
-          size={{ xs: 12, sm: 6, md: 4 }}
-          sx={{
-            animation: `fadeIn 250ms ease-out`,
-            animationDelay: `${i * 100}ms`,
-          }}
-        >
+      {portfolioItems.slice(0, 3).map(({ title, ...props }) => (
+        <Grid key={title} size={{ xs: 12, sm: 6, md: 4 }}>
           <ItemCard title={title} {...props} />
         </Grid>
       ))}

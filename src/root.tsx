@@ -8,7 +8,7 @@ import {
 import { Container, ThemeProvider, createTheme } from '@mui/material';
 
 import type { Route } from '../.react-router/types/src/+types/root';
-import TopNav from './components/TopNav';
+import TopNav from './components/TopNav/TopNav';
 import Footer from './components/Footer';
 import MetaTags from './components/MetaTags';
 import inlinedStyles from './index.css?inline';
