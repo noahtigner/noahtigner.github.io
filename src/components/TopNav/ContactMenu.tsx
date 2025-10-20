@@ -24,24 +24,14 @@ const StyledMenuPopup = styled(Menu.Popup)`
   transition:
     transform 150ms,
     opacity 150ms;
+  outline: 1px solid var(--color-gray-300);
+  outline-offset: -1px;
   filter: drop-shadow(0 0 5rem var(--color-paper));
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
     transform: scale(0.9);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
   }
 `;
 
