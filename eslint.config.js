@@ -25,7 +25,7 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   reactPlugin.configs.flat.recommended,
-  ...reactHooksPlugin.configs['recommended-latest'],
+  reactHooksPlugin.configs.flat['recommended-latest'],
   ...compat.extends('plugin:jsx-a11y/recommended'),
   prettierConfig,
   {

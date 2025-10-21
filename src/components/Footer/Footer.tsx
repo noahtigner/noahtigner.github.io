@@ -1,77 +1,155 @@
-import {
-  Stack,
-  Box,
-  useTheme,
-  Button,
-  Typography,
-  styled,
-  useMediaQuery,
-  Tooltip,
-} from '@mui/material';
-import contactItems from '../../assets/data/contactItems.json';
-import ContactIcon from '../ContactIcon';
+import { Tooltip } from '@base-ui-components/react/tooltip';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
-const FooterWrapper = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
-  borderTop: `1px solid ${theme.palette.divider}`,
-  marginTop: theme.spacing(4),
-  marginLeft: theme.spacing(4),
-  marginRight: theme.spacing(4),
-  paddingTop: theme.spacing(2),
-  paddingBottom: theme.spacing(2),
-}));
+import contactItems from '../../assets/data/contactItems.json';
+import { buttonStyles } from '../button.styles';
+import ContactIcon from '../ContactIcon';
+import { ArrowSvg } from '../ChevronIcons';
+
+const aStyles = css`
+  text-decoration: none;
+  padding: 2px;
+  cursor: pointer !important;
+`;
+
+const StyledIconButton = styled.a(buttonStyles, aStyles);
+
+const StyledTooltipPopup = styled(Tooltip.Popup)`
+  box-sizing: border-box;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  background-color: canvas;
+  transform-origin: var(--transform-origin);
+  transition:
+    transform 150ms,
+    opacity 150ms;
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  &[data-instant] {
+    transition-duration: 0ms;
+  }
+
+  @media (prefers-color-scheme: light) {
+    outline: 1px solid var(--color-gray-200);
+    box-shadow:
+      0 10px 15px -3px var(--color-gray-200),
+      0 4px 6px -4px var(--color-gray-200);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    outline: 1px solid var(--color-gray-300);
+    outline-offset: -1px;
+  }
+`;
+
+const StyledTooltipArrow = styled(Tooltip.Arrow)`
+  display: flex;
+
+  &[data-side='top'] {
+    bottom: -8px;
+    rotate: 180deg;
+  }
+
+  &[data-side='bottom'] {
+    top: -8px;
+    rotate: 0deg;
+  }
+
+  &[data-side='left'] {
+    right: -13px;
+    rotate: 90deg;
+  }
+
+  &[data-side='right'] {
+    left: -13px;
+    rotate: -90deg;
+  }
+`;
+
+const StyledP = styled.p`
+  color: var(--color-text-secondary);
+  /* hide on small screens */
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
+
+const StyledIconsContainer = styled.span`
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  /* only flexGrow on small screens */
+  flex-grow: 0;
+  @media (max-width: 600px) {
+    flex-grow: 1;
+  }
+`;
+
+const StyledFooter = styled.footer`
+  background-color: var(--color-black);
+  border-top: 1px solid var(--color-divider);
+  margin-top: 32px;
+  margin-left: 32px;
+  margin-right: 32px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+`;
 
 function Footer() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
   return (
-    <FooterWrapper as="footer">
-      <Stack
-        direction="row"
-        justifyContent={{ xs: 'center', sm: 'space-between' }}
-        alignItems="center"
-        spacing={1}
-      >
-        {!isMobile && (
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            fontSize={{ xs: '12px', sm: '14px' }}
-          >
-            Built with TypeScript & React
-          </Typography>
-        )}
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          spacing={{ xs: 4, sm: 1 }}
+    <Tooltip.Provider>
+      <StyledFooter>
+        <span
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '16px',
+          }}
         >
-          {contactItems.map(({ label, url }) => (
-            <Tooltip key={url} title={label} arrow>
-              <Button
-                aria-label={label}
-                color="primary"
-                variant="outlined"
-                component="a"
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{
-                  padding: theme.spacing(0.5),
-                  margin: 0,
-                  minWidth: 0,
-                  transition: 'transform 0.2s ease-in-out',
-                  '&:hover': { transform: 'scale(1.075)' },
-                }}
-              >
-                <ContactIcon label={label} />
-              </Button>
-            </Tooltip>
-          ))}
-        </Stack>
-      </Stack>
-    </FooterWrapper>
+          <StyledP>Built with TypeScript & React</StyledP>
+          <StyledIconsContainer>
+            {contactItems.map(({ label, url }) => (
+              <Tooltip.Root key={url}>
+                <Tooltip.Trigger
+                  aria-label={label}
+                  render={
+                    <StyledIconButton
+                      aria-label={label}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ContactIcon label={label} />
+                    </StyledIconButton>
+                  }
+                />
+                <Tooltip.Portal>
+                  <Tooltip.Positioner sideOffset={10}>
+                    <StyledTooltipPopup>
+                      <StyledTooltipArrow>
+                        <ArrowSvg />
+                      </StyledTooltipArrow>
+                      {label}
+                    </StyledTooltipPopup>
+                  </Tooltip.Positioner>
+                </Tooltip.Portal>
+              </Tooltip.Root>
+            ))}
+          </StyledIconsContainer>
+        </span>
+      </StyledFooter>
+    </Tooltip.Provider>
   );
 }
 

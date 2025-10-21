@@ -5,7 +5,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router';
-import { Container, ThemeProvider, createTheme } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material';
 
 import type { Route } from '../.react-router/types/src/+types/root';
 import TopNav from './components/TopNav/TopNav';
@@ -202,24 +202,35 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 export default function App() {
   return (
     <StrictMode>
-      <ThemeProvider theme={theme}>
-        <span
-          style={{
-            minHeight: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-          className="root"
-        >
-          <span style={{ flexGrow: 1 }}>
-            <TopNav />
-            <Container maxWidth="lg" component="main" sx={{ mt: 4 }}>
+      <span
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+        className="root"
+      >
+        <span style={{ flexGrow: 1 }}>
+          <TopNav />
+          <main
+            style={{
+              boxSizing: 'border-box',
+              width: '100%',
+              maxWidth: 'var(--size-lg)',
+              marginTop: '32px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              paddingLeft: '16px',
+              paddingRight: '16px',
+            }}
+          >
+            <ThemeProvider theme={theme}>
               <Outlet />
-            </Container>
-          </span>
-          <Footer />
+            </ThemeProvider>
+          </main>
         </span>
-      </ThemeProvider>
+        <Footer />
+      </span>
     </StrictMode>
   );
 }

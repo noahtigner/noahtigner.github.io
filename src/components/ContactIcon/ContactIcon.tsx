@@ -1,4 +1,3 @@
-import { Icon, styled } from '@mui/material';
 import {
   GitHub,
   YouTube,
@@ -7,6 +6,7 @@ import {
   InsertDriveFileOutlined,
   Article,
 } from '@mui/icons-material';
+import styled from '@emotion/styled';
 
 import NpmSvg from '../../assets/icons/npm.svg?react';
 import contactItems from '../../assets/data/contactItems.json';
@@ -15,27 +15,28 @@ interface ContactIconProps {
   label: (typeof contactItems)[number]['label'];
 }
 
-const StyledIcon = styled(Icon)(({ theme }) => ({
-  color: `${theme.palette.primary.main} !important`,
-  fontSize: '20px',
-}));
+const StyledSvg = styled.svg`
+  fill: var(--color-text-primary) !important;
+  width: 20px;
+  height: 20px;
+`;
 
 function ContactIcon({ label }: ContactIconProps) {
   switch (label) {
     case 'LinkedIn':
-      return <StyledIcon as={LinkedIn} />;
+      return <StyledSvg as={LinkedIn} />;
     case 'Email':
-      return <StyledIcon as={EmailOutlined} />;
+      return <StyledSvg as={EmailOutlined} />;
     case 'GitHub':
-      return <StyledIcon as={GitHub} />;
+      return <StyledSvg as={GitHub} />;
     case 'YouTube':
-      return <StyledIcon as={YouTube} />;
+      return <StyledSvg as={YouTube} />;
     case 'Résumé':
-      return <StyledIcon as={InsertDriveFileOutlined} />;
+      return <StyledSvg as={InsertDriveFileOutlined} />;
     case 'JavaScript':
-      return <StyledIcon as={NpmSvg} />;
+      return <StyledSvg as={NpmSvg} />;
     case 'Article':
-      return <StyledIcon as={Article} />;
+      return <StyledSvg as={Article} />;
     default:
       console.error(`Unknown contact item label: ${label}`);
       return null;
