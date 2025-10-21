@@ -1,8 +1,6 @@
-import { Link as RouterLink } from 'react-router';
-import { Container, Link, styled } from '@mui/material';
+import { Container, styled } from '@mui/material';
 import Portfolio from '../components/Portfolio';
 import Experience from '../components/Experience';
-import paths from '../paths';
 import portfolioItems from '../assets/data/portfolioItems.json';
 import type { Route } from '../+types/root';
 import Divider from '../components/Divider';
@@ -46,9 +44,6 @@ export default function Home() {
       <Portfolio />
       <Divider>Experience</Divider>
       <Experience />
-      <Link component={RouterLink} to={paths.articles}>
-        Articles
-      </Link>
     </FlexContainer>
   );
 }

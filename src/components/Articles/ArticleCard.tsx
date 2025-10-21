@@ -1,7 +1,7 @@
-import { Link as RouterLink } from 'react-router';
-import { useTheme, Typography, Chip } from '@mui/material';
-import { StyledCard, StyledCardContent, StyledCardActions } from '../Card';
+import { Card } from '../Card';
 import ContactIcon from '../ContactIcon';
+import { ButtonLinkInternal } from '../Button';
+import { Link } from 'react-router';
 
 export default function ArticleCard({
   title,
@@ -14,50 +14,37 @@ export default function ArticleCard({
   to: string;
   image: string;
 }) {
-  const theme = useTheme();
-
   return (
-    <StyledCard variant="outlined">
-      <StyledCardContent>
-        <a aria-label={description} href={to}>
+    <Card>
+      <span>
+        <Link aria-label={description} to={to}>
           <img
             src={image}
             alt={title}
             style={{
-              borderRadius: theme.shape.borderRadius,
+              borderRadius: 'var(--border-radius)',
               width: '100%',
             }}
           />
-        </a>
-        <Typography
-          sx={{
+        </Link>
+        <h3
+          style={{
             fontSize: '1.25rem',
-            marginBottom: theme.spacing(0.5),
+            lineHeight: 1.25,
+            margin: '0',
+            marginBottom: '4px',
           }}
-          variant="h3"
         >
           {title}
-        </Typography>
-        <Typography variant="body1" sx={{ fontSize: '1rem' }}>
-          {description}
-        </Typography>
-      </StyledCardContent>
-      <StyledCardActions disableSpacing>
-        <Chip
-          label="Read Article"
-          size="small"
-          color="primary"
-          variant="outlined"
-          component={RouterLink}
-          to={to}
-          clickable
-          sx={{
-            padding: theme.spacing(0.5),
-            flexGrow: 1,
-          }}
-          icon={<ContactIcon label="Article" />}
-        />
-      </StyledCardActions>
-    </StyledCard>
+        </h3>
+        <p>{description}</p>
+      </span>
+      <ButtonLinkInternal
+        to={to}
+        style={{ backgroundColor: 'var(--color-paper)' }}
+      >
+        <ContactIcon label="Article" /> Read Article
+      </ButtonLinkInternal>
+    </Card>
   );
 }
