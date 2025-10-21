@@ -1,11 +1,11 @@
 import { Link as RouterLink } from 'react-router';
 import { Container, Link, styled } from '@mui/material';
 import Portfolio from '../components/Portfolio';
-import DividerWithText from '../components/DividerWithText';
 import Experience from '../components/Experience';
 import paths from '../paths';
 import portfolioItems from '../assets/data/portfolioItems.json';
 import type { Route } from '../+types/root';
+import Divider from '../components/Divider';
 
 const FlexContainer = styled(Container)(({ theme }) => ({
   marginBottom: 0,
@@ -42,9 +42,9 @@ export const links: Route.LinksFunction = () => {
 export default function Home() {
   return (
     <FlexContainer maxWidth="lg">
-      <DividerWithText>A Few Things I&apos;ve Built</DividerWithText>
+      <Divider>A Few Things I&apos;ve Built</Divider>
       <Portfolio />
-      <DividerWithText>Experience</DividerWithText>
+      <Divider>Experience</Divider>
       <Experience />
       <Link component={RouterLink} to={paths.articles}>
         Articles

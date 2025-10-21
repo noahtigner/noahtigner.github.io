@@ -1,12 +1,12 @@
 import { Link as RouterLink } from 'react-router';
 import { Grid, Link } from '@mui/material';
 
-import DividerWithText from '../components/DividerWithText';
 import MetaTags from '../components/MetaTags';
 import paths from '../paths';
 import ArticleCard from '../components/Articles/ArticleCard';
 import type { Route } from './+types/Articles';
 import articleAttributes from '../assets/content/articles';
+import Divider from '../components/Divider';
 
 const confImageUrl = '/images/react-conf-2025.svg';
 
@@ -30,7 +30,7 @@ export default function Articles() {
         title="Articles"
         description="Articles written by Noah Tigner"
       />
-      <DividerWithText>Articles</DividerWithText>
+      <Divider>Articles</Divider>
       <Grid
         container
         spacing={2}

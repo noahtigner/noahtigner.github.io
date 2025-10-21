@@ -16,7 +16,7 @@
   --color-black: #141414;
   --color-paper: #202020;
   /* --color-border: #d2d2d2be; */
-  --color-divider: #2c2c2c;
+  --color-divider: rgb(49, 49, 49);
   /* --color-border: rgba(255, 255, 255, 0.12); */
   /* --color-border: rgb(97, 97, 97); */
   --color-border: rgba(248, 251, 248, 0.5);
@@ -53,6 +53,12 @@ body {
 }
 
 h1 {
+  font-size: 1.25rem;
+  font-weight: 300;
+  margin: 0;
+}
+
+h2 {
   font-size: 1.25rem;
   font-weight: 300;
   margin: 0;

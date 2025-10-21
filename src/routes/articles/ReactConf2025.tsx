@@ -1,6 +1,7 @@
 import { Link as RouterLink } from 'react-router';
-import { Box, Divider, Link } from '@mui/material';
+import { Box, Link } from '@mui/material';
 
+import Divider from '../../components/Divider';
 import MetaTags from '../../components/MetaTags';
 import paths from '../../paths';
 import type { Route } from '../+types/Articles';
@@ -23,7 +24,7 @@ export const links: Route.LinksFunction = () => {
 
 function LogoDivider() {
   return (
-    <Divider sx={{ marginY: { xs: 0, md: 4 } }}>
+    <Divider>
       <Box
         component="img"
         src={attributes.reactConf2025.image}
