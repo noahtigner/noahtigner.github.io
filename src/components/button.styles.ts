@@ -47,3 +47,8 @@ export const buttonStyles = css`
     outline-offset: -1px;
   }
 `;
+
+export const linkStyles = css`
+  text-decoration: none;
+  cursor: pointer !important;
+`;

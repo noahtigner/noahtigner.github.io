@@ -18,8 +18,9 @@
   /* --color-border: #d2d2d2be; */
   --color-divider: rgb(49, 49, 49);
   /* --color-border: rgba(255, 255, 255, 0.12); */
-  /* --color-border: rgb(97, 97, 97); */
+  --color-border-dark: rgb(97, 97, 97);
   --color-border: rgba(248, 251, 248, 0.5);
+  --color-border-card: rgb(59, 59, 59);
   --color-text-primary: rgb(248, 251, 248);
   --color-text-secondary: rgba(210, 210, 210, 0.745);
   --color-focus: #6edfca;
@@ -66,4 +67,5 @@ h2 {
 
 p {
   margin: 0;
+  font-size: 1rem;
 }
