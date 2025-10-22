@@ -1,12 +1,10 @@
-import { Link as RouterLink } from 'react-router';
-import { Grid, Link } from '@mui/material';
-
 import MetaTags from '../components/MetaTags';
 import paths from '../paths';
 import ArticleCard from '../components/Articles/ArticleCard';
 import type { Route } from './+types/Articles';
 import articleAttributes from '../assets/content/articles';
 import Divider from '../components/Divider';
+import { LinkInternal } from '../components/Button';
 
 const confImageUrl = '/images/react-conf-2025.svg';
 
@@ -24,6 +22,8 @@ export const links: Route.LinksFunction = () => {
 };
 
 export default function Articles() {
+  const articleLength = Object.keys(articleAttributes).length;
+
   return (
     <>
       <MetaTags
@@ -31,34 +31,38 @@ export default function Articles() {
         description="Articles written by Noah Tigner"
       />
       <Divider>Articles</Divider>
-      <Grid
-        container
-        spacing={2}
-        style={{ marginTop: 32 }}
-        justifyContent={'center'}
+      <span
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+          gap: '4px',
+          marginTop: '32px',
+        }}
       >
-        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-          {Object.entries(articleAttributes).map(([key, attrs]) => {
-            return (
-              <ArticleCard
-                key={key}
-                title={attrs.title}
-                description={attrs.description}
-                to={attrs.path}
-                image={attrs.image}
-              />
-            );
-          })}
-        </Grid>
-      </Grid>
-      <Link
-        component={RouterLink}
+        {articleLength < 2 && <span />}
+        {Object.entries(articleAttributes).map(([key, attrs]) => (
+          <ArticleCard
+            key={key}
+            title={attrs.title}
+            description={attrs.description}
+            to={attrs.path}
+            image={attrs.image}
+          />
+        ))}
+        {articleLength < 3 && <span />}
+      </span>
+      <LinkInternal
         to={paths.home}
-        marginTop={4}
-        display="inline-block"
+        style={{
+          width: 'fit-content',
+          display: 'block',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          marginTop: '32px',
+        }}
       >
         &lt; Back Home
-      </Link>
+      </LinkInternal>
     </>
   );
 }

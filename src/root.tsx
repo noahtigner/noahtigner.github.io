@@ -5,7 +5,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router';
-import { ThemeProvider, createTheme } from '@mui/material';
 
 import type { Route } from '../.react-router/types/src/+types/root';
 import TopNav from './components/TopNav/TopNav';
@@ -14,55 +13,6 @@ import MetaTags from './components/MetaTags';
 import inlinedStyles from './index.css?inline';
 
 const gtmId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
-
-const theme = createTheme({
-  palette: {
-    mode: 'dark',
-    background: {
-      default: '#141414',
-      paper: '#202020',
-    },
-    text: {
-      primary: '#f8fbf8ff',
-      secondary: '#d2d2d2be',
-    },
-    primary: {
-      // main: '#6EDFCA',
-      main: '#f8fbf8ff',
-    },
-  },
-  shape: {
-    borderRadius: 8,
-  },
-  typography: {
-    fontFamily: 'Poppins, sans-serif',
-  },
-  components: {
-    MuiDivider: {
-      styleOverrides: {
-        root: {
-          textAlign: 'center',
-          fontSize: '1rem',
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-          borderRadius: '4px',
-        },
-      },
-    },
-    MuiChip: {
-      styleOverrides: {
-        root: {
-          borderRadius: '4px',
-        },
-      },
-    },
-  },
-});
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -224,9 +174,7 @@ export default function App() {
               paddingRight: '16px',
             }}
           >
-            <ThemeProvider theme={theme}>
-              <Outlet />
-            </ThemeProvider>
+            <Outlet />
           </main>
         </span>
         <Footer />
