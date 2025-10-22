@@ -6,7 +6,7 @@ import { css } from '@emotion/react';
 import contactItems from '../../assets/data/contactItems.json';
 import articleAttributes from '../../assets/content/articles';
 import paths from '../../paths';
-import { Button, ButtonLink } from '../Button';
+import { Button } from '../Button';
 import { ArrowSvg, ChevronDownIcon, ChevronRightIcon } from '../ChevronIcons';
 
 const StyledMenuPositioner = styled(Menu.Positioner)`
@@ -116,6 +116,7 @@ const submenuTriggerStyles = css`
 
 const StyledMenuItem = styled(Menu.Item)(menuItemStyles);
 const StyledInternalLinkItem = styled(Link)(menuItemStyles, linkItemStyles);
+const StyledExternalLinkItem = styled('a')(menuItemStyles, linkItemStyles);
 const StyledSubmenuTrigger = styled(Menu.SubmenuTrigger)(
   menuItemStyles,
   submenuTriggerStyles
@@ -143,23 +144,22 @@ export default function ContactMenu() {
             <StyledMenuArrow>
               <ArrowSvg />
             </StyledMenuArrow>
-
             {contactItems.map((item) => (
               <StyledMenuItem
                 key={item.label}
                 render={
-                  <ButtonLink
+                  <StyledExternalLinkItem
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{
-                      backgroundColor: 'var(--color-paper)',
-                      border: 'none',
-                      justifyContent: 'start',
-                    }}
+                    // style={{
+                    //   backgroundColor: 'var(--color-paper)',
+                    //   border: 'none',
+                    //   justifyContent: 'start',
+                    // }}
                   >
                     {item.label}
-                  </ButtonLink>
+                  </StyledExternalLinkItem>
                 }
               />
             ))}
