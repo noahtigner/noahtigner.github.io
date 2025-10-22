@@ -28,6 +28,7 @@ export default {
   ssr: false,
   appDirectory: 'src',
   buildDirectory: 'dist',
+  basename: '/',
   async prerender() {
     const nonSlugPaths = Object.values(paths).filter(
       (p) => !p.includes(':') && !p.includes('*')
