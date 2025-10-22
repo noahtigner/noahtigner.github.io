@@ -1,9 +1,7 @@
 import { Card } from '../Card';
 import ContactIcon from '../ContactIcon';
 import { ButtonLinkInternal, LinkInternal } from '../Button';
-import articleAttributes from '../../assets/content/articles';
-
-type ArticleAttributes = (typeof articleAttributes)[number];
+import { type ArticleAttributes } from '../../utils/markdown';
 
 export default function ArticleCard({
   title,
@@ -23,7 +21,12 @@ export default function ArticleCard({
             alt={title}
             style={{
               borderRadius: 'var(--border-radius)',
-              width: '100%',
+              height: '150px',
+              maxWidth: '100%',
+              objectFit: 'contain',
+              display: 'block',
+              marginLeft: 'auto',
+              marginRight: 'auto',
             }}
           />
         </LinkInternal>
@@ -32,6 +35,7 @@ export default function ArticleCard({
             fontSize: '1.25rem',
             lineHeight: 1.25,
             margin: 0,
+            marginTop: '8px',
           }}
         >
           {title}
