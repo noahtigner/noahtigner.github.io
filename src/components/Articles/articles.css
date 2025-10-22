@@ -39,6 +39,9 @@ code,
     background-color: var(--color-divider);
     margin: 2rem 0;
   }
+  p {
+    margin-bottom: 1rem;
+  }
   a {
     color: inherit;
     text-decoration-color: var(--color-ripple);
