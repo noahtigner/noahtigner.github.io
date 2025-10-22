@@ -22,8 +22,6 @@ export const links: Route.LinksFunction = () => {
 };
 
 export default function Articles() {
-  const articleLength = Object.keys(articleAttributes).length;
-
   return (
     <>
       <MetaTags
@@ -34,22 +32,15 @@ export default function Articles() {
       <span
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 33%))',
+          justifyContent: 'center',
           gap: '4px',
           marginTop: '32px',
         }}
       >
-        {articleLength < 2 && <span />}
         {Object.entries(articleAttributes).map(([key, attrs]) => (
-          <ArticleCard
-            key={key}
-            title={attrs.title}
-            description={attrs.description}
-            to={attrs.path}
-            image={attrs.image}
-          />
+          <ArticleCard key={key} {...attrs} />
         ))}
-        {articleLength < 3 && <span />}
       </span>
       <LinkInternal
         to={paths.home}
