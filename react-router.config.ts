@@ -33,6 +33,7 @@ export default {
       (p) => !p.includes(':') && !p.includes('*')
     );
     const articlePaths = await getArticlePaths();
-    return [...nonSlugPaths, ...articlePaths];
+    const deduped = new Set([...nonSlugPaths, ...articlePaths]);
+    return Array.from(deduped);
   },
 } satisfies Config;
