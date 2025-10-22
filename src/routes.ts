@@ -4,5 +4,5 @@ import paths from './paths';
 export default [
   index('routes/Home.tsx'),
   route(paths.articles, 'routes/Articles.tsx'),
-  route(paths.articleReactConf2025, 'routes/articles/ReactConf2025.tsx'),
+  route('/articles/:slug', 'routes/articles.$slug.tsx'),
 ] satisfies RouteConfig;
