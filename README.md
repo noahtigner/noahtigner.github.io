@@ -23,13 +23,11 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] Sitemap
   - [x] webp images
 - [x] Choose color palette and font family
-- [x] Configure UI Library
-  - [x] Choose Library
-    - [Material UI](https://material-ui.com/) :white_check_mark:
-    - ~~Chakra UI~~
-    - ~~Mantine~~
-    - ~~Tailwind~~
-  - [x] Configure
+- [x] Design System / Component Library
+  - [Material UI](https://material-ui.com/) :white_check_mark: -> [Base UI](https://base-ui.com/react/overview/quick-start) :white_check_mark:
+  - ~~Chakra UI~~
+  - ~~Mantine~~
+  - ~~Tailwind~~
 - [ ] Build UI
   - [ ] Intro or Hero section
   - [x] `Card` component for portfolio items
@@ -40,8 +38,8 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [ ] Optimization
   - [ ] skeletons for sections and components
   - [x] optimize images
-  - [ ] lazy-load sections
-  - [ ] lazy-load images
+  - [x] lazy-load ~~sections~~ routes
+  - [x] lazy-load images
 - [x] Telemetry & Analytics
 - [ ] Pull data from Github???
 - [ ] Test

@@ -1,18 +1,16 @@
-import { Container, styled } from '@mui/material';
-import Portfolio from '../components/Portfolio';
-import Experience from '../components/Experience';
-import portfolioItems from '../assets/data/portfolioItems.json';
-import type { Route } from '../+types/root';
-import Divider from '../components/Divider';
+import styled from '@emotion/styled';
 
-const FlexContainer = styled(Container)(({ theme }) => ({
-  marginBottom: 0,
-  marginX: 'auto',
-  padding: 0,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(4),
-}));
+import Portfolio from '../components/Portfolio';
+import portfolioItems from '../assets/data/portfolioItems.json';
+import Divider from '../components/Divider';
+import ExperienceTimeline from '../components/ExperienceTimeline';
+import type { Route } from '../+types/root';
+
+const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+`;
 
 // tell React-Router to preload portfolio images for this page
 export const links: Route.LinksFunction = () => {
@@ -39,11 +37,11 @@ export const links: Route.LinksFunction = () => {
 
 export default function Home() {
   return (
-    <FlexContainer maxWidth="lg">
+    <FlexContainer>
       <Divider>A Few Things I&apos;ve Built</Divider>
       <Portfolio />
       <Divider>Experience</Divider>
-      <Experience />
+      <ExperienceTimeline />
     </FlexContainer>
   );
 }

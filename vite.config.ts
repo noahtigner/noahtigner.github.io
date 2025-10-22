@@ -66,9 +66,7 @@ export default defineConfig({
   ],
   ssr: {
     noExternal:
-      process.env.NODE_ENV === 'production'
-        ? ['@mui/material', '@mui/icons-material']
-        : [],
+      process.env.NODE_ENV === 'production' ? ['@mui/icons-material'] : [],
   },
   server: {
     open: true,

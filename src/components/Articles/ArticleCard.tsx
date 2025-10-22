@@ -1,7 +1,6 @@
 import { Card } from '../Card';
 import ContactIcon from '../ContactIcon';
-import { ButtonLinkInternal } from '../Button';
-import { Link } from 'react-router';
+import { ButtonLinkInternal, LinkInternal } from '../Button';
 
 export default function ArticleCard({
   title,
@@ -17,7 +16,7 @@ export default function ArticleCard({
   return (
     <Card>
       <span>
-        <Link aria-label={description} to={to}>
+        <LinkInternal aria-label={description} to={to}>
           <img
             src={image}
             alt={title}
@@ -26,7 +25,7 @@ export default function ArticleCard({
               width: '100%',
             }}
           />
-        </Link>
+        </LinkInternal>
         <h3
           style={{
             fontSize: '1.25rem',

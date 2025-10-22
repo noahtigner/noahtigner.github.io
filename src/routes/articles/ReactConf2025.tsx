@@ -1,13 +1,13 @@
-import { Link as RouterLink } from 'react-router';
-import { Box, Link } from '@mui/material';
+import styled from '@emotion/styled';
 
 import Divider from '../../components/Divider';
 import MetaTags from '../../components/MetaTags';
 import paths from '../../paths';
-import type { Route } from '../+types/Articles';
 import { ReactComponent as ArticleContent } from '../../assets/content/ReactConf2025.md';
 import inlinedStyles from '../../components/Articles/articles.css?inline';
 import attributes from '../../assets/content/articles';
+import { LinkInternal } from '../../components/Button';
+import type { Route } from '../+types/Articles';
 
 // tell React-Router to preload images for this page
 export const links: Route.LinksFunction = () => {
@@ -22,15 +22,18 @@ export const links: Route.LinksFunction = () => {
   ];
 };
 
+const ImgBox = styled.img`
+  height: 100px;
+  object-fit: contain;
+  @media (max-width: 600px) {
+    height: 60px;
+  }
+`;
+
 function LogoDivider() {
   return (
     <Divider>
-      <Box
-        component="img"
-        src={attributes.reactConf2025.image}
-        alt="React Conf Logo"
-        sx={{ height: { xs: 60, md: 100 } }}
-      />
+      <ImgBox src={attributes.reactConf2025.image} alt="React Conf Logo" />
     </Divider>
   );
 }
@@ -53,9 +56,18 @@ export default function Article() {
       >
         <LogoDivider />
         <ArticleContent />
-        <Link component={RouterLink} to={paths.articles}>
+        <LinkInternal
+          to={paths.articles}
+          style={{
+            width: 'fit-content',
+            display: 'block',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginTop: '1rem',
+          }}
+        >
           &lt; All Articles
-        </Link>
+        </LinkInternal>
       </section>
     </>
   );

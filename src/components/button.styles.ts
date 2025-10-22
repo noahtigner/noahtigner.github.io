@@ -17,13 +17,13 @@ export const buttonStyles = css`
   line-height: 1.5rem;
   color: var(--color-text-primary);
   user-select: none;
+  text-decoration: none !important;
 
   background-position: center;
   transition: background 0.75s;
 
   @media (hover: hover) {
     &:hover {
-      cursor: pointer;
       border-color: var(--color-text-primary);
       background: var(--color-gray-100)
         radial-gradient(circle, transparent 1%, var(--color-gray-100) 1%)
@@ -49,6 +49,15 @@ export const buttonStyles = css`
 `;
 
 export const linkStyles = css`
-  text-decoration: none;
   cursor: pointer !important;
+
+  color: var(--color-text-primary);
+  text-decoration-color: var(--color-ripple);
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: auto;
+
+  &:hover {
+    text-decoration-color: var(--color-text-primary);
+  }
 `;
