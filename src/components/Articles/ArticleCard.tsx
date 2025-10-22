@@ -3,8 +3,7 @@ import ContactIcon from '../ContactIcon';
 import { ButtonLinkInternal, LinkInternal } from '../Button';
 import articleAttributes from '../../assets/content/articles';
 
-type ArticleAttributes =
-  (typeof articleAttributes)[keyof typeof articleAttributes];
+type ArticleAttributes = (typeof articleAttributes)[number];
 
 export default function ArticleCard({
   title,
@@ -12,6 +11,7 @@ export default function ArticleCard({
   path,
   image,
   published,
+  minutesToRead,
   // tags,
 }: ArticleAttributes) {
   return (
@@ -39,7 +39,7 @@ export default function ArticleCard({
         <h4
           style={{ marginBottom: '8px', color: 'var(--color-text-secondary)' }}
         >
-          {published}
+          {minutesToRead} min • {published}
         </h4>
         <p>{description}</p>
       </span>
