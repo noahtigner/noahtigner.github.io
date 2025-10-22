@@ -1,32 +1,39 @@
-import { lazy, Suspense } from 'react';
 import { redirect } from 'react-router';
 import Article from '../components/Articles/Article';
-import { allArticles, getFileNameFromPath } from '../utils/markdown';
+import {
+  allArticles,
+  getFileNameFromPath,
+  getMarkdownFileName,
+} from '../utils/markdown';
 import type { Route } from './+types/articles.$slug';
 
-// Map file names to their lazy-loaded components
-// This is done at module initialization time, not during render
-const componentMap: Record<string, ReturnType<typeof lazy>> = {};
+// Use import.meta.glob to import markdown ReactComponent modules
+// Since attributes are already eagerly imported in markdown.ts, we make this eager too
+// to eliminate the bundling warning and keep everything consistent
+const markdownModules = import.meta.glob('../assets/content/*.md', {
+  import: 'ReactComponent',
+  eager: true,
+});
 
-// Initialize lazy components for all articles at module load time
-for (const attr of allArticles) {
-  const fileName = getFileNameFromPath(attr.path);
+// Map file names to their components
+// Components are already loaded, so we just wrap them
+const componentMap: Record<string, React.ComponentType> = {};
+
+// Map components by file name
+for (const [modulePath, Component] of Object.entries(markdownModules)) {
+  const fileName = getMarkdownFileName(modulePath);
   if (fileName) {
-    componentMap[fileName] = lazy(() =>
-      import(`../assets/content/${fileName}.md`).then((module) => ({
-        default: module.ReactComponent,
-      }))
-    );
+    componentMap[fileName] = Component as React.ComponentType;
   }
 }
 
 // Create component wrappers outside of render for each article
 // This satisfies the static-components rule
 const ArticleComponents = Object.fromEntries(
-  Object.entries(componentMap).map(([fileName, LazyComponent]) => [
+  Object.entries(componentMap).map(([fileName, Component]) => [
     fileName,
     function ArticleContent() {
-      return <LazyComponent />;
+      return <Component />;
     },
   ])
 );
@@ -55,9 +62,7 @@ export default function DynamicArticleRoute({
 
   return (
     <Article articleAttributes={attributes}>
-      <Suspense fallback={<div>Loading...</div>}>
-        <ArticleContent />
-      </Suspense>
+      <ArticleContent />
     </Article>
   );
 }
