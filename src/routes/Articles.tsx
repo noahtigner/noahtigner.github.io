@@ -6,19 +6,15 @@ import articleAttributes from '../assets/content/articles';
 import Divider from '../components/Divider';
 import { LinkInternal } from '../components/Button';
 
-const confImageUrl = '/images/react-conf-2025.svg';
-
 // tell React-Router to preload images for this page
 export const links: Route.LinksFunction = () => {
-  return [
-    {
-      rel: 'preload',
-      href: confImageUrl,
-      as: 'image',
-      type: 'image/webp',
-      fetchPriority: 'low',
-    },
-  ];
+  return articleAttributes.map((article) => ({
+    rel: 'preload',
+    href: article.image,
+    as: 'image',
+    type: 'image/webp',
+    fetchPriority: 'low',
+  }));
 };
 
 export default function Articles() {
@@ -38,8 +34,8 @@ export default function Articles() {
           marginTop: '32px',
         }}
       >
-        {Object.entries(articleAttributes).map(([key, attrs]) => (
-          <ArticleCard key={key} {...attrs} />
+        {articleAttributes.map((attrs) => (
+          <ArticleCard key={attrs.path} {...attrs} />
         ))}
       </span>
       <LinkInternal
