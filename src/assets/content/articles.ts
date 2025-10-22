@@ -6,7 +6,16 @@ const articleAttributes = {
     tags: ['react', 'conference', 'frontend'],
     path: '/articles/react-conf-2025',
     image: '/images/react-conf-2025.svg',
+    published: 'October 12, 2025',
   },
+  // automerge: {
+  //   title: 'Building Collaborative Apps with Automerge',
+  //   description: '',
+  //   tags: [],
+  //   path: '',
+  //   image: '',
+  //   published: null,
+  // }
 };
 
 export default articleAttributes;

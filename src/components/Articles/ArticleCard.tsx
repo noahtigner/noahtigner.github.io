@@ -1,22 +1,23 @@
 import { Card } from '../Card';
 import ContactIcon from '../ContactIcon';
 import { ButtonLinkInternal, LinkInternal } from '../Button';
+import articleAttributes from '../../assets/content/articles';
+
+type ArticleAttributes =
+  (typeof articleAttributes)[keyof typeof articleAttributes];
 
 export default function ArticleCard({
   title,
   description,
-  to,
+  path,
   image,
-}: {
-  title: string;
-  description: string;
-  to: string;
-  image: string;
-}) {
+  published,
+  // tags,
+}: ArticleAttributes) {
   return (
     <Card>
       <span>
-        <LinkInternal aria-label={description} to={to}>
+        <LinkInternal aria-label={description} to={path}>
           <img
             src={image}
             alt={title}
@@ -30,16 +31,20 @@ export default function ArticleCard({
           style={{
             fontSize: '1.25rem',
             lineHeight: 1.25,
-            margin: '0',
-            marginBottom: '4px',
+            margin: 0,
           }}
         >
           {title}
         </h3>
+        <h4
+          style={{ marginBottom: '8px', color: 'var(--color-text-secondary)' }}
+        >
+          {published}
+        </h4>
         <p>{description}</p>
       </span>
       <ButtonLinkInternal
-        to={to}
+        to={path}
         style={{ backgroundColor: 'var(--color-paper)' }}
       >
         <ContactIcon label="Article" /> Read Article
