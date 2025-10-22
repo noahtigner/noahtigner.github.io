@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 import contactItems from '../../assets/data/contactItems.json';
-import articleAttributes from '../../assets/content/articles';
+import { publishedArticles } from '../../utils/markdown';
 import paths from '../../paths';
 import { Button } from '../Button';
 import { ArrowSvg, ChevronDownIcon, ChevronRightIcon } from '../ChevronIcons';
@@ -180,9 +180,9 @@ export default function ContactMenu() {
                       }
                     />
                     <StyledMenuSeparator />
-                    {Object.entries(articleAttributes).map(([key, attrs]) => (
+                    {publishedArticles.map((attrs) => (
                       <StyledMenuItem
-                        key={key}
+                        key={attrs.path}
                         render={
                           <StyledInternalLinkItem to={attrs.path}>
                             {attrs.title}

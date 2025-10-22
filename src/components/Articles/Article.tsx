@@ -5,12 +5,13 @@ import Divider from '../../components/Divider';
 import MetaTags from '../../components/MetaTags';
 import paths from '../../paths';
 import inlinedStyles from '../../components/Articles/articles.css?inline';
-import attributes from '../../assets/content/articles';
 import { LinkInternal } from '../../components/Button';
+import { type ArticleAttributes } from '../../utils/markdown';
 
 const ImgBox = styled.img`
   height: 100px;
   object-fit: contain;
+  padding: 0 0.75rem;
   @media (max-width: 600px) {
     height: 60px;
   }
@@ -28,7 +29,7 @@ export default function Article({
   articleAttributes,
   children,
 }: {
-  articleAttributes: (typeof attributes)[number];
+  articleAttributes: ArticleAttributes;
   children: ReactNode;
 }) {
   return (

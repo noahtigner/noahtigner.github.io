@@ -1,7 +1,10 @@
-import type { Config } from '@react-router/dev/config';
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import type { Config } from '@react-router/dev/config';
+import paths from './src/paths';
 
+// have to use node APIs here instead of vite glob imports because this file
+// is executed in a Node context outside of Vite's module system
 async function getArticlePaths() {
   const contentDir = join(process.cwd(), 'src', 'assets', 'content');
   const files = await readdir(contentDir);
@@ -26,7 +29,10 @@ export default {
   appDirectory: 'src',
   buildDirectory: 'dist',
   async prerender() {
+    const nonSlugPaths = Object.values(paths).filter(
+      (p) => !p.includes(':') && !p.includes('*')
+    );
     const articlePaths = await getArticlePaths();
-    return ['/', '/articles', ...articlePaths];
+    return [...nonSlugPaths, ...articlePaths];
   },
 } satisfies Config;

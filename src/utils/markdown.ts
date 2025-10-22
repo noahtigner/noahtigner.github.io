@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react';
+import { z } from 'zod';
 
 // Get all markdown files metadata
 const attributeModules = import.meta.glob('../assets/content/*.md', {
@@ -6,49 +6,42 @@ const attributeModules = import.meta.glob('../assets/content/*.md', {
   eager: true,
 });
 
+const articleSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  tags: z.array(z.string()),
+  path: z.string(),
+  image: z.string(),
+  published: z.string().nullable(),
+  minutesToRead: z.number().int().min(1),
+});
+
+type ArticleAttributes = z.infer<typeof articleSchema>;
+
+const allArticles: z.infer<typeof articleSchema>[] = [];
+for (const modulePath in attributeModules) {
+  const attrs = attributeModules[modulePath] as unknown;
+  const parsedAttrs = articleSchema.safeParse(attrs);
+  if (parsedAttrs.success) {
+    allArticles.push(parsedAttrs.data);
+  } else if (import.meta.env.DEV) {
+    console.error(
+      `Invalid article attributes in ${modulePath}:`,
+      parsedAttrs.error
+    );
+  }
+}
+
+const publishedArticles = allArticles.filter((attr) => attr.published);
+
 // Get the base name from a module path (e.g., './ReactConf2025.md' -> 'ReactConf2025')
-export function getMarkdownFileName(modulePath: string): string {
+function getMarkdownFileName(modulePath: string): string {
   const match = modulePath.match(/\/([^/]+)\.md$/);
   return match ? match[1] : '';
 }
 
-// Map of markdown file names to their module paths
-export const markdownFiles = Object.keys(attributeModules).reduce(
-  (acc, modulePath) => {
-    const fileName = getMarkdownFileName(modulePath);
-    if (fileName) {
-      acc[fileName] = modulePath;
-    }
-    return acc;
-  },
-  {} as Record<string, string>
-);
-
-// Dynamically import a markdown React component by file name
-export async function importMarkdownComponent(
-  fileName: string
-): Promise<ComponentType> {
-  const modules = import.meta.glob('../assets/content/*.md', {
-    import: 'ReactComponent',
-  });
-
-  const modulePath = markdownFiles[fileName];
-  if (!modulePath) {
-    throw new Error(`Markdown file not found: ${fileName}`);
-  }
-
-  const loader = modules[modulePath];
-
-  if (!loader) {
-    throw new Error(`Markdown loader not found for: ${fileName}`);
-  }
-
-  const component = await loader();
-  return component as ComponentType;
-}
-
 // Get markdown file name from article path (e.g., '/articles/react-conf-2025' -> 'ReactConf2025')
-export function getFileNameFromPath(articlePath: string): string | null {
+function getFileNameFromPath(articlePath: string): string | null {
   const attributeEntries = Object.entries(attributeModules);
 
   for (const [modulePath, attrs] of attributeEntries) {
@@ -60,3 +53,11 @@ export function getFileNameFromPath(articlePath: string): string | null {
 
   return null;
 }
+
+export {
+  allArticles,
+  publishedArticles,
+  getFileNameFromPath,
+  getMarkdownFileName,
+  type ArticleAttributes,
+};
