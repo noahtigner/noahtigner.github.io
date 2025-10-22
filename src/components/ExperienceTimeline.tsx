@@ -11,20 +11,26 @@ import {
 } from '@mui/icons-material';
 import styled from '@emotion/styled';
 
+const StyledSvg = styled.svg`
+  fill: var(--color-text-primary) !important;
+  width: 21px;
+  height: 21px;
+`;
+
 function ExperienceIcon({ organization }: { organization: string }): ReactNode {
   switch (organization) {
     case 'Alteryx':
-      return <CodeOutlinedIcon color="primary" />;
+      return <StyledSvg as={CodeOutlinedIcon} />;
     case 'HP':
-      return <CloudOutlinedIcon color="primary" />;
+      return <StyledSvg as={CloudOutlinedIcon} />;
     case 'Air-Weigh':
-      return <BuildOutlinedIcon color="primary" />;
+      return <StyledSvg as={BuildOutlinedIcon} />;
     case 'TDS Telecom':
-      return <SettingsOutlinedIcon color="primary" />;
+      return <StyledSvg as={SettingsOutlinedIcon} />;
     case 'University of Oregon':
-      return <SchoolOutlinedIcon color="primary" />;
+      return <StyledSvg as={SchoolOutlinedIcon} />;
     default:
-      return <DataObjectOutlinedIcon color="primary" />;
+      return <StyledSvg as={DataObjectOutlinedIcon} />;
   }
 }
 
