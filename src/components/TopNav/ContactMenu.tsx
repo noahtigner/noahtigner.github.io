@@ -17,6 +17,19 @@ const StyledMenuPositioner = styled(Menu.Positioner)`
   outline: 0;
 `;
 
+const rotatingIconStyles = css`
+  & > svg {
+    transition: transform 0.2s ease;
+  }
+  &[data-popup-open] {
+    & > svg {
+      transform: rotate(180deg);
+    }
+  }
+`;
+
+const StyledMenuTrigger = styled(Menu.Trigger)(rotatingIconStyles);
+
 export const StyledMenuPopup = styled(Menu.Popup)`
   box-sizing: border-box;
   padding-block: 0.25rem;
@@ -123,7 +136,8 @@ const StyledInternalLinkItem = styled(Link)(menuItemStyles, linkItemStyles);
 const StyledExternalLinkItem = styled('a')(menuItemStyles, linkItemStyles);
 const StyledSubmenuTrigger = styled(Menu.SubmenuTrigger)(
   menuItemStyles,
-  submenuTriggerStyles
+  submenuTriggerStyles,
+  rotatingIconStyles
 );
 
 const StyledMenuSeparator = styled(Menu.Separator)`
@@ -134,8 +148,8 @@ const StyledMenuSeparator = styled(Menu.Separator)`
 
 export default function ContactMenu() {
   return (
-    <Menu.Root>
-      <Menu.Trigger
+    <Menu.Root openOnHover>
+      <StyledMenuTrigger
         render={
           <Button>
             Get In Touch <ChevronDownIcon />
@@ -156,11 +170,6 @@ export default function ContactMenu() {
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    // style={{
-                    //   backgroundColor: 'var(--color-paper)',
-                    //   border: 'none',
-                    //   justifyContent: 'start',
-                    // }}
                   >
                     {item.label}
                   </StyledExternalLinkItem>
