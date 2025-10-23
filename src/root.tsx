@@ -137,7 +137,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     stack = error.stack;
   }
 
-  return <ErrorPage message={message} details={details} stack={stack} />;
+  return (
+    <Layout>
+      <ErrorPage message={message} details={details} stack={stack} />
+    </Layout>
+  );
 }
 
 export default function App() {

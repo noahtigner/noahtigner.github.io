@@ -27,9 +27,9 @@ export default function ErrorPage({
       }}
     >
       <span style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <h2 style={{ fontSize: '1.5rem' }}>{message}</h2>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 300 }}>{message}</h2>
         <StyledSeparator orientation="vertical" />
-        <p style={{ fontSize: '1.5rem' }}>{details}</p>
+        <p style={{ fontSize: '1.5rem', fontWeight: 300 }}>{details}</p>
         {stack && (
           <pre>
             <code>{stack}</code>
