@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react';
 import styled from '@emotion/styled';
 
-import Divider from '../../components/Divider';
-import MetaTags from '../../components/MetaTags';
-import paths from '../../paths';
-import inlinedStyles from '../../components/Articles/articles.css?inline';
-import { LinkInternal } from '../../components/Button';
-import { type ArticleAttributes } from '../../utils/markdown';
+import Divider from '~/components/Divider';
+import MetaTags from '~/components/MetaTags';
+import paths from '~/paths';
+import inlinedStyles from '~/components/Articles/articles.css?inline';
+import { LinkInternal } from '~/components/Button';
+import { type ArticleAttributes } from '~/utils/markdown';
 
 const ImgBox = styled.img`
   height: 100px;

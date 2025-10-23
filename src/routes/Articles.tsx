@@ -1,10 +1,10 @@
-import MetaTags from '../components/MetaTags';
-import paths from '../paths';
-import ArticleCard from '../components/Articles/ArticleCard';
-import type { Route } from './+types/Articles';
-import { publishedArticles } from '../utils/markdown';
-import Divider from '../components/Divider';
-import { LinkInternal } from '../components/Button';
+import MetaTags from '~/components/MetaTags';
+import paths from '~/paths';
+import ArticleCard from '~/components/Articles/ArticleCard';
+import { publishedArticles } from '~/utils/markdown';
+import Divider from '~/components/Divider';
+import { LinkInternal } from '~/components/Button';
+import type { Route } from '~/router/routes/+types/Articles';
 
 // tell React-Router to preload images for this page
 export const links: Route.LinksFunction = () => {

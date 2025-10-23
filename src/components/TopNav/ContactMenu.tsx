@@ -3,11 +3,15 @@ import { Menu } from '@base-ui-components/react/menu';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-import contactItems from '../../assets/data/contactItems.json';
-import { publishedArticles } from '../../utils/markdown';
-import paths from '../../paths';
-import { Button } from '../Button';
-import { ArrowSvg, ChevronDownIcon, ChevronRightIcon } from '../ChevronIcons';
+import contactItems from '~/assets/data/contactItems.json';
+import { publishedArticles } from '~/utils/markdown';
+import paths from '~/paths';
+import { Button } from '~/components/Button';
+import {
+  ArrowSvg,
+  ChevronDownIcon,
+  ChevronRightIcon,
+} from '~/components/ChevronIcons';
 
 const StyledMenuPositioner = styled(Menu.Positioner)`
   outline: 0;

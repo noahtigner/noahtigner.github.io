@@ -1,6 +1,4 @@
 import type { ReactNode } from 'react';
-import experienceItems from '../assets/data/experienceItems.json';
-
 import {
   BuildOutlined as BuildOutlinedIcon,
   CloudOutlined as CloudOutlinedIcon,
@@ -10,6 +8,8 @@ import {
   DataObjectOutlined as DataObjectOutlinedIcon,
 } from '@mui/icons-material';
 import styled from '@emotion/styled';
+
+import experienceItems from '~/assets/data/experienceItems.json';
 
 const StyledSvg = styled.svg`
   fill: var(--color-text-primary) !important;

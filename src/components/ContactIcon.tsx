@@ -8,8 +8,8 @@ import {
 } from '@mui/icons-material';
 import styled from '@emotion/styled';
 
-import NpmSvg from '../../assets/icons/npm.svg?react';
-import contactItems from '../../assets/data/contactItems.json';
+import NpmSvg from '~/assets/icons/npm.svg?react';
+import contactItems from '~/assets/data/contactItems.json';
 
 interface ContactIconProps {
   label: (typeof contactItems)[number]['label'];

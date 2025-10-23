@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import portfolioItems from '../../assets/data/portfolioItems.json';
-import ContactIcon from '../ContactIcon';
-import { Card } from '../Card';
-import { ButtonLink } from '../Button';
+import portfolioItems from '~/assets/data/portfolioItems.json';
+import ContactIcon from '~/components/ContactIcon';
+import { Card } from '~/components/Card';
+import { ButtonLink } from '~/components/Button';
 
 type ItemCardProps = (typeof portfolioItems)[number];
 

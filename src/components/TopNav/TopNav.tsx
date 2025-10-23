@@ -1,5 +1,5 @@
-import ContactMenu from './ContactMenu';
 import styled from '@emotion/styled';
+import ContactMenu from '~/components/TopNav/ContactMenu';
 
 const StyledNav = styled.nav`
   position: sticky;

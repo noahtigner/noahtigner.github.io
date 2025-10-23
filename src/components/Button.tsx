@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { buttonStyles, linkStyles } from './button.styles';
+import { buttonStyles, linkStyles } from '~/components/button.styles';
 import { Link } from 'react-router';
 
 export const Button = styled.button(buttonStyles);
