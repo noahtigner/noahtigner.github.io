@@ -1,6 +1,7 @@
 import { StrictMode, type ReactNode } from 'react';
 import {
   isRouteErrorResponse,
+  Navigate,
   Outlet,
   Scripts,
   ScrollRestoration,
@@ -127,7 +128,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
   if (isRouteErrorResponse(error)) {
     if (error.status === 404) {
-      return null;
+      return <Navigate to="/404" replace />;
     }
     message = 'Error';
     details = error.statusText || details;

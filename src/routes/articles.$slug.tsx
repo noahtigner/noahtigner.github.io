@@ -6,6 +6,7 @@ import {
   getMarkdownFileName,
 } from '~/utils/markdown';
 import type { Route } from '~/router/routes/+types/articles.$slug';
+import paths from '~/paths';
 
 // Use import.meta.glob to import markdown ReactComponent modules
 // Since attributes are already eagerly imported in markdown.ts, we make this eager too
@@ -43,12 +44,12 @@ export function loader({ params }: Route.LoaderArgs) {
   const attributes = allArticles.find((attr) => attr.path === articlePath);
 
   if (!attributes) {
-    return redirect('/404', 404);
+    throw redirect(paths.error404);
   }
 
   const fileName = getFileNameFromPath(attributes.path);
   if (!fileName || !ArticleComponents[fileName]) {
-    return redirect('/404', 404);
+    throw redirect(paths.error404);
   }
 
   return { fileName, attributes };
