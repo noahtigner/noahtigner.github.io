@@ -44,12 +44,12 @@ export function loader({ params }: Route.LoaderArgs) {
   const attributes = allArticles.find((attr) => attr.path === articlePath);
 
   if (!attributes) {
-    throw redirect(paths.error404);
+    return redirect(paths.error404, 404);
   }
 
   const fileName = getFileNameFromPath(attributes.path);
   if (!fileName || !ArticleComponents[fileName]) {
-    throw redirect(paths.error404);
+    return redirect(paths.error404, 404);
   }
 
   return { fileName, attributes };
