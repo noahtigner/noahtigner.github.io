@@ -1,7 +1,6 @@
 import { StrictMode, type ReactNode } from 'react';
 import {
   isRouteErrorResponse,
-  Navigate,
   Outlet,
   Scripts,
   ScrollRestoration,
@@ -12,6 +11,7 @@ import TopNav from '~/components/TopNav/TopNav';
 import Footer from '~/components/Footer/Footer';
 import MetaTags from '~/components/MetaTags';
 import inlinedStyles from '~/index.css?inline';
+import ErrorPage from './components/ErrorPage';
 
 const gtmId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 
@@ -128,7 +128,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
   if (isRouteErrorResponse(error)) {
     if (error.status === 404) {
-      return <Navigate to="/404" replace />;
+      return null;
     }
     message = 'Error';
     details = error.statusText || details;
@@ -137,17 +137,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     stack = error.stack;
   }
 
-  return (
-    <main>
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre>
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
-  );
+  return <ErrorPage message={message} details={details} stack={stack} />;
 }
 
 export default function App() {
