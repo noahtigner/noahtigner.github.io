@@ -160,7 +160,7 @@ export default function App() {
         }}
         className="root"
       >
-        <span style={{ flexGrow: 1 }}>
+        <span style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
           <TopNav />
           <main
             style={{
@@ -172,6 +172,9 @@ export default function App() {
               marginRight: 'auto',
               paddingLeft: '16px',
               paddingRight: '16px',
+              flexGrow: 1,
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
             <Outlet />
