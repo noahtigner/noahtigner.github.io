@@ -161,15 +161,19 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let details = 'An unexpected error occurred.';
   let stack: string | undefined;
 
-  if (isRouteErrorResponse(error)) {
-    if (error.status === 404) {
-      return null;
-    }
-    message = 'Error';
-    details = error.statusText || details;
+  if (
+    (isRouteErrorResponse(error) && error.status === 404) ||
+    (error instanceof Error &&
+      error.message.includes('No result found for routeId'))
+  ) {
+    message = '404';
+    details = 'The requested page could not be found';
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
+  } else {
+    message = 'Error';
+    details = 'An unexpected error occurred.';
   }
 
   return <ErrorPage message={message} details={details} stack={stack} />;
