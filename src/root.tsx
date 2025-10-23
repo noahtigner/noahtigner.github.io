@@ -15,6 +15,41 @@ import ErrorPage from './components/ErrorPage';
 
 const gtmId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 
+function AppWrappers({ children }: { children?: ReactNode }) {
+  return (
+    <span
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+      className="root"
+    >
+      <span style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+        <TopNav />
+        <main
+          style={{
+            boxSizing: 'border-box',
+            width: '100%',
+            maxWidth: 'var(--size-lg)',
+            marginTop: '32px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            paddingLeft: '16px',
+            paddingRight: '16px',
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {children}
+        </main>
+      </span>
+      <Footer />
+    </span>
+  );
+}
+
 export function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
@@ -81,7 +116,7 @@ export function Layout({ children }: { children: ReactNode }) {
         />
       </head>
       <body>
-        {children}
+        <AppWrappers>{children}</AppWrappers>
         <ScrollRestoration />
         <Scripts />
         <noscript>
@@ -137,46 +172,13 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     stack = error.stack;
   }
 
-  return (
-    <Layout>
-      <ErrorPage message={message} details={details} stack={stack} />
-    </Layout>
-  );
+  return <ErrorPage message={message} details={details} stack={stack} />;
 }
 
 export default function App() {
   return (
     <StrictMode>
-      <span
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-        className="root"
-      >
-        <span style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-          <TopNav />
-          <main
-            style={{
-              boxSizing: 'border-box',
-              width: '100%',
-              maxWidth: 'var(--size-lg)',
-              marginTop: '32px',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              paddingLeft: '16px',
-              paddingRight: '16px',
-              flexGrow: 1,
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <Outlet />
-          </main>
-        </span>
-        <Footer />
-      </span>
+      <Outlet />
     </StrictMode>
   );
 }
