@@ -1,11 +1,11 @@
 import { redirect } from 'react-router';
-import Article from '../components/Articles/Article';
+import Article from '~/components/Articles/Article';
 import {
   allArticles,
   getFileNameFromPath,
   getMarkdownFileName,
-} from '../utils/markdown';
-import type { Route } from './+types/articles.$slug';
+} from '~/utils/markdown';
+import type { Route } from '~/router/routes/+types/articles.$slug';
 
 // Use import.meta.glob to import markdown ReactComponent modules
 // Since attributes are already eagerly imported in markdown.ts, we make this eager too

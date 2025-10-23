@@ -2,10 +2,10 @@ import { Tooltip } from '@base-ui-components/react/tooltip';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-import contactItems from '../../assets/data/contactItems.json';
-import { buttonStyles } from '../button.styles';
-import ContactIcon from '../ContactIcon';
-import { ArrowSvg } from '../ChevronIcons';
+import contactItems from '~/assets/data/contactItems.json';
+import { buttonStyles } from '~/components/button.styles';
+import ContactIcon from '~/components/ContactIcon';
+import { ArrowSvg } from '~/components/ChevronIcons';
 
 const aStyles = css`
   text-decoration: none;

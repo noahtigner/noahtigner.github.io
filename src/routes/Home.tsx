@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 
-import Portfolio from '../components/Portfolio';
-import portfolioItems from '../assets/data/portfolioItems.json';
-import Divider from '../components/Divider';
-import ExperienceTimeline from '../components/ExperienceTimeline';
-import type { Route } from '../+types/root';
+import Portfolio from '~/components/Portfolio/Portfolio';
+import portfolioItems from '~/assets/data/portfolioItems.json';
+import Divider from '~/components/Divider';
+import ExperienceTimeline from '~/components/ExperienceTimeline';
+import type { Route } from '~/router/routes/+types/Home';
 
 const FlexContainer = styled.div`
   display: flex;

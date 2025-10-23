@@ -6,11 +6,11 @@ import {
   ScrollRestoration,
 } from 'react-router';
 
-import type { Route } from '../.react-router/types/src/+types/root';
-import TopNav from './components/TopNav/TopNav';
-import Footer from './components/Footer';
-import MetaTags from './components/MetaTags';
-import inlinedStyles from './index.css?inline';
+import type { Route } from '~/router/+types/root';
+import TopNav from '~/components/TopNav/TopNav';
+import Footer from '~/components/Footer/Footer';
+import MetaTags from '~/components/MetaTags';
+import inlinedStyles from '~/index.css?inline';
 
 const gtmId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 
