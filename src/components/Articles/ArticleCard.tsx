@@ -15,7 +15,7 @@ export default function ArticleCard({
   return (
     <Card>
       <span>
-        <LinkInternal aria-label={description} to={path}>
+        <LinkInternal aria-label={description} to={path} prefetch="viewport">
           <img
             src={image}
             alt={title}
@@ -49,6 +49,7 @@ export default function ArticleCard({
       </span>
       <ButtonLinkInternal
         to={path}
+        prefetch="viewport"
         style={{ backgroundColor: 'var(--color-paper)' }}
       >
         <ContactIcon label="Article" /> Read Article
