@@ -17,6 +17,13 @@ import paths from './paths';
 
 const gtmId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 
+const isSingleFetchNoResultError = (error: unknown): boolean => {
+  return (
+    error instanceof Error &&
+    error.message.startsWith('No result found for routeId')
+  );
+};
+
 function AppWrappers({ children }: { children?: ReactNode }) {
   return (
     <span
@@ -159,22 +166,18 @@ export function HydrateFallback() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = 'Oops!';
+  const message = 'Error';
   let details = 'An unexpected error occurred.';
   let stack: string | undefined;
 
   if (
     (isRouteErrorResponse(error) && error.status === 404) ||
-    (error instanceof Error &&
-      error.message.includes('No result found for routeId'))
+    isSingleFetchNoResultError(error)
   ) {
     return <Navigate to={paths.error404} replace />;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
-  } else {
-    message = 'Error';
-    details = 'An unexpected error occurred.';
   }
 
   return <ErrorPage message={message} details={details} stack={stack} />;
