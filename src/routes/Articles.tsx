@@ -40,6 +40,7 @@ export default function Articles() {
       </span>
       <LinkInternal
         to={paths.home}
+        prefetch="intent"
         style={{
           width: 'fit-content',
           display: 'block',

@@ -54,6 +54,7 @@ export default function Article({
         {children}
         <LinkInternal
           to={paths.articles}
+          prefetch="intent"
           style={{
             width: 'fit-content',
             display: 'block',
