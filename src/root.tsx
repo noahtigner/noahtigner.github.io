@@ -1,8 +1,8 @@
 import { StrictMode, type ReactNode } from 'react';
 import {
   isRouteErrorResponse,
-  Navigate,
   Outlet,
+  replace,
   Scripts,
   ScrollRestoration,
 } from 'react-router';
@@ -13,6 +13,7 @@ import Footer from '~/components/Footer/Footer';
 import MetaTags from '~/components/MetaTags';
 import inlinedStyles from '~/index.css?inline';
 import ErrorPage from './components/ErrorPage';
+import paths from './paths';
 
 const gtmId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 
@@ -167,7 +168,8 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     (error instanceof Error &&
       error.message.includes('No result found for routeId'))
   ) {
-    return <Navigate to="/404" replace />;
+    // return <Navigate to="/404" replace />;
+    return replace(paths.error404, 404);
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
