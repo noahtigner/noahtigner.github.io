@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import MetaTags from '~/components/MetaTags';
 import paths from '~/paths';
 import ArticleCard from '~/components/Articles/ArticleCard';
@@ -5,6 +6,23 @@ import { publishedArticles } from '~/utils/markdown';
 import Divider from '~/components/Divider';
 import { LinkInternal } from '~/components/Button';
 import type { Route } from '~/router/routes/+types/Articles';
+
+const ArticleGrid = styled.span`
+  display: inline-grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 33%));
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 32px;
+  width: 100%;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 50%));
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
 
 // tell React-Router to preload images for this page
 export const links: Route.LinksFunction = () => {
@@ -25,19 +43,11 @@ export default function Articles() {
         description="Articles written by Noah Tigner"
       />
       <Divider>Articles</Divider>
-      <span
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 33%))',
-          justifyContent: 'center',
-          gap: '1rem',
-          marginTop: '32px',
-        }}
-      >
+      <ArticleGrid>
         {publishedArticles.map((attrs) => (
           <ArticleCard key={attrs.path} {...attrs} />
         ))}
-      </span>
+      </ArticleGrid>
       <LinkInternal
         to={paths.home}
         prefetch="intent"
