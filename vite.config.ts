@@ -15,7 +15,6 @@ const md = markdownit({
   typographer: true,
   highlight: function (str: string, lang: string) {
     if (lang && hljs.getLanguage(lang)) {
-      console.log('Highlighting code block:', { lang, str });
       try {
         const highlighted = hljs.highlight(str, { language: lang }).value;
         // Return properly escaped HTML for React
