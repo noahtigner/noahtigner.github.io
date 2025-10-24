@@ -1,8 +1,8 @@
 import { StrictMode, type ReactNode } from 'react';
 import {
   isRouteErrorResponse,
+  Navigate,
   Outlet,
-  replace,
   Scripts,
   ScrollRestoration,
 } from 'react-router';
@@ -168,8 +168,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     (error instanceof Error &&
       error.message.includes('No result found for routeId'))
   ) {
-    // return <Navigate to="/404" replace />;
-    return replace(paths.error404, 404);
+    return <Navigate to={paths.error404} replace />;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
