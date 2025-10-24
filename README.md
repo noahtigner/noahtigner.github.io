@@ -40,7 +40,18 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] optimize images
   - [x] lazy-load ~~sections~~ routes
   - [x] lazy-load images
+  - [x] Prefetch important routes when certain links are rendered
 - [x] Telemetry & Analytics
+- [x] Custom 404 Page (that works with Github Pages)
+  - [x] Redirect invalid routes to 404 page
+- [x] Blog / Articles
+  - [x] Markdown support
+  - [ ] Components:
+    - [x] Basic components (Headings, Paragraphs, Lists, Links, Images)
+    - [ ] Quotes / Callouts
+    - [ ] Syntax highlighting for code blocks
+  - [ ] Tags / Categories
+  - [x] Server-side generation of article pages
 - [ ] Pull data from Github???
 - [ ] Test
   - [ ] Unit / Component Testing

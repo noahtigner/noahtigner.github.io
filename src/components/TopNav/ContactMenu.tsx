@@ -187,7 +187,10 @@ export default function ContactMenu() {
                   <StyledMenuPopup>
                     <StyledMenuItem
                       render={
-                        <StyledInternalLinkItem to={paths.articles}>
+                        <StyledInternalLinkItem
+                          to={paths.articles}
+                          prefetch="render"
+                        >
                           All Articles
                         </StyledInternalLinkItem>
                       }
@@ -197,7 +200,10 @@ export default function ContactMenu() {
                       <StyledMenuItem
                         key={attrs.path}
                         render={
-                          <StyledInternalLinkItem to={attrs.path}>
+                          <StyledInternalLinkItem
+                            to={attrs.path}
+                            prefetch="render"
+                          >
                             {attrs.title}
                           </StyledInternalLinkItem>
                         }
