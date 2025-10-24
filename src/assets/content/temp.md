@@ -14,3 +14,11 @@ tags:
 # Hello
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+```typescript
+const greet = (name: string): string => {
+  return `Hello, ${name}!`;
+};
+
+console.log(greet('World'));
+```

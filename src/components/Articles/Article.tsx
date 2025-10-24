@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import styled from '@emotion/styled';
+import syntaxStyles from 'highlight.js/styles/github-dark.min.css?inline';
 
 import Divider from '~/components/Divider';
 import MetaTags from '~/components/MetaTags';
@@ -39,6 +40,7 @@ export default function Article({
         description={articleAttributes.description}
       />
       <style>{inlinedStyles}</style>
+      <style>{syntaxStyles}</style>
       <section
         className="article-container"
         style={{

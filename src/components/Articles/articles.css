@@ -1,11 +1,10 @@
 code,
 .code {
-  background-color: var(--color-paper);
-  color: var(--color-text-primary);
+  background-color: var(--color-paper) !important;
   width: fit-content;
   padding: 2px 4px;
   border-radius: 8px;
-  white-space: nowrap;
+  color: inherit;
 }
 
 .article-container {
