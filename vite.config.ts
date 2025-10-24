@@ -25,7 +25,7 @@ const md = markdownit({
       }
     }
     // Fallback: escape the code properly
-    return '';
+    return `<pre><code>${md.utils.escapeHtml(str)}</code></pre>`;
   },
 });
 
