@@ -28,6 +28,10 @@ export default {
   ssr: false,
   appDirectory: 'src',
   buildDirectory: 'dist',
+  future: {
+    // This might help reduce data duplication
+    unstable_optimizeDeps: true,
+  },
   async prerender() {
     const nonSlugPaths = Object.values(paths).filter(
       (p) => !p.includes(':') && !p.includes('*')

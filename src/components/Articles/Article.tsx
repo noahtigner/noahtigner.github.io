@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 import styled from '@emotion/styled';
+import syntaxStyles from 'highlight.js/styles/github-dark.min.css?inline';
 
 import Divider from '~/components/Divider';
 import MetaTags from '~/components/MetaTags';
 import paths from '~/paths';
 import inlinedStyles from '~/components/Articles/articles.css?inline';
-import syntaxStyles from 'highlight.js/styles/github-dark.css?inline';
 import { LinkInternal } from '~/components/Button';
 import { type ArticleAttributes } from '~/utils/markdown';
 
