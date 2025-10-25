@@ -16,6 +16,9 @@ lerna-debug.log*
 node_modules
 *.local
 
+# Lock files (project uses pnpm-lock.yaml)
+package-lock.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
