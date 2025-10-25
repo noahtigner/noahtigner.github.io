@@ -5,6 +5,12 @@ code,
   padding: 2px 4px;
   border-radius: 8px;
   color: inherit;
+  white-space: nowrap;
+}
+
+.hljs {
+  overflow-x: auto;
+  white-space: pre-wrap !important;
 }
 
 .article-container {

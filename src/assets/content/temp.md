@@ -22,3 +22,17 @@ const greet = (name: string): string => {
 
 console.log(greet('World'));
 ```
+
+> [!NOTE]
+> This is a note highlighting important information.
+
+> [!WARNING]
+> This is a warning highlighting critical information.
+
+> [!IMPORTANT]
+> This is an important note highlighting critical information.
+
+> [!TIP]
+> This is a tip providing helpful advice.
+
+> This is a regular blockquote for general quotations.
