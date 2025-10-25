@@ -49,7 +49,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [ ] Components:
     - [x] Basic components (Headings, Paragraphs, Lists, Links, Images)
     - [ ] Quotes / Callouts
-    - [ ] Syntax highlighting for code blocks
+    - [x] Syntax highlighting for code blocks w/ MakrdownIt + Highlight.js
   - [ ] Tags / Categories
   - [x] Server-side generation of article pages
 - [ ] Pull data from Github???
