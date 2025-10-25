@@ -76,3 +76,73 @@ code,
     }
   }
 }
+
+blockquote {
+  padding: 8px 16px;
+  margin: 0;
+  color: inherit;
+  border-radius: var(--border-radius);
+  border-left: 0.25em solid var(--color-border);
+  background-color: rgba(248, 251, 248, 0.05);
+
+  > :first-child {
+    margin: 0;
+  }
+}
+
+/* GitHub-style blockquote callouts (NOTE, WARNING, TIP, IMPORTANT, CAUTION) */
+.markdown-alert {
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: 0.25em solid;
+  border-radius: var(--border-radius);
+}
+.markdown-alert > :first-child {
+  margin-top: 0;
+}
+.markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 400;
+  align-items: center;
+  position: relative;
+  margin-bottom: 8px;
+}
+.markdown-alert.markdown-alert-note {
+  border-left-color: #2f81f7;
+  background-color: #2f81f710;
+}
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #2f81f7;
+}
+.markdown-alert.markdown-alert-important {
+  border-left-color: #a371f7;
+  background-color: #a371f710;
+}
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #a371f7;
+}
+.markdown-alert.markdown-alert-tip {
+  border-left-color: #3fb950;
+  background-color: #3fb95010;
+}
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+.markdown-alert.markdown-alert-warning {
+  border-left-color: #d29922;
+  background-color: #d2992210;
+}
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+.markdown-alert.markdown-alert-caution {
+  border-left-color: #f85149;
+  background-color: #f8514910;
+}
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
