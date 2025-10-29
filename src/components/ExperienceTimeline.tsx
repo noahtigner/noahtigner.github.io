@@ -75,7 +75,7 @@ export default function ExperienceTimeline() {
           >
             <ExperienceIcon organization={organization} />
             <span>
-              <h4>{title}</h4>
+              <h3 style={{ fontSize: '1rem' }}>{title}</h3>
               <p style={{ color: 'var(--color-text-secondary)' }}>
                 {organization}
               </p>
