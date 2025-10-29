@@ -62,15 +62,19 @@ code,
   }
   iframe {
     border: none;
-    width: 100%;
+    width: 50%;
     aspect-ratio: 16 / 9;
   }
   .video-container {
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    max-width: 100%;
   }
   @media (max-width: 600px) {
+    iframe {
+      width: 100%;
+    }
     .video-container {
       flex-direction: column;
     }
