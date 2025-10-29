@@ -46,9 +46,9 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] Redirect invalid routes to 404 page
 - [x] Blog / Articles
   - [x] Markdown support
-  - [ ] Components:
+  - [x] Components:
     - [x] Basic components (Headings, Paragraphs, Lists, Links, Images)
-    - [ ] Quotes / Callouts
+    - [x] Quotes / Callouts
     - [x] Syntax highlighting for code blocks w/ MakrdownIt + Highlight.js
   - [ ] Tags / Categories
   - [x] Server-side generation of article pages
