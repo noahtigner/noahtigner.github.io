@@ -57,6 +57,11 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [ ] Unit / Component Testing
   - [ ] Accessibility Testing
 
+## Articles / Blog Posts:
+
+- [x] [Creating a Custom Github Pages 404 Page with React Router v7's Framework Mode](https://noahtigner.com/articles/github-pages-404-react-router/)
+- [x] [React Conf 2025 Highlights](https://noahtigner.com/articles/react-conf-2025/)
+
 ## Available Scripts:
 
 - `pnpm dev` - Runs the app in the development mode.
