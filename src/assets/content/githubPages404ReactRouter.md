@@ -219,7 +219,6 @@ env:
   CI: true
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
