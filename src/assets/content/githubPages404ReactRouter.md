@@ -155,8 +155,8 @@ export default function ErrorView({
 // Layout, HydrateFallback, etc.
 
 export function ErrorBoundary() {
-  const message = 'Error';
-  const details = 'An unexpected error occurred.';
+  const message = '404';
+  const details = 'Not Found';
 
   return <ErrorView message={message} details={details} />;
 }
@@ -249,6 +249,46 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 ```
+
+Now any 404ing routes will serve our SPA fallback, which renders our `ErrorView` component!
+
+<img
+  src="/images/github-404/custom-404.png"
+  alt="Custom 404 View"
+  loading="lazy"
+  style="max-width: 80%; height: auto;"
+/>
+
+Great! For most of us, this is sufficient! We are able to gracefully handle 404s in our React apps without falling back to Github Pages' default 404 page or using legacy routing strategies. But can we do better?
+
+There are two issues with this approach:
+
+1. There is no differentiation between genuine 404 errors and other types of errors. All errors will be treated as 404s, regardless of where or how they originated, which can be misleading to users and developers alike.
+2. Many users may expect the URL to have updated to _/404_ instead of remaining on whichever invalid route they initially tried to access. This may or may not be suitable for your use case and preferences, but I prefer to redirect to a dedicated 404 route.
+
+### Taking It Further: Redirecting to a Dedicated 404 Route
+
+Let's start by creating a dedicated 404 page based on our existing `ErrorPage` component.
+
+```typescript
+// src/routes/404.tsx
+import { Navigate } from 'react-router';
+import ErrorPage from '~/components/ErrorPage';
+import type { Route } from '~/router/routes/+types/404';
+
+export default function NotFoundRoute({ matches }: Route.ComponentProps) {
+  if (
+    matches &&
+    matches.length &&
+    matches[matches.length - 1]?.id === 'catch-all'
+  ) {
+    return <Navigate to="/404" replace />;
+  }
+  return <ErrorPage message="404" details="Not Found" />;
+}
+```
+
+Next, we'll update our routes file to map both the `/404` path and a catch-all `*` path to this new route.
 
 > [!NOTE]
 > Why not just bypass the SPA fallback and the `ErrorBoundary` and directly copy over our 404 page from _./dist/404/index.html_ to _./dist/404.html_? It seems that when these are bypassed, the 404 error is treated as a generic error and we lose the ability to handle it or style the generic error view that React Router renders.
