@@ -40,7 +40,7 @@ Both `HashRouter` and `createHashRouter` are suboptimal for several reasons. Usi
 
 React Router v7 (A.K.A Remix v3) offers three strategies or <a href="https://reactrouter.com/start/modes" target="_blank" rel="noopener">"modes"</a> for routing. The modes are called "Declarative", "Data", and "Framework", with each successively adding more features. "Declarative" mode will be the most easily recognizable to users of prior versions of React Router, offering the fewest features but the easiest configuration. "Data" mode mirrors the additions made in v6.4, offering loaders, actions, etc. "Framework" mode, while the most opinionated, offers the most features, many of which are entirely new to React Router. Within "Framework" mode, users have <a href="https://reactrouter.com/start/framework/rendering" target="_blank" rel="noopener">three rendering strategies</a> to choose from: client-side rendering, server-side rendering, and static pre-rendering.
 
-Of these three rendering strategies, we can immediately rule out server-side rendering, since Github Pages does not support SSR. Client-side rendering is of course supported, but will lead to the same routing pitfalls described above. Static Pre-rendering is the answer to all (or at least most) of our problems.
+Of these three rendering strategies, we can immediately rule out server-side rendering, since Github Pages does not support SSR. Client-side rendering is of course supported, but will lead to the same routing pitfalls as described above. Static Pre-rendering is the answer to all (or at least most) of our problems.
 
 #### Static Pre-Rendering with v7's Framework Mode
 
@@ -282,18 +282,7 @@ Let's start by creating a dedicated 404 page based on our existing `ErrorPage` c
 
 ```typescript
 // src/routes/404.tsx
-import { Navigate } from 'react-router';
-import ErrorPage from '~/components/ErrorPage';
-import type { Route } from '~/router/routes/+types/404';
-
-export default function NotFoundRoute({ matches }: Route.ComponentProps) {
-  if (
-    matches &&
-    matches.length &&
-    matches[matches.length - 1]?.id === 'catch-all'
-  ) {
-    return <Navigate to="/404" replace />;
-  }
+export default function NotFoundRoute() {
   return <ErrorPage message="404" details="Not Found" />;
 }
 ```
