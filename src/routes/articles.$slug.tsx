@@ -41,7 +41,7 @@ const ArticleComponents = Object.fromEntries(
 );
 
 export async function loader({ params }: Route.LoaderArgs) {
-  const articlePath = `/articles/${params.slug}`;
+  const articlePath = `/articles/${params.slug}/`;
   const attributes = allArticles.find((attr) => attr.path === articlePath);
 
   if (!attributes) {
