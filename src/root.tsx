@@ -1,28 +1,28 @@
 import { StrictMode, type ReactNode } from 'react';
 import {
-  isRouteErrorResponse,
-  Navigate,
+  // isRouteErrorResponse,
+  // Navigate,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from 'react-router';
 
-import type { Route } from '~/router/+types/root';
+// import type { Route } from '~/router/+types/root';
 import TopNav from '~/components/TopNav/TopNav';
 import Footer from '~/components/Footer/Footer';
 import MetaTags from '~/components/MetaTags';
 import inlinedStyles from '~/index.css?inline';
 import ErrorPage from './components/ErrorPage';
-import paths from './paths';
+// import paths from './paths';
 
 const gtmId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 
-const isSingleFetchNoResultError = (error: unknown): boolean => {
-  return (
-    error instanceof Error &&
-    error.message.startsWith('No result found for routeId')
-  );
-};
+// const isSingleFetchNoResultError = (error: unknown): boolean => {
+//   return (
+//     error instanceof Error &&
+//     error.message.startsWith('No result found for routeId')
+//   );
+// };
 
 function AppWrappers({ children }: { children?: ReactNode }) {
   return (
@@ -165,20 +165,21 @@ export function HydrateFallback() {
   return null;
 }
 
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+// export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+export function ErrorBoundary() {
   const message = 'Error';
-  let details = 'An unexpected error occurred.';
+  const details = 'An unexpected error occurred.';
   let stack: string | undefined;
 
-  if (
-    (isRouteErrorResponse(error) && error.status === 404) ||
-    isSingleFetchNoResultError(error)
-  ) {
-    return <Navigate to={paths.error404} replace />;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
-  }
+  // if (
+  //   (isRouteErrorResponse(error) && error.status === 404) ||
+  //   isSingleFetchNoResultError(error)
+  // ) {
+  //   return <Navigate to={paths.error404} replace />;
+  // } else if (import.meta.env.DEV && error && error instanceof Error) {
+  //   details = error.message;
+  //   stack = error.stack;
+  // }
 
   return <ErrorPage message={message} details={details} stack={stack} />;
 }
