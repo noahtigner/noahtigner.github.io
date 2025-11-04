@@ -32,7 +32,13 @@ for (const modulePath in attributeModules) {
   }
 }
 
-const publishedArticles = allArticles.filter((attr) => attr.published);
+const publishedArticles = allArticles
+  .filter((attr) => attr.published)
+  .sort((a, b) => {
+    const dateA = new Date(a.published!);
+    const dateB = new Date(b.published!);
+    return dateA.getTime() - dateB.getTime();
+  });
 
 // Get the base name from a module path (e.g., './ReactConf2025.md' -> 'ReactConf2025')
 function getMarkdownFileName(modulePath: string): string {
