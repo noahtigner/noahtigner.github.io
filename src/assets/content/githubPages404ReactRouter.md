@@ -188,3 +188,5 @@ The _\_\_spa_fallback.html_ file looks interesting. The React Router pre-renderi
 The docs then go on to describe how this file is intended to be used:
 
 > You can configure your deployment server to serve this file for any path that otherwise would 404. Some hosts do this by default, but others don't.
+
+Unfortunately, Github Pages does not let us configure this sort of behavior. Github Pages will only serve your 404 page if it is titled _404.html_ and sits at the top level of your dist.

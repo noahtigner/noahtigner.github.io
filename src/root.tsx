@@ -12,7 +12,7 @@ import TopNav from '~/components/TopNav/TopNav';
 import Footer from '~/components/Footer/Footer';
 import MetaTags from '~/components/MetaTags';
 import inlinedStyles from '~/index.css?inline';
-import ErrorPage from './components/ErrorPage';
+// import ErrorPage from './components/ErrorPage';
 // import paths from './paths';
 
 const gtmId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
@@ -166,23 +166,23 @@ export function HydrateFallback() {
 }
 
 // export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-export function ErrorBoundary() {
-  const message = 'Error';
-  const details = 'An unexpected error occurred.';
-  let stack: string | undefined;
+// export function ErrorBoundary() {
+//   const message = 'Error';
+//   const details = 'An unexpected error occurred.';
+//   let stack: string | undefined;
 
-  // if (
-  //   (isRouteErrorResponse(error) && error.status === 404) ||
-  //   isSingleFetchNoResultError(error)
-  // ) {
-  //   return <Navigate to={paths.error404} replace />;
-  // } else if (import.meta.env.DEV && error && error instanceof Error) {
-  //   details = error.message;
-  //   stack = error.stack;
-  // }
+//   // if (
+//   //   (isRouteErrorResponse(error) && error.status === 404) ||
+//   //   isSingleFetchNoResultError(error)
+//   // ) {
+//   //   return <Navigate to={paths.error404} replace />;
+//   // } else if (import.meta.env.DEV && error && error instanceof Error) {
+//   //   details = error.message;
+//   //   stack = error.stack;
+//   // }
 
-  return <ErrorPage message={message} details={details} stack={stack} />;
-}
+//   return <ErrorPage message={message} details={details} stack={stack} />;
+// }
 
 export default function App() {
   return (
