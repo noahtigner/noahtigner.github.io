@@ -11,6 +11,7 @@ import { type ArticleAttributes } from '~/utils/markdown';
 
 const ImgBox = styled.img`
   height: 100px;
+  width: auto;
   object-fit: contain;
   padding: 0 0.75rem;
   @media (max-width: 600px) {

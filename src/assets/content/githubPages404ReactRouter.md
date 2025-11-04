@@ -4,7 +4,7 @@ description: Creating a custom Github Pages 404 page with React Router v7's Stat
 published: November 3, 2025
 minutesToRead: 12
 path: /articles/github-pages-404-react-router
-image: /images/404-page.png
+image: /images/github-404/custom-404-preview.png
 tags:
   - 'react'
   - 'github'
@@ -105,9 +105,11 @@ export default {
 Once deployed, we'll see something like this when we navigate to any routes that were not pre-rendered:
 
 <img
-  src="/images/github-404/github-404.png"
+  src="/images/github-404/github-404.jpg"
   alt="Github Page's Default 404 Page"
   loading="lazy"
+  width="705"
+  height="506"
   style="max-width: 100%; height: auto;"
 />
 
@@ -178,6 +180,8 @@ Let's build our application and look at the dist. Notice anything?
   src="/images/github-404/dist-1.png"
   alt="Initial build output"
   loading="lazy"
+  width="170"
+  height="277"
   style="max-width: 100%; height: auto;"
 />
 
@@ -264,7 +268,9 @@ Now any 404ing routes will serve our SPA fallback, which renders our `ErrorView`
   src="/images/github-404/custom-404.png"
   alt="Custom 404 View"
   loading="lazy"
-  style="max-width: 80%; height: auto;"
+  width="540"
+  height="360"
+  style="max-width: 100%; height: auto;"
 />
 
 Great! For most of us, this is sufficient! We are able to gracefully handle 404s in our React apps without falling back to Github Pages' default 404 page or using legacy routing strategies. But can we do better?
