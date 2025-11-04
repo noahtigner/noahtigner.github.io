@@ -84,6 +84,7 @@ code,
 blockquote {
   padding: 8px 16px;
   margin: 0;
+  margin-bottom: 16px;
   color: inherit;
   border-radius: var(--border-radius);
   border-left: 0.25em solid var(--color-border);
