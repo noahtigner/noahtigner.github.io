@@ -45,8 +45,8 @@ jobs:
               args: [--frozen-lockfile]
       - name: Build
         run: pnpm run build
-      # - name: Copy 404 Page
-      #   run: cp ./dist/__spa-fallback.html ./dist/404.html
+      - name: Copy 404 Page
+        run: cp ./dist/404/index.html ./dist/404.html
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

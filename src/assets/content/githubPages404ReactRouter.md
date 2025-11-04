@@ -58,6 +58,7 @@ import type { Config } from '@react-router/dev/config';
 
 export default {
   ssr: false,
+  buildDirectory: 'dist',
 } satisfies Config;
 ```
 
@@ -75,6 +76,7 @@ const paths = {
 
 export default {
   ssr: false,
+  buildDirectory: 'dist',
   // prerender: true,
   // prerender: ['/', '/articles'],
   async prerender() {
@@ -93,3 +95,96 @@ export default {
 
 > [!WARNING]
 > Even though Framework mode leverages Vite, it seems that certain Vite APIs and plugins do not behave as expected when used within `prerender` or executed directly in this file. For example, users have reported not being able to import .md files with `import.meta.glob` in <a href="https://github.com/remix-run/react-router/issues/12155" target="_blank" rel="noopener">this issue</a>. I have personally observed that _vite-plugin-markdown_ does not work within this file, and have had to fall back to the Node's _fs_ and _path_ modules.
+
+Once deployed, we'll see something like this when we navigate to any routes that were not pre-rendered:
+
+<img
+  src="/images/github-404/github-404.png"
+  alt="Github Page's Default 404 Page"
+  loading="lazy"
+  style="max-width: 100%; height: auto;"
+/>
+
+### Solution: Error Boundaries & the SPA Fallback
+
+Every React application should have a top-level error boundary, and this one is no different. Let's create a reusable component called `ErrorView` and return it from the `ErrorBoundary` exported in our _root.tsx_.
+
+```typescript
+// src/components/ErrorView.tsx
+import { Separator } from '@base-ui-components/react';
+import styled from '@emotion/styled';
+
+const StyledSeparator = styled(Separator)`
+  width: 1px;
+  height: 2rem;
+  background-color: var(--color-divider);
+`;
+
+export default function ErrorView({
+  message,
+  details,
+}: {
+  message: string;
+  details: string;
+}) {
+  return (
+    <>
+      <span
+        style={{
+          flexGrow: 1,
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '1rem',
+        }}
+      >
+        <span style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 300 }}>{message}</h2>
+          <StyledSeparator orientation="vertical" />
+          <p style={{ fontSize: '1.5rem', fontWeight: 300 }}>{details}</p>
+        </span>
+      </span>
+    </>
+  );
+}
+```
+
+```typescript
+// src/root.tsx
+
+// Layout, HydrateFallback, etc.
+
+export function ErrorBoundary() {
+  const message = 'Error';
+  const details = 'An unexpected error occurred.';
+
+  return <ErrorView message={message} details={details} />;
+}
+
+// ... default export; likely returns an <Outlet />
+```
+
+Let's build our application and look at the dist. Notice anything?
+
+<img
+  src="/images/github-404/dist-1.png"
+  alt="Initial build output"
+  loading="lazy"
+  style="max-width: 100%; height: auto;"
+/>
+
+The _\_\_spa_fallback.html_ file looks interesting. The React Router pre-rendering docs have a section titled <a href="https://reactrouter.com/how-to/pre-rendering#pre-rendering-with-a-spa-fallback" target="_blank" rel="noopener" class="ital">Pre-rendering with a SPA Fallback
+</a> that describes this file:
+
+> If you want ssr:false but don't want to pre-render all of your routes - that's fine too! You may have some paths where you need the performance/SEO benefits of pre-rendering, but other pages where a SPA would be fine.
+>
+> You can do this using the combination of config options as well - just limit your prerender config to the paths that you want to pre-render and React Router will also output a "SPA Fallback" HTML file that can be served to hydrate any other paths (using the same approach as SPA Mode).
+>
+> This will be written to one of the following paths:
+>
+> - build/client/index.html - If the / path is not pre-rendered
+> - build/client/\_\_spa-fallback.html - If the / path is pre-rendered
+
+The docs then go on to describe how this file is intended to be used:
+
+> You can configure your deployment server to serve this file for any path that otherwise would 404. Some hosts do this by default, but others don't.
