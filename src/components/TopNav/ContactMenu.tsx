@@ -44,6 +44,10 @@ export const StyledMenuPopup = styled(Menu.Popup)`
   outline-offset: -1px;
   filter: drop-shadow(0 0 0.25rem var(--color-paper));
 
+  @media (max-width: 768px) {
+    max-width: 60vw;
+  }
+
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
@@ -86,6 +90,14 @@ const menuItemStyles = css`
   display: flex;
   font-size: 0.875rem;
   line-height: 1rem;
+
+  white-space: normal;
+  word-wrap: break-word;
+  hyphens: auto;
+
+  @media (max-width: 768px) {
+    line-height: 1.25rem;
+  }
 
   &[data-popup-open] {
     z-index: 0;
