@@ -252,4 +252,4 @@ jobs:
 ```
 
 > [!NOTE]
-> Why not just bypass the SPA fallback and the `ErrorBoundary` and directly copy over our 404 page from _/404/index.html_ to _/404.html_? It seems that when these are bypassed, the 404 error is treated as a generic error and we lose the ability to handle it or style the generic error view that React Router renders.
+> Why not just bypass the SPA fallback and the `ErrorBoundary` and directly copy over our 404 page from _./dist/404/index.html_ to _./dist/404.html_? It seems that when these are bypassed, the 404 error is treated as a generic error and we lose the ability to handle it or style the generic error view that React Router renders.
