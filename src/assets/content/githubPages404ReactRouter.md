@@ -1,8 +1,8 @@
 ---
-title: 'Github Pages: Custom 404 Page with React Router'
-description: TODO
-published:
-minutesToRead: 10
+title: Custom Github Pages 404 Page with React Router
+description: Creating a custom Github Pages 404 page with React Router v7's Static Pre-Rendering and Error Boundaries.
+published: November 3, 2025
+minutesToRead: 12
 path: /articles/github-pages-404-react-router
 image: /images/404-page.png
 tags:
@@ -11,15 +11,17 @@ tags:
   - '404'
 ---
 
-## Creating a custom Github Pages 404 page with React Router
+## Custom Github Pages 404 Page with React Router
 
-###### 10 minute read • November 3, 2025
+###### 12 minute read • November 3, 2025
 
 <a href="https://docs.github.com/en/pages/quickstart" target="_blank" rel="noopener">Github Pages</a> is one of the most straightforward ways of hosting a static website for free. With <a href="https://github.com/actions/upload-pages-artifact" target="_blank" rel="noopener" class="ital">upload-pages-artifact</a> and <a href="https://github.com/actions/deploy-pages" target="_blank" rel="noopener"  class="ital">deploy-pages</a>, developers can commit and merge their changes and have them deployed in minutes or even seconds. This makes Github Pages an obvious choice for deploying and hosting Single-Page Applications (SPAs) built with React.
 
-### The Problem: Routing
+#### The Problem: Routing
 
 The most commonly faced issue when deploying React applications to Github Pages stems from routing. Many users find that while React Router's client-side routing works well locally, it is not necessarily supported by Github Pages. Most client-side routing libraries require that all page requests are sent to _index.html_, which is not supported by Github Pages. Instead, requesting any route other than the index will result in a 404.
+
+---
 
 ### Legacy Workarounds
 
@@ -31,6 +33,8 @@ Prior to React Router v6.4, the most common workaround was to use a `HashRouter`
 React Router v6.4 introduced the <a href="https://reactrouter.com/6.30.1/routers/picking-a-router#data-apis" target="_blank" rel="noopener" class="ital">Data APIs</a>, which included `route.loader`, `route.action`, route-based lazy-loading, and more than a dozen hooks. To leverage these, users had to migrate to a "data router" such as `createBrowserRouter` or `createMemoryRouter`. The docs recommend that all projects use `createBrowserRouter`, but many static hosting platforms (including Github Pages) will force developers to use `createHashRouter` instead.
 
 Both `HashRouter` and `createHashRouter` are suboptimal for several reasons. Using the hash portion of the URL for routing can have a negative impact on SEO. Using the URL hash in this manner can conflict with its intended uses, such as for navigating to specific parts of a given page via the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement/hash" target="_blank" rel="noopener">anchor hash</a>. In my subjective opinion, seeing hash-routing in the wild is often a dead giveaway that an app is using outdated APIs and techniques.
+
+---
 
 ### React Router v7
 
@@ -48,6 +52,8 @@ While the docs describe static pre-rendering as a third rendering strategy, it c
 
 > [!TIP]
 > While an over-simplification, it can be helpful to think of static pre-rendering as build-time SSR.
+
+---
 
 ### Getting Started
 
@@ -104,6 +110,8 @@ Once deployed, we'll see something like this when we navigate to any routes that
   loading="lazy"
   style="max-width: 100%; height: auto;"
 />
+
+---
 
 ### Solution: Error Boundaries & the SPA Fallback
 
@@ -264,7 +272,9 @@ Great! For most of us, this is sufficient! We are able to gracefully handle 404s
 There are two issues with this approach:
 
 1. There is no differentiation between genuine 404 errors and other types of errors. All errors will be treated as 404s, regardless of where or how they originated, which can be misleading to users and developers alike.
-2. Many users may expect the URL to have updated to _/404_ instead of remaining on whichever invalid route they initially tried to access. This may or may not be suitable for your use case and preferences, but I prefer to redirect to a dedicated 404 route.
+2. Many users may expect the URL to have updated to /404 instead of remaining on whichever invalid route they initially tried to access. This may or may not be suitable for your use case and preferences, but I prefer to redirect to a dedicated 404 route.
+
+---
 
 ### Taking It Further: Redirecting to a Dedicated 404 Route
 
@@ -288,7 +298,122 @@ export default function NotFoundRoute({ matches }: Route.ComponentProps) {
 }
 ```
 
-Next, we'll update our routes file to map both the `/404` path and a catch-all `*` path to this new route.
+Next, we'll update update our _routes.ts_ and the router config's `prerender` option to point to this new route
+
+```typescript
+// src/routes.ts
+import { type RouteConfig, index, route } from '@react-router/dev/routes';
+
+export default [
+  index('routes/Home.tsx'),
+  route('/articles', './routes/Articles.tsx'),
+  route('/articles/:slug', './routes/articles.$slug.tsx'),
+  route('/404', './routes/404.tsx'), // add this!
+] satisfies RouteConfig;
+```
+
+```typescript
+import type { Config } from '@react-router/dev/config';
+import { getArticlePaths } from './articles/utils';
+
+const paths = {
+  home: '/',
+  articles: '/articles',
+  article: '/articles/:slug',
+  error404: '/404', // add this!
+};
+
+export default {
+  ssr: false,
+  buildDirectory: 'dist',
+  async prerender() {
+    // exclude dynamic routes like /articles/:slug
+    const nonSlugPaths = Object.values(paths).filter(
+      (p) => !p.includes(':') && !p.includes('*')
+    );
+    // asynchronously get dynamic article paths
+    const articlePaths = await getArticlePaths();
+    // deduplicate paths
+    const deduped = new Set([...nonSlugPaths, ...articlePaths]);
+    return Array.from(deduped);
+  },
+} satisfies Config;
+```
+
+#### Differentiating 404s from Other Errors
+
+Our last task is to differentiate between 404 errors and other types of errors within our `ErrorBoundary`. First, we can check against React Router's `isRouteErrorResponse`, which tells us if an error is a 4xx/5xx error thrown from an action or loader. If this check returns true, we can also check the error's `status` to see if it matches 404. These two checks are useful, but they will only tell you if a loader or action threw a 404. In the case of a route not existing, a `SingleFetchNoError` is thrown. Frustratingly, there is not a single mention of this error in the documentation. By inspecting the <a href="https://github.com/remix-run/react-router/blob/64f82f1581bd5e72a9312802c60bb61b9278135a/packages/react-router/lib/dom/ssr/single-fetch.tsx#L27" target="_blank" rel="noopener">source code for React Router v7</a>, we can see that `SingleFetchNoResultError` directly extends `Error` without adding any additional properties.
+
+```typescript
+# react-router/packages/react-router/lib/dom/ssr/single-fetch.tsx
+...
+class SingleFetchNoResultError extends Error {}
+...
+```
+
+Even more frustratingly, React Router does not export this error, so we cannot do an `instanceof` check against our errors. Note that I plan on submitting a PR to React Router to address this. As an admittedly brittle workaround, we can reference the error message directly. As of writing this article, `SingleFetchNoError` are only thrown in one place, with a message of `No result found for routeId "${routeId}"`.
+
+```typescript
+// react-router/packages/react-router/lib/dom/ssr/single-fetch.tsx
+...
+function unwrapSingleFetchResult(
+  result: DecodedSingleFetchResults,
+  routeId: string,
+) {
+  ...
+  let routeResult = result.routes[routeId];
+  if (routeResult == null) {
+    throw new SingleFetchNoResultError(
+      `No result found for routeId "${routeId}"`,
+    );
+  }
+  ...
+}
+...
+```
+
+Based on this knowledge, we can implement a utility function to check if an error is a `SingleFetchNoResultError`.
+
+```typescript
+const isSingleFetchNoResultError = (error: unknown): boolean => {
+  return (
+    error instanceof Error &&
+    error.message.startsWith('No result found for routeId')
+  );
+};
+```
+
+We now have everything we need to update our `ErrorBoundary` to differentiate between 404s and other errors, and redirect to our dedicated 404 route when appropriate.
+
+```typescript
+// src/root.tsx
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  const message = 'Error';
+  let details = 'An unexpected error occurred.';
+  let stack: string | undefined;
+
+  if (
+    (isRouteErrorResponse(error) && error.status === 404) ||
+    isSingleFetchNoResultError(error)
+  ) {
+    return <Navigate to="/404" replace />;
+  } else if (import.meta.env.DEV && error && error instanceof Error) {
+    details = error.message;
+    stack = error.stack;
+  }
+
+  return <ErrorPage message={message} details={details} stack={stack} />;
+}
+```
+
+---
+
+### Conclusion
+
+Once deployed, we can verify that navigating to invalid routes correctly redirects to our dedicated 404 page! Additionally, we preserved context about other types of errors, which will be useful for debugging in development. You could take this approach even further by creating dedicated pages for other types of errors.This 404 redirection strategy also works for slug routes that do not exist, such as /articles/non-existent-article\_. This website was built with this exact approach, so feel free to reference <a href="https://github.com/noahtigner/noahtigner.github.io" target="_blank" rel="noopener">the source code</a>. Thanks for reading!
+
+> [!TIP]
+> When working with slug routes, we often need to check if the requested resource exists (i.e., if a file exists in the file system or if a record exists in the database). It is best practice to perform this check in the route's `loader` and throw a 404 error if the resource is not found. This will look something like `return redirect('/404', 404);`. Normally, loaders are only available with SSR, but React Router's static pre-rendering allows us to use loaders without enabling SSR. We can also use a `clientLoader` when necessary, although this will only run on the client side after the initial page load.
 
 > [!NOTE]
 > Why not just bypass the SPA fallback and the `ErrorBoundary` and directly copy over our 404 page from _./dist/404/index.html_ to _./dist/404.html_? It seems that when these are bypassed, the 404 error is treated as a generic error and we lose the ability to handle it or style the generic error view that React Router renders.

@@ -36,7 +36,7 @@ export default function Article({
   return (
     <>
       <MetaTags
-        title={articleAttributes.title}
+        title={articleAttributes.title + ' | Noah Tigner'}
         description={articleAttributes.description}
       />
       <style>{inlinedStyles}</style>
