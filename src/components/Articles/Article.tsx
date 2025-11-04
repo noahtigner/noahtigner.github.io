@@ -27,6 +27,35 @@ function LogoDivider({ title, imgSrc }: { title: string; imgSrc: string }) {
   );
 }
 
+function ArticleMetaTags({
+  articleAttributes,
+}: {
+  articleAttributes: ArticleAttributes;
+}) {
+  return (
+    <>
+      <MetaTags
+        title={articleAttributes.title + ' | Noah Tigner'}
+        description={articleAttributes.description}
+      />
+      <meta
+        property="article:published_time"
+        content={
+          articleAttributes.published
+            ? new Date(articleAttributes.published).toISOString()
+            : ''
+        }
+      />
+      <meta property="article:author" content="Noah Tigner" />
+      <meta
+        property="article:tag"
+        content={articleAttributes.tags.join(', ')}
+      />
+      <meta property="og:image" content={articleAttributes.image} />
+    </>
+  );
+}
+
 export default function Article({
   articleAttributes,
   children,
@@ -36,10 +65,7 @@ export default function Article({
 }) {
   return (
     <>
-      <MetaTags
-        title={articleAttributes.title + ' | Noah Tigner'}
-        description={articleAttributes.description}
-      />
+      <ArticleMetaTags articleAttributes={articleAttributes} />
       <style>{inlinedStyles}</style>
       <style>{syntaxStyles}</style>
       <section
