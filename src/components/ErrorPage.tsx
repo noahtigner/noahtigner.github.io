@@ -18,6 +18,7 @@ export default function ErrorPage({
 }) {
   return (
     <>
+      <title>{message + ' | Noah Tigner'}</title>
       <span
         style={{
           flexGrow: 1,

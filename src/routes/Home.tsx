@@ -5,6 +5,7 @@ import portfolioItems from '~/assets/data/portfolioItems.json';
 import Divider from '~/components/Divider';
 import ExperienceTimeline from '~/components/ExperienceTimeline';
 import type { Route } from '~/router/routes/+types/Home';
+import MetaTags from '~/components/MetaTags';
 
 const FlexContainer = styled.div`
   display: flex;
@@ -37,11 +38,17 @@ export const links: Route.LinksFunction = () => {
 
 export default function Home() {
   return (
-    <FlexContainer>
-      <Divider>A Few Things I&apos;ve Built</Divider>
-      <Portfolio />
-      <Divider>Experience</Divider>
-      <ExperienceTimeline />
-    </FlexContainer>
+    <>
+      <MetaTags
+        title="Noah Tigner's Portfolio"
+        description="Noah Tigner's portfolio and digital résumé. Check out my projects, view my experience, and get in touch."
+      />
+      <FlexContainer>
+        <Divider>A Few Things I&apos;ve Built</Divider>
+        <Portfolio />
+        <Divider>Experience</Divider>
+        <ExperienceTimeline />
+      </FlexContainer>
+    </>
   );
 }

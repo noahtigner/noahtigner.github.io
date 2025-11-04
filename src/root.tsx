@@ -10,7 +10,6 @@ import {
 import type { Route } from '~/router/+types/root';
 import TopNav from '~/components/TopNav/TopNav';
 import Footer from '~/components/Footer/Footer';
-import MetaTags from '~/components/MetaTags';
 import inlinedStyles from '~/index.css?inline';
 import ErrorPage from './components/ErrorPage';
 import paths from './paths';
@@ -61,7 +60,8 @@ function AppWrappers({ children }: { children?: ReactNode }) {
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    // eslint-disable-next-line react/no-unknown-property
+    <html lang="en" prefix="og: https://ogp.me/ns#">
       <head>
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -114,11 +114,9 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta name="theme-color" content="#141414" />
         <meta name="color-scheme" content="dark" />
         <meta name="author" content="Noah Tigner" />
-        <MetaTags
-          title="Noah Tigner's Portfolio"
-          description="Noah Tigner's portfolio and digital résumé. Check out my projects, view my experience, and get in touch."
-        />
+        <meta name="site_name" content="Noah Tigner" lang="es" />
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Noah Tigner" />
         <meta
           property="og:image"
           content="https://www.noahtigner.com/noah-tigner.jpeg"
