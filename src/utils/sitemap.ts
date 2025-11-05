@@ -17,6 +17,11 @@ interface SitemapUrl {
   priority?: number;
 }
 
+// Note: ArticleAttributes interface is duplicated from markdown.ts
+// This is intentional as this file needs to work in a Node.js build context
+// where Vite's import.meta.glob is not available, while markdown.ts works
+// in the Vite browser context. Similarly, frontmatter parsing is duplicated
+// because we need to use Node.js fs APIs here for the build plugin.
 interface ArticleAttributes {
   title?: string;
   description?: string;
@@ -39,11 +44,11 @@ function parseFrontmatter(content: string): ArticleAttributes | null {
   }
 
   const frontmatter = match[1];
-  const attributes: Record<string, string | string[] | null | number> = {};
+  const attributes: Partial<ArticleAttributes> = {};
 
   // Parse YAML-like frontmatter
   const lines = frontmatter.split('\n');
-  let currentKey: string | null = null;
+  let currentKey: keyof ArticleAttributes | null = null;
   let currentArray: string[] = [];
 
   for (const line of lines) {
@@ -56,18 +61,20 @@ function parseFrontmatter(content: string): ArticleAttributes | null {
     } else if (line.includes(':')) {
       // Save previous array if any
       if (currentKey && currentArray.length > 0) {
-        attributes[currentKey] = currentArray;
+        attributes[currentKey] = currentArray as never;
         currentArray = [];
       }
 
       const [key, ...valueParts] = line.split(':');
       const value = valueParts.join(':').trim();
-      currentKey = key.trim();
+      currentKey = key.trim() as keyof ArticleAttributes;
 
       if (value) {
         // Remove quotes if present
         const cleanValue = value.replace(/^['"](.*)['"]$/, '$1');
-        attributes[currentKey] = cleanValue === 'null' ? null : cleanValue;
+        attributes[currentKey] = (
+          cleanValue === 'null' ? null : cleanValue
+        ) as never;
         currentKey = null;
       }
     }
@@ -75,7 +82,7 @@ function parseFrontmatter(content: string): ArticleAttributes | null {
 
   // Save last array if any
   if (currentKey && currentArray.length > 0) {
-    attributes[currentKey] = currentArray;
+    attributes[currentKey] = currentArray as never;
   }
 
   return attributes as ArticleAttributes;
