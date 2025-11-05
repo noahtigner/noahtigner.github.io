@@ -7,8 +7,12 @@ import validateEnvVars from 'validate-env-vars';
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 import { alert } from '@mdit/plugin-alert';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 import envConfigSchema from './.env.config';
+import { generateSitemap } from './src/utils/sitemap';
 
 const md = MarkdownIt({
   html: true,
@@ -52,6 +56,28 @@ export default defineConfig({
       mode: [Mode.HTML],
       markdownIt: md,
     }),
+    {
+      name: 'generate-sitemap',
+      closeBundle: () => {
+        // Generate sitemap after build is complete
+        const __dirname = path.dirname(fileURLToPath(import.meta.url));
+        const contentDir = path.join(__dirname, 'src', 'assets', 'content');
+        const distDir = path.join(__dirname, 'dist');
+        const sitemapPath = path.join(distDir, 'sitemap.xml');
+
+        // Only generate if dist directory exists and sitemap doesn't already exist
+        // (closeBundle is called multiple times during the build process)
+        if (fs.existsSync(distDir) && !fs.existsSync(sitemapPath)) {
+          try {
+            const sitemap = generateSitemap(contentDir);
+            fs.writeFileSync(sitemapPath, sitemap, 'utf-8');
+            console.log('✓ Generated sitemap.xml');
+          } catch (error) {
+            console.error('Error generating sitemap:', error);
+          }
+        }
+      },
+    },
   ],
   ssr: {
     noExternal:
