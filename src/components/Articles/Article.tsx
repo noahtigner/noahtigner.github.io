@@ -4,7 +4,7 @@ import syntaxStyles from 'highlight.js/styles/github-dark.min.css?inline';
 
 import Divider from '~/components/Divider';
 import MetaTags from '~/components/MetaTags';
-import paths from '~/paths';
+import { paths } from '~/routes';
 import inlinedStyles from '~/components/Articles/articles.css?inline';
 import { LinkInternal } from '~/components/Button';
 import { type ArticleAttributes } from '~/utils/markdown';

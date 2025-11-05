@@ -1,7 +1,7 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import type { Config } from '@react-router/dev/config';
-import paths from './src/paths';
+import { paths } from './src/routes';
 
 // have to use node APIs here instead of vite glob imports because this file
 // is executed in a Node context outside of Vite's module system

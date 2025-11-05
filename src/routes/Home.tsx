@@ -41,7 +41,7 @@ export default function Home() {
     <>
       <MetaTags
         title="Noah Tigner's Portfolio"
-        description="Noah Tigner's portfolio and digital résumé. Check out my projects, view my experience, and get in touch."
+        description="Noah Tigner's portfolio and résumé. Check out my projects, view my experience, and get in touch. Articles on web development, software engineering, and more."
       />
       <FlexContainer>
         <Divider>A Few Things I&apos;ve Built</Divider>

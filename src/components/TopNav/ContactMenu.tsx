@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 
 import contactItems from '~/assets/data/contactItems.json';
 import { publishedArticles } from '~/utils/markdown';
-import paths from '~/paths';
+import { paths } from '~/routes';
 import { Button } from '~/components/Button';
 import {
   ArrowSvg,

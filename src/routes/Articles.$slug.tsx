@@ -6,8 +6,8 @@ import {
   getFileNameFromPath,
   getMarkdownFileName,
 } from '~/utils/markdown';
-import paths from '~/paths';
-import type { Route } from '~/router/routes/+types/articles.$slug';
+import { paths } from '~/routes';
+import type { Route } from '~/router/routes/+types/Articles.$slug';
 
 // Use import.meta.glob to import markdown ReactComponent modules
 // Since attributes are already eagerly imported in markdown.ts, we make this eager too
