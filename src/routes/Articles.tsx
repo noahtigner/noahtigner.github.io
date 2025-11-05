@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import MetaTags from '~/components/MetaTags';
-import paths from '~/paths';
+import { paths } from '~/routes';
 import ArticleCard from '~/components/Articles/ArticleCard';
 import { publishedArticles } from '~/utils/markdown';
 import Divider from '~/components/Divider';
@@ -39,8 +39,8 @@ export default function Articles() {
   return (
     <>
       <MetaTags
-        title="Articles"
-        description="Articles written by Noah Tigner"
+        title="Articles written by Noah Tigner"
+        description={`Articles written by Noah Tigner: "Creating a Custom Github Pages 404 Page with React Router v7's Framework Mode", "React Conf 2025 Highlights", and more`}
       />
       <Divider>Articles</Divider>
       <ArticleGrid>
