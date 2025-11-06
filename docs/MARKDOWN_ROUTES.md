@@ -6,14 +6,14 @@ This project now supports automatic route generation and prerendering for markdo
 
 The application automatically:
 
-1. Scans all `.md` files in `src/assets/content/`
+1. Scans all `.md` files in `src/assets/articles/`
 2. Reads their frontmatter to extract the `path` attribute
 3. Creates routes dynamically at build time
 4. Prerenders each article as static HTML
 
 ## Adding a New Article
 
-To add a new article, simply create a new markdown file in `src/assets/content/` with the required frontmatter:
+To add a new article, simply create a new markdown file in `src/assets/articles/` with the required frontmatter:
 
 ```markdown
 ---

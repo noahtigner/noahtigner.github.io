@@ -5,14 +5,14 @@ import {
   allArticles,
   getFileNameFromPath,
   getMarkdownFileName,
-} from '~/utils/markdown';
+} from '~/utils/vite/markdown';
 import { paths } from '~/routes';
 import type { Route } from '~/router/routes/+types/Articles.$slug';
 
 // Use import.meta.glob to import markdown ReactComponent modules
 // Since attributes are already eagerly imported in markdown.ts, we make this eager too
 // to eliminate the bundling warning and keep everything consistent
-const markdownModules = import.meta.glob('../assets/content/*.md', {
+const markdownModules = import.meta.glob('../assets/articles/*.md', {
   import: 'html',
   eager: true,
 });

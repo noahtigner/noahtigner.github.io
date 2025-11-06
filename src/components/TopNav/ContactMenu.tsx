@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 import contactItems from '~/assets/data/contactItems.json';
-import { publishedArticles } from '~/utils/markdown';
+import { publishedArticles } from '~/utils/vite/markdown';
 import { paths } from '~/routes';
 import { Button } from '~/components/Button';
 import {

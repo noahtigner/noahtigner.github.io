@@ -1,7 +1,7 @@
 import { Card } from '~/components/Card';
 import ContactIcon from '~/components/ContactIcon';
 import { ButtonLinkInternal, LinkInternal } from '~/components/Button';
-import { type ArticleAttributes } from '~/utils/markdown';
+import { type ArticleAttributes } from '~/utils/vite/markdown';
 
 export default function ArticleCard({
   title,

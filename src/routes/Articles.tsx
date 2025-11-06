@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import MetaTags from '~/components/MetaTags';
 import { paths } from '~/routes';
 import ArticleCard from '~/components/Articles/ArticleCard';
-import { publishedArticles } from '~/utils/markdown';
+import { publishedArticles } from '~/utils/vite/markdown';
 import Divider from '~/components/Divider';
 import { LinkInternal } from '~/components/Button';
 import type { Route } from '~/router/routes/+types/Articles';
