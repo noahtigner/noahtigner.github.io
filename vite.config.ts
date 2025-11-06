@@ -9,6 +9,7 @@ import hljs from 'highlight.js';
 import { alert } from '@mdit/plugin-alert';
 
 import envConfigSchema from './.env.config';
+import generateSitemap from './src/utils/node/sitemap';
 
 const md = MarkdownIt({
   html: true,
@@ -52,6 +53,10 @@ export default defineConfig({
       mode: [Mode.HTML],
       markdownIt: md,
     }),
+    {
+      name: 'sitemap',
+      closeBundle: generateSitemap,
+    },
   ],
   ssr: {
     noExternal:

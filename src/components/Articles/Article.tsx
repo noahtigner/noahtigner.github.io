@@ -7,7 +7,7 @@ import MetaTags from '~/components/MetaTags';
 import { paths } from '~/routes';
 import inlinedStyles from '~/components/Articles/articles.css?inline';
 import { LinkInternal } from '~/components/Button';
-import { type ArticleAttributes } from '~/utils/markdown';
+import { type ArticleAttributes } from '~/utils/vite/markdown';
 
 const ImgBox = styled.img`
   height: 100px;

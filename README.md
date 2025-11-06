@@ -20,7 +20,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] Set up meta tags
   - [x] Set up [Open Graph Protocol](https://ogp.me/) (OGP) tags and preview image. [Open Graph Debugger](https://www.opengraph.xyz/url/https%3A%2F%2Fwww.noahtigner.com%2F)
   - [x] Semantic HTML & ARIA roles
-  - [x] Sitemap
+  - [x] Sitemap Generation
   - [x] webp images
 - [x] Choose color palette and font family
 - [x] Design System / Component Library
