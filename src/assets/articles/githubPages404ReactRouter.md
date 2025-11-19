@@ -13,7 +13,7 @@ tags:
 
 ## Custom Github Pages 404 Page with React Router
 
-###### 12 minute read • November 3, 2025
+<p class="subtitle">12 minute read • November 3, 2025</p>
 
 <a href="https://docs.github.com/en/pages/quickstart" target="_blank" rel="noopener">Github Pages</a> is one of the most straightforward ways of hosting a static website for free. With <a href="https://github.com/actions/upload-pages-artifact" target="_blank" rel="noopener" class="ital">upload-pages-artifact</a> and <a href="https://github.com/actions/deploy-pages" target="_blank" rel="noopener"  class="ital">deploy-pages</a>, developers can commit and merge their changes and have them deployed in minutes or even seconds. This makes Github Pages an obvious choice for deploying and hosting Single-Page Applications (SPAs) built with React.
 
