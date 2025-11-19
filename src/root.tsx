@@ -81,12 +81,7 @@ export function Layout({ children }: { children: ReactNode }) {
         />
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${gtmId}');
-            `,
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gtmId}');`,
           }}
         />
         {/* Styles */}
@@ -122,7 +117,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta property="og:site_name" content="Noah Tigner" />
         <meta
           property="og:image"
-          content="https://www.noahtigner.com/noah-tigner.jpeg"
+          content="https://www.noahtigner.com/noah-tigner.webp"
         />
       </head>
       <body>
