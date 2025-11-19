@@ -13,7 +13,7 @@ tags:
 
 ## 2 Keynotes, 25 Talks, and 2 Days of React
 
-###### 9 minute read • October 12, 2025
+<p class="subtitle">9 minute read • October 12, 2025</p>
 
 I was fortunate to attend <a href="https://conf.react.dev/agenda" target="_blank" rel="noopener">React Conf 2025</a> in Henderson, NV, and learn from the best in the React community. The conference boasted over 600 attendees and 250k+ livestream viewers. Over the course of 2 days, members of the React team shared their vision for the future of React, and the community gathered to discuss the latest trends in web development.
 
