@@ -14,7 +14,7 @@ export default function ArticleCard({
 }: ArticleAttributes) {
   return (
     <Card>
-      <span>
+      <span style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
         <LinkInternal aria-label={description} to={path} prefetch="viewport">
           <img
             src={image}
@@ -30,22 +30,30 @@ export default function ArticleCard({
             }}
           />
         </LinkInternal>
-        <h3
+        <span
           style={{
-            fontSize: '1.25rem',
-            lineHeight: 1.25,
-            margin: 0,
-            marginTop: '8px',
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
           }}
         >
-          {title}
-        </h3>
-        <h4
-          style={{ marginBottom: '8px', color: 'var(--color-text-secondary)' }}
-        >
-          {minutesToRead} min • {published}
-        </h4>
-        <p>{description}</p>
+          <span style={{ marginBottom: '8px' }}>
+            <h3
+              style={{
+                fontSize: '1.25rem',
+                lineHeight: 1.25,
+                margin: 0,
+              }}
+            >
+              {title}
+            </h3>
+            <h4 style={{ color: 'var(--color-text-secondary)' }}>
+              {minutesToRead} min • {published}
+            </h4>
+          </span>
+          <p>{description}</p>
+        </span>
       </span>
       <ButtonLinkInternal
         to={path}

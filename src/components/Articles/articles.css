@@ -31,7 +31,7 @@ code,
     margin-top: 1.75rem !important;
     margin-bottom: 0.75rem !important;
   }
-  h6 {
+  .subtitle {
     font-weight: 300;
     font-size: 1rem;
     color: var(--color-border);

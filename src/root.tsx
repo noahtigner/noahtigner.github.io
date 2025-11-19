@@ -74,17 +74,15 @@ export function Layout({ children }: { children: ReactNode }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,300;1,400&display=swap"
         />
-        {/* Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});})(window,document,'script','dataLayer','${gtmId}');`,
-          }}
-        />
+        {/* Google Analytics */}
         <script
           async
-          src={`https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(
-            gtmId
-          )}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${gtmId}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gtmId}');`,
+          }}
         />
         {/* Styles */}
         <style>{inlinedStyles}</style>
@@ -119,7 +117,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta property="og:site_name" content="Noah Tigner" />
         <meta
           property="og:image"
-          content="https://www.noahtigner.com/noah-tigner.jpeg"
+          content="https://www.noahtigner.com/noah-tigner.webp"
         />
       </head>
       <body>
@@ -148,7 +146,7 @@ export function Layout({ children }: { children: ReactNode }) {
           <p>Please enable JavaScript to get the most out of this page</p>
           <iframe
             title="Google Tag Manager"
-            src={`https://www.googletagmanager.com/ns.html?id=${import.meta.env.VITE_GOOGLE_ANALYTICS_ID}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
