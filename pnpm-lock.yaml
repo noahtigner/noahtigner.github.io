@@ -39,8 +39,8 @@ importers:
         specifier: ^7.9.4
         version: 7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       zod:
-        specifier: ^3.25.76
-        version: 3.25.76
+        specifier: ^4.1.11
+        version: 4.1.13
     devDependencies:
       '@babel/core':
         specifier: ^7.28.5
@@ -127,8 +127,8 @@ importers:
         specifier: ^8.47.0
         version: 8.47.0(eslint@9.39.1)(typescript@5.9.3)
       validate-env-vars:
-        specifier: ^0.4.4
-        version: 0.4.4(dotenv-expand@11.0.7)(dotenv@16.6.1)(zod@3.25.76)
+        specifier: ^2.0.0
+        version: 2.0.0(zod@4.1.13)
       vite:
         specifier: ^7.2.2
         version: 7.2.2(@types/node@24.10.0)(lightningcss@1.30.2)
@@ -1676,14 +1676,6 @@ packages:
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
 
-  dotenv-expand@11.0.7:
-    resolution: {integrity: sha512-zIHwmZPRshsCdpMDyVsqGmgyP0yT8GAgXUnkdAoJisxvf33k7yO6OuoKmcTGuXPWSsm8Oh88nZicRLA9Y0rUeA==}
-    engines: {node: '>=12'}
-
-  dotenv@16.6.1:
-    resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
-    engines: {node: '>=12'}
-
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
@@ -3193,13 +3185,11 @@ packages:
       typescript:
         optional: true
 
-  validate-env-vars@0.4.4:
-    resolution: {integrity: sha512-xQGsNkGnwa7gmYSckT/AKgsCB3XpzHQrrfQFM9XIj8rTGQspT6QDKZpzZAmqaW+4goDMvzeUSP93E+aoyKtosw==}
-    engines: {node: '>=20'}
+  validate-env-vars@2.0.0:
+    resolution: {integrity: sha512-U/e9nZYQ23bCsQjrng8SxZQWs1oAznHdfqI731tO5+g1UrCAuRONr6MgVFcfkfTVVuHe+Q9c9DnvFJK+Sp7p+w==}
+    engines: {node: '>=20.12.0'}
     peerDependencies:
-      dotenv: ^16.4.0
-      dotenv-expand: ^11.0.6
-      zod: ^3.22.4
+      zod: ^4.0.0
 
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
@@ -3369,8 +3359,8 @@ packages:
     peerDependencies:
       zod: ^3.25.0 || ^4.0.0
 
-  zod@3.25.76:
-    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+  zod@4.1.13:
+    resolution: {integrity: sha512-AvvthqfqrAhNH9dnfmrfKzX5upOdjUVJYFqNSlkmGf64gRaTzlPwz99IHYnVs28qYAybvAlBV+H7pn0saFY4Ig==}
 
 snapshots:
 
@@ -4987,12 +4977,6 @@ snapshots:
       no-case: 3.0.4
       tslib: 2.8.1
 
-  dotenv-expand@11.0.7:
-    dependencies:
-      dotenv: 16.6.1
-
-  dotenv@16.6.1: {}
-
   dunder-proto@1.0.1:
     dependencies:
       call-bind-apply-helpers: 1.0.2
@@ -5227,8 +5211,8 @@ snapshots:
       '@babel/parser': 7.28.5
       eslint: 9.39.1
       hermes-parser: 0.25.1
-      zod: 3.25.76
-      zod-validation-error: 4.0.2(zod@3.25.76)
+      zod: 4.1.13
+      zod-validation-error: 4.0.2(zod@4.1.13)
     transitivePeerDependencies:
       - supports-color
 
@@ -6724,11 +6708,9 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  validate-env-vars@0.4.4(dotenv-expand@11.0.7)(dotenv@16.6.1)(zod@3.25.76):
+  validate-env-vars@2.0.0(zod@4.1.13):
     dependencies:
-      dotenv: 16.6.1
-      dotenv-expand: 11.0.7
-      zod: 3.25.76
+      zod: 4.1.13
 
   validate-npm-package-license@3.0.4:
     dependencies:
@@ -6895,8 +6877,8 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod-validation-error@4.0.2(zod@3.25.76):
+  zod-validation-error@4.0.2(zod@4.1.13):
     dependencies:
-      zod: 3.25.76
+      zod: 4.1.13
 
-  zod@3.25.76: {}
+  zod@4.1.13: {}
