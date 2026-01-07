@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { Menu } from '@base-ui-components/react/menu';
+import { Menu } from '@base-ui/react/menu';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
@@ -160,8 +160,9 @@ const StyledMenuSeparator = styled(Menu.Separator)`
 
 export default function ContactMenu() {
   return (
-    <Menu.Root openOnHover>
+    <Menu.Root>
       <StyledMenuTrigger
+        openOnHover
         render={
           <Button>
             Get In Touch <ChevronDownIcon />

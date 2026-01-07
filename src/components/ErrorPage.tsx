@@ -1,4 +1,4 @@
-import { Separator } from '@base-ui-components/react';
+import { Separator } from '@base-ui/react';
 import styled from '@emotion/styled';
 
 const StyledSeparator = styled(Separator)`
