@@ -121,7 +121,7 @@ Every React application should have a top-level error boundary, and this one is 
 
 ```typescript
 // src/components/ErrorView.tsx
-import { Separator } from '@base-ui-components/react';
+import { Separator } from '@base-ui/react';
 import styled from '@emotion/styled';
 
 const StyledSeparator = styled(Separator)`
