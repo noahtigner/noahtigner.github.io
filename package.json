@@ -37,7 +37,7 @@
     "@babel/core": "^7.28.5",
     "@babel/preset-react": "^7.28.5",
     "@emotion/babel-plugin": "^11.13.5",
-    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.1",
     "@mdit/plugin-alert": "^0.22.3",
     "@react-router/dev": "^7.9.4",
