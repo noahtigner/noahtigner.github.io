@@ -11,3 +11,7 @@ updates:
       interval: 'weekly'
     reviewers:
       - 'noahtigner'
+    groups:
+      all-dependencies:
+        patterns:
+          - '*'
