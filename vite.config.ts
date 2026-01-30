@@ -7,6 +7,7 @@ import validateEnvVars from 'validate-env-vars';
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 import { alert } from '@mdit/plugin-alert';
+import anchor from 'markdown-it-anchor';
 
 import envConfigSchema from './.env.config';
 import generateSitemap from './src/utils/node/sitemap';
@@ -32,6 +33,14 @@ const md = MarkdownIt({
 
 // Add alert plugin for GitHub-style callouts (NOTE, WARNING, TIP, IMPORTANT, CAUTION)
 md.use(alert);
+
+// Add anchor plugin for heading IDs and links
+md.use(anchor, {
+  level: [2, 3, 4], // Apply anchors to h2, h3, h4 headings
+  permalink: anchor.permalink.headerLink({
+    safariReaderFix: true,
+  }),
+});
 
 // https://vitejs.dev/config/
 export default defineConfig({
