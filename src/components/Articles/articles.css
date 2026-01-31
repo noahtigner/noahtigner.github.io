@@ -35,6 +35,8 @@ code,
   h2,
   h3,
   h4 {
+    /* Offset for sticky header when navigating to anchor links */
+    scroll-margin-top: 4rem;
     > a.header-anchor {
       text-decoration: none;
       color: inherit;
