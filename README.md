@@ -61,6 +61,8 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 
 - [x] [Creating a Custom Github Pages 404 Page with React Router v7's Framework Mode](https://noahtigner.com/articles/github-pages-404-react-router/)
 - [x] [React Conf 2025 Highlights](https://noahtigner.com/articles/react-conf-2025/)
+- [ ] Notes on Alex Petrov's _Database Internals_:
+  - [x] [Chapter 1 - Introduction & Overview](https://noahtigner.com/articles/database-internals-chapter-1/)
 
 ## Available Scripts:
 
