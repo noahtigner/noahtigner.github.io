@@ -40,7 +40,7 @@ export default function Articles() {
     <>
       <MetaTags
         title="Articles written by Noah Tigner"
-        description={`Articles written by Noah Tigner: "Creating a Custom Github Pages 404 Page with React Router v7's Framework Mode", "React Conf 2025 Highlights", and more`}
+        description={`Articles written by Noah Tigner: "Creating a Custom Github Pages 404 Page with React Router v7's Framework Mode", "React Conf 2025 Highlights", Notes on "Database Internals", and more`}
       />
       <Divider>Articles</Divider>
       <ArticleGrid>

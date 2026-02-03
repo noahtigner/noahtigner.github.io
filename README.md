@@ -63,6 +63,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [x] [React Conf 2025 Highlights](https://noahtigner.com/articles/react-conf-2025/)
 - [ ] Notes on Alex Petrov's _Database Internals_:
   - [x] [Chapter 1 - Introduction & Overview](https://noahtigner.com/articles/database-internals-chapter-1/)
+  - [x] [Chapter 2 - B-Tree Basics](https://noahtigner.com/articles/database-internals-chapter-2/)
 
 ## Available Scripts:
 

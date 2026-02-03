@@ -1,5 +1,5 @@
 ---
-title: Database Internals - Chapter 1 Notes
+title: Database Internals Notes - Chapter 1 - Introduction & Overview
 description: Notes on Chapter 1 of Database Internals by Alex Petrov. OLTP vs. OLAP, Memory vs. Disk-Based Storage, Row vs. Column Orientation, Indexing, etc.
 published: January 31, 2026
 minutesToRead: 5

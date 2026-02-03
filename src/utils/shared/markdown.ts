@@ -27,8 +27,8 @@ export const getAllArticleAttributes = (
   }
 
   const sortedArticles = articles.sort((a, b) => {
-    const dateA = new Date(a.published!);
-    const dateB = new Date(b.published!);
+    const dateA = new Date(b.published!);
+    const dateB = new Date(a.published!);
     return dateA.getTime() - dateB.getTime();
   });
 
