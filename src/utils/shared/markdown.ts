@@ -7,6 +7,7 @@ const articleAttributesSchema = z.object({
   path: z.string(),
   image: z.string(),
   published: z.string().nullable(),
+  updated: z.string().nullable(),
   minutesToRead: z.number().int().min(1),
 });
 

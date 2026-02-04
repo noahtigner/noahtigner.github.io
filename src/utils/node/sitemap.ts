@@ -35,14 +35,21 @@ const getGenericTagData = (path: string): SitemapUrl => {
   };
 };
 
+const parseDateString = (dateString: string): string => {
+  const date = new Date(dateString);
+  return date.toISOString().split('T')[0];
+};
+
 const getArticleTagData = (article: ArticleAttributes): SitemapUrl => {
   return {
     loc: `${BASE_URL}${article.path}`,
     changefreq: 'daily',
     priority: 0.8,
-    lastmod: article.published
-      ? new Date(article.published).toISOString().split('T')[0]
-      : undefined,
+    lastmod: article.updated
+      ? parseDateString(article.updated)
+      : article.published
+        ? parseDateString(article.published)
+        : undefined,
   };
 };
 

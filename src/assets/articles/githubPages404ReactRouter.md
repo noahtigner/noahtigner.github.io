@@ -2,6 +2,7 @@
 title: Custom Github Pages 404 Page with React Router
 description: Creating a custom Github Pages 404 page with React Router v7's Static Pre-Rendering and Error Boundaries.
 published: November 3, 2025
+updated: November 3, 2025
 minutesToRead: 12
 path: /articles/github-pages-404-react-router/
 image: /images/github-404/custom-404-preview.png

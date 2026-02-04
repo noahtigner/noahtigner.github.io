@@ -2,6 +2,7 @@
 title: React Conf 2025 Highlights
 description: A summary of my key takeaways from React Conf 2025. Topics include the new React Compiler, React 19.2, Activity, ViewTransitions, and more.
 published: October 12, 2025
+updated: October 12, 2025
 minutesToRead: 9
 path: /articles/react-conf-2025/
 image: /images/react-conf-2025.svg
