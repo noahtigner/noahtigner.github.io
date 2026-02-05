@@ -179,7 +179,7 @@ blockquote {
 /* GitHub-style task list checkboxes */
 .task-list-container {
   list-style-type: none;
-  padding-left: 0;
+  padding-left: 22px;
 }
 .task-list-item {
   list-style-type: none;
