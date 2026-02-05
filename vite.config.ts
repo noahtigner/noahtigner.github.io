@@ -7,6 +7,7 @@ import validateEnvVars from 'validate-env-vars';
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 import { alert } from '@mdit/plugin-alert';
+import { tasklist } from '@mdit/plugin-tasklist';
 import anchor from 'markdown-it-anchor';
 
 import envConfigSchema from './.env.config';
@@ -40,6 +41,11 @@ md.use(anchor, {
   permalink: anchor.permalink.headerLink({
     safariReaderFix: true,
   }),
+});
+
+// Add tasklist plugin for GitHub-style task lists / checkboxes
+md.use(tasklist, {
+  disabled: true, // Make checkboxes non-clickable
 });
 
 // https://vitejs.dev/config/

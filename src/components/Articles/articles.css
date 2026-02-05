@@ -175,3 +175,22 @@ blockquote {
 .markdown-alert.markdown-alert-caution .markdown-alert-title {
   color: #f85149;
 }
+
+/* GitHub-style task list checkboxes */
+.task-list-container {
+  list-style-type: none;
+  padding-left: 0;
+}
+.task-list-item {
+  list-style-type: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.task-list-item-checkbox {
+  margin: 0;
+  cursor: default;
+}
+.task-list-item-label {
+  margin: 0;
+}
