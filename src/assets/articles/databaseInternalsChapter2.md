@@ -2,7 +2,7 @@
 title: Database Internals Notes - Chapter 2 - B-Tree Basics
 description: Notes on Chapter 2 of Database Internals by Alex Petrov. B-Trees and why databases use them.
 published: February 2, 2026
-updated: February 2, 2026
+updated: February 4, 2026
 minutesToRead: 8
 path: /articles/database-internals-chapter-2/
 image: /images/database-internals.jpg
@@ -57,7 +57,7 @@ Most algorithms were developed when spinning disks were still the most common fo
 
 On SSDs there are no moving parts. They consist of memory cells. The hierarchy of memory on SSDs is as follows: memory cells > strings > arrays > pages > blocks > planes > dies.
 
-The smallest chunk that can be written is the page, but only empty memory cells on the page. The smallest size that can be erased is a block of pages called an "erase block". Pages in empty blocks have to be written sequentially.
+The smallest chunk that can be written is the <a href="https://noahtigner.com/articles/database-internals-chapter-3/#page-structure" target="_blank" rel="noopener">page</a>, but only empty memory cells on the page. The smallest size that can be erased is a block of pages called an "erase block". Pages in empty blocks have to be written sequentially.
 
 The Flash Translation Layer (FTL) is responsible for mapping page IDs to physical locations, garbage collection (GC), and for moving and remapping pages. Garbage collection can hurt performance, but it can be mitigated by <a href="https://noahtigner.com/articles/database-internals-chapter-1/#buffering%2C-immutability%2C-and-ordering" target="_blank" rel="noopener">buffering and immutability</a>.
 

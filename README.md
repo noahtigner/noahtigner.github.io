@@ -64,6 +64,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [ ] Notes on Alex Petrov's _Database Internals_:
   - [x] [Chapter 1 - Introduction & Overview](https://noahtigner.com/articles/database-internals-chapter-1/)
   - [x] [Chapter 2 - B-Tree Basics](https://noahtigner.com/articles/database-internals-chapter-2/)
+  - [x] [Chapter 3 - File Formats](https://noahtigner.com/articles/database-internals-chapter-3/)
 
 ## Available Scripts:
 
