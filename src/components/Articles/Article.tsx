@@ -4,6 +4,7 @@ import syntaxStyles from 'highlight.js/styles/github-dark.min.css?inline';
 
 import Divider from '~/components/Divider';
 import MetaTags from '~/components/MetaTags';
+import ArticleGraph from '~/components/Articles/ArticleGraph';
 import { paths } from '~/routes';
 import inlinedStyles from '~/components/Articles/articles.css?inline';
 import { LinkInternal } from '~/components/Button';
@@ -81,6 +82,7 @@ export default function Article({
           imgSrc={articleAttributes.image}
         />
         {children}
+        <ArticleGraph currentArticlePath={articleAttributes.path} />
         <LinkInternal
           to={paths.articles}
           prefetch="intent"

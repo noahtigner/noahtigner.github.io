@@ -76,6 +76,7 @@ export default defineConfig({
   ssr: {
     noExternal:
       process.env.NODE_ENV === 'production' ? ['@mui/icons-material'] : [],
+    external: ['react-force-graph-2d', 'force-graph'],
   },
   server: {
     open: true,
