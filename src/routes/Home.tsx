@@ -11,6 +11,9 @@ const FlexContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 32px;
+  max-width: var(--size-lg);
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 // tell React-Router to preload portfolio images for this page

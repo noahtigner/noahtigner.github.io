@@ -1,11 +1,17 @@
 import { redirect } from 'react-router';
 
-import Article from '~/components/Articles/Article';
+import ArticleContainer, {
+  ArticleBottomNav,
+  ArticleHead,
+  ArticleSidebar,
+  RightColumnSpacer,
+} from '~/components/Articles/Article';
 import {
   allArticles,
   getFileNameFromPath,
   getMarkdownFileName,
 } from '~/utils/vite/markdown';
+import { generateArticleGraph } from '~/utils/vite/graph';
 import { paths } from '~/routes';
 import type { Route } from '~/router/routes/+types/Articles.$slug';
 
@@ -53,18 +59,49 @@ export async function loader({ params }: Route.LoaderArgs) {
     return redirect(paths.error404, 404);
   }
 
-  return { fileName, attributes };
+  // Generate graph data from article links
+  const graphData = generateArticleGraph();
+
+  return { fileName, attributes, graphData };
 }
 
 export default function DynamicArticleRoute({
   loaderData,
 }: Route.ComponentProps) {
-  const { fileName, attributes } = loaderData;
+  const { fileName, attributes, graphData } = loaderData;
   const ArticleContent = ArticleComponents[fileName];
 
   return (
-    <Article articleAttributes={attributes}>
-      <ArticleContent />
-    </Article>
+    <>
+      <ArticleHead articleAttributes={attributes} />
+      <div
+        style={{
+          display: 'flex',
+          columnGap: '1rem',
+          justifyContent: 'center',
+          marginBottom: '1rem',
+        }}
+      >
+        <ArticleSidebar
+          data={graphData}
+          width={192}
+          height={192}
+          articleTitle={attributes.title}
+        />
+        <ArticleContainer articleAttributes={attributes}>
+          <ArticleContent />
+          <ArticleBottomNav
+            data={graphData}
+            width={192}
+            height={192}
+            articleTitle={attributes.title}
+          />
+        </ArticleContainer>
+        <RightColumnSpacer
+          aria-hidden="true"
+          style={{ width: 192 + 2, flexShrink: 0 }}
+        />
+      </div>
+    </>
   );
 }

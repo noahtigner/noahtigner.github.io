@@ -7,6 +7,13 @@ import Divider from '~/components/Divider';
 import { LinkInternal } from '~/components/Button';
 import type { Route } from '~/router/routes/+types/Articles';
 
+const PageContainer = styled.div`
+  width: 100%;
+  max-width: var(--size-lg);
+  margin-left: auto;
+  margin-right: auto;
+`;
+
 const ArticleGrid = styled.span`
   display: inline-grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 33%));
@@ -37,7 +44,7 @@ export const links: Route.LinksFunction = () => {
 
 export default function Articles() {
   return (
-    <>
+    <PageContainer>
       <MetaTags
         title="Articles written by Noah Tigner"
         description={`Articles written by Noah Tigner: "Creating a Custom Github Pages 404 Page with React Router v7's Framework Mode", "React Conf 2025 Highlights", Notes on "Database Internals", and more`}
@@ -61,6 +68,6 @@ export default function Articles() {
       >
         &lt; Back Home
       </LinkInternal>
-    </>
+    </PageContainer>
   );
 }

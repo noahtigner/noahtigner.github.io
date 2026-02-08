@@ -39,7 +39,7 @@ function AppWrappers({ children }: { children?: ReactNode }) {
           style={{
             boxSizing: 'border-box',
             width: '100%',
-            maxWidth: 'var(--size-lg)',
+            maxWidth: 'var(--size-xl)',
             marginTop: '32px',
             marginLeft: 'auto',
             marginRight: 'auto',
