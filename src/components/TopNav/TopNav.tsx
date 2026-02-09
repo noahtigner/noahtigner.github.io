@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router';
 import ContactMenu from '~/components/TopNav/ContactMenu';
+import { paths } from '~/routes';
 
 const StyledNav = styled.nav`
   position: sticky;
@@ -17,7 +19,14 @@ const StyledNav = styled.nav`
 export default function TopNav() {
   return (
     <StyledNav>
-      <h1>Hey, I&apos;m Noah Tigner</h1>
+      <h1>
+        <Link
+          to={paths.home}
+          style={{ textDecoration: 'none', color: 'inherit' }}
+        >
+          Hey, I&apos;m Noah Tigner
+        </Link>
+      </h1>
       <ContactMenu />
     </StyledNav>
   );
