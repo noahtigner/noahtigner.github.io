@@ -40,8 +40,8 @@ You are an expert technical writing editor specializing in software engineering 
 ### Markdown Conventions
 
 - **Frontmatter**: All articles must have YAML frontmatter with: title, description, published, updated, minutesToRead, path, image, tags
-- **Headers**: Use ## for main title, ### for major sections, #### for subsections
-- **Emphasis**: Use `<a>` tags with proper attributes for external links: `target="_blank" rel="noopener"`
+- **Headers**: After YAML frontmatter, use `##` for the first in-body heading (article title), `###` for major sections, `####` for subsections
+- **Links**: Use `<a>` tags with proper attributes for external links: `target="_blank" rel="noopener"`
 - **Images**: Include proper alt text, loading="lazy", width/height attributes, and responsive styling
 - **Blockquotes**: Use special blockquote syntax for callouts:
   - `> [!NOTE]` for informational notes
