@@ -15,17 +15,7 @@ const markdownContents = import.meta.glob('../../assets/articles/*.md', {
   eager: true,
 });
 
-/**
- * Generate graph data from all articles with pre-computed layout
- * Each article becomes a node, each internal link becomes an edge
- */
-export function generateArticleGraph({
-  width,
-  height,
-}: {
-  width: number;
-  height: number;
-}): GraphData {
+function generateGraphData() {
   const publishedArticles = allArticles.filter((attr) => attr.published);
 
   // Create a map of paths to markdown content
@@ -40,8 +30,21 @@ export function generateArticleGraph({
     }
   }
 
-  const graphData = generateGraphFromArticles(publishedArticles, contentMap);
+  return generateGraphFromArticles(publishedArticles, contentMap);
+}
 
-  // Pre-compute layout positions for server-side rendering
+const graphData = generateGraphData();
+
+/**
+ * Generate graph data from all articles with pre-computed layout
+ * Each article becomes a node, each internal link becomes an edge
+ */
+export function generateArticleGraph({
+  width,
+  height,
+}: {
+  width: number;
+  height: number;
+}): GraphData {
   return computeGraphLayout(graphData, width, height);
 }
