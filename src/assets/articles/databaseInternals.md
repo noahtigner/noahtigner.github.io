@@ -2,8 +2,8 @@
 title: Database Internals Notes
 description: An overview of my collection of notes on Database Internals by Alex Petrov.
 published: February 4, 2026
-updated: February 4, 2026
-minutesToRead: 2
+updated: February 9, 2026
+minutesToRead: 3
 path: /articles/database-internals/
 image: /images/database-internals.jpg
 tags:
@@ -14,19 +14,9 @@ tags:
 
 ## Database Internals - Reading Notes
 
-<p class="subtitle">2 minute read • February 4, 2026</p>
+<p class="subtitle">3 minute read • February 4, 2026</p>
 
 This is a collection of my notes on <a href="https://www.oreilly.com/library/view/database-internals/9781492040330/" target="_blank" rel="noopener">_Database Internals_</a> by Alex Petrov. The book provides a deep dive into how database management systems work under the hood, covering storage engines, distributed systems, and the algorithms that power modern databases.
-
----
-
-### Motivation
-
-These notes are intended as a reference and are not meant as a substitute for the original text. I've been enjoying the book so far, and I highly recommend that anyone interested in the topic read it themselves. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
-
-When learning about complex topics, I take notes twice — <a href="https://www.scientificamerican.com/article/why-writing-by-hand-is-better-for-memory-and-learning/" target="_blank" rel="noopener">once with pen and paper</a> and once more by keyboard a few days later for the sake of <a href="https://www.bcu.ac.uk/exams-and-revision/best-ways-to-revise/spaced-repetition" target="_blank" rel="noopener">spaced repetition</a>. These posts represent my second pass at note-taking and benefit from the ability to link to external documents, embed diagrams and videos, etc. Plus, nobody has to try to read my handwriting.
-
-Database systems are fundamental to modern software infrastructure, yet their inner workings often remain opaque to application developers. Understanding how databases store, index, and retrieve data can help engineers make better architectural decisions, optimize query performance, and debug production issues.
 
 ---
 
@@ -51,6 +41,22 @@ Database systems are fundamental to modern software infrastructure, yet their in
 - [ ] Chapter 12 - Anti-Entropy & Dissemination
 - [ ] Chapter 13 - Distributed Transactions
 - [ ] Chapter 14 - Consensus
+
+---
+
+### Motivation
+
+These notes are intended as a reference and are not meant as a substitute for the original text. I've been enjoying the book so far, and I highly recommend that anyone interested in the topic read it themselves. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
+
+When learning about complex topics, I take notes twice - <a href="https://www.scientificamerican.com/article/why-writing-by-hand-is-better-for-memory-and-learning/" target="_blank" rel="noopener">once with pen and paper</a> and once more by keyboard a few days later for the sake of <a href="https://www.bcu.ac.uk/exams-and-revision/best-ways-to-revise/spaced-repetition" target="_blank" rel="noopener">spaced repetition</a>. These posts represent my second pass at note-taking and benefit from the ability to link to external documents, embed diagrams and videos, etc. Plus, nobody has to try to read my handwriting.
+
+Database systems are fundamental to modern software infrastructure, yet their inner workings often remain opaque to application developers. Understanding how databases store, index, and retrieve data can help engineers make better architectural decisions, optimize query performance, and debug production issues.
+
+---
+
+### AI Usage
+
+I do not use AI of any form while writing these notes. I do however use GitHub Copilot to review my notes and check for typos, grammatical issues, etc. The agent I use for reviewing these articles is defined <a href="https://github.com/noahtigner/noahtigner.github.io/blob/main/.github/agents/article-reviewer.md" target="_blank" rel="noopener">here</a>.
 
 ---
 
