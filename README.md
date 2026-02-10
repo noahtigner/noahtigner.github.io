@@ -65,6 +65,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] [Chapter 1 - Introduction & Overview](https://noahtigner.com/articles/database-internals-chapter-1/)
   - [x] [Chapter 2 - B-Tree Basics](https://noahtigner.com/articles/database-internals-chapter-2/)
   - [x] [Chapter 3 - File Formats](https://noahtigner.com/articles/database-internals-chapter-3/)
+  - [x] [Chapter 4 - Implementing B-Trees](https://noahtigner.com/articles/database-internals-chapter-4/)
 
 ## Available Scripts:
 

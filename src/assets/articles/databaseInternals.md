@@ -2,7 +2,7 @@
 title: Database Internals Notes
 description: An overview of my collection of notes on Database Internals by Alex Petrov.
 published: February 4, 2026
-updated: February 9, 2026
+updated: February 10, 2026
 minutesToRead: 3
 path: /articles/database-internals/
 image: /images/database-internals.jpg
@@ -27,7 +27,7 @@ This is a collection of my notes on <a href="https://www.oreilly.com/library/vie
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-1/" target="_blank" rel="noopener">Chapter 1 - Introduction & Overview</a>
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-2/" target="_blank" rel="noopener">Chapter 2 - B-Tree Basics</a>
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-3/" target="_blank" rel="noopener">Chapter 3 - File Formats</a>
-- [ ] Chapter 4 - Implementing B-Trees
+- [x] <a href="https://noahtigner.com/articles/database-internals-chapter-4/" target="_blank" rel="noopener">Chapter 4 - Implementing B-Trees</a>
 - [ ] Chapter 5 - Transaction Processing & Recovery
 - [ ] Chapter 6 - B-Tree Variants
 - [ ] Chapter 7 - Log-Structured Storage

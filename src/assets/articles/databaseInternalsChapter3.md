@@ -2,7 +2,7 @@
 title: Database Internals Ch. 3 - File Formats
 description: Notes on Chapter 3 of Database Internals by Alex Petrov. File formats for on-disk storage structures.
 published: February 4, 2026
-updated: February 4, 2026
+updated: February 10, 2026
 minutesToRead: 7
 path: /articles/database-internals-chapter-3/
 image: /images/database-internals.jpg
@@ -99,7 +99,7 @@ Cells are appended to the right side of the page while cell pointers (offsets) a
 
 When removing an item from a page, we don't have to remove or shift the actual cell. Instead, the cell is marked as deleted and its pointer is added to the in-memory availability list. When inserting new cells, we first check this list to see if there's a segment where the data would fit.
 
-SQLite calls unoccupied segments "freeblocks". The page header contains a pointer to the first freeblock as well as the total sum of available bytes within the page. During inserts, this allows us to quickly determine if a new element will fit into the page (after defragmentation, in some cases). If there is enough cumulative space but not enough consecutive space, we defragment the page before inserting. If there is not enough cumulative space at all, we create an overflow page—a separate page to store data that doesn't fit in the original page.
+SQLite calls unoccupied segments "freeblocks". The page header contains a pointer to the first freeblock as well as the total sum of available bytes within the page. During inserts, this allows us to quickly determine if a new element will fit into the page (after defragmentation, in some cases). If there is enough cumulative space but not enough consecutive space, we defragment the page before inserting. If there is not enough cumulative space at all, we create an <a href="https://noahtigner.com/articles/database-internals-chapter-4/#overflow-pages"  target="_blank" rel="noopener">overflow page</a> - a separate page to store data that doesn't fit in the original page.
 
 ---
 
@@ -123,6 +123,8 @@ Files on disk can get corrupted due to hardware and software failures. To identi
 Both of these techniques reduce large chunks of data to small numbers, which can be used to validate data integrity quickly. Before writing data to disk, we compute its checksum and store it alongside the data (usually in the page header). When reading the data, we compute its checksum again and compare the new checksum against the stored one. If there's a mismatch, we know the data was corrupted.
 
 ---
+
+### Other Resources
 
 Ken Wagatsuma has an excellent blog post about <a href="https://kenwagatsuma.com/blog/postgresql-slotted-pages" target="_blank" rel="noopener">how PostgreSQL implements slotted pages</a>.
 
