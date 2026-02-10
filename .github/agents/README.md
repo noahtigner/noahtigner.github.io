@@ -18,11 +18,13 @@ An expert technical writing editor specialized for reviewing blog articles on th
 #### How to Use
 
 1. **In GitHub Copilot Chat**, reference the agent when reviewing an article:
+
    ```
    @workspace /agent article-reviewer Review this article: src/assets/articles/my-article.md
    ```
 
 2. **For new articles**, ask the agent to review before publishing:
+
    ```
    Review my new article at src/assets/articles/new-article.md using the article-reviewer agent
    ```
@@ -38,18 +40,19 @@ An expert technical writing editor specialized for reviewing blog articles on th
 ✅ **Consistency checks** - ensures tone, tense, and style match your other articles  
 ✅ **Grammar and typos** - catches spelling, punctuation, and grammatical issues  
 ✅ **Markdown validation** - checks frontmatter, links, code blocks, and formatting  
-✅ **Reading time calculation** - uses `wc` to calculate and update `minutesToRead`  
+✅ **Reading time calculation** - uses `wc` to calculate and update `minutesToRead`
 
 #### What the Agent Doesn't Do
 
 ❌ **Large rewrites** - preserves your writing style and technical approach  
 ❌ **Content changes** - doesn't add or remove significant content  
 ❌ **Style changes** - doesn't alter your voice to be more/less formal  
-❌ **Deep fact-checking** - flags questionable claims but doesn't verify everything  
+❌ **Deep fact-checking** - flags questionable claims but doesn't verify everything
 
 #### Review Philosophy
 
 The agent follows a "light touch" approach:
+
 - **Fix** obvious errors (typos, grammar, broken links)
 - **Preserve** your unique voice and phrasing
 - **Flag** larger issues that need your input

@@ -17,6 +17,7 @@ This document provides practical examples of how to use the article-reviewer age
 ```
 
 The agent will:
+
 1. Read through the entire article
 2. Check tone, tense, grammar, and markdown
 3. Calculate reading time
@@ -130,6 +131,7 @@ When the agent flags an issue:
 ## Limitations
 
 The agent:
+
 - ❌ Cannot edit files directly (you must make changes)
 - ❌ May not catch all technical inaccuracies
 - ❌ Cannot verify all external links are current
@@ -139,20 +141,24 @@ The agent:
 ## Troubleshooting
 
 **Agent isn't finding issues I know exist:**
+
 - Be more specific in your request
 - Point out the specific section or line
 
 **Agent is suggesting changes I disagree with:**
+
 - Remember, it's just suggestions - you're the author
 - The agent aims for consistency, but your judgment is final
 
 **Reading time seems off:**
+
 - The agent uses 200 WPM as a baseline
 - You can adjust manually if the content is particularly dense or light
 
 ## Getting Help
 
 If you have questions about using the agent:
+
 1. Check this document first
 2. Read the agent specification in `article-reviewer.md`
 3. Experiment with different prompts
