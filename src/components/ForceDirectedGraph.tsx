@@ -1,3 +1,6 @@
+// adapted from https://observablehq.com/@d3/force-directed-graph-component
+// inspired by Quartz: https://quartz.jzhao.xyz/
+
 import styled from '@emotion/styled';
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router';
