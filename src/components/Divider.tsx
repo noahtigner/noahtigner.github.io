@@ -22,9 +22,15 @@ const StyledH2 = styled.h2`
   padding: 0 0.75rem;
 `;
 
-export default function Divider({ children }: { children: ReactNode }) {
+export default function Divider({
+  children,
+  style,
+}: {
+  children: ReactNode;
+  style?: React.CSSProperties;
+}) {
   return (
-    <StyledDivider role="presentation">
+    <StyledDivider role="presentation" style={style}>
       {typeof children === 'string' ? (
         <StyledH2>{children}</StyledH2>
       ) : (

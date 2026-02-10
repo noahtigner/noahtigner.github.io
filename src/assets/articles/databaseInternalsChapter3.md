@@ -1,5 +1,5 @@
 ---
-title: Database Internals Notes - Chapter 3 - File Formats
+title: Database Internals Ch. 3 - File Formats
 description: Notes on Chapter 3 of Database Internals by Alex Petrov. File formats for on-disk storage structures.
 published: February 4, 2026
 updated: February 4, 2026
@@ -135,6 +135,7 @@ Ben Dicken of PlanetScale recently released a video discussing cell layout in th
     referrer-policy="strict-origin-when-cross-origin"
     allow-full-screen="true"
     loading="lazy"
+    style="width:100% !important"
 ></iframe>
 
 ---

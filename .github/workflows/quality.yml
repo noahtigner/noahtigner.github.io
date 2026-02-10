@@ -33,3 +33,5 @@ jobs:
         run: pnpm run format
       - name: Lint with ESLint
         run: pnpm run lint
+      - name: Run unit tests
+        run: pnpm run test

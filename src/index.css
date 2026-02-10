@@ -44,7 +44,10 @@ html {
   --color-gray-900: oklch(95% 2% 264deg / 90%);
   --color-gray-950: oklch(94% 1.5% 264deg / 95%);
 
+  --size-xl: 1440px;
   --size-lg: 1200px;
+  --size-md: 900px;
+  --size-sm: 600px;
 }
 
 .root {

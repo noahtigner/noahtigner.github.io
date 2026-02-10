@@ -7,6 +7,9 @@ import MetaTags from '~/components/MetaTags';
 import { paths } from '~/routes';
 import inlinedStyles from '~/components/Articles/articles.css?inline';
 import { LinkInternal } from '~/components/Button';
+import ForceDirectedGraph, {
+  type ForceDirectedGraphProps,
+} from '~/components/ForceDirectedGraph';
 import { type ArticleAttributes } from '~/utils/vite/markdown';
 
 const ImgBox = styled.img`
@@ -16,6 +19,30 @@ const ImgBox = styled.img`
   padding: 0 0.75rem;
   @media (max-width: 600px) {
     height: 60px;
+  }
+`;
+
+const SideNavContainer = styled.aside`
+  position: sticky;
+  top: 4.75rem;
+  align-self: flex-start;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+`;
+
+const BottomNavContainer = styled.div`
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: block;
+  }
+`;
+
+export const RightColumnSpacer = styled.div`
+  @media (max-width: 1024px) {
+    display: none;
   }
 `;
 
@@ -56,45 +83,120 @@ function ArticleMetaTags({
   );
 }
 
-export default function Article({
+export function ArticleHead({
   articleAttributes,
-  children,
 }: {
   articleAttributes: ArticleAttributes;
-  children: ReactNode;
 }) {
   return (
     <>
       <ArticleMetaTags articleAttributes={articleAttributes} />
       <style>{inlinedStyles}</style>
       <style>{syntaxStyles}</style>
-      <section
-        className="article-container"
+    </>
+  );
+}
+
+function ArticleNavigation({
+  data,
+  width,
+  height,
+  articleTitle,
+}: ForceDirectedGraphProps & { articleTitle: string }) {
+  return (
+    <>
+      <nav aria-label="Related articles graph">
+        <ForceDirectedGraph
+          data={data}
+          width={width}
+          height={height}
+          ariaLabel={`Interactive graph showing connections between "${articleTitle}" and related articles`}
+        />
+      </nav>
+      <LinkInternal
+        to={paths.articles}
+        prefetch="intent"
+        aria-label="Return to all articles"
+        style={{
+          width: 'fit-content',
+          display: 'block',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          marginTop: '1rem',
+        }}
+      >
+        &lt; All Articles
+      </LinkInternal>
+    </>
+  );
+}
+
+export function ArticleSidebar(
+  props: ForceDirectedGraphProps & { articleTitle: string }
+) {
+  return (
+    <SideNavContainer aria-label="Article navigation and related content">
+      <ArticleNavigation
+        data={props.data}
+        width={props.width}
+        height={props.height}
+        articleTitle={props.articleTitle}
+      />
+    </SideNavContainer>
+  );
+}
+
+export function ArticleBottomNav(
+  props: ForceDirectedGraphProps & { articleTitle: string }
+) {
+  return (
+    <BottomNavContainer aria-label="Article navigation and related content">
+      <Divider style={{ marginBottom: '1rem' }}>{null}</Divider>
+      <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '1rem',
+          alignItems: 'center',
         }}
       >
+        <ArticleNavigation
+          data={props.data}
+          width={props.width}
+          height={props.height}
+          articleTitle={props.articleTitle}
+        />
+      </div>
+    </BottomNavContainer>
+  );
+}
+
+export default function ArticleContainer({
+  articleAttributes,
+  children,
+}: {
+  articleAttributes: ArticleAttributes;
+  children: ReactNode;
+}) {
+  const titleId = `article-title-${articleAttributes.path.replace(/\//g, '-')}`;
+
+  return (
+    <article
+      className="article-container"
+      aria-labelledby={titleId}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        flexGrow: 1,
+      }}
+    >
+      <header>
         <LogoDivider
           title={articleAttributes.title}
           imgSrc={articleAttributes.image}
         />
-        {children}
-        <LinkInternal
-          to={paths.articles}
-          prefetch="intent"
-          style={{
-            width: 'fit-content',
-            display: 'block',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            marginTop: '1rem',
-          }}
-        >
-          &lt; All Articles
-        </LinkInternal>
-      </section>
-    </>
+      </header>
+      <section aria-label="Article body">{children}</section>
+    </article>
   );
 }

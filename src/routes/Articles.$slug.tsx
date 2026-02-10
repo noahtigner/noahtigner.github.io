@@ -1,11 +1,17 @@
 import { redirect } from 'react-router';
 
-import Article from '~/components/Articles/Article';
+import ArticleContainer, {
+  ArticleBottomNav,
+  ArticleHead,
+  ArticleSidebar,
+  RightColumnSpacer,
+} from '~/components/Articles/Article';
 import {
   allArticles,
   getFileNameFromPath,
   getMarkdownFileName,
 } from '~/utils/vite/markdown';
+import { generateArticleGraph } from '~/utils/vite/graph';
 import { paths } from '~/routes';
 import type { Route } from '~/router/routes/+types/Articles.$slug';
 
@@ -16,6 +22,8 @@ const markdownModules = import.meta.glob('../assets/articles/*.md', {
   import: 'html',
   eager: true,
 });
+
+const GRAPH_WIDTH = 192;
 
 // Map file names to their components
 // Components are already loaded, so we just wrap them
@@ -53,18 +61,56 @@ export async function loader({ params }: Route.LoaderArgs) {
     return redirect(paths.error404, 404);
   }
 
-  return { fileName, attributes };
+  // Generate graph data from article links
+  const graphDataSquare = generateArticleGraph({
+    width: GRAPH_WIDTH,
+    height: GRAPH_WIDTH,
+  });
+  const graphDataWide = generateArticleGraph({
+    width: GRAPH_WIDTH * 1.5,
+    height: GRAPH_WIDTH,
+  });
+
+  return { fileName, attributes, graphDataSquare, graphDataWide };
 }
 
 export default function DynamicArticleRoute({
   loaderData,
 }: Route.ComponentProps) {
-  const { fileName, attributes } = loaderData;
+  const { fileName, attributes, graphDataSquare, graphDataWide } = loaderData;
   const ArticleContent = ArticleComponents[fileName];
 
   return (
-    <Article articleAttributes={attributes}>
-      <ArticleContent />
-    </Article>
+    <>
+      <ArticleHead articleAttributes={attributes} />
+      <div
+        style={{
+          display: 'flex',
+          columnGap: '1rem',
+          justifyContent: 'center',
+          marginBottom: '1rem',
+        }}
+      >
+        <ArticleSidebar
+          data={graphDataSquare}
+          width={GRAPH_WIDTH}
+          height={GRAPH_WIDTH}
+          articleTitle={attributes.title}
+        />
+        <ArticleContainer articleAttributes={attributes}>
+          <ArticleContent />
+          <ArticleBottomNav
+            data={graphDataWide}
+            width={GRAPH_WIDTH * 1.5}
+            height={GRAPH_WIDTH}
+            articleTitle={attributes.title}
+          />
+        </ArticleContainer>
+        <RightColumnSpacer
+          aria-hidden="true"
+          style={{ width: GRAPH_WIDTH + 2, flexShrink: 0 }}
+        />
+      </div>
+    </>
   );
 }
