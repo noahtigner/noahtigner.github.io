@@ -5,22 +5,22 @@ import styled from '@emotion/styled';
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router';
 
-interface Node {
+interface GraphNode {
   id: string;
   title: string;
   x?: number;
   y?: number;
 }
 
-interface Link {
+interface GraphLink {
   source: string;
   target: string;
   value: number;
 }
 
 interface GraphData {
-  nodes: Node[];
-  links: Link[];
+  nodes: GraphNode[];
+  links: GraphLink[];
 }
 
 export interface ForceDirectedGraphProps {
@@ -105,13 +105,13 @@ function ForceDirectedGraph({
 
   // Create a map for quick node lookup
   const nodeMap = useMemo(() => {
-    const map = new Map<string, Node>();
+    const map = new Map<string, GraphNode>();
     data.nodes.forEach((node) => map.set(node.id, node));
     return map;
   }, [data.nodes]);
 
   // Calculate link endpoints considering node radius
-  const getLinkPath = (link: Link) => {
+  const getLinkPath = (link: GraphLink) => {
     const sourceNode = nodeMap.get(link.source);
     const targetNode = nodeMap.get(link.target);
 
