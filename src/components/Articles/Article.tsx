@@ -26,21 +26,17 @@ const SideNavContainer = styled.aside`
   position: sticky;
   top: 4.75rem;
   align-self: flex-start;
-  aria-hidden: false;
 
   @media (max-width: 1024px) {
     display: none;
-    aria-hidden: true;
   }
 `;
 
 const BottomNavContainer = styled.div`
   display: none;
-  aria-hidden: true;
 
   @media (max-width: 1024px) {
     display: block;
-    aria-hidden: false;
   }
 `;
 
