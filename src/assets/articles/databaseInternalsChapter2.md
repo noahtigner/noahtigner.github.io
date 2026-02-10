@@ -2,7 +2,7 @@
 title: Database Internals Ch. 2 - B-Tree Basics
 description: Notes on Chapter 2 of Database Internals by Alex Petrov. B-Trees and why databases use them.
 published: February 2, 2026
-updated: February 4, 2026
+updated: February 10, 2026
 minutesToRead: 8
 path: /articles/database-internals-chapter-2/
 image: /images/database-internals.jpg
@@ -74,7 +74,7 @@ On-disk structures are designed with their target storage specifics in mind, and
 Like BSTs, B-Trees are sorted data structures that support efficient searching. B-Trees are efficient for both point queries (finding an exact value) and range queries (finding all values less than a value, greater than a value, etc.).
 
 > [!NOTE]
-> Most of the examples in this book use a sub-category of B-Trees called B+ Trees.
+> Most of the examples in this book use a sub-category of B-Trees called B<sup>+</sup>-Trees.
 
 #### B-Tree Hierarchy
 
@@ -143,7 +143,7 @@ Ben Dicken of PlanetScale has a deep dive on B-Trees in the context of databases
 
 <br/>
 
-The PlanetScale team also provided a great <a href="https://bplustree.app/" target="_blank" rel="noopener">web app for visualizing B-Trees</a>.
+Ben also provided a great <a href="https://bplustree.app/" target="_blank" rel="noopener">web app for visualizing B-Trees</a>.
 
 <iframe src="https://bplustree.app/" style="width:100% !important" width="100%" height="600" frameborder="0" allowfullscreen></iframe>
 
