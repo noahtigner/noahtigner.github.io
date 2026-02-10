@@ -195,9 +195,6 @@ export default function ArticleContainer({
           title={articleAttributes.title}
           imgSrc={articleAttributes.image}
         />
-        <h1 id={titleId} style={{ display: 'none' }}>
-          {articleAttributes.title}
-        </h1>
       </header>
       <section aria-label="Article body">{children}</section>
     </article>
