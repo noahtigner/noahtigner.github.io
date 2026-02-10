@@ -24,7 +24,7 @@ export function extractLinksFromMarkdown(content: string): string[] {
 /**
  * Filter and normalize internal links
  * Keeps only noahtigner.com links and relative paths
- * Strips query params, anchors, and trailing slashes
+ * Strips query params and anchors, and enforces a trailing slash for consistency
  */
 export function filterInternalLinks(links: string[]): string[] {
   const internalLinks: string[] = [];
