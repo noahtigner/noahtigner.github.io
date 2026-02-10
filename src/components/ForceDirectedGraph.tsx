@@ -22,39 +22,50 @@ interface GraphData {
 
 export interface ForceDirectedGraphProps {
   data: GraphData;
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
   ariaLabel?: string;
 }
 
-const nodeColor = '#2f81f7';
-const currentNodeColor = 'var(--color-text-primary)';
+const NODE_COLOR = '#2f81f7';
+const CURRENT_NODE_COLOR = 'var(--color-text-primary)';
+const LABEL_WIDTH = 80;
+const LABEL_FONT_SIZE = 9;
+const LABEL_LINE_HEIGHT = 1.2;
 
 const StyledSVG = styled.svg`
-  fill: ${nodeColor};
   width: 100%;
-  height: auto;
+  height: 100%;
+  overflow: hidden;
 `;
 
 const graphStyles = `
-  .graph-node circle {
-    transition: fill 0.2s, filter 0.2s;
+  .graph-circle {
+    transition: filter 0.2s;
   }
-  .graph-node text {
+  .graph-node circle {
+    transition: fill 0.2s;
+  }
+  .graph-label {
     opacity: 0;
     pointer-events: none;
+    transition: opacity 0.15s;
+    color: var(--color-text-primary);
+    font-size: ${LABEL_FONT_SIZE}px;
+    line-height: ${LABEL_LINE_HEIGHT};
+    text-align: center;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    margin: 0;
+    padding: 0;
   }
-  .graph-nodes:has(.graph-node:hover) .graph-node:not(:hover) circle {
-    filter: brightness(0.6);
+  .graph-nodes:has(.graph-node:hover) .graph-circle {
+    filter: brightness(0.4);
   }
-  .graph-node:hover circle {
-    fill: #046dff;
-    filter: brightness(1.1);
+  :has(.graph-node:hover) .graph-links line {
+    filter: brightness(0.4);
   }
-  .graph-node--current:hover circle {
-    fill: var(--color-text-primary);
-  }
-  .graph-node:hover text {
+  .graph-node:hover .graph-label {
     opacity: 1;
   }
 `;
@@ -84,8 +95,8 @@ function ForceDirectedGraph({
     const maxDegree = Math.max(...Array.from(inDegreeMap.values()));
     return (nodeId: string) => {
       const degree = inDegreeMap.get(nodeId) ?? 0;
-      // Square root scale from 6 to 16
-      return 6 + Math.sqrt(degree / maxDegree) * 10;
+      // Square root scale from 6 to 12 pixels
+      return 6 + Math.sqrt(degree / maxDegree) * 6;
     };
   }, [inDegreeMap]);
 
@@ -133,7 +144,6 @@ function ForceDirectedGraph({
       role="img"
       aria-label={ariaLabel}
     >
-      <title>{ariaLabel}</title>
       <style>{graphStyles}</style>
 
       {/* Arrow marker definition */}
@@ -152,7 +162,11 @@ function ForceDirectedGraph({
       </defs>
 
       {/* Links */}
-      <g stroke="var(--color-border)" strokeOpacity={0.6}>
+      <g
+        className="graph-links"
+        stroke="var(--color-border)"
+        strokeOpacity={0.6}
+      >
         {data.links.map((link, i) => {
           const { x1, y1, x2, y2 } = getLinkPath(link);
           return (
@@ -171,11 +185,37 @@ function ForceDirectedGraph({
 
       {/* Nodes */}
       <g className="graph-nodes">
+        {/* Layer 1: Visible circles (painted first, behind labels) */}
+        {data.nodes.map((node) => {
+          if (node.x == null || node.y == null) return null;
+          const isCurrent = node.id === currentPath;
+          return (
+            <circle
+              key={`c-${node.id}`}
+              className="graph-circle"
+              cx={node.x}
+              cy={node.y}
+              r={getNodeRadius(node.id)}
+              fill={isCurrent ? CURRENT_NODE_COLOR : NODE_COLOR}
+            />
+          );
+        })}
+
+        {/* Layer 2: Interactive overlays with labels (painted last, on top) */}
         {data.nodes.map((node) => {
           if (node.x == null || node.y == null) return null;
 
           const radius = getNodeRadius(node.id);
           const isCurrent = node.id === currentPath;
+
+          const labelX = Math.min(
+            Math.max(node.x - LABEL_WIDTH / 2, 0),
+            width - LABEL_WIDTH
+          );
+          const labelY = Math.max(
+            node.y - radius - 4 - LABEL_FONT_SIZE * LABEL_LINE_HEIGHT * 2,
+            LABEL_FONT_SIZE * LABEL_LINE_HEIGHT
+          );
 
           return (
             <Link
@@ -185,22 +225,18 @@ function ForceDirectedGraph({
               className={`graph-node${isCurrent ? ' graph-node--current' : ''}`}
               style={{ cursor: 'pointer', textDecoration: 'none' }}
             >
-              <circle
-                cx={node.x}
-                cy={node.y}
-                r={radius}
-                fill={isCurrent ? currentNodeColor : nodeColor}
-              />
-              <text
-                x={node.x}
-                y={node.y - radius - 4}
-                fontSize={10}
-                fill="var(--color-text-primary)"
-                textAnchor="middle"
+              <circle cx={node.x} cy={node.y} r={radius} fill="transparent" />
+              <foreignObject
+                x={labelX}
+                y={labelY}
+                width={LABEL_WIDTH}
+                // width="auto"
+                // height={LABEL_FONT_SIZE * LABEL_LINE_HEIGHT * 4}
+                height="100%"
                 pointerEvents="none"
               >
-                {node.title}
-              </text>
+                <p className="graph-label">{node.title}</p>
+              </foreignObject>
             </Link>
           );
         })}

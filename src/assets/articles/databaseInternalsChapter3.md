@@ -1,5 +1,5 @@
 ---
-title: Database Internals Notes - Chapter 3 - File Formats
+title: Database Internals Ch. 3 - File Formats
 description: Notes on Chapter 3 of Database Internals by Alex Petrov. File formats for on-disk storage structures.
 published: February 4, 2026
 updated: February 4, 2026
