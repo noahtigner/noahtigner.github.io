@@ -20,7 +20,7 @@ An expert technical writing editor specialized for reviewing blog articles on th
 1. **In GitHub Copilot Chat**, reference the agent when reviewing an article:
 
    ```
-   @workspace /agent article-reviewer Review this article: src/assets/articles/my-article.md
+   @workspace Review src/assets/articles/my-article.md using the article-reviewer agent
    ```
 
 2. **For new articles**, ask the agent to review before publishing:
@@ -30,8 +30,9 @@ An expert technical writing editor specialized for reviewing blog articles on th
    ```
 
 3. **For targeted reviews**, ask for specific checks:
+
    ```
-   @workspace Check tone and tense consistency in src/assets/articles/my-article.md using article-reviewer
+   @workspace Check tone and tense consistency in src/assets/articles/my-article.md using the article-reviewer agent
    ```
 
 #### What the Agent Does
