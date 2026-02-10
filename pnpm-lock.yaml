@@ -32,6 +32,9 @@ importers:
       d3-force:
         specifier: ^3.0.0
         version: 3.0.0
+      d3-scale:
+        specifier: ^4.0.2
+        version: 4.0.2
       isbot:
         specifier: ^5.1.34
         version: 5.1.34
@@ -78,6 +81,9 @@ importers:
       '@types/d3-force':
         specifier: ^3.0.10
         version: 3.0.10
+      '@types/d3-scale':
+        specifier: ^4.0.9
+        version: 4.0.9
       '@types/markdown-it':
         specifier: ^14.1.2
         version: 14.1.2

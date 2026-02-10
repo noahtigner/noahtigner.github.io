@@ -1,3 +1,6 @@
+import * as d3Force from 'd3-force';
+import * as d3Scale from 'd3-scale';
+
 import type { ArticleAttributes } from './markdown';
 import {
   extractLinksFromMarkdown,
@@ -5,10 +8,13 @@ import {
   normalizeArticlePath,
 } from './links';
 
+const SIMULATION_TICKS = 300; // Number of ticks to run the force simulation
+
 export interface GraphNode {
   id: string;
   title: string;
-  group: number;
+  x?: number;
+  y?: number;
 }
 
 export interface GraphLink {
@@ -40,10 +46,9 @@ export function generateGraphFromArticles(
   }
 
   // Create nodes from articles
-  const nodes: GraphNode[] = publishedArticles.map((article, index) => ({
+  const nodes: GraphNode[] = publishedArticles.map((article) => ({
     id: article.path,
     title: article.title,
-    group: index % 10, // Distribute across 10 groups for color variety
   }));
 
   // Extract links from each article and create edges
@@ -76,6 +81,7 @@ export function generateGraphFromArticles(
   const links: GraphLink[] = [];
   for (const [edgeKey, count] of linkCounts) {
     const [source, target] = edgeKey.split('->');
+    if (source === target) continue; // Skip self-links
     links.push({
       source,
       target,
@@ -84,4 +90,84 @@ export function generateGraphFromArticles(
   }
 
   return { nodes, links };
+}
+
+/**
+ * Compute positions for graph nodes using D3 force simulation
+ * This runs the simulation to completion and returns nodes with x,y coordinates
+ */
+export function computeGraphLayout(
+  data: GraphData,
+  width: number,
+  height: number
+): GraphData {
+  // Create copies to avoid mutating original data
+  const links = data.links.map((d) => ({ ...d }));
+  const nodes = data.nodes.map((d) => ({
+    ...d,
+    x: d.x ?? Math.random() * width,
+    y: d.y ?? Math.random() * height,
+  }));
+
+  // Calculate in-degree for node sizing
+  const inDegree = new Map<string, number>();
+  nodes.forEach((node) => inDegree.set(node.id, 0));
+  links.forEach((link) => {
+    inDegree.set(link.target, (inDegree.get(link.target) ?? 0) + 1);
+  });
+
+  const maxDegree = Math.max(...Array.from(inDegree.values()));
+  const radiusScale = d3Scale.scaleSqrt().domain([0, maxDegree]).range([6, 16]);
+
+  const padding = 20;
+
+  // Create and run the simulation
+  const simulation = d3Force
+    .forceSimulation(nodes)
+    .force(
+      'link',
+      d3Force
+        .forceLink(links)
+        .id((d) => (d as GraphNode).id)
+        .distance(50)
+    )
+    .force('charge', d3Force.forceManyBody().strength(-150))
+    .force('center', d3Force.forceCenter(width / 2, height / 2))
+    .force(
+      'collision',
+      d3Force
+        .forceCollide()
+        .radius((d) => radiusScale(inDegree.get((d as GraphNode).id) ?? 0) + 10)
+    )
+    .force('x', d3Force.forceX(width / 2).strength(0.1))
+    .force('y', d3Force.forceY(height / 2).strength(0.1))
+    .stop();
+
+  // Run simulation to completion (300 ticks is usually enough)
+  for (let i = 0; i < SIMULATION_TICKS; ++i) {
+    simulation.tick();
+  }
+
+  // Constrain nodes to bounds
+  nodes.forEach((d) => {
+    const radius = radiusScale(inDegree.get(d.id) ?? 0);
+    d.x = Math.max(padding + radius, Math.min(width - padding - radius, d.x));
+    d.y = Math.max(padding + radius, Math.min(height - padding - radius, d.y));
+  });
+
+  // D3 forceLink mutates link source/target from strings to node object references.
+  // Restore them to string IDs so the serialized output remains clean.
+  const resolvedLinks: GraphLink[] = links.map((link) => ({
+    source:
+      typeof link.source === 'object'
+        ? (link.source as GraphNode).id
+        : link.source,
+    target:
+      typeof link.target === 'object'
+        ? (link.target as GraphNode).id
+        : link.target,
+    value: link.value,
+  }));
+
+  return { nodes, links: resolvedLinks };
 }

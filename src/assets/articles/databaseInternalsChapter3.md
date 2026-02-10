@@ -135,6 +135,7 @@ Ben Dicken of PlanetScale recently released a video discussing cell layout in th
     referrer-policy="strict-origin-when-cross-origin"
     allow-full-screen="true"
     loading="lazy"
+    style="width:100% !important"
 ></iframe>
 
 ---

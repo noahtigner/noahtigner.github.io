@@ -1,7 +1,11 @@
 import frontmatter from 'front-matter';
 
 import type { ArticleAttributes } from '../shared/markdown';
-import { generateGraphFromArticles, type GraphData } from '../shared/graph';
+import {
+  generateGraphFromArticles,
+  computeGraphLayout,
+  type GraphData,
+} from '../shared/graph';
 import { allArticles } from './markdown';
 
 // Import all markdown file contents
@@ -12,10 +16,16 @@ const markdownContents = import.meta.glob('../../assets/articles/*.md', {
 });
 
 /**
- * Generate graph data from all articles
+ * Generate graph data from all articles with pre-computed layout
  * Each article becomes a node, each internal link becomes an edge
  */
-export function generateArticleGraph(): GraphData {
+export function generateArticleGraph({
+  width,
+  height,
+}: {
+  width: number;
+  height: number;
+}): GraphData {
   const publishedArticles = allArticles.filter((attr) => attr.published);
 
   // Create a map of paths to markdown content
@@ -30,5 +40,8 @@ export function generateArticleGraph(): GraphData {
     }
   }
 
-  return generateGraphFromArticles(publishedArticles, contentMap);
+  const graphData = generateGraphFromArticles(publishedArticles, contentMap);
+
+  // Pre-compute layout positions for server-side rendering
+  return computeGraphLayout(graphData, width, height);
 }

@@ -165,7 +165,7 @@ export function ArticleBottomNav(
       >
         <ArticleNavigation
           data={props.data}
-          width={props.width ? props.width * 1.5 : undefined}
+          width={props.width}
           height={props.height}
           articleTitle={props.articleTitle}
         />
