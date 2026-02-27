@@ -81,13 +81,27 @@ Least-Frequently Used (LFU) tracks page references instead of page-in events. Ti
 
 ### Recovery
 
+The WAL is an append-only auxiliary on-disk structure used for crash and transaction recovery. It has several functions:
+
+- it allows the page cache to buffer updates to disk-resident pages while ensuring durability
+- it persists all ops on disk until cached copies of pages affected by these ops are synced on disk
+- it allows lost in-mem changes to be reconstructed from the operation log in case of crash
+
 #### Log Semantics
+
+The WAL consists of sequentially written records, each with a unique monotonically increasing Log Sequence Number (LSN). Log records are cached on the log buffer and are flushed to disk in a "force" operation. Records must be flushed to disk in LSN order. Compensation Log Records (CLRs) can be used during undo to ensure correctness during rollback and recovery after a crash. The WAL is usually coupled with a primary storage structure by the interface that allows "trimming" it whenever a "checkpoint" is reached. Checkpoints tell the log system that log records up to a certain point aren't required anymore. "Fuzzy checkpointing" allows this to happen asynchronously and is a more practical approach.
 
 #### Operation Versus Data Log
 
+We can use a physical log that stores complete page state or byte-wise changes to it or a logical log that stores ops that have to be performed against the current state. Physical logging records before and after images, requiring the entire affected page to be logged. A logical log specifies which ops have to be applied, and a corresponding undo operation. In practice, we often use logical logging to perform an undo (for concurrency and performance) and physical logging to perform a redo (to improve recovery time).
+
 #### Steal and Force Policies
 
+A "steal" policy is a recovery method that allows flushing a page modified by the transaction even before the transaction is committed. A "no-steal" policy, on the other hand, does not allow flushing any uncommitted transaction contents on disk. "Force" policies require all pages modified by the transactions to be flushed on disk before the transaction commits. "No-force" policies allow transactions to commit even if some of the pages modified during the transaction were not yet flushed.
+
 #### ARIES
+
+The <a href="https://en.wikipedia.org/wiki/Algorithms_for_Recovery_and_Isolation_Exploiting_Semantics" target="_blank" rel="noopener">Algorithm for Recovery and Isolation Exploiting Semantics</a> (ARIES) is a steal & no-force policy that uses physical redo and logical undo.
 
 ---
 
