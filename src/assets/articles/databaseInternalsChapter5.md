@@ -107,13 +107,37 @@ The <a href="https://en.wikipedia.org/wiki/Algorithms_for_Recovery_and_Isolation
 
 ### Concurrency Control
 
+Concurrency control is a set of techniques for handling interactions between concurrently executing transactions. They can be grouped into three buckets:
+
+- Optimistic Concurrency Control (OCC)
+- Pessimistic Concurrency Control (PCC)
+- Multiversion Concurrency Control (MVCC)
+
 #### Serializability
+
+A "schedule" is a list of ops required to execute a set of transactions from the db's perspective. A schedule is "complete" if it contains all ops from every transaction executed in it. It is "serial" when transactions are executed independently and in serial (one after the other). "Serializable" schedules allow us to execute transactions concurrently while maintaining the correctness of a serial schedule.
 
 #### Transaction Isolation
 
+Isolation levels specify how and when parts of the transaction should become visible to other concurrent transactions.
+
 #### Read and Write Anomalies
 
+Read anomalies include:
+
+- "dirty" reads - when a transaction reads uncommitted changes from other transactions
+- non-repeatable "fuzzy" reads - when a transaction queries the same row twice and gets different results
+- "phantom" reads - when a transaction queries a set of rows twice and gets different results (the range-query equivalent of a fuzzy read)
+
+Write anomalies include:
+
+- "lost" updates - when two transactions attempt to update the same value and the second transaction has no knowledge of the first and overwrites its updates without taking its updates into account
+- "dirty" writes - when a transaction takes an uncommitted value (dirty read) and modifies and saves it
+- write "skew" - when each individual transaction in a set respects the invariants, but the combination of the transactions does not
+
 #### Isolation Levels
+
+<!-- TODO: table -->
 
 #### Optimistic Concurrency Control
 
@@ -127,10 +151,29 @@ The <a href="https://en.wikipedia.org/wiki/Algorithms_for_Recovery_and_Isolation
 
 ### Other Resources
 
-Ben Dicken of PlanetScale released a video discussing bulk-loading techniques for B-Trees.
+Ben Dicken of PlanetScale released videos comparing cache eviction algorithms for page caches, the WAL, and deadlocks.
+
+<div class="video-container">
+    <iframe
+        src="https://www.youtube.com/embed/ofoz6wwz2p0?si=Gd6UiMu3GSFWUD75"
+        title="Video - FAST data loading. Bulk-loading techniques for B-trees."
+        allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrer-policy="strict-origin-when-cross-origin"
+        allow-full-screen="true"
+        loading="lazy"
+    ></iframe>
+    <iframe
+        src="https://www.youtube.com/embed/s3hKYMOpp3E?si=rX86N_dO7rtZR_HB"
+        title="Video - FAST data loading. Bulk-loading techniques for B-trees."
+        allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrer-policy="strict-origin-when-cross-origin"
+        allow-full-screen="true"
+        loading="lazy"
+    ></iframe>
+</div>
 
 <iframe
-    src="https://www.youtube.com/embed/b2JHybcmY34?si=0JlgipCsqc9ykAop"
+    src="https://www.youtube.com/embed/8-MTNO0XXlU?si=gER61qyRt8Wu9Wb1"
     title="Video - FAST data loading. Bulk-loading techniques for B-trees."
     allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     referrer-policy="strict-origin-when-cross-origin"
