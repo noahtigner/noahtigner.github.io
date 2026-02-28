@@ -31,9 +31,13 @@ const ArticleGrid = styled.span`
   }
 `;
 
+const articlesForListing = publishedArticles.filter(
+  (a) => !a.collection || a.collection.order === 0
+);
+
 // tell React-Router to preload images for this page
 export const links: Route.LinksFunction = () => {
-  return publishedArticles.map((article) => ({
+  return articlesForListing.map((article) => ({
     rel: 'preload',
     href: article.image,
     as: 'image',
@@ -51,7 +55,7 @@ export default function Articles() {
       />
       <Divider>Articles</Divider>
       <ArticleGrid>
-        {publishedArticles.map((attrs) => (
+        {articlesForListing.map((attrs) => (
           <ArticleCard key={attrs.path} {...attrs} />
         ))}
       </ArticleGrid>
