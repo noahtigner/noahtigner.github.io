@@ -10,6 +10,11 @@ tags:
   - 'reading notes'
   - 'databases'
   - 'distributed systems'
+collection:
+  slug: database-internals
+  title: Database Internals
+  shortTitle: Ch. 5 - Transaction Processing & Recovery
+  order: 5
 ---
 
 ## Database Internals - Ch. 5 - Transaction Processing and Recovery

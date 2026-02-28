@@ -10,6 +10,11 @@ tags:
   - 'reading notes'
   - 'databases'
   - 'distributed systems'
+collection:
+  slug: database-internals
+  title: Database Internals
+  shortTitle: Introduction & Motivation
+  order: 0
 ---
 
 ## Database Internals - Reading Notes

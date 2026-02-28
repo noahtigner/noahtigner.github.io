@@ -1,10 +1,14 @@
+import { useMemo } from 'react';
 import { Link } from 'react-router';
 import { Menu } from '@base-ui/react/menu';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 import contactItems from '~/assets/data/contactItems.json';
-import { publishedArticles } from '~/utils/vite/markdown';
+import {
+  publishedArticles,
+  groupArticlesByCollection,
+} from '~/utils/vite/markdown';
 import { paths } from '~/routes';
 import { Button } from '~/components/Button';
 import {
@@ -138,7 +142,6 @@ const linkItemStyles = css`
 
 const submenuTriggerStyles = css`
   align-items: center;
-  justify-content: space-between;
   gap: 0.5rem;
   padding-right: 1rem;
 `;
@@ -159,6 +162,10 @@ const StyledMenuSeparator = styled(Menu.Separator)`
 `;
 
 export default function ContactMenu() {
+  const { standalone, collections } = useMemo(
+    () => groupArticlesByCollection(publishedArticles),
+    []
+  );
   return (
     <Menu.Root>
       <StyledMenuTrigger
@@ -209,7 +216,40 @@ export default function ContactMenu() {
                       }
                     />
                     <StyledMenuSeparator />
-                    {publishedArticles.map((attrs) => (
+                    {collections.map((collection) => (
+                      <Menu.SubmenuRoot key={collection.slug}>
+                        <StyledSubmenuTrigger>
+                          <ChevronRightIcon style={{ rotate: '180deg' }} />
+                          {collection.title}
+                        </StyledSubmenuTrigger>
+                        <Menu.Portal>
+                          <StyledMenuPositioner
+                            alignOffset={-4}
+                            sideOffset={-4}
+                          >
+                            <StyledMenuPopup>
+                              {[...collection.articles]
+                                .reverse()
+                                .map((attrs) => (
+                                  <StyledMenuItem
+                                    key={attrs.path}
+                                    render={
+                                      <StyledInternalLinkItem
+                                        to={attrs.path}
+                                        prefetch="render"
+                                      >
+                                        {attrs.collection?.shortTitle ??
+                                          attrs.title}
+                                      </StyledInternalLinkItem>
+                                    }
+                                  />
+                                ))}
+                            </StyledMenuPopup>
+                          </StyledMenuPositioner>
+                        </Menu.Portal>
+                      </Menu.SubmenuRoot>
+                    ))}
+                    {standalone.map((attrs) => (
                       <StyledMenuItem
                         key={attrs.path}
                         render={

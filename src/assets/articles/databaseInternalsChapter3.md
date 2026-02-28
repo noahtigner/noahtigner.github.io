@@ -10,6 +10,11 @@ tags:
   - 'reading notes'
   - 'databases'
   - 'distributed systems'
+collection:
+  slug: database-internals
+  title: Database Internals
+  shortTitle: Ch. 3 - File Formats
+  order: 3
 ---
 
 ## Database Internals - Ch. 3 - File Formats
