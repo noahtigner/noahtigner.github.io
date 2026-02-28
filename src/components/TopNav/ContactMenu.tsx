@@ -172,7 +172,7 @@ export default function ContactMenu() {
         openOnHover
         render={
           <Button>
-            Get In Touch <ChevronDownIcon />
+            Links <ChevronDownIcon />
           </Button>
         }
       />
