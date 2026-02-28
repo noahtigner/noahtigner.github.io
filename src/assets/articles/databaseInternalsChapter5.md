@@ -1,9 +1,9 @@
 ---
-title: Database Internals Ch. 5 - Transaction Processing and Recovery
+title: Database Internals Ch. 5 - Transaction Processing & Recovery
 description: Notes on Chapter 5 of Database Internals by Alex Petrov. Transaction Processing and Recovery in Database Management Systems.
-published: February 26, 2026
-updated: February 26, 2026
-minutesToRead: 7
+published: February 27, 2026
+updated: February 27, 2026
+minutesToRead: 12
 path: /articles/database-internals-chapter-5/
 image: /images/database-internals.jpg
 tags:
@@ -12,9 +12,9 @@ tags:
   - 'distributed systems'
 ---
 
-## Database Internals - Ch. 5 - Implementing B-Trees
+## Database Internals - Ch. 5 - Transaction Processing and Recovery
 
-<p class="subtitle">7 minute read • February 26, 2026</p>
+<p class="subtitle">12 minute read • February 27, 2026</p>
 
 This post contains my notes on Chapter 5 of <a href="https://www.oreilly.com/library/view/database-internals/9781492040330/" target="_blank" rel="noopener">_Database Internals_</a> by Alex Petrov. The chapter discusses transactions, concurrent transaction processing, serialization, locks and latches, and recovery techniques. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
 
@@ -29,13 +29,13 @@ Transactions are the indivisible logical unit of work in database management sys
 
 There are several components required to manage transactions:
 
-- lock manager - guards access to resources and prevents concurrent accesses that would violate data integrity
-- page cache - serves as intermdiary between persistant storage and the rest of the storage enginer. All changes to the db state are applied here first.
-- log manager - holds a history of the operations applied to cached pages that are not yet synced with persistant storage. This guarantees that operations won't be lost in case of crashes. It is also referenced when aborting transactions.
+- Lock manager - guards access to resources and prevents concurrent accesses that would violate data integrity
+- Page cache - serves as an intermediary between persistent storage and the rest of the storage engine. All changes to the DB state are applied here first.
+- Log manager - holds a history of the operations applied to cached pages that are not yet synced with persistent storage. This guarantees that operations won't be lost in case of crashes. It is also referenced when aborting transactions.
 
 ### Buffer Management
 
-Most databases use a 2-level memory hierarchy; slower persistant storage (disk) and faster main memory (RAM). Pages are cached in-memory to reduce the number of disk accesses (sometimes called "virtual disk" or the "buffer pool"). Uncached pages are "paged in" when they get loaded from disk. When a change is made to a cached page, it becomes "dirty" until "flushed" back to disk. When a new page is added to an already full page cache, one of the cached pages must be "evicted".
+Most databases use a 2-level memory hierarchy: slower persistent storage (disk) and faster main memory (RAM). Pages are cached in memory to reduce the number of disk accesses (sometimes called "virtual disk" or the "buffer pool"). Uncached pages are "paged in" when they get loaded from disk. When a change is made to a cached page, it becomes "dirty" until "flushed" back to disk. When a new page is added to an already full page cache, one of the cached pages must be "evicted".
 
 #### Caching Semantics
 
@@ -47,35 +47,24 @@ Since page cache capacity is limited, we have to evict pages eventually. Dirty p
 
 In order to ensure durability, we have to minimize the likelihood that un-flushed data is lost on crash. The checkpoint process helps by controlling the write-ahead log (WAL) and page cache. Dirty pages cannot be evicted until the operations that were applied to the page are persisted on disk and the logs are removed from the WAL. There is a tradeoff between several objectives:
 
-- we want to postpone flushes to reduce the number of disk accesses
-- we want to preemptively flush pages to allow quick eviction
-- we want to pick pages for eviction and flush them in the optimal order
-- we must keep the cache size within memory bounds
-- we must avoid losing data while it is not persisted to primary storage
+- Postpone flushes to reduce the number of disk accesses
+- Preemptively flush pages to allow quick eviction
+- Pick pages for eviction and flush them in the optimal order
+- Keep the cache size within memory bounds
+- Avoid losing data while it is not persisted to primary storage
 
 #### Locking Pages in Cache
 
 Since B-Trees are narrower the higher we go, higher nodes are more likely to be cache-hits. We can "lock" or "pin" nodes that have a high probability of being used in the near future. By pinning higher nodes, we can reduce the minimum number of disk accesses needed during a query (otherwise it is `h`, where `h` is the tree's height). We can also batch multiple operations (from a primary storage write perspective) by buffering changes to the cached pages and in-memory, and committing these changes to disk in a single write.
 
-#### Page Replacement
+#### Page Replacement Algorithms
 
 We need to avoid evicting pages that are likely to be re-loaded within the near future. This strategy gets defined by our "eviction policy" algorithm. It attempts to find pages that are least likely to be accessed again soon.
 
-##### FIFO
-
-First-In First-Out (FIFO) is the most naive page-replacement strategy. It maintains a queue of page IDs in insertion order, enqueueing new elements from the tail and dequeueing elements from the head when full. It is usually impractical for real-world systems.
-
-##### LRU
-
-Least-Recently Used (LRU) and variants such as 2Q-LRU and LRU-K are extensions of FIFO that use one or more queues, with a main queue holding elements in insertion order, but allowing repeated accesses to cause entries to be moved back to the queue's tail (and retained for later). This results in more cache hits than FIFO but more maintanence overhead.
-
-##### CLOCK
-
-CLOCK is a variant of LRU that uses a circular buffer of access hits or counters. The algorithm loops around the buffer, incrementing bits when the associated page is accessed, and marking the associated page as a removal candidate if the counter or bit is already 0. It is compact, cache-friendly, and concurrent at the cost of precision.
-
-##### LFU
-
-Least-Frequently Used (LFU) tracks page references instead of page-in events. TinyLFU uses 3 caches: admission (LRU), probation, and protected. Items get promoted or demoted between the 3 caches. More frequently accessed items have a higher chance of retention, and less frequently used items are more likely to be evicted.
+- First-In First-Out (FIFO) is the most naive page-replacement strategy. It maintains a queue of page IDs in insertion order, enqueueing new elements from the tail and dequeueing elements from the head when full. It is usually impractical for real-world systems.
+- Least-Recently Used (LRU) and variants such as 2Q-LRU and LRU-K are extensions of FIFO that use one or more queues, with a main queue holding elements in insertion order, but allowing repeated accesses to cause entries to be moved back to the queue's tail (and retained for later). This results in more cache hits than FIFO but more maintenance overhead.
+- CLOCK is a variant of LRU that uses a circular buffer of access hits or counters. The algorithm loops around the buffer, incrementing bits when the associated page is accessed, and marking the associated page as a removal candidate if the counter or bit is already 0. It is compact, cache-friendly, and concurrent at the cost of precision.
+- Least-Frequently Used (LFU) tracks page references instead of page-in events. TinyLFU uses 3 caches: admission (LRU), probation, and protected. Items get promoted or demoted between the 3 caches. More frequently accessed items have a higher chance of retention, and less frequently used items are more likely to be evicted.
 
 ---
 
@@ -83,9 +72,9 @@ Least-Frequently Used (LFU) tracks page references instead of page-in events. Ti
 
 The WAL is an append-only auxiliary on-disk structure used for crash and transaction recovery. It has several functions:
 
-- it allows the page cache to buffer updates to disk-resident pages while ensuring durability
-- it persists all ops on disk until cached copies of pages affected by these ops are synced on disk
-- it allows lost in-mem changes to be reconstructed from the operation log in case of crash
+- It allows the page cache to buffer updates to disk-resident pages while ensuring durability
+- It persists all ops on disk until cached copies of pages affected by these ops are synced on disk
+- It allows lost in-memory changes to be reconstructed from the operation log in case of crash
 
 #### Log Semantics
 
@@ -125,27 +114,54 @@ Isolation levels specify how and when parts of the transaction should become vis
 
 Read anomalies include:
 
-- "dirty" reads - when a transaction reads uncommitted changes from other transactions
-- non-repeatable "fuzzy" reads - when a transaction queries the same row twice and gets different results
-- "phantom" reads - when a transaction queries a set of rows twice and gets different results (the range-query equivalent of a fuzzy read)
+- "Dirty" reads - when a transaction reads uncommitted changes from other transactions
+- Non-repeatable "fuzzy" reads - when a transaction queries the same row twice and gets different results
+- "Phantom" reads - when a transaction queries a set of rows twice and gets different results (the range-query equivalent of a fuzzy read)
 
 Write anomalies include:
 
-- "lost" updates - when two transactions attempt to update the same value and the second transaction has no knowledge of the first and overwrites its updates without taking its updates into account
-- "dirty" writes - when a transaction takes an uncommitted value (dirty read) and modifies and saves it
-- write "skew" - when each individual transaction in a set respects the invariants, but the combination of the transactions does not
+- "Lost" updates - when two transactions attempt to update the same value and the second transaction has no knowledge of the first and overwrites its updates without taking its updates into account
+- "Dirty" writes - when a transaction takes an uncommitted value (dirty read) and modifies and saves it
+- Write "skew" - when each individual transaction in a set respects the invariants, but the combination of the transactions does not
 
 #### Isolation Levels
 
-<!-- TODO: table -->
+|                  | Dirty   | Non-Repeatable | Phantom |
+| ---------------- | ------- | -------------- | ------- |
+| Read Uncommitted | Allowed | Allowed        | Allowed |
+| Read Committed   | -       | Allowed        | Allowed |
+| Repeatable Read  | -       | -              | Allowed |
+| Serializable     | -       | -              | -       |
+
+<p class="subtitle">Isolation levels and allowed anomalies</p>
+
+Snapshot isolation allows transactions to read changes from other transactions that were committed by the time the transaction started. Each transaction takes a snapshot of data and executes queries against it, rolling back if the values modified changed during execution (before the changes were committed). This prevents lost update anomalies but does not prevent write skew.
 
 #### Optimistic Concurrency Control
 
+Optimistic Concurrency Control (OCC) assumes that transaction conflicts are rare. Instead of locking and blocking transaction execution, we ensure serializability before committing results. There are three phases:
+
+1. the read phase - finds the "read set" (transaction dependencies) and the "write set" (transaction side-effects).
+2. the validation phase - determines if committing the transaction preserves ACID properties. If not, the process is restarted from the read phase.
+3. the write phase - the write set is committed.
+
 #### Multiversion Concurrency Control
+
+Multiversion Concurrency Control (MVCC) is a way of achieving transaction consistency by allowing multiple record versions and using monotonically increasing IDs or timestamps. This allows reads and writes with minimal coordination on the storage level. MVCC is often used for implementing snapshot isolation.
 
 #### Pessimistic Concurrency Control
 
+With Pessimistic Concurrency Control (PCC), transaction conflicts are determined while they're running and get blocked or aborted. It can be implemented with simple timestamp ordering, where max read and write timestamps are maintained and referenced.
+
 #### Lock-Based Concurrency Control
+
+Lock-based concurrency control schemes are a form of PCC that use locks on db objects instead of using concurrency control to resolve schedules. Downsides include contention and scalability issues. Two-phase locking (2PL) is a common approach.
+
+When locks are introduced into the system we must consider and handle deadlocks. Strategies exist such as timeouts and "Conservative 2PL", but they limit concurrency. Typically, DBMS use a transaction manager to detect and avoid deadlocks. This is usually done with a "waits-for" graph. Cycles in the graph represent deadlocks. Detection can be done periodically or continuously. Transaction managers typically prioritize older transactions.
+
+Locks are used to isolate and schedule overlapping transactions and manage DB contents, but not internal storage structures. They can guard either a single key or a set of keys, and are stored outside of the tree and managed by the DB lock manager. Latches, on the other hand, guard physical representations - tree structure and page contents. Since a modification on a leaf level might propagate up to higher levels, latches might have to be obtained on multiple levels. To increase concurrency, latches should be held for the smallest possible duration. Readers-Writes Locks (RWLs) allow multiple concurrent readers access to an object, with only writers needing to obtain exclusive access. "Latch crabbing" is a simple and optimistic method that allows holding latches for less time and releasing them as soon as it's clear that the executing operation doesn't need them anymore.
+
+B<sup>link</sup>-Trees, which use <a href="https://noahtigner.com/articles/database-internals-chapter-4/#node-high-keys" target="_blank" rel="noopener">high keys</a> and <a href="https://noahtigner.com/articles/database-internals-chapter-4/#sibling-links" target="_blank" rel="noopener">sibling links</a>, allow a state called a "half-split". This approach can reduce contention and simplify concurrent access while reducing the number of locks held during tree state modifications. More importantly, it allows reads concurrent to structural tree changes and helps prevent deadlocks.
 
 ---
 

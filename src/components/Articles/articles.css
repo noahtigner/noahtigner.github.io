@@ -71,6 +71,23 @@ code,
   p {
     margin-bottom: 1rem;
   }
+  table {
+    margin: 0 auto 1rem;
+    border-collapse: collapse;
+    border: 1px solid var(--color-divider);
+  }
+  th,
+  td {
+    text-align: center;
+    border: 1px solid var(--color-divider);
+    padding: 0.375rem 0.5rem;
+  }
+  thead th {
+    background-color: var(--color-paper);
+  }
+  table + .subtitle {
+    text-align: center;
+  }
   a {
     color: inherit;
     text-decoration-color: var(--color-ripple);
