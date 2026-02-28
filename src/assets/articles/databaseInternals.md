@@ -13,7 +13,7 @@ tags:
 collection:
   slug: database-internals
   title: Database Internals
-  shortTitle: Notes
+  shortTitle: Introduction & Motivation
   order: 0
 ---
 
