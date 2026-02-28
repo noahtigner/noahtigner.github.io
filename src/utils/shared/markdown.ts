@@ -3,6 +3,7 @@ import { z } from 'zod';
 const collectionSchema = z.object({
   slug: z.string(),
   title: z.string(),
+  shortTitle: z.string(),
   order: z.number().int().min(0),
 });
 

@@ -23,21 +23,40 @@ describe('getAllArticleAttributes', () => {
   it('should parse valid attributes with a collection', () => {
     const attrs = {
       ...baseAttributes,
-      collection: { slug: 'my-series', title: 'My Series', order: 1 },
+      collection: {
+        slug: 'my-series',
+        title: 'My Series',
+        shortTitle: 'Ch. 1',
+        order: 1,
+      },
     };
     const result = getAllArticleAttributes([attrs]);
     expect(result).toHaveLength(1);
     expect(result[0].collection).toEqual({
       slug: 'my-series',
       title: 'My Series',
+      shortTitle: 'Ch. 1',
       order: 1,
     });
+  });
+
+  it('should reject attributes with a partial collection (missing shortTitle)', () => {
+    const attrs = {
+      ...baseAttributes,
+      collection: { slug: 'my-series', title: 'My Series', order: 0 },
+    };
+    const result = getAllArticleAttributes([attrs]);
+    expect(result).toHaveLength(0);
   });
 
   it('should reject attributes with a partial collection (missing order)', () => {
     const attrs = {
       ...baseAttributes,
-      collection: { slug: 'my-series', title: 'My Series' },
+      collection: {
+        slug: 'my-series',
+        title: 'My Series',
+        shortTitle: 'Ch. 1',
+      },
     };
     const result = getAllArticleAttributes([attrs]);
     expect(result).toHaveLength(0);
@@ -46,7 +65,7 @@ describe('getAllArticleAttributes', () => {
   it('should reject attributes with a partial collection (missing title)', () => {
     const attrs = {
       ...baseAttributes,
-      collection: { slug: 'my-series', order: 0 },
+      collection: { slug: 'my-series', shortTitle: 'Ch. 1', order: 0 },
     };
     const result = getAllArticleAttributes([attrs]);
     expect(result).toHaveLength(0);
@@ -55,7 +74,7 @@ describe('getAllArticleAttributes', () => {
   it('should reject attributes with a partial collection (missing slug)', () => {
     const attrs = {
       ...baseAttributes,
-      collection: { title: 'My Series', order: 0 },
+      collection: { title: 'My Series', shortTitle: 'Ch. 1', order: 0 },
     };
     const result = getAllArticleAttributes([attrs]);
     expect(result).toHaveLength(0);

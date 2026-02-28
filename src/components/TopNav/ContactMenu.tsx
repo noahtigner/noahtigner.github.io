@@ -238,7 +238,8 @@ export default function ContactMenu() {
                                         to={attrs.path}
                                         prefetch="render"
                                       >
-                                        {attrs.title}
+                                        {attrs.collection?.shortTitle ??
+                                          attrs.title}
                                       </StyledInternalLinkItem>
                                     }
                                   />

@@ -13,6 +13,7 @@ tags:
 collection:
   slug: database-internals
   title: Database Internals
+  shortTitle: Notes
   order: 0
 ---
 

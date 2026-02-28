@@ -14,6 +14,7 @@ tags:
 collection:
   slug: database-internals
   title: Database Internals
+  shortTitle: Ch. 2 - B-Tree Basics
   order: 2
 ---
 

@@ -13,6 +13,7 @@ tags:
 collection:
   slug: database-internals
   title: Database Internals
+  shortTitle: Ch. 3 - File Formats
   order: 3
 ---
 

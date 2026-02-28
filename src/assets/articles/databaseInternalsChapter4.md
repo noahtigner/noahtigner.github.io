@@ -13,6 +13,7 @@ tags:
 collection:
   slug: database-internals
   title: Database Internals
+  shortTitle: Ch. 4 - Implementing B-Trees
   order: 4
 ---
 

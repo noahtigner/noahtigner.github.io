@@ -13,6 +13,7 @@ tags:
 collection:
   slug: database-internals
   title: Database Internals
+  shortTitle: Ch. 5 - Transaction Processing & Recovery
   order: 5
 ---
 
