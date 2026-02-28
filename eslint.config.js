@@ -47,6 +47,8 @@ export default [
         'warn',
         {
           allowConstantExport: true,
+          // styled HOCs from @emotion/styled return React components
+          extraHOCs: ['styled'],
           // allow exports used by React Router Framework Mode
           allowExportNames: [
             'links',
