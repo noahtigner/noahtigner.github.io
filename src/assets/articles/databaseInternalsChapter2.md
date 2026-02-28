@@ -11,6 +11,10 @@ tags:
   - 'databases'
   - 'distributed systems'
   - 'data structures & algorithms'
+collection:
+  slug: database-internals
+  title: Database Internals
+  order: 2
 ---
 
 ## Database Internals - Ch. 2 - B-Tree Basics

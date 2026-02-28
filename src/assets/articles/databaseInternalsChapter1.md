@@ -10,6 +10,10 @@ tags:
   - 'reading notes'
   - 'databases'
   - 'distributed systems'
+collection:
+  slug: database-internals
+  title: Database Internals
+  order: 1
 ---
 
 ## Database Internals - Ch. 1 - Introduction & Overview

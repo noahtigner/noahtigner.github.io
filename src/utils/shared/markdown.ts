@@ -1,5 +1,11 @@
 import { z } from 'zod';
 
+const collectionSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  order: z.number().int().min(0),
+});
+
 const articleAttributesSchema = z.object({
   title: z.string(),
   description: z.string(),
@@ -9,8 +15,10 @@ const articleAttributesSchema = z.object({
   published: z.string().nullable(),
   updated: z.string().nullable(),
   minutesToRead: z.number().int().min(1),
+  collection: collectionSchema.optional(),
 });
 
+export type ArticleCollection = z.infer<typeof collectionSchema>;
 export type ArticleAttributes = z.infer<typeof articleAttributesSchema>;
 
 export const getAllArticleAttributes = (

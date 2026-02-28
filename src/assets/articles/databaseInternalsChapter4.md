@@ -10,6 +10,10 @@ tags:
   - 'reading notes'
   - 'databases'
   - 'distributed systems'
+collection:
+  slug: database-internals
+  title: Database Internals
+  order: 4
 ---
 
 ## Database Internals - Ch. 4 - Implementing B-Trees

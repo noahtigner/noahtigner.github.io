@@ -1,6 +1,7 @@
 import {
   getAllArticleAttributes,
   type ArticleAttributes,
+  type ArticleCollection,
 } from '~/utils/shared/markdown';
 
 // Get all markdown files metadata
@@ -35,10 +36,56 @@ function getFileNameFromPath(articlePath: string): string | null {
   return null;
 }
 
+type CollectionGroup = {
+  slug: string;
+  title: string;
+  articles: ArticleAttributes[];
+};
+
+type GroupedArticles = {
+  standalone: ArticleAttributes[];
+  collections: CollectionGroup[];
+};
+
+function groupArticlesByCollection(
+  articles: ArticleAttributes[]
+): GroupedArticles {
+  const standalone: ArticleAttributes[] = [];
+  const collectionMap = new Map<string, CollectionGroup>();
+
+  for (const article of articles) {
+    if (!article.collection) {
+      standalone.push(article);
+    } else {
+      const { slug, title } = article.collection;
+      if (!collectionMap.has(slug)) {
+        collectionMap.set(slug, { slug, title, articles: [] });
+      }
+      const group = collectionMap.get(slug)!;
+      group.articles.push(article);
+    }
+  }
+
+  for (const group of collectionMap.values()) {
+    group.articles.sort(
+      (a, b) => (a.collection?.order ?? 0) - (b.collection?.order ?? 0)
+    );
+  }
+
+  return {
+    standalone,
+    collections: Array.from(collectionMap.values()),
+  };
+}
+
 export {
   allArticles,
   publishedArticles,
+  groupArticlesByCollection,
   getFileNameFromPath,
   getMarkdownFileName,
   type ArticleAttributes,
+  type ArticleCollection,
+  type CollectionGroup,
+  type GroupedArticles,
 };
