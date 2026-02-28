@@ -142,7 +142,6 @@ const linkItemStyles = css`
 
 const submenuTriggerStyles = css`
   align-items: center;
-  justify-content: space-between;
   gap: 0.5rem;
   padding-right: 1rem;
 `;
@@ -217,19 +216,6 @@ export default function ContactMenu() {
                       }
                     />
                     <StyledMenuSeparator />
-                    {standalone.map((attrs) => (
-                      <StyledMenuItem
-                        key={attrs.path}
-                        render={
-                          <StyledInternalLinkItem
-                            to={attrs.path}
-                            prefetch="render"
-                          >
-                            {attrs.title}
-                          </StyledInternalLinkItem>
-                        }
-                      />
-                    ))}
                     {collections.map((collection) => (
                       <Menu.SubmenuRoot key={collection.slug}>
                         <StyledSubmenuTrigger>
@@ -242,23 +228,38 @@ export default function ContactMenu() {
                             sideOffset={-4}
                           >
                             <StyledMenuPopup>
-                              {collection.articles.map((attrs) => (
-                                <StyledMenuItem
-                                  key={attrs.path}
-                                  render={
-                                    <StyledInternalLinkItem
-                                      to={attrs.path}
-                                      prefetch="render"
-                                    >
-                                      {attrs.title}
-                                    </StyledInternalLinkItem>
-                                  }
-                                />
-                              ))}
+                              {[...collection.articles]
+                                .reverse()
+                                .map((attrs) => (
+                                  <StyledMenuItem
+                                    key={attrs.path}
+                                    render={
+                                      <StyledInternalLinkItem
+                                        to={attrs.path}
+                                        prefetch="render"
+                                      >
+                                        {attrs.title}
+                                      </StyledInternalLinkItem>
+                                    }
+                                  />
+                                ))}
                             </StyledMenuPopup>
                           </StyledMenuPositioner>
                         </Menu.Portal>
                       </Menu.SubmenuRoot>
+                    ))}
+                    {standalone.map((attrs) => (
+                      <StyledMenuItem
+                        key={attrs.path}
+                        render={
+                          <StyledInternalLinkItem
+                            to={attrs.path}
+                            prefetch="render"
+                          >
+                            {attrs.title}
+                          </StyledInternalLinkItem>
+                        }
+                      />
                     ))}
                   </StyledMenuPopup>
                 </StyledMenuPositioner>
