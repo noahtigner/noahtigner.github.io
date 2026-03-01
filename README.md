@@ -67,6 +67,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] [Chapter 3 - File Formats](https://noahtigner.com/articles/database-internals-chapter-3/)
   - [x] [Chapter 4 - Implementing B-Trees](https://noahtigner.com/articles/database-internals-chapter-4/)
   - [x] [Chapter 5 - Transaction Processing and Recovery](https://noahtigner.com/articles/database-internals-chapter-5/)
+  - [x] [Chapter 6 - B-Tree Variants](https://noahtigner.com/articles/database-internals-chapter-6/)
 
 ## Available Scripts:
 

@@ -2,7 +2,7 @@
 title: Database Internals Ch. 5 - Transaction Processing & Recovery
 description: Notes on Chapter 5 of Database Internals by Alex Petrov. Transaction Processing and Recovery in Database Management Systems.
 published: February 27, 2026
-updated: February 27, 2026
+updated: March 1, 2026
 minutesToRead: 12
 path: /articles/database-internals-chapter-5/
 image: /images/database-internals.jpg
@@ -178,7 +178,7 @@ Ben Dicken of PlanetScale released videos comparing cache eviction algorithms fo
 <div class="video-container">
     <iframe
         src="https://www.youtube.com/embed/ofoz6wwz2p0?si=Gd6UiMu3GSFWUD75"
-        title="Video - FAST data loading. Bulk-loading techniques for B-trees."
+        title="Video - Caching algorithms (LIFO vs LRU vs CLOCK)"
         allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrer-policy="strict-origin-when-cross-origin"
         allow-full-screen="true"
@@ -186,7 +186,7 @@ Ben Dicken of PlanetScale released videos comparing cache eviction algorithms fo
     ></iframe>
     <iframe
         src="https://www.youtube.com/embed/s3hKYMOpp3E?si=rX86N_dO7rtZR_HB"
-        title="Video - FAST data loading. Bulk-loading techniques for B-trees."
+        title="Video - Write-Ahead Logs. The secret to fast database queries."
         allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrer-policy="strict-origin-when-cross-origin"
         allow-full-screen="true"
@@ -196,7 +196,7 @@ Ben Dicken of PlanetScale released videos comparing cache eviction algorithms fo
 
 <iframe
     src="https://www.youtube.com/embed/8-MTNO0XXlU?si=gER61qyRt8Wu9Wb1"
-    title="Video - FAST data loading. Bulk-loading techniques for B-trees."
+    title="Video - Killing transactions in databases (deadlock detection and resolution)"
     allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     referrer-policy="strict-origin-when-cross-origin"
     allow-full-screen="true"
