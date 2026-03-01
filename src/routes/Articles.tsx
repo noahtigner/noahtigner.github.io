@@ -2,10 +2,8 @@ import styled from '@emotion/styled';
 import MetaTags from '~/components/MetaTags';
 import { paths } from '~/routes';
 import ArticleCard from '~/components/Articles/ArticleCard';
-import {
-  publishedArticles,
-  groupArticlesByCollection,
-} from '~/utils/vite/markdown';
+import CollectionCard from '~/components/Articles/CollectionCard';
+import { publishedArticles, interleaveArticles } from '~/utils/vite/markdown';
 import Divider from '~/components/Divider';
 import { LinkInternal } from '~/components/Button';
 import type { Route } from '~/router/routes/+types/Articles';
@@ -23,25 +21,6 @@ const ArticleList = styled.div`
   margin-top: 1.5rem;
 `;
 
-const CollectionSection = styled.section`
-  margin-top: 2rem;
-
-  &:first-of-type {
-    margin-top: 0;
-  }
-`;
-
-const CollectionHeader = styled.h3`
-  font-size: 0.8125rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-text-secondary);
-  margin: 0 0 0.25rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--color-divider);
-`;
-
 // tell React-Router to preload images for this page
 export const links: Route.LinksFunction = () => {
   return publishedArticles.map((article) => ({
@@ -53,8 +32,7 @@ export const links: Route.LinksFunction = () => {
   }));
 };
 
-const { standalone, collections } =
-  groupArticlesByCollection(publishedArticles);
+const interleavedArticles = interleaveArticles(publishedArticles);
 
 export default function Articles() {
   return (
@@ -65,21 +43,13 @@ export default function Articles() {
       />
       <Divider>Articles</Divider>
       <ArticleList>
-        {standalone.length > 0 && (
-          <CollectionSection aria-label="Standalone articles">
-            {standalone.map((attrs) => (
-              <ArticleCard key={attrs.path} {...attrs} />
-            ))}
-          </CollectionSection>
+        {interleavedArticles.map((item) =>
+          item.type === 'standalone' ? (
+            <ArticleCard key={item.article.path} {...item.article} />
+          ) : (
+            <CollectionCard key={item.group.slug} {...item.group} />
+          )
         )}
-        {collections.map((group) => (
-          <CollectionSection key={group.slug} aria-label={group.title}>
-            <CollectionHeader>{group.title}</CollectionHeader>
-            {group.articles.map((attrs) => (
-              <ArticleCard key={attrs.path} {...attrs} />
-            ))}
-          </CollectionSection>
-        ))}
       </ArticleList>
       <LinkInternal
         to={paths.home}

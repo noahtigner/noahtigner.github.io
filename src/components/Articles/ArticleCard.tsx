@@ -80,7 +80,7 @@ export default function ArticleCard({
       <ArticleInfo>
         <ArticleTitle>{title}</ArticleTitle>
         <ArticleMeta>
-          {minutesToRead} min&thinsp;·&thinsp;{published}
+          {minutesToRead} min • {published}
         </ArticleMeta>
         <ArticleDescription>{description}</ArticleDescription>
       </ArticleInfo>
