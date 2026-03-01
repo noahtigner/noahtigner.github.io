@@ -32,7 +32,7 @@ export const getAllArticleAttributes = (
     const parsedAttrs = articleAttributesSchema.safeParse(attrs);
     if (parsedAttrs.success) {
       articles.push(parsedAttrs.data);
-    } else if (import.meta.env.DEV) {
+    } else {
       console.error(`Invalid article attributes:`, parsedAttrs.error);
     }
   }

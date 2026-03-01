@@ -1,7 +1,6 @@
 ---
 title: Database Internals Notes - Introduction & Motivation
 description: An overview of my collection of notes on Database Internals by Alex Petrov.
-shortDescription: Overview and motivation for this collection of reading notes.
 published: February 4, 2026
 updated: February 10, 2026
 minutesToRead: 3
@@ -15,6 +14,7 @@ collection:
   slug: database-internals
   title: Database Internals
   shortTitle: Introduction & Motivation
+  shortDescription: Overview and motivation for this collection of reading notes.
   order: 0
 ---
 
