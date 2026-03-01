@@ -27,6 +27,7 @@ describe('getAllArticleAttributes', () => {
         slug: 'my-series',
         title: 'My Series',
         shortTitle: 'Ch. 1',
+        shortDescription: 'A short summary.',
         order: 1,
       },
     };
@@ -36,6 +37,7 @@ describe('getAllArticleAttributes', () => {
       slug: 'my-series',
       title: 'My Series',
       shortTitle: 'Ch. 1',
+      shortDescription: 'A short summary.',
       order: 1,
     });
   });
