@@ -1,6 +1,7 @@
 ---
 title: Database Internals Ch. 5 - Transaction Processing & Recovery
 description: Notes on Chapter 5 of Database Internals by Alex Petrov. Transaction Processing and Recovery in Database Management Systems.
+shortDescription: Transaction Processing and Recovery in Database Management Systems.
 published: February 27, 2026
 updated: February 27, 2026
 minutesToRead: 12

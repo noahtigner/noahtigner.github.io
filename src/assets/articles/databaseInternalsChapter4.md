@@ -1,6 +1,7 @@
 ---
 title: Database Internals Ch. 4 - Implementing B-Trees
 description: Notes on Chapter 4 of Database Internals by Alex Petrov. B-Tree implementation specifics such as page organization, tree traversal, maintenance, and optimization techniques.
+shortDescription: B-Tree implementation specifics such as page organization, tree traversal, maintenance, and optimization techniques.
 published: February 10, 2026
 updated: February 10, 2026
 minutesToRead: 7

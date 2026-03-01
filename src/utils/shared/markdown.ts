@@ -4,6 +4,7 @@ const collectionSchema = z.object({
   slug: z.string(),
   title: z.string(),
   shortTitle: z.string(),
+  shortDescription: z.string(),
   order: z.number().int().min(0),
 });
 

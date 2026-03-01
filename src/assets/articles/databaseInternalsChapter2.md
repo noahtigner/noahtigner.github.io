@@ -1,6 +1,7 @@
 ---
 title: Database Internals Ch. 2 - B-Tree Basics
 description: Notes on Chapter 2 of Database Internals by Alex Petrov. B-Trees and why databases use them.
+shortDescription: B-Trees and why databases use them.
 published: February 2, 2026
 updated: February 10, 2026
 minutesToRead: 8
