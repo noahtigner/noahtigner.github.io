@@ -3,7 +3,7 @@ title: Database Internals Ch. 6 - B-Tree Variants
 description: Notes on Chapter 6 of Database Internals by Alex Petrov. B-Tree implementation techniques, optimizations, and real-world variants.
 published: March 1, 2026
 updated: March 1, 2026
-minutesToRead: 12
+minutesToRead: 6
 path: /articles/database-internals-chapter-6/
 image: /images/database-internals.jpg
 tags:
@@ -20,7 +20,7 @@ collection:
 
 ## Database Internals - Ch. 6 - B-Tree Variants
 
-<p class="subtitle">12 minute read • March 1, 2026</p>
+<p class="subtitle">6 minute read • March 1, 2026</p>
 
 This post contains my notes on Chapter 6 of <a href="https://www.oreilly.com/library/view/database-internals/9781492040330/" target="_blank" rel="noopener">_Database Internals_</a> by Alex Petrov. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
 
@@ -30,17 +30,17 @@ This chapter discusses techniques that can be used to implement efficient B-Tree
 
 ### Copy-on-Write
 
-Copy-on-Write (COW) B-Trees have immutable nodes which are not updated directly. Instead, pages are copied, updated, and written to new locations. This helps guarantee data integrity with concurrent operations. The main downside is that more space and processor time is required, since the page's entire contents have to be copied. The biggest advantages of this approach are that readers require no additional synchronization or latching, and readers do not block writers, operations cannot observe a page in an incomplete state, and crashes cannot leave pages in a corrupted state.
+Copy-on-Write (CoW) B-Trees have immutable nodes which are not updated directly. Instead, pages are copied, updated, and written to new locations. This helps guarantee data integrity with concurrent operations. The main downside is that more space and processor time is required, since the page's entire contents have to be copied. The biggest advantages of this approach are that readers require no additional synchronization or latching, and readers do not block writers, operations cannot observe a page in an incomplete state, and crashes cannot leave pages in a corrupted state.
 
 #### Implementing Copy-on-Write: LMDB
 
-Lightning Memory-Mapped Database (LMDB) is a key:value store that uses COW. It's design does not require a page cache, <a href="https://noahtigner.com/articles/database-internals-chapter-5/#recovery" target="_blank" rel="noopener">WAL</a>, checkpointing, or compaction. LMDB holds only two versions of the root node: the latest version, and the one where changes will be committed. This structure is inherently <a href="https://noahtigner.com/articles/database-internals-chapter-5/#multiversion-concurrency-control" target="_blank" rel="noopener">multiversioned</a>.
+Lightning Memory-Mapped Database (LMDB) is a key-value store that uses CoW. Its design does not require a page cache, <a href="https://noahtigner.com/articles/database-internals-chapter-5/#recovery" target="_blank" rel="noopener">WAL</a>, checkpointing, or compaction. LMDB holds only two versions of the root node: the latest version, and the one where changes will be committed. This structure is inherently <a href="https://noahtigner.com/articles/database-internals-chapter-5/#multiversion-concurrency-control" target="_blank" rel="noopener">multiversioned</a>.
 
 ---
 
 ### Abstracting Node Updates
 
-To update the page on disk we first have to update it's in-memory representation. Nodes can be represented in-memory in a few ways:
+To update the page on disk we first have to update its in-memory representation. Nodes can be represented in-memory in a few ways:
 
 - The cached version of the node can be accessed directly
 - A wrapper object can be used
@@ -54,11 +54,11 @@ Lazy B-Trees reduce the number of I/O operations required from subsequent same-n
 
 #### WiredTiger
 
-We can materialize B-Tree nodes in memory as soon as they're paged in, and use this to store updates until they're flushed. WiredTiger, one of MongoDB's storage engines, uses a variant of this approach, with an added reconciliation step.
+We can materialize B-Tree nodes in memory as soon as they're paged in, and use this to store updates until they're flushed. WiredTiger, one of MongoDB's storage engines, uses a variant of this approach with an added reconciliation step.
 
 #### Lazy-Adaptive Tree
 
-Rather than buffering to individual nodes, we can group nodes into subtrees and attach a buffer to each subtree for batching operations. Buffers therefore have hierarchical dependencies and updates are cascaded / propagated.
+Rather than buffering to individual nodes, we can group nodes into subtrees and attach a buffer to each subtree for batching operations. Buffers therefore have hierarchical dependencies and updates are cascaded/propagated.
 
 ---
 
@@ -68,7 +68,7 @@ FD-Trees buffer updates in small B-Trees. When one of these trees fills up, its 
 
 #### Fractional Cascading
 
-Fractional Cascading is a technique that maintains pointers between the levels. "Bridges" are build between levels to minimize gaps. Bridges make search <em>across</em> levels more efficient.
+Fractional Cascading is a technique that maintains pointers between the levels. "Bridges" are built between levels to minimize gaps. Bridges make search <em>across</em> levels more efficient.
 
 #### Logarithmic Runs
 
@@ -100,7 +100,7 @@ Bw-Trees are logically structured like B-Trees and therefore require operations 
 
 #### Consolidation and Garbage Collection
 
-Delta chains can get arbitrarily long if unmaintained. The longer the chain gets, the more expensive reads get. A configurable threshold is set for the chain length, after which the node is rebuild by consolidating the deltas and merging them with the base node's contents.
+Delta chains can get arbitrarily long if unmaintained. The longer the chain gets, the more expensive reads get. A configurable threshold is set for the chain length, after which the node is rebuilt by consolidating the deltas and merging them with the base node's contents.
 
 ---
 
@@ -110,7 +110,10 @@ Cache-Oblivious B-Trees treat on-disk data structures similarly to how we build 
 
 #### van Emde Boas Layout
 
-A cache-oblivious B-Tree consists of a static B-Tree and a "packed array". The static B-Tree is built using the van Emde Boas Layout, which splits the tree at the middle level of the edges and then splits each subtree recursively, resulting in subtrees of sqr(N) size. Each recursive tree is stored ina contiguous memory block. To allow for inserts/updates/deletes, a packed array is used, which uses contiguous memory segments for storing elements, but contains gaps reserved for future inserts. This results in fewer relocations across the tree due to inserts.
+A cache-oblivious B-Tree consists of a static B-Tree and a "packed array". The static B-Tree is built using the van Emde Boas Layout, which splits the tree at the middle level of the edges and then splits each subtree recursively, resulting in subtrees of sqrt(N) size. Each recursive tree is stored ina contiguous memory block. To allow for inserts/updates/deletes, a packed array is used, which uses contiguous memory segments for storing elements, but contains gaps reserved for future inserts. This results in fewer relocations across the tree due to inserts.
+
+> [!NOTE]
+> The book claims that the subtrees will have size sqr(N), but I believe they are actually sqrt(N).
 
 ---
 
@@ -121,7 +124,7 @@ Ben Dicken of PlanetScale has a video on Copy-on-Write, as well as a video recap
 <div class="video-container">
     <iframe
         src="https://www.youtube.com/embed/Iwfe5d-DlVU?si=Tr34Rf2Kz0FAVUPa"
-        title="Video - Using COW in Unix processes and database B-trees (Copy-on-write)"
+        title="Video - Using CoW in Unix processes and database B-trees (Copy-on-Write)"
         allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrer-policy="strict-origin-when-cross-origin"
         allow-full-screen="true"
@@ -129,7 +132,7 @@ Ben Dicken of PlanetScale has a video on Copy-on-Write, as well as a video recap
     ></iframe>
     <iframe
         src="https://www.youtube.com/embed/HqtakVHkYYU?si=PDfPXMSJBO7hPNzq"
-        title="Video - Buzzword trees, copy-on-write, and more! (Database Internals chapter 6)"
+        title="Video - Buzzword trees, Copy-on-Write, and more! (Database Internals chapter 6)"
         allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrer-policy="strict-origin-when-cross-origin"
         allow-full-screen="true"
