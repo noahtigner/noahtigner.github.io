@@ -50,6 +50,8 @@ To update the page on disk we first have to update it's in-memory representation
 
 ### Lazy B-Trees
 
+Lazy B-Trees reduce the number of I/O operations required from subsequent same-node writes by buffering updates.
+
 #### WiredTiger
 
 We can materialize B-Tree nodes in memory as soon as they're paged in, and use this to store updates until they're flushed. WiredTiger, one of MongoDB's storage engines, uses a variant of this approach, with an added reconciliation step.
@@ -62,62 +64,78 @@ Rather than buffering to individual nodes, we can group nodes into subtrees and 
 
 ### FD-Trees
 
+FD-Trees buffer updates in small B-Trees. When one of these trees fills up, its contents are written into an immutable "run". FD-Trees consists of several levels of immutable runs, with updates gradually propagating from upper to lower levels. Each level is a sorted array, allowing logN binary search on it.
+
 #### Fractional Cascading
 
+Fractional Cascading is a technique that maintains pointers between the levels. "Bridges" are build between levels to minimize gaps. Bridges make search <em>across</em> levels more efficient.
+
 #### Logarithmic Runs
+
+Logarithmic FD-Trees use logarithm-sized sorted runs which increase by a factor of K, created by merging the previous level with the current one.
 
 ---
 
 ### Bw-Trees
 
+There are three main problems with in-place updates:
+
+1. Write amplification
+2. Space amplification
+3. Complexity of solving concurrency problems and dealing with latches
+
+Buzzword-Trees (Bw-Trees) solve these three problems by batching updates to different nodes by using append-only storage, linking nodes into chains, and using an in-memory data structure that allows installing pointers between the nodes with a single compare-and-swap operation. This makes the tree lock-free, and greatly reduces the cost of small writes by batching them together.
+
 #### Update Chains
+
+Bw-Trees maintain a "base node" separate from modifications, and "delta node" modifications which form a linked-list chain.
 
 #### Taming Concurrency with Compare-and-Swap
 
+Bw-Trees use an in-memory mapping table to map logical identifiers to delta nodes on the update chain. This mapping also helps get rid of latches, since compare-and-swap operations can be used on physical offsets in the table instead of needing latches to grant exclusive ownership during writes.
+
 #### Structural Modification Operations
 
+Bw-Trees are logically structured like B-Trees and therefore require operations like splits and merges, but their implementations are different. Split structural modification operations (SMOs) start by consolidating the logical contents of the splitting node, applying delta to its base node, and creating a new page with elements to the split point's right. Special split and parent update steps are then applied. Merge SMOs include steps to remove the sibling, merge, and update the parent.
+
 #### Consolidation and Garbage Collection
+
+Delta chains can get arbitrarily long if unmaintained. The longer the chain gets, the more expensive reads get. A configurable threshold is set for the chain length, after which the node is rebuild by consolidating the deltas and merging them with the base node's contents.
 
 ---
 
 ### Cache-Oblivious B-Trees
 
+Cache-Oblivious B-Trees treat on-disk data structures similarly to how we build in-memory ones. They are designed to perform well without modifications on multiple (possibly distributed) machines with different configurations. Cache-oblivious algorithms allow reasoning about data structures in terms of a two-level memory model while providing the benefits of a multilevel hierarchy model.
+
 #### van Emde Boas Layout
+
+A cache-oblivious B-Tree consists of a static B-Tree and a "packed array". The static B-Tree is built using the van Emde Boas Layout, which splits the tree at the middle level of the edges and then splits each subtree recursively, resulting in subtrees of sqr(N) size. Each recursive tree is stored ina contiguous memory block. To allow for inserts/updates/deletes, a packed array is used, which uses contiguous memory segments for storing elements, but contains gaps reserved for future inserts. This results in fewer relocations across the tree due to inserts.
 
 ---
 
 ### Other Resources
 
-Ben Dicken of PlanetScale released videos comparing cache eviction algorithms for page caches, the WAL, and deadlocks.
+Ben Dicken of PlanetScale has a video on Copy-on-Write, as well as a video recapping the entire chapter.
 
 <div class="video-container">
     <iframe
-        src="https://www.youtube.com/embed/ofoz6wwz2p0?si=Gd6UiMu3GSFWUD75"
-        title="Video - FAST data loading. Bulk-loading techniques for B-trees."
+        src="https://www.youtube.com/embed/Iwfe5d-DlVU?si=Tr34Rf2Kz0FAVUPa"
+        title="Video - Using COW in Unix processes and database B-trees (Copy-on-write)"
         allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrer-policy="strict-origin-when-cross-origin"
         allow-full-screen="true"
         loading="lazy"
     ></iframe>
     <iframe
-        src="https://www.youtube.com/embed/s3hKYMOpp3E?si=rX86N_dO7rtZR_HB"
-        title="Video - FAST data loading. Bulk-loading techniques for B-trees."
+        src="https://www.youtube.com/embed/HqtakVHkYYU?si=PDfPXMSJBO7hPNzq"
+        title="Video - Buzzword trees, copy-on-write, and more! (Database Internals chapter 6)"
         allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrer-policy="strict-origin-when-cross-origin"
         allow-full-screen="true"
         loading="lazy"
     ></iframe>
 </div>
-
-<iframe
-    src="https://www.youtube.com/embed/8-MTNO0XXlU?si=gER61qyRt8Wu9Wb1"
-    title="Video - FAST data loading. Bulk-loading techniques for B-trees."
-    allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrer-policy="strict-origin-when-cross-origin"
-    allow-full-screen="true"
-    loading="lazy"
-    style="width:100% !important"
-></iframe>
 
 ---
 
