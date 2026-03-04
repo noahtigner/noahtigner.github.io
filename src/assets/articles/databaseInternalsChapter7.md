@@ -66,21 +66,43 @@ Since different tables might hold different records for the same key, our PQ mus
 
 ### Read, Write, and Space Amplification
 
+When implementing an optimized compaction strategy, we have to take multiple factors into consideration. The three main problems are:
+
+- Read amplification - caused by having to reference multiple tables to retrieve data.
+- Write amplification - caused by continuous rewrites due to the compaction process.
+- Space amplification - caused by storing multiple records for the same key.
+
+One approach is to reclaim space used by overhead and duplicated records, which results in higher write amplification due to needing to read and rewrite records more often. An alternative approach is to avoid continuous rewrites, increasing read amplification and space amplification.
+
 #### RUM Conjecture
+
+The RUM Conjecture is a cost model for calculating read, update, and memory overhead. It states that reducing any two of these overheads negatively impacts the third, and optimizations always come at the cost of one of the three. As discussed in previous chapters, B-Trees are read-optimized while LSM Trees are write-optimized.
 
 ---
 
 ### Implementation Details
 
+The book now discusses details common to many real-world LSM Tree implementations.
+
 #### Sorted String Tables
+
+Disk-resident tables are often implemented with Sorted String Tables (SSTs), where data is laid out in key-sorted order. They usually consist of two components: index files and data files. Index files are usually implemented with B-Trees or hash tables. The data consists of concatenated key-value pairs.
 
 #### Bloom Filters
 
+Read amplification on LSM trees is caused by needing the check multiple disk-resident tables during reads, since we don't always know whether or not a disk-resident table contains the searched key. This situation can be improved with a Bloom Filter, a space efficient probabilistic data structure that can be used to determine whether a set contains an element or not. They can produce false-positives (telling us that an item is part of a set when it is not), but they cannot produce false-negatives (telling us an item is not part of a set when it is). We can therefore use them to check if a table <em>might</em> contain the searched key, or if it <em>definitely</em> does not. They are constructed using a large bit array and multiple hash functions. The larger the bit set, the lower the probability of false-positives.
+
 #### Skiplist
+
+The Skiplist is a data structure used for keeping sorted data in memory. They are less complex than B-Trees (closer to a linked-list), but are less cache-friendly. Apache Cassandra uses them for secondary index memtables, and WiredTiger uses them for some in-memory operations.
 
 #### Disk Access
 
+Many techniques in <a href="https://noahtigner.com/articles/database-internals-chapter-5/#buffer-management" target="_blank" rel="noopener">buffer management</a> are also applicable to LSM Trees, since most table contents are disk-resident and most storage devices allow blockwise data accesses. The biggest difference is that in-memory contents are immutable and therefore require no additional locks or latches for concurrent accesses.
+
 #### Compression
+
+many of the ideas in <a href="https://noahtigner.com/articles/database-internals-chapter-4/#compression" target="_blank" rel="noopener">B-Tree compression</a> apply to LSM Trees too. The main difference here is that tables are immutable and written in a single pass. To be able to address compressed pages, we need an indirection layer which stores offsets and sizes of compressed pages.
 
 ---
 
