@@ -36,7 +36,7 @@ This is a collection of my notes on <a href="https://www.oreilly.com/library/vie
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-4/" target="_blank" rel="noopener">Chapter 4 - Implementing B-Trees</a>
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-5/" target="_blank" rel="noopener">Chapter 5 - Transaction Processing and Recovery</a>
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-6/" target="_blank" rel="noopener">Chapter 6 - B-Tree Variants</a>
-- [ ] Chapter 7 - Log-Structured Storage
+- [x] <a href="https://noahtigner.com/articles/database-internals-chapter-7/" target="_blank" rel="noopener">Chapter 7 - Log-Structured Storage</a>
 
 #### Part II - Distributed Systems
 

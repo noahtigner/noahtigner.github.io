@@ -111,6 +111,7 @@ code,
     flex-direction: row;
     gap: 1rem;
     max-width: 100%;
+    margin-bottom: 1rem;
   }
   @media (max-width: 600px) {
     iframe {
