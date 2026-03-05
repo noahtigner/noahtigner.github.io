@@ -36,7 +36,7 @@ The Log-Structured Merge-Tree (LSM Tree) is one of the most popular immutable on
 
 LSM Trees consist of smaller memory-resident and larger disk-resident components. To write immutable file contents on disk, the contents must first be buffered and sorted. A memory-resident and mutable "memtable" component serves as a buffer for read and write operations without I/O costs. Its contents are persisted to disk when it hits a configurable size threshold. A separate <a href="https://noahtigner.com/articles/database-internals-chapter-5/#recovery" target="_blank" rel="noopener">WAL</a> is used to guarantee durability. B-Trees are often used for the internal indexing inside of LSM files.
 
-Buffering is done in-memory, meaning all reads and write ops are applied to memory-resident sorted data structures such as a tree. Disk-resident components are built by flushing buffered contents. They are only ever used for reads, simplifying read & write logic.
+Buffering is done in-memory, meaning all reads and write ops are applied to memory-resident sorted data structures such as a tree. Disk-resident components are built by flushing buffered contents. They are only ever used for reads, simplifying read and write logic.
 
 Two-Component LSM Trees have only one disk component, comprised of immutable segments. One possible implementation for the disk component is to organize it as a B-Tree with 100% occupancy and read-only pages.
 
