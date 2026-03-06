@@ -26,6 +26,17 @@ This post contains my notes on Chapter 8 of <a href="https://www.oreilly.com/lib
 
 ---
 
+### Preface: Distributed Algorithms
+
+Part 2 of this book discusses distributed systems, so we'll need to start with a few definitions. Distributed algorithms serve many purposes:
+
+- Coordination - a process that supervises the actions and behaviors of several workers
+- Cooperation - multiple participants relying on one another for finishing their task
+- Dissemination - process cooperating in spreading the information to all interested parties
+- Consensus - achieving agreement among multiple processes
+
+---
+
 ### Concurrent Execution
 
 #### Shared State in a Distributed System
