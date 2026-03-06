@@ -7,7 +7,7 @@ import ExperienceTimeline from '~/components/ExperienceTimeline';
 import type { Route } from '~/router/routes/+types/Home';
 import MetaTags from '~/components/MetaTags';
 import ArticleCard from '~/components/Articles/ArticleCard';
-import { ButtonLinkInternal } from '~/components/Button';
+import { LinkInternal } from '~/components/Button';
 import { publishedArticles } from '~/utils/vite/markdown';
 import { paths } from '~/routes';
 
@@ -18,15 +18,6 @@ const FlexContainer = styled.div`
   max-width: var(--size-lg);
   margin-left: auto;
   margin-right: auto;
-`;
-
-const ArticleList = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: var(--size-md);
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
 `;
 
 const recentArticles = [...publishedArticles]
@@ -73,22 +64,14 @@ export default function Home() {
         <Divider>Experience</Divider>
         <ExperienceTimeline />
         <Divider>Articles</Divider>
-        <ArticleList>
+        <div>
           {recentArticles.map((article) => (
             <ArticleCard key={article.path} {...article} />
           ))}
-        </ArticleList>
-        <ButtonLinkInternal
-          to={paths.articles}
-          prefetch="intent"
-          style={{
-            width: 'fit-content',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-        >
-          View all articles &rarr;
-        </ButtonLinkInternal>
+        </div>
+        <LinkInternal to={paths.articles} prefetch="intent">
+          View all articles &gt;
+        </LinkInternal>
       </FlexContainer>
     </>
   );
