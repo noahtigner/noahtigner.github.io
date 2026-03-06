@@ -6,6 +6,10 @@ import Divider from '~/components/Divider';
 import ExperienceTimeline from '~/components/ExperienceTimeline';
 import type { Route } from '~/router/routes/+types/Home';
 import MetaTags from '~/components/MetaTags';
+import ArticleCard from '~/components/Articles/ArticleCard';
+import { LinkInternal } from '~/components/Button';
+import { publishedArticles } from '~/utils/vite/markdown';
+import { paths } from '~/routes';
 
 const FlexContainer = styled.div`
   display: flex;
@@ -15,6 +19,14 @@ const FlexContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
 `;
+
+const recentArticles = [...publishedArticles]
+  .sort((a, b) => {
+    if (!a.published) return 1;
+    if (!b.published) return -1;
+    return new Date(b.published).getTime() - new Date(a.published).getTime();
+  })
+  .slice(0, 3);
 
 // tell React-Router to preload portfolio images for this page
 export const links: Route.LinksFunction = () => {
@@ -51,6 +63,15 @@ export default function Home() {
         <Portfolio />
         <Divider>Experience</Divider>
         <ExperienceTimeline />
+        <Divider>Articles</Divider>
+        <div>
+          {recentArticles.map((article) => (
+            <ArticleCard key={article.path} {...article} />
+          ))}
+        </div>
+        <LinkInternal to={paths.articles} prefetch="intent">
+          View all articles &gt;
+        </LinkInternal>
       </FlexContainer>
     </>
   );

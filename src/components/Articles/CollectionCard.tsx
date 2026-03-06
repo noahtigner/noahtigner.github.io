@@ -60,7 +60,7 @@ const ArticleTitleRow = styled.div`
 
 const ArticleLink = styled(LinkInternal)`
   font-size: 0.875rem;
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
@@ -69,6 +69,7 @@ const ArticleLink = styled(LinkInternal)`
   min-width: 0;
 
   &::before {
+    color: var(--color-text-secondary);
     content: '↳';
   }
 
@@ -79,7 +80,7 @@ const ArticleLink = styled(LinkInternal)`
 `;
 
 const ArticleMeta = styled.span`
-  font-size: 0.825rem;
+  font-size: 0.875rem;
   color: var(--color-text-secondary);
   white-space: nowrap;
   flex-shrink: 0;
@@ -87,7 +88,7 @@ const ArticleMeta = styled.span`
 `;
 
 const ArticleDescription = styled.p`
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--color-text-secondary);
   margin: 0;
   padding-left: 1.1em;
