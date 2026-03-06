@@ -62,13 +62,14 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [x] [Creating a Custom Github Pages 404 Page with React Router v7's Framework Mode](https://noahtigner.com/articles/github-pages-404-react-router/)
 - [x] [React Conf 2025 Highlights](https://noahtigner.com/articles/react-conf-2025/)
 - [ ] Notes on Alex Petrov's _Database Internals_:
-  - [x] [Chapter 1 - Introduction & Overview](https://noahtigner.com/articles/database-internals-chapter-1/)
+  - [x] [Chapter 1 - Storage Engines Intro & Overview](https://noahtigner.com/articles/database-internals-chapter-1/)
   - [x] [Chapter 2 - B-Tree Basics](https://noahtigner.com/articles/database-internals-chapter-2/)
   - [x] [Chapter 3 - File Formats](https://noahtigner.com/articles/database-internals-chapter-3/)
   - [x] [Chapter 4 - Implementing B-Trees](https://noahtigner.com/articles/database-internals-chapter-4/)
   - [x] [Chapter 5 - Transaction Processing and Recovery](https://noahtigner.com/articles/database-internals-chapter-5/)
   - [x] [Chapter 6 - B-Tree Variants](https://noahtigner.com/articles/database-internals-chapter-6/)
   - [x] [Chapter 7 - Log-Structured Storage](https://noahtigner.com/articles/database-internals-chapter-7/)
+  - [x] [Chapter 8 - Distributed Systems Intro & Overview](https://noahtigner.com/articles/database-internals-chapter-8/)
 
 ## Available Scripts:
 

@@ -1,8 +1,8 @@
 ---
-title: Database Internals Ch. 1 - Introduction & Overview
+title: Database Internals Ch. 1 - Storage Engines Intro & Overview
 description: Notes on Chapter 1 of Database Internals by Alex Petrov. OLTP vs. OLAP, Memory vs. Disk-Based Storage, Row vs. Column Orientation, Indexing, etc.
 published: January 31, 2026
-updated: February 2, 2026
+updated: March 6, 2026
 minutesToRead: 5
 path: /articles/database-internals-chapter-1/
 image: /images/database-internals.jpg
@@ -13,12 +13,12 @@ tags:
 collection:
   slug: database-internals
   title: Database Internals
-  shortTitle: Ch. 1 - Introduction & Overview
+  shortTitle: Ch. 1 - Storage Engines Intro & Overview
   shortDescription: OLTP vs. OLAP, Memory vs. Disk-Based Storage, Row vs. Column Orientation, Indexing, etc.
   order: 1
 ---
 
-## Database Internals - Ch. 1 - Introduction & Overview
+## Database Internals - Ch. 1 - Storage Engines Intro & Overview
 
 <p class="subtitle">5 minute read • January 31, 2026</p>
 
