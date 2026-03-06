@@ -6,6 +6,10 @@ import Divider from '~/components/Divider';
 import ExperienceTimeline from '~/components/ExperienceTimeline';
 import type { Route } from '~/router/routes/+types/Home';
 import MetaTags from '~/components/MetaTags';
+import ArticleCard from '~/components/Articles/ArticleCard';
+import { ButtonLinkInternal } from '~/components/Button';
+import { publishedArticles } from '~/utils/vite/markdown';
+import { paths } from '~/routes';
 
 const FlexContainer = styled.div`
   display: flex;
@@ -15,6 +19,23 @@ const FlexContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
 `;
+
+const ArticleList = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: var(--size-md);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+`;
+
+const recentArticles = [...publishedArticles]
+  .sort((a, b) => {
+    if (!a.published) return 1;
+    if (!b.published) return -1;
+    return new Date(b.published).getTime() - new Date(a.published).getTime();
+  })
+  .slice(0, 3);
 
 // tell React-Router to preload portfolio images for this page
 export const links: Route.LinksFunction = () => {
@@ -51,6 +72,23 @@ export default function Home() {
         <Portfolio />
         <Divider>Experience</Divider>
         <ExperienceTimeline />
+        <Divider>Articles</Divider>
+        <ArticleList>
+          {recentArticles.map((article) => (
+            <ArticleCard key={article.path} {...article} />
+          ))}
+        </ArticleList>
+        <ButtonLinkInternal
+          to={paths.articles}
+          prefetch="intent"
+          style={{
+            width: 'fit-content',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+        >
+          View all articles &rarr;
+        </ButtonLinkInternal>
       </FlexContainer>
     </>
   );
