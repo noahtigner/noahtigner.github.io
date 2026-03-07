@@ -39,31 +39,81 @@ Part 2 of this book discusses distributed systems, so we'll need to start with a
 
 ### Concurrent Execution
 
+Every concurrency problem has some properties of a distributed system. Threads access the shared state, perform some operations locally, and propagate the results back to the shared variables. To define execution histories precisely and reduce the number of possible outcomes, we need "consistency models". These describe concurrent executions and establish an order in which operations can be executed and made visible to the participants. In concurrent systems, we can have shared memory, which processes can use to exchange the information. in a distributed system, each process has local state and participants communicate by passing messages.
+
 #### Shared State in a Distributed System
+
+We can try to introduce some notion of shared memory to a distributed system, such as a database. Even if we solve the problems with concurrent access to it, we still cannot guarantee that all processes are in sync. To access this db, process can send messages over the communication medium. We'll therefore have to describe the system in terms of "synchrony" - whether the system is async, or if we can make some assumptions about timing. These assumptions give us options like timeouts and retries.
+
+We don't always know the "nature" of an issue - if we haven't received a response because of a network issue, because the resource is overloaded, or because of a system crash. "Failure models" describe the ways in which failures can occur and how we decide to handle them. "Fault tolerance" describes the degree to which our system keeps operating correctly even when failures occur.
 
 ---
 
 ### Fallacies of Distributed Computing
 
+It is usually reasonable to assume that the network is at least semi-reliable. We should, however, make as few assumptions as possible about latency. We should also not assume bandwidth is unlimited.
+
 #### Processing
+
+We cannot assume that processing is instantaneous. There's also no guarantee that processing starts as soon as the message is delivered. We cannot expect different nodes (with potentially different hardware, different geographic distances, etc.) to process the same type of message at the same speed.
+
+Process-local queues can be used to achieve a few goals:
+
+- Decoupling - receipt and processing are separated in time and happen independently
+- Pipelining - requests in different stages are handled by different parts of the system. The subsystem responsible for receiving messages doesn't have to block until the previous message is fully processed
+- Absorbing short-time bursts - system load tends to vary, but request inter-arrival times are hidden from the components responsible for request processing
 
 #### Clocks and Time
 
+We cannot assume that clocks on different machines run in sync.
+
 #### State Consistency
+
+Distributed algorithms don't always guarantee strict consistency. Some have looser constraints and allow state divergence between replicas, and rely on resolution and real-time data repair.
 
 #### Local and Remote Execution
 
+Hiding complexity behind an API can sometimes be dangerous in concurrent systems if we don't understand the logic of what's happening behind the scenes. We must also keep in mind that local and remote execution are not the same, and often experience much different latency.
+
 #### Need to Handle Failures
+
+Processes can fail, and we should be prepared for these failures and how to handle them. Some distributed algorithms use heartbeat protocols and failure detectors to determine which processes are alive.
 
 #### Network Partitions and Partial Failures
 
+A "network partition" is when two or more servers cannot communicate with eachother. Independently partitioned groups can cause consistency problems when things like network errors are experiences asymmetrically. We therefore have to consider partial failures. When working with distributed systems, we have to take fault-tolerance, resilience, possible failure scenarios, and edge cases very seriously.
+
 #### Cascading Failures
+
+We cannot always isolate failures. Cascading failures can propagate from one part of the system to another, increasing the scope of the problem. "Circuit breakers" can be used to protect a system from propagating failures and can help treat failure scenarios gracefully. Backoff can be used to increase time periods between client retries. "Jitter" can help by adding small random time variations to the backoff, distributing the load of multiple retrying clients. <a href="https://noahtigner.com/articles/database-internals-chapter-3/#checksumming" target="_blank" rel="noopener">Checksumming</a> and other validation techniques can be used to ensure data integrity.
 
 ---
 
 ### Distributed Systems Abstractions
 
 #### Links
+
+Links connect two processes together. Processes can send messages to eachother, but all communication mediums are imperfect, and messages can get lost or delayed.
+
+"Fair loss links" are links where the sender has no way of knowing if the message gets delivered. The properties for this type of link are:
+
+- Fair loss - if both sender and receiver work correctly and the sender keeps resending, the message will eventually be delivered
+- Finite duplication - sent messages won't get delivered infinitely many times
+- No creation - the link won't deliver messages that were never sent
+
+Receivers can acknowledge the receipt of the message, notifying the sender. This requires the link to support bidirectional communication. We also need to use sequence numbers or some other means of distinguishing between messages.
+
+Until an "ack" is received by the sender, it has no way of knowing if the message was processed. Retrying the message could result in duplication. It is therefore only safe to proceed if the process is idempotent, meaning that executing it multiple times won't change the outcome or result in side-effects. We can't always guarantee idempotency in our operations, but we can provide equivalent guarantees with deduplication.
+
+Messages can arrive out of order and can be duplicated. Unique IDs like sequence numbers can be used by the recipient to ensure FIFO processing and deduplication.
+
+A "perfect link" provides the following guarantees:
+
+- Reliable delivery - every message sent once is eventually delivered
+- No duplication
+- No creation
+
+There is some debate over whether or not perfect links are possible. Most real-world systems use "at-least once" delivery, where senders retry until they receive acks. Another option is "at-most once", where messages are sent once and the sender doesn't expect any confirmation. It's not possible to ensure that a message is sent only once, but it's possible to ensure that it is processed exactly once.
 
 ---
 
