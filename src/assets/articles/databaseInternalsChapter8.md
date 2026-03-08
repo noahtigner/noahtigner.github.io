@@ -119,9 +119,17 @@ There is some debate over whether or not perfect links are possible. Most real-w
 
 ### Two Generals Problem
 
----
+## The Two Generals problem is a thought experiment that shows that it is impossible to achieve an agreement between two parties if communication is asynchronous and links fail. Imagine two allied armies led by two generals, preparing to attack the same city, arrayed on either side of it. Their siege will only succeed if they attack at the same time. They can communicate by sending messages, but they have to agree to both attack simultaneously. The messenger carrying the message might get captured, causing the message to not get delivered. The same could happen with the acknowledgement. No matter how many further confirmations are sent, the generals will always be one ack away from knowing if the attack can succeed successfully.
 
 ### FLP Impossibility
+
+FLP Impossibility is a problem where the authors discuss a form of consensus in which processes start with an initial value and agree on another. This new value has to be the same for all non-faulty processes. For a consensus protocol to be correct, it has to have these three properties:
+
+- Agreement - the decision has to be unanimous
+- Validity - the agreed upon value has to be proposed by oen of the participants, not just some predefined default (akin to "no creation")
+- Termination - an agreement is final if and only if there are no processes that did not reach the decision state
+
+The problem assumes that processing is asynchronous, meaning that there's no way for participants to know if one participant has crashed. FLP Impossibility does not mean that reaching consensus is impossible, just that it can't always be reached in a purely asynchronous system in bounded time.
 
 ---
 
