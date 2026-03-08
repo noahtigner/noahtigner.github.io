@@ -69,7 +69,11 @@ export default function Home() {
             <ArticleCard key={article.path} {...article} />
           ))}
         </div>
-        <LinkInternal to={paths.articles} prefetch="intent">
+        <LinkInternal
+          to={paths.articles}
+          prefetch="intent"
+          style={{ paddingBottom: '2rem' }}
+        >
           View all articles &gt;
         </LinkInternal>
       </FlexContainer>

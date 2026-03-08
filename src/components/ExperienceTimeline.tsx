@@ -44,7 +44,6 @@ const TimelineContainer = styled.div`
 const TimelineContent = styled.ul`
   position: relative;
   padding-left: calc(20px + 0.5rem);
-  padding-bottom: 2rem;
   &:before {
     content: '';
     position: absolute;
