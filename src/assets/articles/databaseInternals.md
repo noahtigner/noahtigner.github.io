@@ -2,7 +2,7 @@
 title: Database Internals Notes - Introduction & Motivation
 description: An overview of my collection of notes on Database Internals by Alex Petrov.
 published: February 4, 2026
-updated: February 10, 2026
+updated: March 9, 2026
 minutesToRead: 3
 path: /articles/database-internals/
 image: /images/database-internals.jpg
@@ -30,7 +30,7 @@ This is a collection of my notes on <a href="https://www.oreilly.com/library/vie
 
 #### Part I - Storage Engines
 
-- [x] <a href="https://noahtigner.com/articles/database-internals-chapter-1/" target="_blank" rel="noopener">Chapter 1 - Introduction & Overview</a>
+- [x] <a href="https://noahtigner.com/articles/database-internals-chapter-1/" target="_blank" rel="noopener">Chapter 1 - Storage Engines Intro & Overview</a>
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-2/" target="_blank" rel="noopener">Chapter 2 - B-Tree Basics</a>
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-3/" target="_blank" rel="noopener">Chapter 3 - File Formats</a>
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-4/" target="_blank" rel="noopener">Chapter 4 - Implementing B-Trees</a>
@@ -40,7 +40,7 @@ This is a collection of my notes on <a href="https://www.oreilly.com/library/vie
 
 #### Part II - Distributed Systems
 
-- [ ] Chapter 8 - Introduction & Overview
+- [x] <a href="https://noahtigner.com/articles/database-internals-chapter-8/" target="_blank" rel="noopener">Chapter 8 - Distributed Systems Intro & Overview</a>
 - [ ] Chapter 9 - Failure Detection
 - [ ] Chapter 10 - Leader Election
 - [ ] Chapter 11 - Replication & Consistency
