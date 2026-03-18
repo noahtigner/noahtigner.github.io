@@ -2,7 +2,7 @@
 title: Database Internals Ch. 5 - Transaction Processing & Recovery
 description: Notes on Chapter 5 of Database Internals by Alex Petrov. Transaction Processing and Recovery in Database Management Systems.
 published: February 27, 2026
-updated: March 1, 2026
+updated: March 18, 2026
 minutesToRead: 12
 path: /articles/database-internals-chapter-5/
 image: /images/database-internals.jpg
@@ -26,6 +26,8 @@ This post contains my notes on Chapter 5 of <a href="https://www.oreilly.com/lib
 
 ---
 
+### Introduction
+
 Transactions are the indivisible logical unit of work in database management systems. They allow us to represent multiple operations in a single step. ACID is one of the most important and misunderstood concepts related to databases. Although <a href="https://youtu.be/5ZjhNTM8XU8?si=0UhNZayIeCPkvrhR" target="_blank" rel="noopener">Martin Kleppmann and others have raised concerns over the assumptions we make with ACID</a>, it is still an important concept to learn. In short, ACID means:
 
 1. Atomicity - transactions are indivisible, meaning all-or-nothing. All steps within a transaction are either committed (applied) or aborted (rolled back and possibly retried).
@@ -38,6 +40,8 @@ There are several components required to manage transactions:
 - Lock manager - guards access to resources and prevents concurrent accesses that would violate data integrity
 - Page cache - serves as an intermediary between persistent storage and the rest of the storage engine. All changes to the DB state are applied here first.
 - Log manager - holds a history of the operations applied to cached pages that are not yet synced with persistent storage. This guarantees that operations won't be lost in case of crashes. It is also referenced when aborting transactions.
+
+---
 
 ### Buffer Management
 
