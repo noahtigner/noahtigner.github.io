@@ -44,7 +44,7 @@ This is a collection of my notes on <a href="https://www.oreilly.com/library/vie
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-9/" target="_blank" rel="noopener">Chapter 9 - Failure Detection</a>
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-10/" target="_blank" rel="noopener">Chapter 10 - Leader Election</a>
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-11/" target="_blank" rel="noopener">Chapter 11 - Replication & Consistency</a>
-- [ ] Chapter 12 - Anti-Entropy & Dissemination
+- [x] <a href="https://noahtigner.com/articles/database-internals-chapter-12/" target="_blank" rel="noopener">Chapter 12 - Anti-Entropy & Dissemination</a>
 - [ ] Chapter 13 - Distributed Transactions
 - [ ] Chapter 14 - Consensus
 

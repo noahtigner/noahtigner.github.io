@@ -2,7 +2,7 @@
 title: Database Internals Ch. 9 - Failure Detection
 description: Notes on Chapter 9 of Database Internals by Alex Petrov. Failure detection in distributed systems with heartbeats, pings, and gossip.
 published: March 9, 2026
-updated: March 9, 2026
+updated: March 21, 2026
 minutesToRead: 5
 path: /articles/database-internals-chapter-9/
 image: /images/database-internals.jpg
@@ -74,6 +74,8 @@ It can be viewed as a collection of three subsystems:
 ### Gossip and Failure Detection
 
 Gossip provides another approach that avoids relying on a single-node view to make the decision. Gossip collects and distributes the state of neighboring processes. Each member stores a list of other members, their heartbeat counters, and the timestamp when the counter was last updated. Periodically, each member increments its counter and distributes its list to a random neighbor. Upon receipt, lists are merged and counters are updated. Nodes also periodically check the list of states and heartbeat counters. If any node didn't update its counter for long enough, it is considered failed. This allows us to detect crashed nodes as well as nodes that are unreachable by any other cluster member. Gossip increases the number of messages in the system, but allows info to spread more reliably.
+
+For more on gossip, see <em><a href="https://noahtigner.com/articles/database-internals-chapter-12/#gossip-dissemination" target="_blank" rel="noopener">Chapter 12 - Anti-Entropy and Dissemination</a></em>.
 
 ---
 
