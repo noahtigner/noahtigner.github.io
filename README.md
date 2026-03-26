@@ -74,7 +74,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] [Chapter 10 - Leader Election](https://noahtigner.com/articles/database-internals-chapter-10/)
   - [x] [Chapter 11 - Replication & Consistency](https://noahtigner.com/articles/database-internals-chapter-11/)
   - [x] [Chapter 12 - Anti-Entropy & Dissemination](https://noahtigner.com/articles/database-internals-chapter-12/)
-  - [ ] [Chapter 13 - Distributed Transactions](https://noahtigner.com/articles/database-internals-chapter-13/)
+  - [x] [Chapter 13 - Distributed Transactions](https://noahtigner.com/articles/database-internals-chapter-13/)
   - [ ] [Chapter 14 - Consensus](https://noahtigner.com/articles/database-internals-chapter-14/)
   - [ ] [Summary & Thoughts](https://noahtigner.com/articles/<TODO>/)
 
