@@ -3,7 +3,7 @@ title: Database Internals Ch. 13 - Distributed Transactions
 description: Notes on Chapter 13 of Database Internals by Alex Petrov. Distributed Transactions, including two-phase commit, Spanner, partitioning, sharding, consistent hashing, and coordination avoidance.
 published: March 26, 2026
 updated: March 26, 2026
-minutesToRead: 7
+minutesToRead: 9
 path: /articles/database-internals-chapter-13/
 image: /images/database-internals.jpg
 tags:
@@ -20,7 +20,7 @@ collection:
 
 ## Database Internals - Ch. 13 - Distributed Transactions
 
-<p class="subtitle">7 minute read • March 26, 2026</p>
+<p class="subtitle">9 minute read • March 26, 2026</p>
 
 This post contains my notes on Chapter 13 of <a href="https://www.oreilly.com/library/view/database-internals/9781492040330/" target="_blank" rel="noopener">_Database Internals_</a> by Alex Petrov. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
 
@@ -28,7 +28,7 @@ This post contains my notes on Chapter 13 of <a href="https://www.oreilly.com/li
 
 ### Introduction
 
-In <a href="https://noahtigner.com/articles/database-internals-chapter-11/#consistency-models" target="_blank" rel="noopener">chapter 11</a> we discusses single-object, single-operation consistency models.
+In <a href="https://noahtigner.com/articles/database-internals-chapter-11/#consistency-models" target="_blank" rel="noopener">chapter 11</a> we discussed single-object, single-operation consistency models.
 We now shift to discussing models where multiple ops are executed atomically and concurrently.
 The main focus of transaction processing is to determine permissible histories and interleaving scenarios.
 History can be represented as a dependency graph.
@@ -58,14 +58,14 @@ Implementations have to decide when data is ready to commit, how to perform the 
 
 Two-phase commit (2PC) is the most straightforward protocol for distributed commitment.
 It allows multi-partition atomic updates.
-During the first phase, "prepare", the value is distributed to the nodes and votes are collected.
+During the first phase, "prepare", the value is distributed to the nodes and votes are collected on if they can commit the change.
 In the second phase, "commit/abort", nodes just flip the switch and make the change visible.
 2PC requires a leader/coordinator that holds state, organizes votes, and decides to commit or abort.
 The leader can be fixed through the lifetime of the system or picked with a <a href="https://noahtigner.com/articles/database-internals-chapter-10/" target="_blank" rel="noopener">leader election algorithm</a>.
 
 #### Cohort Failures in 2PC
 
-If one of the cohorts (participants) in unavailable during the prepare phase, the coordinator will abort the transaction.
+If one of the cohorts (participants) is unavailable during the prepare phase, the coordinator will abort the transaction.
 This negatively impacts availability.
 If a node fails during the commit/abort phase, it enters into an inconsistent state and cannot respond to requests until it has caught up.
 
@@ -112,7 +112,7 @@ Calvin uses the Paxos consensus algorithm for determining which transactions mak
 ### Distributed Transactions with Spanner
 
 Unlike Calvin, Spanner uses 2PC over consensus groups per partition (shard).
-It uses a high-precision wall-clock API called "Truetime" to achieve consistency and impose a transaction order.
+It uses a high-precision wall-clock API called "TrueTime" to achieve consistency and impose a transaction order.
 
 Spanner offers three main operations:
 
@@ -120,7 +120,7 @@ Spanner offers three main operations:
 - Read-only transactions - lock-free, can be executed on any replica
 - Snapshot reads - consistent, lock-free view of the data at the given timestamp. A leader is only required when requesting the latest timestamp
 
-Spanner uses Paxos for consistent transaction log replication, 2PC for cross-shard transactions, and Truetime for deterministic transaction ordering.
+Spanner uses Paxos for consistent transaction log replication, 2PC for cross-shard transactions, and TrueTime for deterministic transaction ordering.
 This means that multi-partition transactions have a higher cost compared to Calvin, but Spanner usually wins in terms of availability.
 
 ---
@@ -135,7 +135,7 @@ This is typically called "sharding", where every replica set acts as the single 
 We want to distribute reads and writes as evenly as possible, sizing partitions appropriately.
 In order to maintain balance, the DB also has to repartition the data when nodes are added or removed.
 In order to reduce range hot-spotting, some DBs use a hash of the value as the routing key.
-A niaive approach is to map keys to nodes with something like `hash(v) % N`, where N is the number of nodes.
+A naive approach is to map keys to nodes with something like `hash(v) % N`, where N is the number of nodes.
 The downside of this is that if the number of nodes changes, the system is immediately unbalanced and needs to be repartitioned.
 
 #### Consistent Hashing
@@ -149,15 +149,75 @@ Consistent hashing helps to reduce the number of relocations required for mainta
 
 ### Distributed Transactions with Percolator
 
+If serializability is not required by the application, one way to avoid write anomalies is with a transaction model called "snapshot isolation" (SI).
+SI guarantees that all reads made within the transaction are consistent with a snapshot of the database.
+The snapshot contains all values that were committed before the transaction started.
+If there's a write conflict between two transactions, only one of them will commit (usually called "first commit wins").
+
+SI has several convenient properties:
+
+- It prevents <a href="https://noahtigner.com/articles/database-internals-chapter-5/#read-and-write-anomalies" target="_blank" rel="noopener">read skew</a>
+- It allows only repeatable reads of committed data
+- Values are consistent
+- Conflicting writes are aborted and retried to prevent inconsistency
+
+Despite this, histories under SI are not serializable, and we can end up with <a href="https://noahtigner.com/articles/database-internals-chapter-5/#read-and-write-anomalies" target="_blank" rel="noopener">write skew</a>.
+
+"Percolator" is a library that implements a transactional API on top of the wide-column store Bigtable.
+SI is an important abstraction for Percolator.
+Many other DBMSs and <a href="https://noahtigner.com/articles/database-internals-chapter-5/#multiversion-concurrency-control" target="_blank" rel="noopener">MVCC</a> systems offer the SI isolation level.
+
 ---
 
 ### Coordination Avoidance
+
+Invariant Confluence (I-Confluence) is a property that ensures that two invariant-valid but diverged DB states can be merged into a single valid DB state.
+Because any two valid states can be merged into a valid state, I-Confluent ops can be executed without any additional coordination, which significantly improves performance and scalability potential.
+
+A system model that allows coordinator avoidance has to guarantee the following properties:
+
+- Global validity - required invariants are always satisfied
+- Availability - if all nodes holding state are reachable by the client, the transaction has to reach a commit or abort decision.
+- Convergence - nodes can maintain their local state independently, but they have to be able to reach the same state
+- Coordinator freedom - local transaction execution is independent from the ops against the local state on behalf of other nodes
+
+One example of coordinator avoidance is Read-Atomic Multi-Partition (RAMP).
+RAMP transactions use MVCC and metadata of in-flight ops to fetch any missing state updates from other nodes.
+This allows read and write ops to be executed concurrently.
+
+RAMP provides two properties:
+
+- Synchronization independence - transactions are independent of each other
+- Partition independence - clients don't have to contact partitions whose values aren't involved in their transactions
+
+RAMP provides the read-atomic isolation level.
+It also offers atomic write visibility without requiring mutual exclusion.
+To allow readers and writers to proceed without blocking other concurrent readers and writers, writes in RAMP are made visible using a non-blocking variant of 2PC.
 
 ---
 
 ### Other Resources
 
-Greg Schoeninger of <a href="https://oxen.ai/" target="_blank" rel="noopener">oxen.ai</a> has a great blog post called <em><a href="https://ghost.oxen.ai/merkle-tree-101/" target="_blank" rel="noopener">Merkle Tree 101</a></em>
+Yugabyte provided a great talk comparing and contrasting Calvin and Spanner. ByteByteGo has a great video, article, and chapter in <em>System Design Interview</em> about consistent hashing.
+
+<div class="video-container">
+    <iframe
+        src="https://www.youtube.com/embed/InP4-LpdCzU?si=mjgo-BjRDvTfwkZB"
+        title="Video - Spanner vs Calvin: Comparing Consensus Protocols in Strongly Consistent Database Systems"
+        allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrer-policy="strict-origin-when-cross-origin"
+        allow-full-screen="true"
+        loading="lazy"
+    ></iframe>
+    <iframe
+        src="https://www.youtube.com/embed/UF9Iqmg94tk?si=9RNC33WBZKV3ZfuE"
+        title="Video - Consistent Hashing | Algorithms You Should Know #1"
+        allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrer-policy="strict-origin-when-cross-origin"
+        allow-full-screen="true"
+        loading="lazy"
+    ></iframe>
+</div>
 
 ---
 
