@@ -111,11 +111,39 @@ Calvin uses the Paxos consensus algorithm for determining which transactions mak
 
 ### Distributed Transactions with Spanner
 
+Unlike Calvin, Spanner uses 2PC over consensus groups per partition (shard).
+It uses a high-precision wall-clock API called "Truetime" to achieve consistency and impose a transaction order.
+
+Spanner offers three main operations:
+
+- Read-write transactions - require locks, pessimistic concurrency control, and presence of the leader replica
+- Read-only transactions - lock-free, can be executed on any replica
+- Snapshot reads - consistent, lock-free view of the data at the given timestamp. A leader is only required when requesting the latest timestamp
+
+Spanner uses Paxos for consistent transaction log replication, 2PC for cross-shard transactions, and Truetime for deterministic transaction ordering.
+This means that multi-partition transactions have a higher cost compared to Calvin, but Spanner usually wins in terms of availability.
+
 ---
 
 ### Database Partitioning
 
+Partitioning is simply a logical division of data into smaller manageable segments.
+The most straightforward approach is to split the data into ranges.
+Clients then route requests based on the routing key.
+This is typically called "sharding", where every replica set acts as the single source for a subset of data.
+
+We want to distribute reads and writes as evenly as possible, sizing partitions appropriately.
+In order to maintain balance, the DB also has to repartition the data when nodes are added or removed.
+In order to reduce range hot-spotting, some DBs use a hash of the value as the routing key.
+A niaive approach is to map keys to nodes with something like `hash(v) % N`, where N is the number of nodes.
+The downside of this is that if the number of nodes changes, the system is immediately unbalanced and needs to be repartitioned.
+
 #### Consistent Hashing
+
+In order to mitigate this problem, some DBs employ consistent hashing methods.
+Hashed values are mapped to a ring, so that after the largest possible value, it wraps around to the smallest value.
+Each node in the ring is responsible for the range of values between its two neighbors in the ring.
+Consistent hashing helps to reduce the number of relocations required for maintaining balance.
 
 ---
 
