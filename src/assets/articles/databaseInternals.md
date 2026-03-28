@@ -2,7 +2,7 @@
 title: Database Internals Notes - Introduction & Motivation
 description: An overview of my collection of notes on Database Internals by Alex Petrov.
 published: February 4, 2026
-updated: March 9, 2026
+updated: March 30, 2026
 minutesToRead: 3
 path: /articles/database-internals/
 image: /images/database-internals.jpg
@@ -46,7 +46,7 @@ This is a collection of my notes on <a href="https://www.oreilly.com/library/vie
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-11/" target="_blank" rel="noopener">Chapter 11 - Replication & Consistency</a>
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-12/" target="_blank" rel="noopener">Chapter 12 - Anti-Entropy & Dissemination</a>
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-13/" target="_blank" rel="noopener">Chapter 13 - Distributed Transactions</a>
-- [ ] Chapter 14 - Consensus
+- [x] <a href="https://noahtigner.com/articles/database-internals-chapter-14/" target="_blank" rel="noopener">Chapter 14 - Consensus</a>
 
 ---
 
