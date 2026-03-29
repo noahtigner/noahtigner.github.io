@@ -2,7 +2,7 @@
 title: Database Internals Ch. 9 - Failure Detection
 description: Notes on Chapter 9 of Database Internals by Alex Petrov. Failure detection in distributed systems with heartbeats, pings, and gossip.
 published: March 9, 2026
-updated: March 21, 2026
+updated: March 29, 2026
 minutesToRead: 5
 path: /articles/database-internals-chapter-9/
 image: /images/database-internals.jpg
@@ -25,6 +25,8 @@ collection:
 This post contains my notes on Chapter 9 of <a href="https://www.oreilly.com/library/view/database-internals/9781492040330/" target="_blank" rel="noopener">_Database Internals_</a> by Alex Petrov. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
 
 ---
+
+### Introduction
 
 Detecting failures in asynchronous systems is difficult since it is impossible to tell if a process has crashed or if it is just running slowly (<a href="https://noahtigner.com/articles/database-internals-chapter-8/#flp-impossibility" target="_blank" rel="noopener">see FLP Impossibility</a>). Failures can occur at the link level or at the process level. There's always tradeoffs between wrongly suspecting alive processes of being dead (false-positives) and giving dead processes the benefit of doubt (false-negatives).
 
