@@ -218,7 +218,7 @@ function ForceDirectedGraph({
         {/* Links */}
         <g
           className="graph-links"
-          stroke="color-mix(in srgb, var(--color-border) 45%, transparent)"
+          stroke="color-mix(in srgb, var(--color-border) 30%, transparent)"
         >
           {data.links.map((link, i) => {
             const { x1, y1, x2, y2 } = getLinkPath(link);
