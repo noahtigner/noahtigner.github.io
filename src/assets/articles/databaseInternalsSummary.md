@@ -24,6 +24,8 @@ collection:
 
 This post contains my summary and review of <a href="https://www.oreilly.com/library/view/database-internals/9781492040330/" target="_blank" rel="noopener">_Database Internals_</a> by Alex Petrov. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
 
+The <a href="https://noahtigner.com/articles/database-internals/" target="_blank" rel="noopener">root article for this series</a> contains links to each article, an introduction to the book, and my motivation for writing and publishing these notes.
+
 ---
 
 ### Part I - Storage Engines
