@@ -29,7 +29,7 @@ This post contains my notes on Chapter 14 of <a href="https://www.oreilly.com/li
 ### Introduction
 
 Consensus algorithms in distributed systems allow multiple processes to reach an agreement on a value.
-<a href="https://noahtigner.com/articles/database-internals-chapter-8/#flp-impossibility" target="_blank" rel="noopener">FLP Impossibility</a> shows that it is impossible to guarantee consensus in a completely asynchronous system in unbounded time.
+<a href="https://noahtigner.com/articles/database-internals-chapter-8/#flp-impossibility" target="_blank" rel="noopener">FLP Impossibility</a> shows that deterministic consensus cannot guarantee both safety and termination in a completely asynchronous system if even one process may fail.
 We've discussed the <a href="https://noahtigner.com/articles/database-internals-chapter-9/#introduction" target="_blank" rel="noopener">tradeoffs between failure detection accuracy and speed</a>.
 Consensus algorithms assume an async model and guarantee safety while using an external failure detection algorithm to guarantee liveness.
 Because failure detection is not always fully accurate, there will be some situations where the algorithm waits for a process that is incorrectly accused of being faulty.
@@ -80,7 +80,7 @@ It uses a hierarchical distributed key-value store, which is used to ensure a to
 
 Processes in ZAB are either a follower or a (temporary) leader.
 The leader executes algorithm steps, broadcasts messages to followers, and establishes the event order.
-All writes and reads of the most recent values are routed to the leader.
+All writes, and reads that require the most recent values, are routed to the leader.
 
 The protocol timeline is split into epochs, with one leader per epoch.
 The process starts by using <a href="https://noahtigner.com/articles/database-internals-chapter-10/" target="_blank" rel="noopener">leader election</a> to find a <em>prospective</em> leader.

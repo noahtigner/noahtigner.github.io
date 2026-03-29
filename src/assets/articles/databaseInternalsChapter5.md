@@ -1,8 +1,8 @@
 ---
-title: Database Internals Ch. 5 - Transaction Processing & Recovery
+title: Database Internals Ch. 5 - Transaction Processing and Recovery
 description: Notes on Chapter 5 of Database Internals by Alex Petrov. Transaction Processing and Recovery in Database Management Systems.
 published: February 27, 2026
-updated: March 18, 2026
+updated: March 29, 2026
 minutesToRead: 12
 path: /articles/database-internals-chapter-5/
 image: /images/database-internals.jpg
@@ -13,7 +13,7 @@ tags:
 collection:
   slug: database-internals
   title: Database Internals
-  shortTitle: Ch. 5 - Transaction Processing & Recovery
+  shortTitle: Ch. 5 - Transaction Processing and Recovery
   shortDescription: Transaction Processing and Recovery in Database Management Systems.
   order: 5
 ---
@@ -31,14 +31,14 @@ This post contains my notes on Chapter 5 of <a href="https://www.oreilly.com/lib
 Transactions are the indivisible logical unit of work in database management systems. They allow us to represent multiple operations in a single step. ACID is one of the most important and misunderstood concepts related to databases. Although <a href="https://youtu.be/5ZjhNTM8XU8?si=0UhNZayIeCPkvrhR" target="_blank" rel="noopener">Martin Kleppmann and others have raised concerns over the assumptions we make with ACID</a>, it is still an important concept to learn. In short, ACID means:
 
 1. Atomicity - transactions are indivisible, meaning all-or-nothing. All steps within a transaction are either committed (applied) or aborted (rolled back and possibly retried).
-2. Consistency - an app-specific guarantee (controlled by the app, not the DBMS); each transaction brings the DB from one valid state to another with all constraints and rules intact.
+2. Consistency - an app-specific guarantee (controlled by the app, not the DBMS); each transaction brings the database from one valid state to another with all constraints and rules intact.
 3. Isolation - concurrent transactions can execute without interference.
-4. Durability - once a transaction has been committed, all db state must be persisted to disk in order to survive system failures, restarts, etc.
+4. Durability - once a transaction has been committed, all database state must be persisted to disk in order to survive system failures, restarts, etc.
 
 There are several components required to manage transactions:
 
 - Lock manager - guards access to resources and prevents concurrent accesses that would violate data integrity
-- Page cache - serves as an intermediary between persistent storage and the rest of the storage engine. All changes to the DB state are applied here first.
+- Page cache - serves as an intermediary between persistent storage and the rest of the storage engine. All changes to the database state are applied here first.
 - Log manager - holds a history of the operations applied to cached pages that are not yet synced with persistent storage. This guarantees that operations won't be lost in case of crashes. It is also referenced when aborting transactions.
 
 ---
@@ -114,7 +114,7 @@ Concurrency control is a set of techniques for handling interactions between con
 
 #### Serializability
 
-A "schedule" is a list of ops required to execute a set of transactions from the db's perspective. A schedule is "complete" if it contains all ops from every transaction executed in it. It is "serial" when transactions are executed independently and in serial (one after the other). "Serializable" schedules allow us to execute transactions concurrently while maintaining the correctness of a serial schedule.
+A "schedule" is a list of ops required to execute a set of transactions from the database's perspective. A schedule is "complete" if it contains all ops from every transaction executed in it. It is "serial" when transactions are executed independently and in serial (one after the other). "Serializable" schedules allow us to execute transactions concurrently while maintaining the correctness of a serial schedule.
 
 #### Transaction Isolation
 
@@ -165,11 +165,11 @@ With Pessimistic Concurrency Control (PCC), transaction conflicts are determined
 
 #### Lock-Based Concurrency Control
 
-Lock-based concurrency control schemes are a form of PCC that use locks on db objects instead of using concurrency control to resolve schedules. Downsides include contention and scalability issues. Two-phase locking (2PL) is a common approach.
+Lock-based concurrency control schemes are a form of PCC that use locks on database objects instead of using concurrency control to resolve schedules. Downsides include contention and scalability issues. Two-phase locking (2PL) is a common approach.
 
 When locks are introduced into the system we must consider and handle deadlocks. Strategies exist such as timeouts and "Conservative 2PL", but they limit concurrency. Typically, DBMS use a transaction manager to detect and avoid deadlocks. This is usually done with a "waits-for" graph. Cycles in the graph represent deadlocks. Detection can be done periodically or continuously. Transaction managers typically prioritize older transactions.
 
-Locks are used to isolate and schedule overlapping transactions and manage DB contents, but not internal storage structures. They can guard either a single key or a set of keys, and are stored outside of the tree and managed by the DB lock manager. Latches, on the other hand, guard physical representations - tree structure and page contents. Since a modification on a leaf level might propagate up to higher levels, latches might have to be obtained on multiple levels. To increase concurrency, latches should be held for the smallest possible duration. Readers-Writes Locks (RWLs) allow multiple concurrent readers access to an object, with only writers needing to obtain exclusive access. "Latch crabbing" is a simple and optimistic method that allows holding latches for less time and releasing them as soon as it's clear that the executing operation doesn't need them anymore.
+Locks are used to isolate and schedule overlapping transactions and manage database contents, but not internal storage structures. They can guard either a single key or a set of keys, and are stored outside of the tree and managed by the database lock manager. Latches, on the other hand, guard physical representations - tree structure and page contents. Since a modification on a leaf level might propagate up to higher levels, latches might have to be obtained on multiple levels. To increase concurrency, latches should be held for the smallest possible duration. Readers-Writes Locks (RWLs) allow multiple concurrent readers access to an object, with only writers needing to obtain exclusive access. "Latch crabbing" is a simple and optimistic method that allows holding latches for less time and releasing them as soon as it's clear that the executing operation doesn't need them anymore.
 
 B<sup>link</sup>-Trees, which use <a href="https://noahtigner.com/articles/database-internals-chapter-4/#node-high-keys" target="_blank" rel="noopener">high keys</a> and <a href="https://noahtigner.com/articles/database-internals-chapter-4/#sibling-links" target="_blank" rel="noopener">sibling links</a>, allow a state called a "half-split". This approach can reduce contention and simplify concurrent access while reducing the number of locks held during tree state modifications. More importantly, it allows reads concurrent to structural tree changes and helps prevent deadlocks.
 

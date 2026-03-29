@@ -2,7 +2,7 @@
 title: Database Internals Ch. 13 - Distributed Transactions
 description: Notes on Chapter 13 of Database Internals by Alex Petrov. Distributed Transactions, including two-phase commit, Spanner, partitioning, sharding, consistent hashing, and coordination avoidance.
 published: March 26, 2026
-updated: March 26, 2026
+updated: March 29, 2026
 minutesToRead: 9
 path: /articles/database-internals-chapter-13/
 image: /images/database-internals.jpg
@@ -133,7 +133,7 @@ Clients then route requests based on the routing key.
 This is typically called "sharding", where every replica set acts as the single source for a subset of data.
 
 We want to distribute reads and writes as evenly as possible, sizing partitions appropriately.
-In order to maintain balance, the DB also has to repartition the data when nodes are added or removed.
+In order to maintain balance, the database also has to repartition the data when nodes are added or removed.
 In order to reduce range hot-spotting, some DBs use a hash of the value as the routing key.
 A naive approach is to map keys to nodes with something like `hash(v) % N`, where N is the number of nodes.
 The downside of this is that if the number of nodes changes, the system is immediately unbalanced and needs to be repartitioned.
@@ -171,7 +171,7 @@ Many other DBMSs and <a href="https://noahtigner.com/articles/database-internals
 
 ### Coordination Avoidance
 
-Invariant Confluence (I-Confluence) is a property that ensures that two invariant-valid but diverged DB states can be merged into a single valid DB state.
+Invariant Confluence (I-Confluence) is a property that ensures that two invariant-valid but diverged database states can be merged into a single valid database state.
 Because any two valid states can be merged into a valid state, I-Confluent ops can be executed without any additional coordination, which significantly improves performance and scalability potential.
 
 A system model that allows coordinator avoidance has to guarantee the following properties:
