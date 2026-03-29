@@ -8,7 +8,14 @@ import {
   normalizeArticlePath,
 } from './links';
 
-const SIMULATION_TICKS = 300; // Number of ticks to run the force simulation
+const SIMULATION_TICKS = 450; // Number of ticks to run the force simulation
+const GRAPH_PADDING = 0;
+const LINK_DISTANCE_FACTOR = 0.25;
+const MIN_LINK_DISTANCE = 48;
+const MAX_LINK_DISTANCE = 96;
+const CHARGE_STRENGTH = -2;
+const COLLISION_PADDING = 12;
+const AXIS_FORCE_STRENGTH = 0.6;
 
 export interface GraphNode {
   id: string;
@@ -118,8 +125,11 @@ export function computeGraphLayout(
 
   const maxDegree = Math.max(...Array.from(inDegree.values()));
   const radiusScale = d3Scale.scaleSqrt().domain([0, maxDegree]).range([6, 16]);
-
-  const padding = 20;
+  const padding = GRAPH_PADDING;
+  const linkDistance = Math.max(
+    MIN_LINK_DISTANCE,
+    Math.min(MAX_LINK_DISTANCE, Math.min(width, height) * LINK_DISTANCE_FACTOR)
+  );
 
   // Create and run the simulation
   const simulation = d3Force
@@ -129,21 +139,26 @@ export function computeGraphLayout(
       d3Force
         .forceLink(links)
         .id((d) => (d as GraphNode).id)
-        .distance(50)
+        .distance(linkDistance)
     )
-    .force('charge', d3Force.forceManyBody().strength(-150))
+    .force('charge', d3Force.forceManyBody().strength(CHARGE_STRENGTH))
     .force('center', d3Force.forceCenter(width / 2, height / 2))
     .force(
       'collision',
       d3Force
         .forceCollide()
-        .radius((d) => radiusScale(inDegree.get((d as GraphNode).id) ?? 0) + 10)
+        .radius(
+          (d) =>
+            radiusScale(inDegree.get((d as GraphNode).id) ?? 0) +
+            COLLISION_PADDING
+        )
+        .iterations(20)
     )
-    .force('x', d3Force.forceX(width / 2).strength(0.1))
-    .force('y', d3Force.forceY(height / 2).strength(0.1))
+    .force('x', d3Force.forceX(width / 2).strength(AXIS_FORCE_STRENGTH))
+    .force('y', d3Force.forceY(height / 2).strength(AXIS_FORCE_STRENGTH))
     .stop();
 
-  // Run simulation to completion (300 ticks is usually enough)
+  // Run the simulation long enough for the stronger spacing forces to settle.
   for (let i = 0; i < SIMULATION_TICKS; ++i) {
     simulation.tick();
   }
