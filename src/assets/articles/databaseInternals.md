@@ -48,6 +48,10 @@ This is a collection of my notes on <a href="https://www.oreilly.com/library/vie
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-13/" target="_blank" rel="noopener">Chapter 13 - Distributed Transactions</a>
 - [x] <a href="https://noahtigner.com/articles/database-internals-chapter-14/" target="_blank" rel="noopener">Chapter 14 - Consensus</a>
 
+#### Summary, Review, and Flash Cards
+
+- [x] <a href="https://noahtigner.com/articles/database-internals-summary/" target="_blank" rel="noopener">Summary & Review</a>
+
 ---
 
 ### Motivation

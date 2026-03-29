@@ -76,7 +76,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] [Chapter 12 - Anti-Entropy & Dissemination](https://noahtigner.com/articles/database-internals-chapter-12/)
   - [x] [Chapter 13 - Distributed Transactions](https://noahtigner.com/articles/database-internals-chapter-13/)
   - [x] [Chapter 14 - Consensus](https://noahtigner.com/articles/database-internals-chapter-14/)
-  - [ ] [Summary & Thoughts](https://noahtigner.com/articles/<TODO>/)
+  - [x] [Summary & Thoughts](https://noahtigner.com/articles/database-internals-summary/)
 
 ## Available Scripts:
 

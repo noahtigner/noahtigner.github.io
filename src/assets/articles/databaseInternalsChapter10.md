@@ -2,8 +2,8 @@
 title: Database Internals Ch. 10 - Leader Election
 description: Notes on Chapter 10 of Database Internals by Alex Petrov. Leader election strategies like the Bully Algorithm, Invitation Algorithm, and Ring Algorithm.
 published: March 11, 2026
-updated: March 11, 2026
-minutesToRead: 5
+updated: March 29, 2026
+minutesToRead: 4
 path: /articles/database-internals-chapter-10/
 image: /images/database-internals.jpg
 tags:
@@ -20,7 +20,7 @@ collection:
 
 ## Database Internals - Ch. 10 - Leader Election
 
-<p class="subtitle">5 minute read • March 11, 2026</p>
+<p class="subtitle">4 minute read • March 11, 2026</p>
 
 This post contains my notes on Chapter 10 of <a href="https://www.oreilly.com/library/view/database-internals/9781492040330/" target="_blank" rel="noopener">_Database Internals_</a> by Alex Petrov. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
 

@@ -2,8 +2,8 @@
 title: Database Internals Ch. 8 - Distributed Systems Intro & Overview
 description: Notes on Chapter 8 of Database Internals by Alex Petrov. Concurrency, fallacies of distributed computing, and failure models.
 published: March 8, 2026
-updated: March 8, 2026
-minutesToRead: 11
+updated: March 29, 2026
+minutesToRead: 10
 path: /articles/database-internals-chapter-8/
 image: /images/database-internals.jpg
 tags:
@@ -20,7 +20,7 @@ collection:
 
 ## Database Internals - Ch. 8 - Distributed Systems Intro & Overview
 
-<p class="subtitle">11 minute read • March 8, 2026</p>
+<p class="subtitle">10 minute read • March 8, 2026</p>
 
 This post contains my notes on Chapter 8 of <a href="https://www.oreilly.com/library/view/database-internals/9781492040330/" target="_blank" rel="noopener">_Database Internals_</a> by Alex Petrov. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
 
@@ -43,7 +43,7 @@ Every concurrency problem has some properties of a distributed system. Threads a
 
 #### Shared State in a Distributed System
 
-We can try to introduce some notion of shared memory to a distributed system, such as a database. Even if we solve the problems with concurrent access to it, we still cannot guarantee that all processes are in sync. To access this db, process can send messages over the communication medium. We'll therefore have to describe the system in terms of "synchrony" - whether the system is async, or if we can make some assumptions about timing. These assumptions give us options like timeouts and retries.
+We can try to introduce some notion of shared memory to a distributed system, such as a database. Even if we solve the problems with concurrent access to it, we still cannot guarantee that all processes are in sync. To access this database, a process can send messages over the communication medium. We'll therefore have to describe the system in terms of "synchrony" - whether the system is async, or if we can make some assumptions about timing. These assumptions give us options like timeouts and retries.
 
 We don't always know the "nature" of an issue - if we haven't received a response because of a network issue, because the resource is overloaded, or because of a system crash. "Failure models" describe the ways in which failures can occur and how we decide to handle them. "Fault tolerance" describes the degree to which our system keeps operating correctly even when failures occur.
 

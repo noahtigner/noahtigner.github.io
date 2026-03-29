@@ -1,8 +1,8 @@
 ---
-title: Database Internals Ch. 12 - Anti-Entropy and Dissemination
+title: Database Internals Ch. 12 - Anti-Entropy & Dissemination
 description: Notes on Chapter 12 of Database Internals by Alex Petrov. Anti-Entropy and Dissemination in distributed systems, including read repair, hinted handoff, Merkle Trees, and gossip dissemination.
 published: March 21, 2026
-updated: March 21, 2026
+updated: March 29, 2026
 minutesToRead: 7
 path: /articles/database-internals-chapter-12/
 image: /images/database-internals.jpg
@@ -13,7 +13,7 @@ tags:
 collection:
   slug: database-internals
   title: Database Internals
-  shortTitle: Ch. 12 - Anti-Entropy and Dissemination
+  shortTitle: Ch. 12 - Anti-Entropy & Dissemination
   shortDescription: Anti-Entropy and Dissemination in distributed systems, including read repair, hinted handoff, Merkle Trees, and gossip dissemination.
   order: 12
 ---

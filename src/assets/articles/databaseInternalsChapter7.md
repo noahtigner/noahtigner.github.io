@@ -26,7 +26,11 @@ This post contains my notes on Chapter 7 of <a href="https://www.oreilly.com/lib
 
 ---
 
+### Introduction
+
 As discussed in previous chapters, in-place update storage structures are optimized for read performance, while append-only structures are optimized for write performance. Log-structured storage (LSS) takes advantage of this simple fact. LSS is used everywhere: from the flash translation layer, to filesystems and database systems. It helps reduce write amplification by batching small writes together in memory.
+
+---
 
 ### LSM Trees
 

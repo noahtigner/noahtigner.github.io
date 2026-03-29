@@ -2,7 +2,7 @@
 title: Database Internals Ch. 6 - B-Tree Variants
 description: Notes on Chapter 6 of Database Internals by Alex Petrov. B-Tree implementation techniques, optimizations, and real-world variants.
 published: March 1, 2026
-updated: March 1, 2026
+updated: March 29, 2026
 minutesToRead: 6
 path: /articles/database-internals-chapter-6/
 image: /images/database-internals.jpg
@@ -26,7 +26,11 @@ This post contains my notes on Chapter 6 of <a href="https://www.oreilly.com/lib
 
 ---
 
+### Introduction
+
 This chapter discusses techniques that can be used to implement efficient B-Trees and the structures that employ them. It also discusses B-Tree variants and real-world implementations such as Lazy B-Trees, FD-Trees, Bw-Trees, and Cache-Oblivious B-Trees. Notable techniques include buffering, which can help with write amplification, and immutability, which can help with space amplification.
+
+---
 
 ### Copy-on-Write
 
@@ -110,7 +114,7 @@ Cache-Oblivious B-Trees treat on-disk data structures similarly to how we build 
 
 #### van Emde Boas Layout
 
-A cache-oblivious B-Tree consists of a static B-Tree and a "packed array". The static B-Tree is built using the van Emde Boas Layout, which splits the tree at the middle level of the edges and then splits each subtree recursively, resulting in subtrees of sqrt(N) size. Each recursive tree is stored ina contiguous memory block. To allow for inserts/updates/deletes, a packed array is used, which uses contiguous memory segments for storing elements, but contains gaps reserved for future inserts. This results in fewer relocations across the tree due to inserts.
+A cache-oblivious B-Tree consists of a static B-Tree and a "packed array". The static B-Tree is built using the van Emde Boas Layout, which splits the tree at the middle level of the edges and then splits each subtree recursively, resulting in subtrees of sqrt(N) size. Each recursive tree is stored in a contiguous memory block. To allow for inserts/updates/deletes, a packed array is used, which uses contiguous memory segments for storing elements, but contains gaps reserved for future inserts. This results in fewer relocations across the tree due to inserts.
 
 > [!NOTE]
 > The book claims that the subtrees will have size sqr(N), but I believe they are actually sqrt(N).

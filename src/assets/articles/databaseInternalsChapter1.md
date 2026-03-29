@@ -2,7 +2,7 @@
 title: Database Internals Ch. 1 - Storage Engines Intro & Overview
 description: Notes on Chapter 1 of Database Internals by Alex Petrov. OLTP vs. OLAP, Memory vs. Disk-Based Storage, Row vs. Column Orientation, Indexing, etc.
 published: January 31, 2026
-updated: March 6, 2026
+updated: March 29, 2026
 minutesToRead: 5
 path: /articles/database-internals-chapter-1/
 image: /images/database-internals.jpg
@@ -26,15 +26,19 @@ This post contains my notes on Chapter 1 of <a href="https://www.oreilly.com/lib
 
 ---
 
+### Introduction
+
 Database Management Systems typically fall into one of three buckets:
 
 - Online Transaction Processing (OLTP), which handles lots of user-facing requests. Queries are often predefined and short-lived.
 - Online Analytical Processing (OLAP), which handles complex aggregations used for analytics, data warehousing, etc. Best for complex, long-running, ad-hoc queries.
 - Hybrid Transactional and Analytical Processing (HTAP), which are unified systems that mix OLTP and OLAP techniques.
 
+---
+
 ### DBMS Architecture
 
-DBMS use client/server architectures where applications are clients and nodes (db instances) are the servers. Concerns are typically separated as follows:
+DBMS use client/server architectures where applications are clients and nodes (database instances) are the servers. Concerns are typically separated as follows:
 
 - Client requests (queries) arrive through the transport system
 - The transport subsystem gives queries to the query processor which parses, interpolates, and validates queries. Later, access control checks are performed
@@ -46,6 +50,8 @@ DBMS use client/server architectures where applications are clients and nodes (d
   - Access methods (storage structures, i.e., B-Trees)
   - A buffer manager, which caches data pages in-memory
   - A recovery manager, which maintains the operations logs and handles recoveries
+
+---
 
 ### Memory vs. Disk-Based DBMS
 
@@ -116,5 +122,7 @@ The choice to support buffering dictates whether a certain amount of data should
 Data immutability means that records must be append-only or copy-on-write (replaced on each update). Mutability, on the other hand, means that data can be modified in place.
 
 The final decision is whether or not records should be stored in keyed order on disk, with tradeoffs in both cases.
+
+---
 
 <p class="subtitle"><i>Database Internals</i> by Alex Petrov (O'Reilly). Copyright 2019 Oleksander Petrov, 978-1-492-04034-7</p>

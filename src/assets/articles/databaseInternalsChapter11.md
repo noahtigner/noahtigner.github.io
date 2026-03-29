@@ -1,8 +1,8 @@
 ---
 title: Database Internals Ch. 11 - Replication and Consistency
-description: Notes on Chapter 11 of Database Internals by Alex Petrov. Replication and consistency in distributed systems, CAP, and CDRTs.
+description: Notes on Chapter 11 of Database Internals by Alex Petrov. Replication and consistency in distributed systems, CAP, and CRDTs.
 published: March 18, 2026
-updated: March 18, 2026
+updated: March 29, 2026
 minutesToRead: 10
 path: /articles/database-internals-chapter-11/
 image: /images/database-internals.jpg
@@ -14,7 +14,7 @@ collection:
   slug: database-internals
   title: Database Internals
   shortTitle: Ch. 11 - Replication and Consistency
-  shortDescription: Replication and consistency in distributed systems, CAP, and CDRTs.
+  shortDescription: Replication and consistency in distributed systems, CAP, and CRDTs.
   order: 11
 ---
 
@@ -40,7 +40,7 @@ To make the system highly available, we need to design it in a way that allows h
 
 ### Infamous CAP
 
-Availability measures the system's ability to respond to every request successfully. We would also like each operation to be (<a href="https://noahtigner.com/articles/database-internals-chapter-5/#introduction" target="_blank" rel="noopener">atomically</a> / <a href="https://noahtigner.com/articles/database-internals-chapter-11/#linearizability" target="_blank" rel="noopener">linearizably</a>) consistent. Ideally, we would like to achieve both availability and consistency while tolerating network partitions. The CAP conjecture describes the tradeoffs between consistency \(C), availability (A), and partition tolerance (P). The conjecture states that at most two of the three can be achieved.
+Availability measures the system's ability to respond to every request successfully. We would also like each operation to be (<a href="https://noahtigner.com/articles/database-internals-chapter-5/#introduction" target="_blank" rel="noopener">atomically</a> / <a href="https://noahtigner.com/articles/database-internals-chapter-11/#linearizability" target="_blank" rel="noopener">linearizably</a>) consistent. Ideally, we would like to achieve both availability and consistency while tolerating network partitions. The CAP conjecture describes the tradeoffs between consistency <em>C</em>, availability <em>A</em>, and partition tolerance <em>P</em>. The conjecture states that a system can only choose between consistency and availability when a partition occurs.
 
 The two most common approaches are "AP" and "CP". CP systems prefer failing requests to serving potentially inconsistent data. AP systems loosen the C requirements and allow serving potentially inconsistent values during the request.
 
@@ -64,7 +64,7 @@ From the client's perspective, distributed systems act as if storage is shared, 
 Registers can be accessed by multiple readers and writes simultaneously. When it comes to concurrent ops, there are three types of registers:
 
 - Safe - reads to the safe registers may return arbitrary values within the range of the register during a concurrent write op
-- Regular - read ops return the value of the most recently completed write, or the value of the write that overlaps with the current reade op
+- Regular - read ops return the value of the most recently completed write, or the value of the write that overlaps with the current read op
 - Atomic - every write op has a single moment before which every read returns an old value and after which every read returns a new value. This guarantees linearizability.
 
 ---
@@ -123,7 +123,7 @@ Following CAP principles, we can tune our eventual consistency with three parame
 - Write consistency <em>W</em> - the number of nodes that have to acknowledge a write for it to succeed
 - Read consistency <em>R</em> - the number of nodes that have to respond to a read operation for it to succeed
 
-Choosing levels where <em>R + W > N</em> gaurantees that the most recently written value is returned. Write-heavy systems sometimes pick <em>W = 1</em> and <em>R = N</em>, which allows writes to be acknowledged by just one node, but requires all replicas to be available for reads. Increasing <em>W</em> or <em>R</em> increases latency and raises requirements for node availability. Decreasing them improves system availability while sacrificing consistency.
+Choosing levels where <em>R + W > N</em> helps reduce the chance of stale reads by forcing read and write quorums to overlap. Write-heavy systems sometimes pick <em>W = 1</em> and <em>R = N</em>, which allows writes to be acknowledged by just one node, but requires all replicas to be available for reads. Increasing <em>W</em> or <em>R</em> increases latency and raises requirements for node availability. Decreasing them improves system availability while sacrificing consistency.
 
 A level of <em>floor(N / 2) + 1</em> is called a "quorum", or majority of votes. In a system with <em>2f + 1</em> nodes, the system can keep responding even when up to <em>f</em> become unavailable. This does not, however, guarantee monotonicity in cases of incomplete writes.
 
@@ -140,11 +140,11 @@ Witness replicas help reduce storage costs while preserving consistency.
 
 ---
 
-### Strong Eventual Consistency and CDRTs
+### Strong Eventual Consistency and CRDTs
 
-Under strong eventual consistency, updates are allowed to propagate to servers late or out of order, but when all updates finally propagate to target nodes, conflicts between them can be resolved and they can be merged to produce the same valid state. Under some conditions, we can relax our consistency requirements by allowing operations to preserve additional state that allows the diverged states to be reconciled (merged) after execution. This is often implemented with Conflict-Free Replicated Data Types (CDRTs), as in the case of Redis. CDRTs are specialized data structures that preclude the existence of conflicts and allow ops to be applied in any order without changing the results. They are extremely useful in distributed systems and are often used in eventually consistent systems.
+Under strong eventual consistency, updates are allowed to propagate to servers late or out of order, but when all updates finally propagate to target nodes, conflicts between them can be resolved and they can be merged to produce the same valid state. Under some conditions, we can relax our consistency requirements by allowing operations to preserve additional state that allows the diverged states to be reconciled (merged) after execution. This is often implemented with Conflict-Free Replicated Data Types (CRDTs), as in the case of Redis. CRDTs are specialized data structures that preclude the existence of conflicts and allow ops to be applied in any order without changing the results. They are extremely useful in distributed systems and are often used in eventually consistent systems.
 
-The simplest CDRTs are operations-based Commutative Replicated Data Types (CmRDTs), which require ops to be side-effect free, commutative, and causally ordered. Another example is the unordered Grow-Only Set (G-Set), which supports additions, removals, merges, etc. A more complex example is Martin Kleppmann's conflict-free replicated JSON data type, which allows modifications on deeply-nested JSON documents.
+The simplest CRDTs are operations-based Commutative Replicated Data Types (CmRDTs), which require ops to be side-effect free, commutative, and causally ordered. Another example is the unordered Grow-Only Set (G-Set), which supports additions and merges. A more complex example is Martin Kleppmann's conflict-free replicated JSON data type, which allows modifications on deeply nested JSON documents.
 
 ---
 
