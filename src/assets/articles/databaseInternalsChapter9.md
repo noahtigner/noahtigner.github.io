@@ -2,7 +2,7 @@
 title: Database Internals Ch. 9 - Failure Detection
 description: Notes on Chapter 9 of Database Internals by Alex Petrov. Failure detection in distributed systems with heartbeats, pings, and gossip.
 published: March 9, 2026
-updated: March 31, 2026
+updated: March 29, 2026
 minutesToRead: 5
 path: /articles/database-internals-chapter-9/
 image: /images/database-internals.jpg
