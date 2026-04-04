@@ -12,6 +12,7 @@ import {
   getMarkdownFileName,
 } from '~/utils/vite/markdown';
 import { generateArticleGraph } from '~/utils/vite/graph';
+import { extractHeadings } from '~/utils/shared/headings';
 import { paths } from '~/routes';
 import type { Route } from '~/router/routes/+types/Articles.$slug';
 
@@ -71,13 +72,18 @@ export async function loader({ params }: Route.LoaderArgs) {
     height: GRAPH_WIDTH,
   });
 
-  return { fileName, attributes, graphDataSquare, graphDataWide };
+  // Extract headings from article HTML for the table of contents
+  const html = componentMap[fileName];
+  const headings = html ? extractHeadings(html) : [];
+
+  return { fileName, attributes, graphDataSquare, graphDataWide, headings };
 }
 
 export default function DynamicArticleRoute({
   loaderData,
 }: Route.ComponentProps) {
-  const { fileName, attributes, graphDataSquare, graphDataWide } = loaderData;
+  const { fileName, attributes, graphDataSquare, graphDataWide, headings } =
+    loaderData;
   const ArticleContent = ArticleComponents[fileName];
 
   return (
@@ -96,6 +102,7 @@ export default function DynamicArticleRoute({
           width={GRAPH_WIDTH}
           height={GRAPH_WIDTH}
           articleTitle={attributes.title}
+          headings={headings}
         />
         <ArticleContainer articleAttributes={attributes}>
           <ArticleContent />

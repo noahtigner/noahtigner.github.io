@@ -10,6 +10,8 @@ import { LinkInternal } from '~/components/Button';
 import ForceDirectedGraph, {
   type ForceDirectedGraphProps,
 } from '~/components/ForceDirectedGraph';
+import TableOfContents from '~/components/Articles/TableOfContents';
+import type { TocHeading } from '~/utils/shared/headings';
 import { type ArticleAttributes } from '~/utils/vite/markdown';
 
 const ImgBox = styled.img`
@@ -132,7 +134,10 @@ function ArticleNavigation({
 }
 
 export function ArticleSidebar(
-  props: ForceDirectedGraphProps & { articleTitle: string }
+  props: ForceDirectedGraphProps & {
+    articleTitle: string;
+    headings: TocHeading[];
+  }
 ) {
   return (
     <SideNavContainer aria-label="Article navigation and related content">
@@ -142,6 +147,7 @@ export function ArticleSidebar(
         height={props.height}
         articleTitle={props.articleTitle}
       />
+      <TableOfContents headings={props.headings} />
     </SideNavContainer>
   );
 }
