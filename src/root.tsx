@@ -10,6 +10,7 @@ import {
 import type { Route } from '~/router/+types/root';
 import TopNav from '~/components/TopNav/TopNav';
 import Footer from '~/components/Footer/Footer';
+import useScrollToHash from '~/hooks/useScrollToHash';
 import inlinedStyles from '~/index.css?inline';
 import ErrorPage from './components/ErrorPage';
 import { paths } from '~/routes';
@@ -180,6 +181,8 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 }
 
 export default function App() {
+  useScrollToHash();
+
   return (
     <StrictMode>
       <Outlet />
