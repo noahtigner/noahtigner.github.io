@@ -1,0 +1,1158 @@
+[
+  {
+    "slug": "database-internals-chapter-1",
+    "title": "Ch. 1 - Storage Engines Intro & Overview",
+    "description": "OLTP vs. OLAP, storage engine tradeoffs, DBMS architecture, and row vs. column layouts.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-1/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 1
+    },
+    "questions": [
+      {
+        "id": "db-1",
+        "question": "Which of the following best describes an OLTP workload?",
+        "options": [
+          "Large batch analytical queries over historical data",
+          "Short-lived read/write transactions on recent data",
+          "Periodic full-table aggregations for reporting",
+          "Write-once, read-many archival operations"
+        ],
+        "answer": 1,
+        "explanation": "OLTP workloads are dominated by short-lived transactions that read and write small amounts of recent data, unlike OLAP workloads which focus on longer analytical queries.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-2",
+        "question": "What is the primary advantage of disk-based storage engines over in-memory storage engines?",
+        "options": [
+          "Faster read latency for random access",
+          "Lower cost per unit of storage capacity",
+          "Simpler concurrency control mechanisms",
+          "Better performance for write-heavy workloads"
+        ],
+        "answer": 1,
+        "explanation": "Disk-based systems are much cheaper per unit of storage than RAM, which is why they remain attractive for large durable datasets even though memory is faster.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-7",
+        "question": "Which DBMS component is primarily responsible for choosing an efficient execution strategy for a query?",
+        "options": [
+          "Transport system",
+          "Query optimizer",
+          "Recovery manager",
+          "Buffer manager"
+        ],
+        "answer": 1,
+        "explanation": "The query optimizer evaluates alternative execution strategies and selects a plan. The execution engine then carries out that chosen plan.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-8",
+        "question": "Which workload benefits most from a column-oriented layout?",
+        "options": [
+          "Point lookups and small transactional updates across entire rows",
+          "Analytical scans that aggregate a few columns over many rows",
+          "Workloads that require every row to be stored contiguously for writes",
+          "Index maintenance on a single primary key"
+        ],
+        "answer": 1,
+        "explanation": "Column stores are especially strong for analytical workloads because they can scan only the referenced columns instead of reading full rows.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-9",
+        "question": "Which three high-level decisions describe many storage structure tradeoffs? (Select all that apply)",
+        "options": ["Buffering", "Immutability", "Ordering", "Compression"],
+        "answer": [0, 1, 2],
+        "explanation": "The notes frame many storage designs in terms of buffering, immutability, and ordering. Compression matters too, but it is not one of that core three-way framing decisions.",
+        "multiSelect": true
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-2",
+    "title": "Ch. 2 - B-Tree Basics",
+    "description": "B-Trees, B+Trees, balancing, fanout, and why databases prefer wide shallow trees.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-2/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 2
+    },
+    "questions": [
+      {
+        "id": "db-3",
+        "question": "In a B-Tree, what happens when a leaf node becomes full and a new key must be inserted?",
+        "options": [
+          "The tree is rebuilt from scratch",
+          "The key is stored in an overflow area",
+          "The node is split into two nodes and the median key is promoted to the parent",
+          "The oldest key in the node is evicted to make room"
+        ],
+        "answer": 2,
+        "explanation": "When a node overflows, the tree splits it into two nodes and promotes a separator key upward. If the parent overflows too, the split can continue toward the root.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-4",
+        "question": "Which properties are guaranteed by B-Trees? (Select all that apply)",
+        "options": [
+          "All leaf nodes are at the same depth",
+          "Keys within each node are sorted",
+          "Each node contains exactly the same number of keys",
+          "The tree is always balanced"
+        ],
+        "answer": [0, 1, 3],
+        "explanation": "B-Trees keep keys sorted and all leaves at the same depth, which makes them balanced. Nodes do not need to have exactly the same number of keys, only stay within occupancy bounds.",
+        "multiSelect": true
+      },
+      {
+        "id": "db-5",
+        "question": "What is the key difference between a B-Tree and a B+Tree?",
+        "options": [
+          "B+Trees do not keep keys sorted within nodes",
+          "B-Trees store values in both internal and leaf nodes, while B+Trees store values only in leaf nodes",
+          "B+Trees cannot support range queries",
+          "B-Trees always have a higher branching factor than B+Trees"
+        ],
+        "answer": 1,
+        "explanation": "In a B+Tree, internal nodes contain separator keys only, while actual values live in the leaves. That design increases fanout and makes range scans efficient.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-6",
+        "question": "Why do database storage engines generally prefer wide, shallow trees over deep, narrow trees?",
+        "options": [
+          "Deep trees use less memory overall",
+          "Fewer levels means fewer disk I/O operations to locate a key",
+          "Wide trees are easier to implement correctly",
+          "Narrow trees cannot store duplicate keys"
+        ],
+        "answer": 1,
+        "explanation": "Every extra tree level can mean another page read. High fanout keeps the tree shallow, which reduces disk I/O for lookups.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-10",
+        "question": "Why are plain binary search trees a poor fit for on-disk databases?",
+        "options": [
+          "They cannot represent sorted data",
+          "They have low fanout and can require too many random seeks",
+          "They only support range queries",
+          "They must duplicate values in every internal node"
+        ],
+        "answer": 1,
+        "explanation": "A binary search tree has fanout 2, which makes it tall. On disk, that means more random page reads and poor locality compared with wide trees like B-Trees.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-11",
+        "question": "What usually happens when a B-Tree node underflows after deletions?",
+        "options": [
+          "The entire tree is rebuilt immediately",
+          "The node is merged with or rebalanced against a sibling",
+          "The root is always deleted",
+          "The missing keys are reconstructed from the write-ahead log"
+        ],
+        "answer": 1,
+        "explanation": "Underflow is commonly handled by merging with a sibling or redistributing keys. That fix can propagate upward if it changes parent occupancy.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-3",
+    "title": "Ch. 3 - File Formats",
+    "description": "Slotted pages, binary encoding, endianness, page headers, and checksums for on-disk storage.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-3/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 3
+    },
+    "questions": [
+      {
+        "id": "db-12",
+        "question": "What problem do slotted pages solve particularly well?",
+        "options": [
+          "Encrypting records at rest",
+          "Managing variable-sized records inside a fixed-size page",
+          "Replicating pages across the network",
+          "Guaranteeing lock-free updates"
+        ],
+        "answer": 1,
+        "explanation": "Slotted pages let a page hold variable-sized records while keeping stable indirection slots. That makes insertion, deletion, and defragmentation much easier.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-13",
+        "question": "What does endianness describe in a binary file format?",
+        "options": [
+          "Whether strings are null-terminated or length-prefixed",
+          "The byte order used to store multi-byte values",
+          "How page checksums are computed",
+          "Whether pages are compressed before writing"
+        ],
+        "answer": 1,
+        "explanation": "Endianness refers to the byte order used for multi-byte numeric values, such as whether the most significant byte comes first or last.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-14",
+        "question": "Why do databases store checksums or CRCs in page headers?",
+        "options": [
+          "To choose a page replacement policy",
+          "To detect corruption when pages are read back",
+          "To make range scans faster",
+          "To avoid storing free space metadata"
+        ],
+        "answer": 1,
+        "explanation": "Checksums and CRCs help detect corruption by verifying that the bytes read from disk still match what was written earlier.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-15",
+        "question": "Which statements about slotted pages are true? (Select all that apply)",
+        "options": [
+          "Pointers or slots can stay in sorted logical order even when cells move physically",
+          "They allow defragmentation without changing every external record reference",
+          "They require every record in a page to be exactly the same size",
+          "They commonly place metadata near the front of the page"
+        ],
+        "answer": [0, 1, 3],
+        "explanation": "Slotted pages separate logical order from physical placement, which makes compaction practical. They are explicitly useful for variable-sized records, not fixed-size-only records.",
+        "multiSelect": true
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-4",
+    "title": "Ch. 4 - Implementing B-Trees",
+    "description": "Overflow pages, breadcrumbs, and bulk loading strategies in real-world B-Tree implementations.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-4/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 4
+    },
+    "questions": [
+      {
+        "id": "db-16",
+        "question": "What is the main purpose of overflow pages in a B-Tree implementation?",
+        "options": [
+          "To store replicas on remote machines",
+          "To extend a node when there is not enough contiguous space in its primary page",
+          "To replace sibling links during range scans",
+          "To guarantee that every node stays exactly half full"
+        ],
+        "answer": 1,
+        "explanation": "Overflow pages let a logical node spill across multiple physical pages when the main page lacks enough space, especially with larger cells.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-17",
+        "question": "What are breadcrumbs in B-Tree implementations?",
+        "options": [
+          "A checksum stored in each child page",
+          "An in-memory stack of visited nodes used to propagate splits or merges upward",
+          "A linked list of all leaves in key order",
+          "A duplicate copy of the root page kept for crash recovery"
+        ],
+        "answer": 1,
+        "explanation": "Breadcrumbs are the path remembered during traversal, often as an in-memory stack. They can be used instead of parent pointers when upward fixes are needed.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-18",
+        "question": "Why is bulk loading efficient when the input is already sorted?",
+        "options": [
+          "It prevents any future compaction",
+          "It lets the tree be built bottom-up with fewer splits and less random I/O",
+          "It eliminates the need for page headers",
+          "It guarantees all pages will remain perfectly full forever"
+        ],
+        "answer": 1,
+        "explanation": "With sorted input, the tree can be built in large sequential chunks instead of repeatedly inserting and splitting nodes. That reduces maintenance work and random access during construction.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-5",
+    "title": "Ch. 5 - Transaction Processing and Recovery",
+    "description": "ACID, write-ahead logging, ARIES, isolation anomalies, MVCC, locks, latches, and buffer management.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-5/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 5
+    },
+    "questions": [
+      {
+        "id": "db-19",
+        "question": "Which properties are part of ACID? (Select all that apply)",
+        "options": ["Atomicity", "Consistency", "Isolation", "Distribution"],
+        "answer": [0, 1, 2],
+        "explanation": "ACID stands for Atomicity, Consistency, Isolation, and Durability. Distribution is not one of the four guarantees.",
+        "multiSelect": true
+      },
+      {
+        "id": "db-20",
+        "question": "What is the core purpose of a write-ahead log (WAL)?",
+        "options": [
+          "To compress pages before they reach disk",
+          "To record changes durably before the corresponding data pages are written",
+          "To keep all indexes perfectly balanced",
+          "To replace the buffer pool entirely"
+        ],
+        "answer": 1,
+        "explanation": "A WAL ensures the log record describing a change reaches durable storage before the modified page does. That ordering is what enables crash recovery.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-21",
+        "question": "Which buffer management policy combination is used by ARIES?",
+        "options": [
+          "No-steal and force",
+          "Steal and no-force",
+          "No-steal and no-force",
+          "Steal and force"
+        ],
+        "answer": 1,
+        "explanation": "ARIES assumes steal and no-force: pages may be flushed before commit, and committed transactions do not require forcing all updated pages immediately.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-22",
+        "question": "Which anomaly can still happen under snapshot isolation?",
+        "options": ["Dirty read", "Lost update", "Write skew", "Dirty write"],
+        "answer": 2,
+        "explanation": "Snapshot isolation prevents many common anomalies, including dirty reads and many lost updates, but it still allows write skew because concurrent transactions can commit disjoint writes based on the same snapshot.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-23",
+        "question": "What is the typical phase order in optimistic concurrency control (OCC)?",
+        "options": [
+          "Write, read, validate",
+          "Read, validate, write",
+          "Validate, read, write",
+          "Read, write, rollback"
+        ],
+        "answer": 1,
+        "explanation": "OCC usually lets a transaction read and buffer writes first, validates that its assumptions still hold, and only then applies writes.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-24",
+        "question": "What is a major advantage of MVCC?",
+        "options": [
+          "It guarantees no write amplification",
+          "It allows readers to observe older versions without blocking writers",
+          "It removes the need for transaction IDs",
+          "It stores only one version of every record"
+        ],
+        "answer": 1,
+        "explanation": "MVCC keeps multiple versions of a record so readers can use a consistent snapshot while writers continue to create newer versions.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-25",
+        "question": "What is the key difference between locks and latches?",
+        "options": [
+          "Locks protect logical database contents, while latches protect physical in-memory structures",
+          "Locks are only used in distributed systems, while latches are only local",
+          "Locks are faster because they always avoid waiting",
+          "Latches provide serializable isolation, while locks do not"
+        ],
+        "answer": 0,
+        "explanation": "Locks are about transaction-level correctness of database contents. Latches are short-term synchronization primitives that protect in-memory structures such as pages or tree nodes.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-26",
+        "question": "How does the CLOCK page replacement algorithm approximate LRU?",
+        "options": [
+          "By maintaining a perfect timestamp history for every page",
+          "By scanning pages in a circle and giving recently used pages a second chance",
+          "By evicting the most frequently used page first",
+          "By sorting all cached pages on every access"
+        ],
+        "answer": 1,
+        "explanation": "CLOCK uses a circular structure and reference bits to cheaply approximate LRU. Pages that were used recently get another pass before eviction.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-6",
+    "title": "Ch. 6 - B-Tree Variants",
+    "description": "Copy-on-write trees, Bw-Trees, delta chains, and the tradeoffs B-Tree variants try to improve.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-6/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 6
+    },
+    "questions": [
+      {
+        "id": "db-27",
+        "question": "What is a major tradeoff of copy-on-write B-Trees?",
+        "options": [
+          "Readers must always block writers",
+          "They improve read isolation but can increase space and write costs",
+          "They cannot support snapshots",
+          "They require a log-structured merge tree underneath"
+        ],
+        "answer": 1,
+        "explanation": "Copy-on-write trees avoid in-place modification, which helps readers and crash safety, but the extra copying increases write and space overhead.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-28",
+        "question": "What is the role of delta chains in a Bw-Tree?",
+        "options": [
+          "They store encrypted replicas for disaster recovery",
+          "They record incremental changes without rewriting the full node immediately",
+          "They replace quorums during consensus",
+          "They enforce strict page-level locking"
+        ],
+        "answer": 1,
+        "explanation": "Bw-Trees append delta records that describe changes and chain them onto a logical node, delaying full consolidation until later.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-29",
+        "question": "Which costs are B-Tree variants often trying to improve? (Select all that apply)",
+        "options": [
+          "Write amplification",
+          "Space amplification",
+          "Latch contention",
+          "Network partition tolerance"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Many B-Tree variants are motivated by write cost, extra storage overhead, and synchronization complexity. Network partitions are a distributed systems concern, not a local index-structure goal.",
+        "multiSelect": true
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-7",
+    "title": "Ch. 7 - Log-Structured Storage",
+    "description": "LSM Trees, tombstones, leveled compaction, Bloom filters, RUM, and SSTables.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-7/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 7
+    },
+    "questions": [
+      {
+        "id": "db-30",
+        "question": "Which description best matches an LSM Tree?",
+        "options": [
+          "A purely in-memory tree with no durability mechanism",
+          "A structure with a mutable in-memory memtable and immutable on-disk components",
+          "A tree that stores values only in internal nodes",
+          "A hash table that cannot support range queries"
+        ],
+        "answer": 1,
+        "explanation": "An LSM Tree buffers writes in memory and periodically flushes sorted immutable structures to disk, reconciling them later with compaction.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-31",
+        "question": "Why are tombstones used in LSM Trees?",
+        "options": [
+          "To immediately remove a key from every on-disk table",
+          "To represent deletes without rewriting all older disk components immediately",
+          "To avoid storing keys in memtables",
+          "To guarantee zero read amplification"
+        ],
+        "answer": 1,
+        "explanation": "Because disk components are immutable, a delete is usually recorded as a tombstone and reconciled later during reads and compaction.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-32",
+        "question": "What is a defining trait of leveled compaction?",
+        "options": [
+          "All tables at every level are allowed to overlap arbitrarily",
+          "Data is merged into levels with target sizes and controlled overlap",
+          "It never rewrites data after flushing",
+          "It keeps only one disk component at all times"
+        ],
+        "answer": 1,
+        "explanation": "Leveled compaction organizes data into levels with size goals and carefully managed overlap, which usually improves reads at the cost of more rewrite work.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-33",
+        "question": "Which statement about Bloom filters is correct?",
+        "options": [
+          "They can produce false negatives but never false positives",
+          "They can produce false positives but never false negatives",
+          "They store exact key-value pairs in compressed form",
+          "They eliminate the need for SSTables"
+        ],
+        "answer": 1,
+        "explanation": "Bloom filters are probabilistic membership structures: they may claim a key might exist when it does not, but they should not miss a key that was inserted.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-34",
+        "question": "What does the RUM Conjecture say in practice?",
+        "options": [
+          "Reducing read cost and update cost usually increases memory overhead",
+          "Any system can optimize reads, writes, and memory simultaneously",
+          "Read amplification is always worse than space amplification",
+          "Memory overhead matters only for in-memory databases"
+        ],
+        "answer": 0,
+        "explanation": "The RUM framing says there is a tradeoff between read cost, update cost, and memory overhead. Pushing down two dimensions usually makes the third more expensive.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-35",
+        "question": "What is a core property of an SSTable?",
+        "options": [
+          "Keys are stored in random order to speed writes",
+          "It is a sorted on-disk table, typically paired with an index",
+          "It only works for fixed-size records",
+          "It requires every lookup to scan the full file"
+        ],
+        "answer": 1,
+        "explanation": "Sorted String Tables store keys in sorted order on disk, often with an accompanying index to make lookups and range scans efficient.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-8",
+    "title": "Ch. 8 - Distributed Systems Intro & Overview",
+    "description": "Fallacies of distributed computing, perfect links, consensus limits, and failure models.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-8/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 8
+    },
+    "questions": [
+      {
+        "id": "db-36",
+        "question": "Which statement is one of the fallacies of distributed computing?",
+        "options": [
+          "The network is reliable",
+          "Local clocks can drift",
+          "Messages may be delayed",
+          "Partitions can happen"
+        ],
+        "answer": 0,
+        "explanation": "One classic fallacy is assuming the network is reliable. Real distributed systems must expect delay, loss, partitions, and partial failure.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-37",
+        "question": "Which delivery semantic allows duplicates but tries not to lose messages?",
+        "options": [
+          "At-most-once",
+          "At-least-once",
+          "Exactly-once processing",
+          "FIFO-only delivery"
+        ],
+        "answer": 1,
+        "explanation": "At-least-once delivery favors eventual delivery, which means duplicates are possible unless the receiver deduplicates or uses idempotent operations.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-38",
+        "question": "Which properties belong to perfect links? (Select all that apply)",
+        "options": [
+          "Reliable delivery",
+          "No duplication",
+          "No creation",
+          "Bounded latency"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Perfect links are defined in terms of correct delivery semantics: messages are delivered reliably, not duplicated, and not fabricated. They do not promise a fixed latency bound.",
+        "multiSelect": true
+      },
+      {
+        "id": "db-39",
+        "question": "What does the Two Generals Problem illustrate?",
+        "options": [
+          "A leader can always be elected with enough retries",
+          "Agreement is impossible to guarantee with unreliable communication and no final confirmation",
+          "Checksums are insufficient for disk recovery",
+          "Clock synchronization is easy if both sides ping often"
+        ],
+        "answer": 1,
+        "explanation": "The Two Generals Problem shows why common knowledge is hard to establish over unreliable asynchronous links: the final acknowledgment can always be uncertain.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-40",
+        "question": "What does FLP impossibility say?",
+        "options": [
+          "Consensus is impossible even in synchronous systems",
+          "Consensus cannot be guaranteed to terminate in a purely asynchronous system with even a single crash failure",
+          "Consensus always requires Byzantine fault tolerance",
+          "Consensus is only possible with three-phase commit"
+        ],
+        "answer": 1,
+        "explanation": "FLP shows that in a purely asynchronous system, a deterministic consensus algorithm cannot guarantee termination if even one process may fail by crashing.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-41",
+        "question": "Which failure model is the most severe among these?",
+        "options": [
+          "Crash-stop",
+          "Crash-recovery",
+          "Omission fault",
+          "Byzantine fault"
+        ],
+        "answer": 3,
+        "explanation": "Byzantine faults are the most adversarial because a node can behave arbitrarily, including lying, equivocating, or sending inconsistent messages.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-9",
+    "title": "Ch. 9 - Failure Detection",
+    "description": "Pings, heartbeats, Phi-Accrual detectors, and gossip-based failure detection.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-9/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 9
+    },
+    "questions": [
+      {
+        "id": "db-42",
+        "question": "What is the difference between a ping and a heartbeat?",
+        "options": [
+          "A ping is passive and a heartbeat is encrypted",
+          "A ping is request-response, while a heartbeat is an active signal sent to peers",
+          "A heartbeat always guarantees failure detection accuracy",
+          "A ping can only be used in synchronous systems"
+        ],
+        "answer": 1,
+        "explanation": "A ping asks for a response within some time window, while a heartbeat is proactively emitted by a process to indicate it is still alive.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-43",
+        "question": "What is the main idea behind a Phi-Accrual failure detector?",
+        "options": [
+          "It declares every missing heartbeat an immediate crash",
+          "It outputs a continuous suspicion level instead of a strict up/down answer",
+          "It requires synchronized physical clocks across the cluster",
+          "It only works with centralized leaders"
+        ],
+        "answer": 1,
+        "explanation": "Phi-Accrual models suspicion continuously based on heartbeat timing history, so downstream systems can choose their own threshold for acting on failures.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-44",
+        "question": "How does gossip-based failure detection usually work?",
+        "options": [
+          "A single leader polls every node in sequence",
+          "Nodes periodically exchange heartbeat counters or timestamps with random peers",
+          "Failures are inferred only from write-ahead logs",
+          "Each process must know the full network topology exactly"
+        ],
+        "answer": 1,
+        "explanation": "Gossip protocols spread liveness information by having nodes periodically share state with random peers, which gradually gives the cluster a broad view of failures.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-10",
+    "title": "Ch. 10 - Leader Election",
+    "description": "Leader election, the Bully Algorithm, and why practical systems require majority agreement.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-10/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 10
+    },
+    "questions": [
+      {
+        "id": "db-45",
+        "question": "In the Bully Algorithm, which process should ultimately become leader if all messages are delivered?",
+        "options": [
+          "The process with the lowest rank",
+          "The process that initiated the election",
+          "The highest-ranked live process",
+          "Whichever process has the oldest local clock"
+        ],
+        "answer": 2,
+        "explanation": "The Bully Algorithm relies on process ranking: the highest-ranked live process eventually suppresses lower-ranked candidates and becomes leader.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-46",
+        "question": "Why do practical leader-based systems usually require a majority, not just any local election result?",
+        "options": [
+          "To compress election messages",
+          "To prevent split brain during partitions",
+          "To eliminate the need for failure detection",
+          "To make clocks perfectly synchronized"
+        ],
+        "answer": 1,
+        "explanation": "Without majority-based coordination, partitions can each believe they have a leader. Requiring a majority helps ensure only one side can proceed safely.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-11",
+    "title": "Ch. 11 - Replication and Consistency",
+    "description": "CAP, linearizability, consistency models, quorum reads and writes, CRDTs, and session guarantees.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-11/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 11
+    },
+    "questions": [
+      {
+        "id": "db-47",
+        "question": "What does CAP say specifically during a network partition?",
+        "options": [
+          "A system can simultaneously guarantee strict consistency and full availability",
+          "A system must choose between consistency and availability while tolerating the partition",
+          "Partition tolerance is optional in a distributed database",
+          "CAP only applies when nodes crash, not when links fail"
+        ],
+        "answer": 1,
+        "explanation": "CAP is about tradeoffs under partition. If the network splits, a system cannot provide both strong consistency and full availability at the same time.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-48",
+        "question": "Which consistency model is usually described as the strongest practical one?",
+        "options": [
+          "Eventual consistency",
+          "Causal consistency",
+          "Linearizability",
+          "PRAM consistency"
+        ],
+        "answer": 2,
+        "explanation": "Linearizability is often treated as the strongest practical consistency model because operations appear to take effect atomically at a single point in real time.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-49",
+        "question": "Which statements about consistency models are true? (Select all that apply)",
+        "options": [
+          "Sequential consistency requires all processes to observe the same operation order",
+          "Causal consistency preserves the order of causally related operations",
+          "Eventual consistency requires every read to return the latest value immediately",
+          "Strict consistency is stronger than linearizability"
+        ],
+        "answer": [0, 1, 3],
+        "explanation": "Sequential consistency enforces one shared order, causal consistency preserves causal dependencies, and strict consistency is an even stronger idealized model than linearizability. Eventual consistency does not promise immediate latest reads.",
+        "multiSelect": true
+      },
+      {
+        "id": "db-50",
+        "question": "In tunable consistency, why is the condition R + W > N important?",
+        "options": [
+          "It guarantees every read is lock-free",
+          "It ensures read and write quorums overlap on at least one replica",
+          "It prevents all network partitions",
+          "It eliminates the need for replication"
+        ],
+        "answer": 1,
+        "explanation": "If read and write quorums overlap, a read is more likely to observe at least one replica that knows about the latest successful write.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-51",
+        "question": "What is a defining goal of CRDTs?",
+        "options": [
+          "They require centralized locking to merge safely",
+          "They are designed so replicas can merge divergent states into a valid converged result",
+          "They forbid replication entirely",
+          "They always provide linearizability"
+        ],
+        "answer": 1,
+        "explanation": "CRDTs are built so that concurrent updates can be merged deterministically without conflicts, giving strong eventual consistency.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-52",
+        "question": "Which session guarantee says a client should be able to see its own earlier writes?",
+        "options": [
+          "Monotonic reads",
+          "Read-your-writes",
+          "Sequential consistency",
+          "Atomic broadcast"
+        ],
+        "answer": 1,
+        "explanation": "Read-your-writes ensures a client session will not lose visibility of updates it already performed.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-12",
+    "title": "Ch. 12 - Anti-Entropy & Dissemination",
+    "description": "Read repair, hinted handoff, Merkle Trees, and anti-entropy mechanisms for convergence.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-12/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 12
+    },
+    "questions": [
+      {
+        "id": "db-53",
+        "question": "What is read repair?",
+        "options": [
+          "A background process that rewrites every SSTable nightly",
+          "A repair triggered by reads when replicas are compared and stale ones are updated",
+          "A way to compress replication logs",
+          "A lock manager optimization for hot rows"
+        ],
+        "answer": 1,
+        "explanation": "Read repair detects divergence during a read and uses the fresh value to repair stale replicas, either synchronously or asynchronously.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-54",
+        "question": "What problem does hinted handoff address?",
+        "options": [
+          "Balancing B-Tree page occupancy",
+          "Temporarily unavailable replicas during writes",
+          "Consensus leader election",
+          "Checksum collisions in Merkle Trees"
+        ],
+        "answer": 1,
+        "explanation": "Hinted handoff lets another node temporarily hold a write intended for an unavailable replica and forward it later when that replica recovers.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-55",
+        "question": "Why are Merkle Trees useful for anti-entropy?",
+        "options": [
+          "They avoid hashing entirely",
+          "They let replicas quickly narrow down which key ranges differ by comparing hashes hierarchically",
+          "They guarantee total order broadcast",
+          "They replace quorum reads"
+        ],
+        "answer": 1,
+        "explanation": "Merkle Trees summarize data with hashes from leaves to root. Matching hashes let replicas skip equal ranges and focus only on divergent subtrees.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-13",
+    "title": "Ch. 13 - Distributed Transactions",
+    "description": "Two-phase commit, three-phase commit, consistent hashing, and contrasting Calvin with Spanner.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-13/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 13
+    },
+    "questions": [
+      {
+        "id": "db-56",
+        "question": "What are the two phases of two-phase commit (2PC)?",
+        "options": [
+          "Election and replication",
+          "Prepare and commit-or-abort",
+          "Read and repair",
+          "Snapshot and merge"
+        ],
+        "answer": 1,
+        "explanation": "In 2PC, the coordinator first asks participants to prepare and vote, then announces a final commit or abort decision.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-57",
+        "question": "Why is classic 2PC considered blocking?",
+        "options": [
+          "Because it requires byzantine quorums",
+          "Because participants may have to wait indefinitely if the coordinator fails at the wrong time",
+          "Because it never writes anything to disk",
+          "Because it only works with deterministic schedulers"
+        ],
+        "answer": 1,
+        "explanation": "If the coordinator fails after some participants have prepared but before they learn the final decision, they may be stuck waiting and unable to decide safely on their own.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-58",
+        "question": "What problem is three-phase commit (3PC) trying to reduce compared with 2PC?",
+        "options": [
+          "The cost of Merkle Tree construction",
+          "Blocking after coordinator failure",
+          "Read amplification in LSM Trees",
+          "The need for write-ahead logging"
+        ],
+        "answer": 1,
+        "explanation": "3PC adds an extra phase so participants spend less time in an ambiguous state, reducing some blocking scenarios compared with 2PC.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-59",
+        "question": "What is the main benefit of consistent hashing over a naive hash(key) % N approach?",
+        "options": [
+          "It guarantees perfect load balance for every workload",
+          "It reduces how much data must move when nodes are added or removed",
+          "It removes the need for replication",
+          "It forces all writes through a single coordinator"
+        ],
+        "answer": 1,
+        "explanation": "Consistent hashing maps data onto a ring so node changes only affect nearby ranges, avoiding a near-global reshuffle of keys.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-60",
+        "question": "Which statement correctly contrasts Calvin and Spanner?",
+        "options": [
+          "Calvin relies on deterministic ordering, while Spanner combines 2PC with Paxos groups and TrueTime",
+          "Calvin is leaderless, while Spanner uses only local clocks with no coordination",
+          "Spanner avoids multi-partition coordination entirely, while Calvin uses sloppy quorums",
+          "Both systems are described as unordered eventually consistent stores"
+        ],
+        "answer": 0,
+        "explanation": "The notes present Calvin as deterministic and sequence-driven, while Spanner combines distributed transactions with Paxos-backed shards and its TrueTime API.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-chapter-14",
+    "title": "Ch. 14 - Consensus",
+    "description": "Atomic broadcast, Paxos, Multi-Paxos, Raft, and Byzantine fault tolerance.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-chapter-14/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 14
+    },
+    "questions": [
+      {
+        "id": "db-61",
+        "question": "What two properties distinguish atomic broadcast? (Select all that apply)",
+        "options": [
+          "All-or-none delivery among correct processes",
+          "A single global delivery order",
+          "Guaranteed zero latency",
+          "Local-only message scope"
+        ],
+        "answer": [0, 1],
+        "explanation": "Atomic broadcast combines reliable delivery with total ordering, so correct processes deliver the same messages in the same order.",
+        "multiSelect": true
+      },
+      {
+        "id": "db-62",
+        "question": "Which roles appear in classic Paxos? (Select all that apply)",
+        "options": [
+          "Proposers",
+          "Acceptors",
+          "Learners",
+          "Coordinated witnesses"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Classic Paxos is usually described in terms of proposers, acceptors, and learners. Witnesses are discussed elsewhere in replication, not as a core Paxos role.",
+        "multiSelect": true
+      },
+      {
+        "id": "db-63",
+        "question": "If a Paxos deployment wants to tolerate f failures, how many acceptors are typically needed and what size quorum is required?",
+        "options": [
+          "f total, quorum 1",
+          "2f + 1 total, quorum f + 1",
+          "3f + 1 total, quorum 2f + 1",
+          "f + 1 total, quorum f"
+        ],
+        "answer": 1,
+        "explanation": "Classic Paxos commonly uses 2f + 1 acceptors so that any quorum of f + 1 intersects with every other quorum.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-64",
+        "question": "What is the main optimization of Multi-Paxos?",
+        "options": [
+          "It removes quorums entirely",
+          "It reuses a stable leader so the expensive prepare phase does not need to run for every value",
+          "It allows arbitrary Byzantine behavior",
+          "It stores no log of chosen values"
+        ],
+        "answer": 1,
+        "explanation": "Once a leader is established, Multi-Paxos can often skip repeating the full leader-establishment work for each new log entry.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-65",
+        "question": "Which three roles are central in Raft?",
+        "options": [
+          "Candidate, leader, follower",
+          "Primary, acceptor, learner",
+          "Coordinator, cohort, witness",
+          "Publisher, subscriber, relay"
+        ],
+        "answer": 0,
+        "explanation": "Raft uses followers as the default role, candidates during elections, and a leader that handles replication and client interaction.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-66",
+        "question": "How does Raft usually resolve split votes during an election?",
+        "options": [
+          "By requiring synchronized physical clocks",
+          "By using randomized election timers and starting a new term if needed",
+          "By letting every partition keep its own permanent leader",
+          "By choosing the node with the most uncommitted entries automatically"
+        ],
+        "answer": 1,
+        "explanation": "Raft uses randomized timeouts so competing candidates are less likely to keep colliding in repeated elections.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-67",
+        "question": "How many replicas are needed to tolerate f Byzantine faults in PBFT?",
+        "options": ["2f + 1", "3f + 1", "f + 1", "4f + 1"],
+        "answer": 1,
+        "explanation": "PBFT requires 3f + 1 replicas to tolerate up to f Byzantine failures while still collecting enough matching responses.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "database-internals-summary",
+    "title": "Summary & Review",
+    "description": "A final comparison of B+Trees and LSM Trees to review the major storage tradeoffs from the book.",
+    "image": "/images/database-internals.jpg",
+    "relatedArticles": ["/articles/database-internals-summary/"],
+    "collection": {
+      "slug": "database-internals",
+      "title": "Database Internals",
+      "order": 15
+    },
+    "questions": [
+      {
+        "id": "db-68",
+        "question": "Which storage structure from the summary is generally the more write-optimized family?",
+        "options": [
+          "B+Trees",
+          "LSM Trees",
+          "Static binary search trees",
+          "CRC trees"
+        ],
+        "answer": 1,
+        "explanation": "The summary contrasts B+Trees as read-friendlier structures with LSM Trees as write-optimized structures that trade more read and compaction complexity for cheaper writes.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-69",
+        "question": "Which properties describe a classic B+Tree in the summary's comparison framing? (Select all that apply)",
+        "options": [
+          "Buffered",
+          "Mutable",
+          "Ordered",
+          "Append-only immutable on disk"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "In the comparison table, B+Trees are presented as buffered, mutable, and ordered. Append-only immutable-on-disk behavior is more characteristic of LSM-style structures.",
+        "multiSelect": true
+      }
+    ]
+  },
+  {
+    "slug": "web-fundamentals",
+    "title": "Web Fundamentals",
+    "description": "Core concepts of HTTP, browsers, and web architecture",
+    "image": "/images/react-conf-2025.svg",
+    "relatedArticles": [],
+    "questions": [
+      {
+        "id": "web-1",
+        "question": "Which HTTP status code indicates that a resource has been permanently moved to a new URL?",
+        "options": [
+          "200 OK",
+          "301 Moved Permanently",
+          "404 Not Found",
+          "503 Service Unavailable"
+        ],
+        "answer": 1,
+        "explanation": "A 301 status code tells the client that the resource has permanently moved to a new URL.",
+        "multiSelect": false
+      },
+      {
+        "id": "web-2",
+        "question": "What does the 'Content-Type' HTTP header specify?",
+        "options": [
+          "The encoding used to compress the response body",
+          "The media type of the resource (e.g., text/html, application/json)",
+          "The maximum size of the request body the server will accept",
+          "The authentication scheme required by the server"
+        ],
+        "answer": 1,
+        "explanation": "The Content-Type header indicates the media type of the resource so the client knows how to interpret the body.",
+        "multiSelect": false
+      },
+      {
+        "id": "web-3",
+        "question": "Which of the following are valid Cache-Control directives? (Select all that apply)",
+        "options": ["no-store", "max-age=3600", "must-refresh", "public"],
+        "answer": [0, 1, 3],
+        "explanation": "'no-store', 'max-age=3600', and 'public' are valid directives. 'must-refresh' is not; the standard directive is 'must-revalidate'.",
+        "multiSelect": true
+      },
+      {
+        "id": "web-4",
+        "question": "What is the primary purpose of a Content Delivery Network (CDN)?",
+        "options": [
+          "To encrypt data in transit between client and server",
+          "To serve content from geographically distributed edge servers closer to the user",
+          "To compile and bundle JavaScript files for production",
+          "To validate HTML documents against web standards"
+        ],
+        "answer": 1,
+        "explanation": "A CDN reduces latency by serving cached content from edge locations closer to the user.",
+        "multiSelect": false
+      },
+      {
+        "id": "web-5",
+        "question": "In the context of web security, what does CORS stand for?",
+        "options": [
+          "Centralized Origin Resource System",
+          "Cross-Origin Resource Sharing",
+          "Client-Oriented Request Schema",
+          "Cached Object Retrieval Service"
+        ],
+        "answer": 1,
+        "explanation": "Cross-Origin Resource Sharing is the browser mechanism that lets servers declare which origins may access their resources.",
+        "multiSelect": false
+      }
+    ]
+  }
+]

@@ -16,6 +16,12 @@ const StyledNav = styled.nav`
   padding: 0.75rem 1rem;
 `;
 
+const NavLinks = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+`;
+
 export default function TopNav() {
   return (
     <StyledNav>
@@ -27,7 +33,9 @@ export default function TopNav() {
           Hey, I&apos;m Noah Tigner
         </Link>
       </h1>
-      <ContactMenu />
+      <NavLinks>
+        <ContactMenu />
+      </NavLinks>
     </StyledNav>
   );
 }
