@@ -197,6 +197,14 @@ export default function ContactMenu() {
               />
             ))}
             <StyledMenuSeparator />
+            <StyledMenuItem
+              render={
+                <StyledInternalLinkItem to={paths.flashcards} prefetch="render">
+                  Flashcards
+                </StyledInternalLinkItem>
+              }
+            />
+            <StyledMenuSeparator />
             <Menu.SubmenuRoot>
               <StyledSubmenuTrigger>
                 <ChevronRightIcon style={{ rotate: '180deg' }} />
