@@ -70,6 +70,71 @@
         "answer": [0, 1, 2],
         "explanation": "The notes frame many storage designs in terms of buffering, immutability, and ordering. Compression matters too, but it is not one of that core three-way framing decisions.",
         "multiSelect": true
+      },
+      {
+        "id": "db-70",
+        "question": "What characterizes an HTAP system?",
+        "options": [
+          "It only supports OLAP queries on archived data",
+          "It handles both transactional and analytical workloads in a unified engine",
+          "It replaces the storage engine with a pure in-memory cache",
+          "It requires separate physical clusters for reads and writes"
+        ],
+        "answer": 1,
+        "explanation": "HTAP systems combine OLTP and OLAP capabilities so that analytical queries can run alongside transactional workloads without requiring a separate data warehouse.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-71",
+        "question": "Which storage engine sub-components are typically found in a DBMS? (Select all that apply)",
+        "options": [
+          "Transaction manager",
+          "Buffer manager",
+          "Recovery manager",
+          "Query parser"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "The storage engine typically includes a transaction manager, lock manager, buffer manager, access methods, and recovery manager. The query parser belongs to the query processor layer above the storage engine.",
+        "multiSelect": true
+      },
+      {
+        "id": "db-72",
+        "question": "How do index-organized tables differ from heap-organized tables?",
+        "options": [
+          "Index-organized tables store records in key order, while heap tables append records without ordering",
+          "Heap tables always require less disk space than index-organized tables",
+          "Index-organized tables cannot support range scans",
+          "Heap tables store records sorted by insertion timestamp"
+        ],
+        "answer": 0,
+        "explanation": "Index-organized tables store records directly in the index structure in key order, making range scans efficient. Heap tables store records without any particular order, so they need separate index structures for efficient lookups.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-73",
+        "question": "What is a key tradeoff when using a primary key as indirection for secondary indexes instead of storing direct file offsets?",
+        "options": [
+          "Direct offsets are cheaper to update when the referenced record moves",
+          "Direct offsets always use less disk space",
+          "Primary key indirection eliminates the need for a primary index",
+          "Primary key indirection makes pointer updates cheaper but adds an extra lookup on reads"
+        ],
+        "answer": 3,
+        "explanation": "When secondary indexes reference a primary key instead of a physical offset, moving a record only requires updating the primary index. The cost is an additional indirection step during reads.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-74",
+        "question": "What is the primary advantage of a row-oriented layout over a column-oriented layout?",
+        "options": [
+          "It compresses individual columns more efficiently",
+          "It allows analytical scans to skip unused columns",
+          "It achieves better locality when accessing entire rows for transactional workloads",
+          "It reduces storage overhead for sparse data"
+        ],
+        "answer": 2,
+        "explanation": "Row-oriented layouts store entire rows contiguously, which provides good spatial locality when a workload needs to read or write full rows, as is common in OLTP.",
+        "multiSelect": false
       }
     ]
   },
@@ -162,6 +227,58 @@
         "answer": 1,
         "explanation": "Underflow is commonly handled by merging with a sibling or redistributing keys. That fix can propagate upward if it changes parent occupancy.",
         "multiSelect": false
+      },
+      {
+        "id": "db-75",
+        "question": "What does fanout refer to in the context of B-Trees?",
+        "options": [
+          "The maximum number of children a node can have",
+          "The number of keys stored in each leaf node",
+          "The total number of nodes in the tree",
+          "The depth of the tree from root to any leaf"
+        ],
+        "answer": 0,
+        "explanation": "Fanout is the maximum number of child pointers per node. Higher fanout creates wider, shallower trees that require fewer disk seeks for lookups.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-76",
+        "question": "What is the role of separator keys in a B-Tree?",
+        "options": [
+          "They encrypt the boundaries between subtrees",
+          "They divide the tree into subtrees with non-overlapping key ranges",
+          "They store pointers to overflow pages",
+          "They track which nodes have been recently accessed"
+        ],
+        "answer": 1,
+        "explanation": "Separator keys (also called index entries or divider cells) define boundaries between subtrees. They are stored in sorted order within each internal node and guide lookups to the correct child.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-77",
+        "question": "Why are sibling pointers useful in B+Trees?",
+        "options": [
+          "They allow range queries to traverse leaves sequentially without revisiting parents",
+          "They eliminate the need for separator keys in internal nodes",
+          "They prevent node splits from ever occurring",
+          "They store backup copies of each key for crash recovery"
+        ],
+        "answer": 0,
+        "explanation": "Sibling pointers link adjacent leaf nodes, enabling efficient range scans by following the chain of leaves instead of navigating back up and down the tree.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-78",
+        "question": "Which statement about SSDs is correct regarding their internal write behavior?",
+        "options": [
+          "SSDs can overwrite data in place at the byte level",
+          "SSDs erase individual pages independently without touching neighboring data",
+          "The smallest writable unit is a page, and pages can only be written to empty cells",
+          "The Flash Translation Layer is only used on HDDs"
+        ],
+        "answer": 2,
+        "explanation": "SSDs write at page granularity and only to empty cells. Erasing happens at the larger block level. The Flash Translation Layer maps logical to physical page addresses and handles garbage collection.",
+        "multiSelect": false
       }
     ]
   },
@@ -228,6 +345,45 @@
         "answer": [0, 1, 3],
         "explanation": "Slotted pages separate logical order from physical placement, which makes compaction practical. They are explicitly useful for variable-sized records, not fixed-size-only records.",
         "multiSelect": true
+      },
+      {
+        "id": "db-79",
+        "question": "What is the difference between key cells and key-value cells in a B-Tree page?",
+        "options": [
+          "Key cells store separator keys with child pointers, while key-value cells store keys with their associated data records",
+          "Key cells are used only in leaf nodes, while key-value cells are used in internal nodes",
+          "Key cells contain checksums, while key-value cells do not",
+          "There is no practical difference; the terms are interchangeable"
+        ],
+        "answer": 0,
+        "explanation": "Internal nodes use key cells that pair separator keys with child page pointers. Leaf nodes use key-value cells that pair keys with the actual stored records.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-80",
+        "question": "How do slotted pages handle space freed by deleted records?",
+        "options": [
+          "Freed space is immediately returned to the operating system",
+          "The entire page is rewritten after every deletion",
+          "Deleted cells are marked and their space is tracked in an availability list for reuse",
+          "Freed space is only reclaimed when the database is restarted"
+        ],
+        "answer": 2,
+        "explanation": "When a cell is deleted, its space is added to an availability list (also called freeblocks). The page header tracks the first freeblock and total available bytes. If enough cumulative but non-contiguous space exists, defragmentation can consolidate it.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-81",
+        "question": "Why must binary file formats in databases be versioned?",
+        "options": [
+          "To allow the operating system to choose the right filesystem",
+          "To determine which compression algorithm to use at the hardware level",
+          "To encrypt data at rest using version-specific keys",
+          "To enable backward compatibility when the on-disk format evolves"
+        ],
+        "answer": 3,
+        "explanation": "As database systems evolve, on-disk formats may change. Versioning ensures that older data files can still be read correctly, or that the system knows when a migration is needed.",
+        "multiSelect": false
       }
     ]
   },
@@ -280,6 +436,58 @@
         ],
         "answer": 1,
         "explanation": "With sorted input, the tree can be built in large sequential chunks instead of repeatedly inserting and splitting nodes. That reduces maintenance work and random access during construction.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-82",
+        "question": "What are magic numbers used for in B-Tree page headers?",
+        "options": [
+          "To serve as constant multi-byte values for validation and sanity checks",
+          "To encrypt the page contents at rest",
+          "To store the page's position in the tree hierarchy",
+          "To record how many times a page has been accessed"
+        ],
+        "answer": 0,
+        "explanation": "Magic numbers are fixed byte sequences placed in headers that help verify a page belongs to the expected format and has not been corrupted or misidentified.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-83",
+        "question": "What is the advantage of rebalancing B-Tree nodes instead of immediately splitting or merging?",
+        "options": [
+          "It guarantees every node is always exactly half full",
+          "It makes the tree immune to any further insertions or deletions",
+          "It eliminates the need for separator keys in parent nodes",
+          "It improves node occupancy and can reduce tree height by redistributing keys among siblings"
+        ],
+        "answer": 3,
+        "explanation": "Rebalancing redistributes keys within a level to keep nodes more evenly filled, which can postpone or avoid splits and merges. The tradeoff is additional maintenance complexity.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-84",
+        "question": "Why is the right-only append pattern efficient for auto-incrementing primary keys?",
+        "options": [
+          "It distributes inserts evenly across all leaf nodes",
+          "It avoids the need for any B-Tree balancing operations",
+          "All new inserts go to the rightmost leaf, producing sequential writes with minimal fragmentation",
+          "It forces the tree to remain at exactly one level deep"
+        ],
+        "answer": 2,
+        "explanation": "With monotonically increasing keys, inserts always land at the rightmost leaf. This produces sequential I/O and concentrates splits at the edge of the tree, reducing fragmentation. PostgreSQL calls this optimization fastpath.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-85",
+        "question": "What happens to page identifiers freed during vacuum or maintenance operations?",
+        "options": [
+          "They are immediately deallocated back to the operating system",
+          "They are added to a freelist so the space can be reused by future page allocations",
+          "They are converted into overflow pages automatically",
+          "They are permanently reserved and can never be reused"
+        ],
+        "answer": 1,
+        "explanation": "Freed page IDs are added to a persistent freelist. This allows the database to reclaim and reuse that space for new pages without growing the file unnecessarily.",
         "multiSelect": false
       }
     ]
@@ -389,6 +597,84 @@
         "answer": 1,
         "explanation": "CLOCK uses a circular structure and reference bits to cheaply approximate LRU. Pages that were used recently get another pass before eviction.",
         "multiSelect": false
+      },
+      {
+        "id": "db-86",
+        "question": "What does a dirty page in the buffer pool represent?",
+        "options": [
+          "A page modified in memory but not yet flushed to disk",
+          "A page that has been corrupted and needs repair",
+          "A page that has been evicted from the cache",
+          "A page currently locked by a background vacuum process"
+        ],
+        "answer": 0,
+        "explanation": "A dirty page has been modified in the buffer pool but its changes have not yet been written back to durable storage. It must be flushed before it can be safely evicted.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-87",
+        "question": "What is the purpose of a Log Sequence Number (LSN) in write-ahead logging?",
+        "options": [
+          "It assigns a unique, monotonically increasing identifier to each log record for ordering",
+          "It stores the physical disk address of each data page",
+          "It compresses log entries to reduce WAL file size",
+          "It determines which isolation level a transaction uses"
+        ],
+        "answer": 0,
+        "explanation": "LSNs provide a total order on log records, ensuring they can be replayed in the correct sequence during recovery. Log records are flushed to disk in LSN order.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-88",
+        "question": "Why do practical recovery systems often use physical logging for redo and logical logging for undo?",
+        "options": [
+          "Physical redo is faster to replay, while logical undo handles concurrent modifications more gracefully",
+          "Logical redo is faster, but physical undo provides better crash safety",
+          "Physical logging is only possible for redo operations",
+          "There is no practical difference; the choice is arbitrary"
+        ],
+        "answer": 0,
+        "explanation": "Physical redo records can be replayed quickly because they describe exact byte-level changes. Logical undo operations are more flexible when concurrent transactions have modified the same structures, since they describe the inverse operation rather than requiring a specific prior page state.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-89",
+        "question": "Which isolation level allows dirty reads?",
+        "options": [
+          "Read Committed",
+          "Repeatable Read",
+          "Read Uncommitted",
+          "Serializable"
+        ],
+        "answer": 2,
+        "explanation": "Read Uncommitted is the weakest isolation level and allows a transaction to see changes from other transactions that have not yet committed, known as dirty reads.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-90",
+        "question": "How are deadlocks typically detected in lock-based concurrency control?",
+        "options": [
+          "By running a full table scan after every lock request",
+          "By timing out every transaction after a fixed global interval",
+          "By requiring all transactions to acquire locks in random order",
+          "By constructing a waits-for graph and checking it for cycles"
+        ],
+        "answer": 3,
+        "explanation": "A waits-for graph tracks which transactions are waiting on locks held by other transactions. A cycle in this graph indicates a deadlock. Detection can run periodically or continuously.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-91",
+        "question": "What is latch crabbing in the context of B-Tree concurrency?",
+        "options": [
+          "Holding latches on every level of the tree simultaneously until the operation completes",
+          "Releasing parent latches early once it is clear the child operation will not require upward propagation",
+          "Replacing all latches with heavyweight transaction locks",
+          "Using copy-on-write to avoid latching entirely"
+        ],
+        "answer": 1,
+        "explanation": "Latch crabbing is an optimistic technique where a traversal acquires a latch on the child and then releases the parent latch as soon as it determines the child is safe (will not split or merge). This reduces contention on upper tree levels.",
+        "multiSelect": false
       }
     ]
   },
@@ -442,6 +728,58 @@
         "answer": [0, 1, 2],
         "explanation": "Many B-Tree variants are motivated by write cost, extra storage overhead, and synchronization complexity. Network partitions are a distributed systems concern, not a local index-structure goal.",
         "multiSelect": true
+      },
+      {
+        "id": "db-92",
+        "question": "Why does LMDB not need a write-ahead log or compaction?",
+        "options": [
+          "Its copy-on-write design writes new versions to new locations, keeping old versions intact until replaced",
+          "It stores all data exclusively in memory with no durability",
+          "It uses log-structured merge trees internally",
+          "It relies on the operating system's journaling filesystem for all crash safety"
+        ],
+        "answer": 0,
+        "explanation": "LMDB uses copy-on-write B-Trees that never modify existing pages. It holds only two root versions (latest committed and pending), so old data is always readable and crash recovery is inherent in the structure.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-93",
+        "question": "How does a Bw-Tree achieve lock-free operations?",
+        "options": [
+          "By using heavyweight OS-level mutexes on each node",
+          "By requiring all writers to acquire a global latch before any modification",
+          "By installing new delta nodes into a mapping table via compare-and-swap (CAS)",
+          "By serializing all operations through a single coordinator thread"
+        ],
+        "answer": 2,
+        "explanation": "The Bw-Tree uses an indirection mapping table where logical node identifiers map to physical locations. Updates install new delta nodes by atomically swapping pointers with CAS, avoiding traditional latches entirely.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-94",
+        "question": "What is the core idea behind FD-Trees?",
+        "options": [
+          "They use gossip protocols to disseminate index updates",
+          "They buffer updates in a small B-Tree and periodically merge them into larger immutable sorted runs with fractional cascading",
+          "They store all data in a single append-only log with no indexing",
+          "They replicate the B-Tree across multiple machines for fault tolerance"
+        ],
+        "answer": 1,
+        "explanation": "FD-Trees absorb writes in a small mutable B-Tree buffer. When full, its contents are merged into immutable sorted runs of increasing size. Fractional cascading provides efficient cross-level search via bridge pointers between levels.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-95",
+        "question": "What problem does the van Emde Boas layout solve for cache-oblivious B-Trees?",
+        "options": [
+          "It guarantees zero write amplification",
+          "It encrypts tree nodes for secure storage",
+          "It eliminates the need for separator keys",
+          "It arranges subtrees in contiguous memory to maximize cache line utilization across different hardware"
+        ],
+        "answer": 3,
+        "explanation": "The van Emde Boas layout recursively splits a tree at the middle level and stores each subtree contiguously in memory. This produces good cache behavior across different memory hierarchies without needing to know cache sizes at design time.",
+        "multiSelect": false
       }
     ]
   },
@@ -533,6 +871,71 @@
         ],
         "answer": 1,
         "explanation": "Sorted String Tables store keys in sorted order on disk, often with an accompanying index to make lookups and range scans efficient.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-96",
+        "question": "How does size-tiered compaction differ from leveled compaction?",
+        "options": [
+          "Size-tiered compaction groups tables by size and merges similarly-sized tables, while leveled compaction maintains size-bounded levels with controlled overlap",
+          "Leveled compaction never rewrites data, while size-tiered compaction always does",
+          "Size-tiered compaction requires a write-ahead log, while leveled compaction does not",
+          "They are identical strategies with different names"
+        ],
+        "answer": 0,
+        "explanation": "Size-tiered compaction merges tables of similar size into larger ones, risking temporary space spikes. Leveled compaction organizes data into levels with target sizes and merges across levels to control overlap, generally improving read performance at the cost of more write work.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-97",
+        "question": "What is a merge-iteration in the context of LSM Trees?",
+        "options": [
+          "A multi-way merge sort over sorted disk-resident tables, typically using a priority queue",
+          "A process that deletes all tombstones from the memtable",
+          "A single pass that rewrites the entire database into one file",
+          "An in-memory binary search across all SSTables simultaneously"
+        ],
+        "answer": 0,
+        "explanation": "Merge-iteration performs a multi-way merge sort across multiple sorted on-disk tables using a priority queue or min-heap, producing a single sorted stream for reads or compaction output.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-98",
+        "question": "Which amplification tradeoffs are inherent to LSM Trees? (Select all that apply)",
+        "options": [
+          "Read amplification from consulting multiple tables for a single lookup",
+          "Write amplification from repeated rewrites during compaction",
+          "Space amplification from storing multiple versions of the same key",
+          "Network amplification from replicating compaction results to remote nodes"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "LSM Trees face read amplification (checking multiple levels), write amplification (compaction rewrites), and space amplification (redundant key versions). Network amplification is a distributed systems concern, not inherent to the LSM Tree data structure itself.",
+        "multiSelect": true
+      },
+      {
+        "id": "db-99",
+        "question": "How does Bitcask differ from a traditional LSM Tree?",
+        "options": [
+          "Bitcask stores keys sorted on disk, while LSM Trees do not",
+          "Bitcask does not support point queries",
+          "Bitcask uses leveled compaction, while LSM Trees use size-tiered",
+          "Bitcask appends records in insertion order without sorting and relies on an in-memory hash index for lookups"
+        ],
+        "answer": 3,
+        "explanation": "Bitcask is an unordered log-structured engine. Records are appended directly to log files, and an in-memory keydir hash map provides O(1) point lookups. The tradeoff is that range queries are not efficiently supported.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-100",
+        "question": "What problem does log stacking cause when multiple log-structured layers are combined?",
+        "options": [
+          "It eliminates all write amplification",
+          "It improves read performance by caching at every layer",
+          "Redundant garbage collection and remapping across layers compound write amplification and fragmentation",
+          "It reduces the need for a Flash Translation Layer"
+        ],
+        "answer": 2,
+        "explanation": "When an LSM Tree runs on top of a log-structured filesystem on top of an SSD with its own FTL, each layer independently performs garbage collection and remapping. This stacking produces compounded write amplification, fragmentation, and wasted work.",
         "multiSelect": false
       }
     ]
@@ -626,6 +1029,58 @@
         "answer": 3,
         "explanation": "Byzantine faults are the most adversarial because a node can behave arbitrarily, including lying, equivocating, or sending inconsistent messages.",
         "multiSelect": false
+      },
+      {
+        "id": "db-101",
+        "question": "How does the crash-recovery failure model differ from crash-stop?",
+        "options": [
+          "Crash-recovery assumes a crashed process never restarts",
+          "Crash-recovery only applies to network links, not processes",
+          "Crash-stop allows arbitrary message fabrication",
+          "In crash-recovery, a process may stop and later resume, requiring durable state for correctness"
+        ],
+        "answer": 3,
+        "explanation": "Under crash-stop, a failed process is permanently gone. Crash-recovery allows processes to restart after a failure, but the algorithm must account for recovery using persisted state.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-102",
+        "question": "Why is idempotency important in distributed systems?",
+        "options": [
+          "It ensures that applying the same operation multiple times produces the same result as applying it once",
+          "It guarantees messages are delivered in FIFO order",
+          "It prevents all network partitions",
+          "It eliminates the need for acknowledgments"
+        ],
+        "answer": 0,
+        "explanation": "In systems with at-least-once delivery, messages may be retried. Idempotent operations are safe to re-execute without causing unintended side effects, making retries harmless.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-103",
+        "question": "What is the difference between a synchronous and an asynchronous distributed system model?",
+        "options": [
+          "Synchronous systems have no failures, while asynchronous systems have only Byzantine failures",
+          "Asynchronous systems are always faster than synchronous systems",
+          "In a synchronous model, there are known bounds on message delivery and processing time; in an asynchronous model, there are no such bounds",
+          "Synchronous models do not allow message passing"
+        ],
+        "answer": 2,
+        "explanation": "A synchronous system assumes bounded message delivery times and processing speeds, making timeouts reliable for failure detection. An asynchronous system makes no timing guarantees, which is why results like FLP impossibility apply.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-104",
+        "question": "What strategies help prevent cascading failures in distributed systems? (Select all that apply)",
+        "options": [
+          "Circuit breakers that stop forwarding requests to failing components",
+          "Exponential backoff with jitter to spread retry load",
+          "Increasing the retry rate as errors accumulate",
+          "Process-local queues to absorb short-time bursts"
+        ],
+        "answer": [0, 1, 3],
+        "explanation": "Circuit breakers, backoff with jitter, and local queues all help contain failures. Increasing the retry rate under errors would worsen the problem by amplifying load on already-struggling components.",
+        "multiSelect": true
       }
     ]
   },
@@ -679,6 +1134,32 @@
         "answer": 1,
         "explanation": "Gossip protocols spread liveness information by having nodes periodically share state with random peers, which gradually gives the cluster a broad view of failures.",
         "multiSelect": false
+      },
+      {
+        "id": "db-105",
+        "question": "What is the fundamental tradeoff in failure detector design?",
+        "options": [
+          "Throughput versus durability",
+          "Consistency versus partition tolerance",
+          "Write amplification versus read amplification",
+          "Accuracy versus efficiency: detecting failures quickly risks more false positives"
+        ],
+        "answer": 3,
+        "explanation": "Faster detection requires shorter timeouts or more aggressive monitoring, which increases the chance of falsely suspecting a healthy but slow process. More conservative settings reduce false positives but delay true failure detection.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-106",
+        "question": "What does outsourced heartbeats add beyond direct heartbeat monitoring?",
+        "options": [
+          "It replaces all heartbeats with synchronized physical clocks",
+          "It eliminates the need for any failure detection entirely",
+          "It uses information from a process's neighbors to detect failures even when direct communication is blocked",
+          "It guarantees zero false positives in all network conditions"
+        ],
+        "answer": 2,
+        "explanation": "Outsourced heartbeats incorporate liveness information from neighboring processes, so a node can be considered reachable even if the direct link to the monitor is down. This accounts for both direct and indirect reachability.",
+        "multiSelect": false
       }
     ]
   },
@@ -718,6 +1199,45 @@
         ],
         "answer": 1,
         "explanation": "Without majority-based coordination, partitions can each believe they have a leader. Requiring a majority helps ensure only one side can proceed safely.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-107",
+        "question": "What is split brain in the context of leader election?",
+        "options": [
+          "A situation where a network partition causes multiple nodes to simultaneously believe they are the leader",
+          "A technique for distributing load evenly across all nodes",
+          "A method for splitting large B-Tree nodes during rebalancing",
+          "A consensus algorithm designed for Byzantine environments"
+        ],
+        "answer": 0,
+        "explanation": "Split brain occurs when a network partition isolates groups of nodes that each independently elect their own leader. Both sides may accept writes, leading to divergent state that is difficult to reconcile.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-108",
+        "question": "How does the Ring Algorithm for leader election work?",
+        "options": [
+          "Each node broadcasts to all other nodes simultaneously",
+          "Nodes form a logical ring and pass a list of live nodes around it, electing the highest-ranked",
+          "The node with the lowest latency to a central coordinator is chosen",
+          "Nodes randomly select a leader using cryptographic coin flips"
+        ],
+        "answer": 1,
+        "explanation": "In the Ring Algorithm, nodes are arranged in a circular doubly-linked list. A node that detects a leader failure contacts its next alive successor and passes along a set of live candidates. The highest-ranked node in the collected set becomes the new leader.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-109",
+        "question": "What do the liveness and safety properties mean for leader election?",
+        "options": [
+          "Liveness means the election eventually completes; safety means there is at most one leader at a time",
+          "Liveness means messages are encrypted; safety means nodes never crash",
+          "Liveness means all nodes agree on the same log; safety means writes are durable",
+          "Both properties are guarantees about network bandwidth"
+        ],
+        "answer": 0,
+        "explanation": "Liveness guarantees that the system will eventually have a leader (the election terminates). Safety guarantees that at most one node acts as leader at any given time, preventing conflicting decisions.",
         "multiSelect": false
       }
     ]
@@ -811,6 +1331,71 @@
         "answer": 1,
         "explanation": "Read-your-writes ensures a client session will not lose visibility of updates it already performed.",
         "multiSelect": false
+      },
+      {
+        "id": "db-110",
+        "question": "What do the Harvest and Yield concepts offer beyond CAP?",
+        "options": [
+          "They prove that partition tolerance is always optional",
+          "They replace linearizability with a weaker model",
+          "They provide tunable, quantitative measures of result completeness and request success rate",
+          "They eliminate the need for replication"
+        ],
+        "answer": 2,
+        "explanation": "Harvest measures how complete a query result is (e.g., responses from 99 of 100 shards), and yield measures the fraction of requests that succeed. Together they let systems make nuanced tradeoffs rather than the binary consistency-or-availability choice of CAP.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-111",
+        "question": "What is a linearization point?",
+        "options": [
+          "The moment a transaction acquires its first lock",
+          "The final message in a two-phase commit protocol",
+          "The point where a B-Tree node splits into two children",
+          "The single instant between invocation and completion at which an operation appears to take effect atomically"
+        ],
+        "answer": 3,
+        "explanation": "Under linearizability, every operation must appear to execute atomically at some point between its start and end. That point is the linearization point, and it defines the real-time ordering of operations.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-112",
+        "question": "What are vector clocks used for in distributed systems?",
+        "options": [
+          "Establishing a partial order of events and detecting causal relationships between operations",
+          "Synchronizing physical wall clocks across all nodes",
+          "Compressing replicated data for network efficiency",
+          "Encrypting messages between replicas"
+        ],
+        "answer": 0,
+        "explanation": "Vector clocks let each process maintain a vector of logical timestamps. By comparing vectors, the system can determine whether two events are causally related or concurrent, enabling causal consistency implementations.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-113",
+        "question": "What is the monotonic reads guarantee?",
+        "options": [
+          "Every write from a session is applied before the next write begins",
+          "All clients always see the same value at the same time",
+          "Once a client reads a value, subsequent reads will never return an older value",
+          "Reads always return the value written by the most recent transaction globally"
+        ],
+        "answer": 2,
+        "explanation": "Monotonic reads ensures that within a session, a client's view of the data never moves backward. If a read returns version N, future reads will return version N or newer.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-114",
+        "question": "What is the purpose of witness replicas in tunable consistency?",
+        "options": [
+          "They store the full dataset and serve all read requests",
+          "They perform compaction on behalf of other replicas",
+          "They replace the leader in consensus algorithms",
+          "They record that a write occurred without storing the full data, reducing storage cost while preserving quorum mechanics"
+        ],
+        "answer": 3,
+        "explanation": "Witness replicas participate in quorum votes by recording write metadata without storing full copies of the data. They can be promoted to full replicas if needed, providing a cost-effective way to maintain quorum overlap.",
+        "multiSelect": false
       }
     ]
   },
@@ -863,6 +1448,45 @@
         ],
         "answer": 1,
         "explanation": "Merkle Trees summarize data with hashes from leaves to root. Matching hashes let replicas skip equal ranges and focus only on divergent subtrees.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-115",
+        "question": "What are sloppy quorums and what do they trade?",
+        "options": [
+          "They allow writes to non-designated replicas when target nodes are unavailable, improving availability at the cost of consistency",
+          "They require strict majority agreement for every operation",
+          "They eliminate the need for any replication",
+          "They guarantee linearizable reads under all conditions"
+        ],
+        "answer": 0,
+        "explanation": "Sloppy quorums relax the requirement that quorum members be the designated replicas. Combined with hinted handoff, this improves write availability during partial failures, but the consistency guarantee is weakened because the write may not reach the canonical replicas immediately.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-116",
+        "question": "How do digest requests optimize read repair?",
+        "options": [
+          "They skip reading from any replica entirely",
+          "Replicas return a hash of their data instead of the full value, and full reads are issued only when hashes disagree",
+          "They compress all replica responses into a single network packet",
+          "They force all replicas to return the same value regardless of their actual state"
+        ],
+        "answer": 1,
+        "explanation": "Digest requests reduce network overhead during read repair. The coordinator asks replicas for a compact hash rather than the full data. Only when digests differ does the coordinator fetch full values to determine which replica is stale and needs updating.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-117",
+        "question": "What distinguishes gossip dissemination from simple broadcasting?",
+        "options": [
+          "Gossip sends messages to every node simultaneously in a single round",
+          "Gossip spreads information probabilistically through random peer exchanges, trading message redundancy for robustness",
+          "Gossip requires a centralized message broker",
+          "Broadcasting is probabilistic while gossip is deterministic"
+        ],
+        "answer": 1,
+        "explanation": "Gossip protocols propagate information by having each node periodically share state with randomly selected peers. This epidemic-style spread is inherently redundant but highly robust against individual node or link failures, unlike broadcasting which is simpler but more fragile at scale.",
         "multiSelect": false
       }
     ]
@@ -942,6 +1566,58 @@
         ],
         "answer": 0,
         "explanation": "The notes present Calvin as deterministic and sequence-driven, while Spanner combines distributed transactions with Paxos-backed shards and its TrueTime API.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-118",
+        "question": "What role does Spanner's TrueTime API serve?",
+        "options": [
+          "It replaces the need for any consensus protocol",
+          "It eliminates all network latency between data centers",
+          "It provides high-precision wall-clock timestamps used for transaction ordering and consistency",
+          "It is a deterministic scheduler like Calvin's sequencer"
+        ],
+        "answer": 2,
+        "explanation": "TrueTime exposes bounded clock uncertainty, allowing Spanner to assign globally meaningful timestamps to transactions. This enables consistent snapshot reads and ordering without requiring a single global sequencer.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-119",
+        "question": "What is the Percolator model's approach to handling write conflicts under snapshot isolation?",
+        "options": [
+          "It uses pessimistic locking to prevent any concurrent writes",
+          "It applies a first-commit-wins rule: conflicting writes are aborted and retried",
+          "It merges conflicting writes using CRDTs",
+          "It ignores conflicts entirely and relies on eventual consistency"
+        ],
+        "answer": 1,
+        "explanation": "Percolator provides snapshot isolation using MVCC. When two transactions conflict on the same key, the first to commit wins and the other is aborted and must retry. This prevents lost updates but does not prevent write skew.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-120",
+        "question": "What does coordination avoidance aim to achieve?",
+        "options": [
+          "It forces all operations through a single coordinator for simplicity",
+          "It requires Byzantine fault tolerance for all operations",
+          "It eliminates replication to avoid coordination overhead",
+          "It identifies operations that can execute correctly without cross-node coordination, improving performance and scalability"
+        ],
+        "answer": 3,
+        "explanation": "Coordination avoidance uses the concept of invariant confluence (I-confluence) to determine which operations can safely execute independently on different replicas and still produce a valid merged result, avoiding the latency and availability costs of coordination.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-121",
+        "question": "How does database sharding relate to distributed transactions?",
+        "options": [
+          "Sharding eliminates the need for distributed transactions entirely",
+          "Each shard is a single source for a data subset, so transactions spanning multiple shards require coordination protocols like 2PC",
+          "Sharding guarantees linearizability across all partitions by default",
+          "Shards always use consistent hashing, never range-based partitioning"
+        ],
+        "answer": 1,
+        "explanation": "Sharding splits data across replica sets where each set owns a subset. Single-shard transactions are local and fast, but transactions that touch multiple shards require distributed commit protocols to maintain atomicity.",
         "multiSelect": false
       }
     ]
@@ -1043,6 +1719,71 @@
         "answer": 1,
         "explanation": "PBFT requires 3f + 1 replicas to tolerate up to f Byzantine failures while still collecting enough matching responses.",
         "multiSelect": false
+      },
+      {
+        "id": "db-122",
+        "question": "What are the three phases of Zookeeper Atomic Broadcast (ZAB)?",
+        "options": [
+          "Discovery, synchronization, broadcast",
+          "Propose, accept, learn",
+          "Pre-prepare, prepare, commit",
+          "Read, validate, write"
+        ],
+        "answer": 0,
+        "explanation": "ZAB operates in three phases: Discovery (collecting latest transaction IDs and proposing a new epoch), Synchronization (ensuring followers share the same history), and Broadcast (the leader orders and distributes messages).",
+        "multiSelect": false
+      },
+      {
+        "id": "db-123",
+        "question": "What does a term (or epoch) represent in Raft?",
+        "options": [
+          "A monotonically increasing logical time period that provides ordering without clock synchronization",
+          "A fixed wall-clock time interval measured in seconds",
+          "The number of log entries a leader has committed",
+          "The physical network latency between nodes"
+        ],
+        "answer": 0,
+        "explanation": "Raft terms are monotonically increasing counters that establish a global partial ordering of events. Each term has at most one leader, and terms increase with each new election, providing a logical notion of time without requiring synchronized clocks.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-124",
+        "question": "What is the key difference between best-effort broadcast and reliable broadcast?",
+        "options": [
+          "Reliable broadcast is faster because it sends fewer messages",
+          "Best-effort broadcast guarantees total order while reliable broadcast does not",
+          "In best-effort broadcast, delivery fails if the sender crashes; reliable broadcast ensures all correct processes deliver the message even if the sender fails",
+          "They are identical in guarantees but differ in implementation language"
+        ],
+        "answer": 2,
+        "explanation": "Best-effort broadcast depends on the sender remaining alive. If the sender crashes mid-broadcast, some processes may never receive the message. Reliable broadcast adds retransmission so all correct processes eventually deliver the message regardless of sender failure.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-125",
+        "question": "How does Fast Paxos reduce latency compared with classic Paxos?",
+        "options": [
+          "It eliminates the need for any quorum",
+          "It reduces the number of acceptors needed to just one",
+          "It uses Byzantine fault tolerance instead of crash tolerance",
+          "It allows proposers to contact acceptors directly, skipping the leader's propose step, at the cost of possible collisions"
+        ],
+        "answer": 3,
+        "explanation": "Fast Paxos allows any proposer to send directly to acceptors, saving one message round-trip. However, concurrent proposals can collide and require a coordinator to resolve, sometimes making it slower than classic Paxos in practice.",
+        "multiSelect": false
+      },
+      {
+        "id": "db-126",
+        "question": "Which guarantees does Raft provide for its replicated log? (Select all that apply)",
+        "options": [
+          "At most one leader per term",
+          "A leader's log is append-only and never has entries deleted",
+          "Committed entries will be present in the logs of all future leaders",
+          "Any node can overwrite the leader's log at any time"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Raft guarantees one leader per term, append-only leader logs, and that committed entries persist across leader changes. Followers never overwrite the leader's log; instead, the leader's log takes precedence.",
+        "multiSelect": true
       }
     ]
   },
@@ -1083,74 +1824,26 @@
         "answer": [0, 1, 2],
         "explanation": "In the comparison table, B+Trees are presented as buffered, mutable, and ordered. Append-only immutable-on-disk behavior is more characteristic of LSM-style structures.",
         "multiSelect": true
-      }
-    ]
-  },
-  {
-    "slug": "web-fundamentals",
-    "title": "Web Fundamentals",
-    "description": "Core concepts of HTTP, browsers, and web architecture",
-    "image": "/images/react-conf-2025.svg",
-    "relatedArticles": [],
-    "questions": [
+      },
       {
-        "id": "web-1",
-        "question": "Which HTTP status code indicates that a resource has been permanently moved to a new URL?",
-        "options": [
-          "200 OK",
-          "301 Moved Permanently",
-          "404 Not Found",
-          "503 Service Unavailable"
-        ],
-        "answer": 1,
-        "explanation": "A 301 status code tells the client that the resource has permanently moved to a new URL.",
+        "id": "db-127",
+        "question": "Which page replacement algorithm tracks access frequency rather than recency?",
+        "options": ["FIFO", "LRU", "CLOCK", "LFU"],
+        "answer": 3,
+        "explanation": "LFU (Least Frequently Used) tracks how often each page is accessed and evicts the least frequently used one. LRU tracks recency, CLOCK approximates LRU, and FIFO simply uses insertion order.",
         "multiSelect": false
       },
       {
-        "id": "web-2",
-        "question": "What does the 'Content-Type' HTTP header specify?",
+        "id": "db-128",
+        "question": "What is the fundamental insight that shapes storage engine design more than asymptotic complexity?",
         "options": [
-          "The encoding used to compress the response body",
-          "The media type of the resource (e.g., text/html, application/json)",
-          "The maximum size of the request body the server will accept",
-          "The authentication scheme required by the server"
+          "Hardware behavior, access patterns, and operational tradeoffs of the underlying storage medium",
+          "The choice of programming language",
+          "The number of users connected to the database",
+          "Whether the database is open-source or proprietary"
         ],
-        "answer": 1,
-        "explanation": "The Content-Type header indicates the media type of the resource so the client knows how to interpret the body.",
-        "multiSelect": false
-      },
-      {
-        "id": "web-3",
-        "question": "Which of the following are valid Cache-Control directives? (Select all that apply)",
-        "options": ["no-store", "max-age=3600", "must-refresh", "public"],
-        "answer": [0, 1, 3],
-        "explanation": "'no-store', 'max-age=3600', and 'public' are valid directives. 'must-refresh' is not; the standard directive is 'must-revalidate'.",
-        "multiSelect": true
-      },
-      {
-        "id": "web-4",
-        "question": "What is the primary purpose of a Content Delivery Network (CDN)?",
-        "options": [
-          "To encrypt data in transit between client and server",
-          "To serve content from geographically distributed edge servers closer to the user",
-          "To compile and bundle JavaScript files for production",
-          "To validate HTML documents against web standards"
-        ],
-        "answer": 1,
-        "explanation": "A CDN reduces latency by serving cached content from edge locations closer to the user.",
-        "multiSelect": false
-      },
-      {
-        "id": "web-5",
-        "question": "In the context of web security, what does CORS stand for?",
-        "options": [
-          "Centralized Origin Resource System",
-          "Cross-Origin Resource Sharing",
-          "Client-Oriented Request Schema",
-          "Cached Object Retrieval Service"
-        ],
-        "answer": 1,
-        "explanation": "Cross-Origin Resource Sharing is the browser mechanism that lets servers declare which origins may access their resources.",
+        "answer": 0,
+        "explanation": "The summary emphasizes that real-world storage engine design is driven by hardware characteristics (HDD seek times, SSD page/block behavior), access patterns (sequential vs. random I/O), and operational tradeoffs (read vs. write vs. space amplification) rather than theoretical complexity alone.",
         "multiSelect": false
       }
     ]
