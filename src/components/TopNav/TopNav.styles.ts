@@ -240,6 +240,11 @@ const nestedTriggerStyles = css`
 
   & > svg {
     flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  &[data-popup-open] > svg {
+    transform: rotate(-90deg);
   }
 `;
 
@@ -385,7 +390,7 @@ export const SubmenuPanel = styled.div`
   display: flex;
   flex-direction: column;
   width: min(22rem, calc(100vw - 2rem));
-  max-height: min(70vh, 32rem);
+  max-height: min(70vh, 44rem);
   padding: 0.75rem;
   overflow-y: auto;
 `;
@@ -418,31 +423,232 @@ export const CompactLinkList = styled.ul`
   list-style: none;
 `;
 
-export const DesktopTriggerLabel = styled.span`
-  @media (max-width: 768px) {
-    display: none;
-  }
+export const StyledSeparator = styled.div`
+  height: 1px;
+  margin: 0.5rem 0.75rem;
+  background-color: var(--color-gray-200);
 `;
 
-export const MobileTriggerLabel = styled.span`
-  display: none;
+// ---------------------------------------------------------------------------
+// Mobile Drawer
+// ---------------------------------------------------------------------------
 
-  @media (max-width: 768px) {
-    display: inline;
-  }
-`;
-
-export const MobileOnlySection = styled.div`
+export const MobileNavButton = styled.button`
+  ${buttonStyles}
+  cursor: pointer;
   display: none;
 
   @media (max-width: 768px) {
     display: flex;
-    flex-direction: column;
   }
 `;
 
-export const StyledSeparator = styled.div`
+export const DrawerBackdrop = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+
+  &[data-open] {
+    opacity: 1;
+  }
+`;
+
+export const DrawerPanel = styled.nav`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 21;
+  display: flex;
+  flex-direction: column;
+  width: min(20rem, 100vw);
+  background-color: var(--color-paper);
+  border-left: 1px solid var(--color-divider);
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.3);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &[data-open] {
+    transform: translateX(0);
+  }
+`;
+
+export const DrawerHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-divider);
+  min-height: 2.75rem;
+  box-sizing: border-box;
+`;
+
+export const DrawerBackBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: transparent;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  cursor: pointer;
+  outline: 0;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: -1px;
+  }
+
+  &:active {
+    background-color: var(--color-gray-100);
+  }
+`;
+
+export const DrawerTitle = styled.span`
+  flex: 1;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+export const DrawerCloseBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-left: auto;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  outline: 0;
+  flex-shrink: 0;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: -1px;
+  }
+
+  &:active {
+    background-color: var(--color-gray-100);
+  }
+`;
+
+export const DrawerBody = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.5rem 0;
+`;
+
+export const DrawerLink = styled(Link)`
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--color-gray-900);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-decoration: none;
+  outline: 0;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-gray-100);
+    }
+  }
+
+  &:focus-visible {
+    position: relative;
+    outline: 2px solid var(--color-focus);
+    outline-offset: -1px;
+  }
+
+  &:active {
+    background-color: var(--color-gray-100);
+  }
+`;
+
+export const DrawerExternalLink = styled.a`
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--color-gray-900);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-decoration: none;
+  outline: 0;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-gray-100);
+    }
+  }
+
+  &:focus-visible {
+    position: relative;
+    outline: 2px solid var(--color-focus);
+    outline-offset: -1px;
+  }
+
+  &:active {
+    background-color: var(--color-gray-100);
+  }
+`;
+
+export const DrawerDrillBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 0;
+  background: transparent;
+  color: var(--color-gray-900);
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: left;
+  cursor: pointer;
+  outline: 0;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-gray-100);
+    }
+  }
+
+  &:focus-visible {
+    position: relative;
+    outline: 2px solid var(--color-focus);
+    outline-offset: -1px;
+  }
+
+  &:active {
+    background-color: var(--color-gray-100);
+  }
+
+  & > svg {
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+`;
+
+export const DrawerDivider = styled.div`
   height: 1px;
-  margin: 0.5rem 0.75rem;
+  margin: 0.5rem 1rem;
   background-color: var(--color-gray-200);
 `;
