@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { NavigationMenu } from '@base-ui/react/navigation-menu';
 
@@ -6,15 +7,26 @@ import {
   ArrowSvg,
   ChevronDownIcon,
   ChevronLeftIcon,
+  ChevronRightIcon,
+  CloseIcon,
 } from '~/components/ChevronIcons';
 import {
   CompactLinkList,
   DesktopOnlyNavItem,
-  DesktopTriggerLabel,
+  DrawerBackBtn,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseBtn,
+  DrawerDivider,
+  DrawerDrillBtn,
+  DrawerExternalLink,
+  DrawerHeader,
+  DrawerLink,
+  DrawerPanel,
+  DrawerTitle,
   MenuPanel,
   MenuSection,
-  MobileOnlySection,
-  MobileTriggerLabel,
+  MobileNavButton,
   NestedMenuList,
   NestedMenuRoot,
   SectionPanel,
@@ -121,6 +133,237 @@ function ContactNavLink({ href, children }: ContactNavLinkProps) {
 
 function getFlashcardPath(slug: string) {
   return paths.flashcardDeck.replace(':deck', slug);
+}
+
+// ---------------------------------------------------------------------------
+// Mobile Drawer
+// ---------------------------------------------------------------------------
+
+type DrawerView =
+  | { level: 'root' }
+  | { level: 'articles' }
+  | { level: 'flashcards' }
+  | {
+      level: 'collection';
+      parent: 'articles' | 'flashcards';
+      title: string;
+      links: CollectionSubmenuLink[];
+    };
+
+function MobileDrawer() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [view, setView] = useState<DrawerView>({ level: 'root' });
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
+
+  const close = useCallback(() => {
+    setIsOpen(false);
+    // Delay resetting the view so the slide-out animation shows the current content
+    setTimeout(() => setView({ level: 'root' }), 300);
+  }, []);
+
+  // Close on Escape and trap focus
+  useEffect(() => {
+    if (!isOpen) return;
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        close();
+        triggerRef.current?.focus();
+      }
+    }
+
+    // Prevent body scroll while drawer is open
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = prev;
+    };
+  }, [isOpen, close]);
+
+  // Focus the panel when it opens
+  useEffect(() => {
+    if (isOpen) {
+      panelRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  const goBack = () => {
+    if (view.level === 'collection') {
+      setView({ level: view.parent });
+    } else {
+      setView({ level: 'root' });
+    }
+  };
+
+  const title =
+    view.level === 'root'
+      ? 'Menu'
+      : view.level === 'articles'
+        ? 'Articles'
+        : view.level === 'flashcards'
+          ? 'Flashcards'
+          : view.title;
+
+  return (
+    <>
+      <MobileNavButton
+        ref={triggerRef}
+        onClick={() => setIsOpen((o) => !o)}
+        aria-expanded={isOpen}
+        aria-haspopup="dialog"
+      >
+        Menu
+        <ChevronDownIcon />
+      </MobileNavButton>
+
+      {/* Backdrop */}
+      <DrawerBackdrop
+        data-open={isOpen || undefined}
+        onClick={close}
+        style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+      />
+
+      {/* Drawer Panel */}
+      <DrawerPanel
+        ref={panelRef}
+        data-open={isOpen || undefined}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
+        tabIndex={-1}
+      >
+        <DrawerHeader>
+          {view.level !== 'root' && (
+            <DrawerBackBtn onClick={goBack} aria-label="Go back">
+              <ChevronLeftIcon />
+              Back
+            </DrawerBackBtn>
+          )}
+          <DrawerTitle>{title}</DrawerTitle>
+          <DrawerCloseBtn onClick={close} aria-label="Close menu">
+            <CloseIcon />
+          </DrawerCloseBtn>
+        </DrawerHeader>
+
+        <DrawerBody>
+          {view.level === 'root' && (
+            <>
+              {contactItems.map((item) => (
+                <DrawerExternalLink
+                  key={item.label}
+                  href={item.url}
+                  onClick={close}
+                >
+                  {item.label}
+                </DrawerExternalLink>
+              ))}
+              <DrawerDivider />
+              <DrawerDrillBtn onClick={() => setView({ level: 'articles' })}>
+                Articles
+                <ChevronRightIcon />
+              </DrawerDrillBtn>
+              <DrawerDrillBtn onClick={() => setView({ level: 'flashcards' })}>
+                Flashcards
+                <ChevronRightIcon />
+              </DrawerDrillBtn>
+            </>
+          )}
+
+          {view.level === 'articles' && (
+            <>
+              <DrawerLink to={paths.articles} onClick={close}>
+                All Articles
+              </DrawerLink>
+              <DrawerDivider />
+              {articleMenu.collections.map((group) => (
+                <DrawerDrillBtn
+                  key={group.slug}
+                  onClick={() =>
+                    setView({
+                      level: 'collection',
+                      parent: 'articles',
+                      title: group.title,
+                      links: group.articles.map((article) => ({
+                        key: article.path,
+                        to: article.path,
+                        label: article.collection?.shortTitle ?? article.title,
+                      })),
+                    })
+                  }
+                >
+                  {group.title}
+                  <ChevronRightIcon />
+                </DrawerDrillBtn>
+              ))}
+              {articleMenu.standalone.length > 0 && <DrawerDivider />}
+              {articleMenu.standalone.map((article) => (
+                <DrawerLink
+                  key={article.path}
+                  to={article.path}
+                  onClick={close}
+                >
+                  {article.title}
+                </DrawerLink>
+              ))}
+            </>
+          )}
+
+          {view.level === 'flashcards' && (
+            <>
+              <DrawerLink to={paths.flashcards} onClick={close}>
+                All Flashcards
+              </DrawerLink>
+              <DrawerDivider />
+              {flashcardMenu.collections.map((group) => (
+                <DrawerDrillBtn
+                  key={group.slug}
+                  onClick={() =>
+                    setView({
+                      level: 'collection',
+                      parent: 'flashcards',
+                      title: group.title,
+                      links: group.decks.map((deck) => ({
+                        key: deck.slug,
+                        to: getFlashcardPath(deck.slug),
+                        label: deck.title,
+                      })),
+                    })
+                  }
+                >
+                  {group.title}
+                  <ChevronRightIcon />
+                </DrawerDrillBtn>
+              ))}
+              {flashcardMenu.standalone.length > 0 && <DrawerDivider />}
+              {flashcardMenu.standalone.map((deck) => (
+                <DrawerLink
+                  key={deck.slug}
+                  to={getFlashcardPath(deck.slug)}
+                  onClick={close}
+                >
+                  {deck.title}
+                </DrawerLink>
+              ))}
+            </>
+          )}
+
+          {view.level === 'collection' && (
+            <>
+              {view.links.map((link) => (
+                <DrawerLink key={link.key} to={link.to} onClick={close}>
+                  {link.label}
+                </DrawerLink>
+              ))}
+            </>
+          )}
+        </DrawerBody>
+      </DrawerPanel>
+    </>
+  );
 }
 
 function ArticlesPanel() {
@@ -303,10 +546,9 @@ export default function TopNav() {
           </StyledNavContent>
         </DesktopOnlyNavItem>
 
-        <NavigationMenu.Item>
+        <DesktopOnlyNavItem>
           <StyledNavTrigger>
-            <DesktopTriggerLabel>Get In Touch</DesktopTriggerLabel>
-            <MobileTriggerLabel>Menu</MobileTriggerLabel>
+            Get In Touch
             <NavigationMenu.Icon render={<ChevronDownIcon />} />
           </StyledNavTrigger>
 
@@ -317,61 +559,11 @@ export default function TopNav() {
                   {item.label}
                 </ContactNavLink>
               ))}
-
-              <MobileOnlySection>
-                <StyledSeparator />
-
-                <NestedMenuRoot orientation="vertical">
-                  <NestedMenuList>
-                    <NavigationMenu.Item>
-                      <StyledNestedTrigger>
-                        <NavigationMenu.Icon render={<ChevronLeftIcon />} />
-                        Articles
-                      </StyledNestedTrigger>
-
-                      <StyledNavContent>
-                        <SectionPanel>
-                          <ArticlesPanel />
-                        </SectionPanel>
-                      </StyledNavContent>
-                    </NavigationMenu.Item>
-
-                    <NavigationMenu.Item>
-                      <StyledNestedTrigger>
-                        <NavigationMenu.Icon render={<ChevronLeftIcon />} />
-                        Flashcards
-                      </StyledNestedTrigger>
-
-                      <StyledNavContent>
-                        <SectionPanel>
-                          <FlashcardsPanel />
-                        </SectionPanel>
-                      </StyledNavContent>
-                    </NavigationMenu.Item>
-                  </NestedMenuList>
-
-                  <NavigationMenu.Portal>
-                    <StyledPositioner
-                      side="left"
-                      align="start"
-                      sideOffset={12}
-                      collisionPadding={{
-                        top: 5,
-                        bottom: 5,
-                        left: 16,
-                        right: 16,
-                      }}
-                    >
-                      <StyledPopup>
-                        <StyledViewport />
-                      </StyledPopup>
-                    </StyledPositioner>
-                  </NavigationMenu.Portal>
-                </NestedMenuRoot>
-              </MobileOnlySection>
             </MenuPanel>
           </StyledNavContent>
-        </NavigationMenu.Item>
+        </DesktopOnlyNavItem>
+
+        <MobileDrawer />
       </StyledNavList>
 
       <NavigationMenu.Portal>
