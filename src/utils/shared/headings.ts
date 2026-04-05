@@ -5,6 +5,22 @@ export interface TocHeading {
 }
 
 /**
+ * Decode common HTML entities produced by markdown-it into their plaintext
+ * equivalents.  This is intentionally limited to the subset of named character
+ * references that markdown-it emits so that the function stays dependency-free
+ * and safe to run in both browser and SSR environments.
+ */
+function decodeHtmlEntities(text: string): string {
+  return text
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, '&');
+}
+
+/**
  * Parse heading elements from rendered article HTML.
  * Expects headings produced by markdown-it-anchor with `a.header-anchor` children.
  */
@@ -20,7 +36,8 @@ export function extractHeadings(html: string): TocHeading[] {
   while ((match = regex.exec(html)) !== null) {
     const level = Number(match[1]);
     const id = match[2];
-    // Strip HTML tags from heading content to get plain text.
+    // Strip HTML tags from heading content to get plain text, then decode
+    // HTML entities so that characters like "&" are not shown as "&amp;".
     // This operates on trusted markdown-generated HTML, not user input.
     let text = match[3];
     let previous: string;
@@ -28,7 +45,7 @@ export function extractHeadings(html: string): TocHeading[] {
       previous = text;
       text = text.replace(/<[^>]+>/g, '');
     } while (text !== previous);
-    text = text.trim();
+    text = decodeHtmlEntities(text.trim());
     if (id && text) {
       headings.push({ id, text, level });
     }
