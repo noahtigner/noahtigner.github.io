@@ -16,6 +16,14 @@ export function ChevronRightIcon(props: ComponentProps<'svg'>) {
   );
 }
 
+export function ChevronLeftIcon(props: ComponentProps<'svg'>) {
+  return (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" {...props}>
+      <path d="M6.5 9L2.5 5L6.5 1" stroke="currentcolor" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
 export function ArrowSvg(props: ComponentProps<'svg'>) {
   return (
     <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
