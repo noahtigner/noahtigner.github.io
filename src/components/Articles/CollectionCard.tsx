@@ -116,7 +116,7 @@ export default function CollectionCard({ title, articles }: CollectionGroup) {
                 prefetch="viewport"
                 aria-label={article.title}
               >
-                {article.title}
+                {article.collection?.shortTitle ?? article.title}
               </ArticleLink>
               <ArticleMeta>
                 {article.minutesToRead} min • {article.published}
