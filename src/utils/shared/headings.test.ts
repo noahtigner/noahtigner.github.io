@@ -66,4 +66,18 @@ describe('extractHeadings', () => {
   it('should return empty array for empty string', () => {
     expect(extractHeadings('')).toEqual([]);
   });
+
+  it('should decode HTML entities in heading text', () => {
+    const html = `
+      <h2 id="intro-motivation"><a class="header-anchor" href="#intro-motivation">Introduction &amp; Motivation</a></h2>
+      <h3 id="read-write"><a class="header-anchor" href="#read-write">Read &amp; Write Anomalies</a></h3>
+      <h4 id="angles"><a class="header-anchor" href="#angles">&lt;Component /&gt;</a></h4>
+    `;
+    const headings = extractHeadings(html);
+    expect(headings).toEqual([
+      { id: 'intro-motivation', text: 'Introduction & Motivation', level: 2 },
+      { id: 'read-write', text: 'Read & Write Anomalies', level: 3 },
+      { id: 'angles', text: '<Component />', level: 4 },
+    ]);
+  });
 });
