@@ -47,7 +47,7 @@ We begin with a simple single server setup where everything including the web ap
 When a server begins to struggle with its workload, it can be vertically "scaled up" by increasing the CPU and RAM.
 This approach has several limitations, including:
 
-- There is a limit (and diminishing returns) to how much CPU and RAM can be added to a single machine
+- There are limits (and diminishing returns) to how much CPU and RAM can be added to a single machine
 - This process is slow, manual, and inelastic
 - There is no failover or redundancy
 
