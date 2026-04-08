@@ -61,7 +61,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 
 - [x] [Creating a Custom Github Pages 404 Page with React Router v7's Framework Mode](https://noahtigner.com/articles/github-pages-404-react-router/)
 - [x] [React Conf 2025 Highlights](https://noahtigner.com/articles/react-conf-2025/)
-- [ ] Notes on Alex Petrov's _Database Internals_:
+- [x] Notes on Alex Petrov's _Database Internals_:
   - [x] [Chapter 1 - Storage Engines Intro & Overview](https://noahtigner.com/articles/database-internals-chapter-1/)
   - [x] [Chapter 2 - B-Tree Basics](https://noahtigner.com/articles/database-internals-chapter-2/)
   - [x] [Chapter 3 - File Formats](https://noahtigner.com/articles/database-internals-chapter-3/)
@@ -77,6 +77,37 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] [Chapter 13 - Distributed Transactions](https://noahtigner.com/articles/database-internals-chapter-13/)
   - [x] [Chapter 14 - Consensus](https://noahtigner.com/articles/database-internals-chapter-14/)
   - [x] [Summary & Thoughts](https://noahtigner.com/articles/database-internals-summary/)
+- [x] Notes on Alex Xu's _System Design Interview_:
+  - [x] [Introduction & Motivation](https://noahtigner.com/articles/system-design-interview/)
+  - [x] [Chapter 1 - Scale From Zero to Millions of Users](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-1/)
+  - [ ] Vol. 1 Chapter 2 - Back-of-the-Envelope Estimation
+  - [ ] Vol. 1 Chapter 3 - A Framework for System Design Interviews
+  - [ ] Vol. 1 Chapter 4 - Design a Rate Limiter
+  - [ ] Vol. 1 Chapter 5 - Design Consistent Hashing
+  - [ ] Vol. 1 Chapter 6 - Design a Key-Value Store
+  - [ ] Vol. 1 Chapter 7 - Design a Unique ID Generator in Distributed Systems
+  - [ ] Vol. 1 Chapter 8 - Design a URL Shortener
+  - [ ] Vol. 1 Chapter 9 - Design a Web Crawler
+  - [ ] Vol. 1 Chapter 10 - Design a Notification System
+  - [ ] Vol. 1 Chapter 11 - Design a News Feed System
+  - [ ] Vol. 1 Chapter 12 - Design a Chat System
+  - [ ] Vol. 1 Chapter 13 - Design a Search Autocomplete System
+  - [ ] Vol. 1 Chapter 14 - Design YouTube
+  - [ ] Vol. 1 Chapter 15 - Design Google Drive
+  - [ ] Vol. 2 Chapter 1 - Proximity Services
+  - [ ] Vol. 2 Chapter 2 - Nearby Friends
+  - [ ] Vol. 2 Chapter 3 - Google Maps
+  - [ ] Vol. 2 Chapter 4 - Distributed Message Queues
+  - [ ] Vol. 2 Chapter 5 - Metrics Monitoring and Alerting Systems
+  - [ ] Vol. 2 Chapter 6 - Ad Click Event Aggregation
+  - [ ] Vol. 2 Chapter 7 - Hotel Reservation System
+  - [ ] Vol. 2 Chapter 8 - Distributed Email Service
+  - [ ] Vol. 2 Chapter 9 - S3-like Object Storage
+  - [ ] Vol. 2 Chapter 10 - Real-time Gaming Leaderboard
+  - [ ] Vol. 2 Chapter 11 - Payment System
+  - [ ] Vol. 2 Chapter 12 - Digital Wallet
+  - [ ] Vol. 2 Chapter 13 - Stock Exchange
+  - [ ] Summary & Thoughts
 
 ## Available Scripts:
 
