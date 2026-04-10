@@ -48,6 +48,10 @@ md.use(tasklist, {
   disabled: true, // Make checkboxes non-clickable
 });
 
+// Wrap tables in a scrollable container for mobile overflow handling
+md.renderer.rules.table_open = () => `<div class="table-wrapper"><table>`;
+md.renderer.rules.table_close = () => `</table></div>`;
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
