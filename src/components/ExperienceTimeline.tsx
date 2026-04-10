@@ -1,36 +1,32 @@
 import type { ReactNode } from 'react';
 import {
-  BuildOutlined as BuildOutlinedIcon,
-  CloudOutlined as CloudOutlinedIcon,
-  SettingsOutlined as SettingsOutlinedIcon,
-  SchoolOutlined as SchoolOutlinedIcon,
-  CodeOutlined as CodeOutlinedIcon,
-  DataObjectOutlined as DataObjectOutlinedIcon,
-} from '@mui/icons-material';
+  Wrench,
+  Cloud,
+  Settings,
+  GraduationCap,
+  Code,
+  Braces,
+} from 'lucide-react';
 import styled from '@emotion/styled';
 
 import experienceItems from '~/assets/data/experienceItems.json';
 
-const StyledSvg = styled.svg`
-  fill: var(--color-text-primary) !important;
-  width: 21px;
-  height: 21px;
-`;
+const iconProps = { size: 21, color: 'var(--color-text-primary)' };
 
 function ExperienceIcon({ organization }: { organization: string }): ReactNode {
   switch (organization) {
     case 'Alteryx':
-      return <StyledSvg as={CodeOutlinedIcon} />;
+      return <Code {...iconProps} />;
     case 'HP':
-      return <StyledSvg as={CloudOutlinedIcon} />;
+      return <Cloud {...iconProps} />;
     case 'Air-Weigh':
-      return <StyledSvg as={BuildOutlinedIcon} />;
+      return <Wrench {...iconProps} />;
     case 'TDS Telecom':
-      return <StyledSvg as={SettingsOutlinedIcon} />;
+      return <Settings {...iconProps} />;
     case 'University of Oregon':
-      return <StyledSvg as={SchoolOutlinedIcon} />;
+      return <GraduationCap {...iconProps} />;
     default:
-      return <StyledSvg as={DataObjectOutlinedIcon} />;
+      return <Braces {...iconProps} />;
   }
 }
 

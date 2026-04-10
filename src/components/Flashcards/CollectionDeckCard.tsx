@@ -1,6 +1,6 @@
 import { useId, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import { ChevronDown } from 'lucide-react';
 
 import Checkbox from '~/components/Flashcards/Checkbox';
 import DeckCard from '~/components/Flashcards/DeckCard';
@@ -84,7 +84,7 @@ const ProgressIndicator = styled.span`
   color: var(--color-focus);
 `;
 
-const Chevron = styled(ExpandMore)<{ $expanded: boolean }>`
+const Chevron = styled(ChevronDown)<{ $expanded: boolean }>`
   color: var(--color-text-secondary);
   flex-shrink: 0;
   transform: rotate(${({ $expanded }) => ($expanded ? '0deg' : '-90deg')});
