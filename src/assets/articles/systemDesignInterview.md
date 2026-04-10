@@ -2,7 +2,7 @@
 title: System Design Interview Notes - Introduction & Motivation
 description: An overview of my collection of notes on System Design Interview by Alex Xu.
 published: April 8, 2026
-updated: April 8, 2026
+updated: April 10, 2026
 minutesToRead: 3
 path: /articles/system-design-interview/
 image: /images/system-design-interview.jpg
@@ -32,7 +32,7 @@ Although I will be using both the printed books and the online course, I will al
 #### Volume 1
 
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-1/">Chapter 1 - Scale From Zero to Millions of Users</a>
-- [ ] Chapter 2 - Back-of-the-Envelope Estimation
+- [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-2/">Chapter 2 - Back-of-the-Envelope Estimation</a>
 - [ ] Chapter 3 - A Framework for System Design Interviews
 - [ ] Chapter 4 - Design a Rate Limiter
 - [ ] Chapter 5 - Design Consistent Hashing
