@@ -1,14 +1,10 @@
-import {
-  GitHub,
-  YouTube,
-  LinkedIn,
-  EmailOutlined,
-  InsertDriveFileOutlined,
-  Article,
-} from '@mui/icons-material';
+import { Mail, FileText, Newspaper } from 'lucide-react';
 import styled from '@emotion/styled';
 
 import NpmSvg from '~/assets/icons/npm.svg?react';
+import GitHubSvg from '~/assets/icons/github.svg?react';
+import LinkedInSvg from '~/assets/icons/linkedin.svg?react';
+import YouTubeSvg from '~/assets/icons/youtube.svg?react';
 import contactItems from '~/assets/data/contactItems.json';
 
 interface ContactIconProps {
@@ -16,27 +12,29 @@ interface ContactIconProps {
 }
 
 const StyledSvg = styled.svg`
-  fill: var(--color-text-primary) !important;
+  color: var(--color-text-primary);
   width: 20px;
   height: 20px;
 `;
 
+const iconProps = { size: 20, color: 'var(--color-text-primary)' };
+
 function ContactIcon({ label }: ContactIconProps) {
   switch (label) {
     case 'LinkedIn':
-      return <StyledSvg as={LinkedIn} />;
+      return <StyledSvg as={LinkedInSvg} />;
     case 'Email':
-      return <StyledSvg as={EmailOutlined} />;
+      return <Mail {...iconProps} />;
     case 'GitHub':
-      return <StyledSvg as={GitHub} />;
+      return <StyledSvg as={GitHubSvg} />;
     case 'YouTube':
-      return <StyledSvg as={YouTube} />;
+      return <StyledSvg as={YouTubeSvg} />;
     case 'Résumé':
-      return <StyledSvg as={InsertDriveFileOutlined} />;
+      return <FileText {...iconProps} />;
     case 'JavaScript':
       return <StyledSvg as={NpmSvg} />;
     case 'Article':
-      return <StyledSvg as={Article} />;
+      return <Newspaper {...iconProps} />;
     default:
       console.error(`Unknown contact item label: ${label}`);
       return null;
