@@ -17,7 +17,7 @@ collection:
   order: 1
 ---
 
-## System Design Interview - Vol. 1. Ch. 1 - Scale From Zero to Millions of Users
+## System Design Interview - Vol. 1 Ch. 1 - Scale From Zero to Millions of Users
 
 <p class="subtitle">7 minute read • April 8, 2026</p>
 

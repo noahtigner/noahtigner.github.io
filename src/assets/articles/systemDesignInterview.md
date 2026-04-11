@@ -33,7 +33,7 @@ Although I will be using both the printed books and the online course, I will al
 
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-1/">Chapter 1 - Scale From Zero to Millions of Users</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-2/">Chapter 2 - Back-of-the-Envelope Estimation</a>
-- [ ] Chapter 3 - A Framework for System Design Interviews
+- [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-3/">Chapter 3 - A Framework for System Design Interviews</a>
 - [ ] Chapter 4 - Design a Rate Limiter
 - [ ] Chapter 5 - Design Consistent Hashing
 - [ ] Chapter 6 - Design a Key-Value Store
