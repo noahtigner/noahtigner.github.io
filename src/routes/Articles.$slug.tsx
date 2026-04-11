@@ -5,6 +5,7 @@ import ArticleContainer, {
   ArticleHead,
   ArticleSidebar,
   RightColumnSpacer,
+  SIDENAV_WIDTH,
 } from '~/components/Articles/Article';
 import {
   allArticles,
@@ -115,7 +116,7 @@ export default function DynamicArticleRoute({
         </ArticleContainer>
         <RightColumnSpacer
           aria-hidden="true"
-          style={{ width: GRAPH_WIDTH + 2, flexShrink: 0 }}
+          style={{ width: SIDENAV_WIDTH, flexShrink: 0 }}
         />
       </div>
     </>
