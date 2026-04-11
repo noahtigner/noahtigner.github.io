@@ -47,7 +47,7 @@ const BottomNavContainer = styled.div`
 `;
 
 export const RightColumnSpacer = styled.div`
-  @media (max-width: 1024px) {
+  @media (max-width: 1280px) {
     display: none;
   }
 `;
