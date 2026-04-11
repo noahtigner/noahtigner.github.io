@@ -17,7 +17,7 @@ collection:
   order: 2
 ---
 
-## System Design Interview - Vol. 1. Ch. 2 - Back-of-the-Envelope Estimation
+## System Design Interview - Vol. 1 Ch. 2 - Back-of-the-Envelope Estimation
 
 <p class="subtitle">10 minute read • April 10, 2026</p>
 

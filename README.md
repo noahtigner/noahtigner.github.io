@@ -80,8 +80,8 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
 - [x] Notes on Alex Xu's _System Design Interview_:
   - [x] [Introduction & Motivation](https://noahtigner.com/articles/system-design-interview/)
   - [x] [Vol. 1 Chapter 1 - Scale From Zero to Millions of Users](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-1/)
-  - [ ] [Vol. 1 Chapter 2 - Back-of-the-Envelope Estimation](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-2/)
-  - [ ] Vol. 1 Chapter 3 - A Framework for System Design Interviews
+  - [x] [Vol. 1 Chapter 2 - Back-of-the-Envelope Estimation](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-2/)
+  - [x] [Vol. 1 Chapter 3 - A Framework for System Design Interviews](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-3/)
   - [ ] Vol. 1 Chapter 4 - Design a Rate Limiter
   - [ ] Vol. 1 Chapter 5 - Design Consistent Hashing
   - [ ] Vol. 1 Chapter 6 - Design a Key-Value Store
