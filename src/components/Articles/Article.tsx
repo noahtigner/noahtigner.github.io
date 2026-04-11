@@ -24,10 +24,14 @@ const ImgBox = styled.img`
   }
 `;
 
+export const SIDENAV_WIDTH = 250;
+
 const SideNavContainer = styled.aside`
   position: sticky;
   top: 4.75rem;
   align-self: flex-start;
+  width: ${SIDENAV_WIDTH}px;
+  flex-shrink: 0;
 
   @media (max-width: 1024px) {
     display: none;
@@ -43,7 +47,7 @@ const BottomNavContainer = styled.div`
 `;
 
 export const RightColumnSpacer = styled.div`
-  @media (max-width: 1024px) {
+  @media (max-width: 1280px) {
     display: none;
   }
 `;
@@ -122,8 +126,6 @@ function ArticleNavigation({
         style={{
           width: 'fit-content',
           display: 'block',
-          marginLeft: 'auto',
-          marginRight: 'auto',
           marginTop: '1rem',
         }}
       >
