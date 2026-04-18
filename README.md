@@ -82,7 +82,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] [Vol. 1 Chapter 1 - Scale From Zero to Millions of Users](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-1/)
   - [x] [Vol. 1 Chapter 2 - Back-of-the-Envelope Estimation](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-2/)
   - [x] [Vol. 1 Chapter 3 - A Framework for System Design Interviews](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-3/)
-  - [ ] Vol. 1 Chapter 4 - Design a Rate Limiter
+  - [x] [Vol. 1 Chapter 4 - Design a Rate Limiter](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-4/)
   - [ ] Vol. 1 Chapter 5 - Design Consistent Hashing
   - [ ] Vol. 1 Chapter 6 - Design a Key-Value Store
   - [ ] Vol. 1 Chapter 7 - Design a Unique ID Generator in Distributed Systems
