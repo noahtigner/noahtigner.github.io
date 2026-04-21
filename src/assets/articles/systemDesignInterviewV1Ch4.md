@@ -2,7 +2,7 @@
 title: System Design Interview Vol. 1 Ch. 4 - Design a Rate Limiter
 description: Notes on Chapter 4 of System Design Interview by Alex Xu. High-level design breakdown and tradeoffs for distributed rate limiters.
 published: April 17, 2026
-updated: April 17, 2026
+updated: April 20, 2026
 minutesToRead: 11
 path: /articles/system-design-interview-volume-1-chapter-4/
 image: /images/system-design-interview.jpg
@@ -109,7 +109,7 @@ For example, we may want to offer more generous quotas during a new AI model's l
 The <a target="_blank" rel="noopener" href="https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-rate-limiter#fixed-window-counter">Fixed Window Counter</a> algorithm counts requests within the given fixed window, resetting the count to 0 at the start of each new window.
 This is the simplest and most memory-efficient algorithm and can be implemented with just a hash table.
 One issue is that bursts of traffic at the edges of the window can cause the quota to be exceeded.
-For example, if the limit for one hour is 100 requests, 100 could come in at the last minute of the hour and another 100 could come in at the first minute of the next hour, leading to 200 requests within just 2 minutes.
+For example, if the limit for one hour is 100 requests, then 100 could come in at the last minute of the hour and another 100 could come in at the first minute of the next hour, leading to 200 requests within just 2 minutes.
 
 The <a target="_blank" rel="noopener" href="https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-rate-limiter#sliding-window-log">Sliding Window Log</a> algorithm tracks individual request timestamps for each user.
 It is simple and accurate but very memory-intensive.
