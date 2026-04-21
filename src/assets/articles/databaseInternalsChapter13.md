@@ -2,7 +2,7 @@
 title: Database Internals Ch. 13 - Distributed Transactions
 description: Notes on Chapter 13 of Database Internals by Alex Petrov. Distributed Transactions, including two-phase commit, Spanner, partitioning, sharding, consistent hashing, and coordination avoidance.
 published: March 26, 2026
-updated: March 29, 2026
+updated: April 20, 2026
 minutesToRead: 9
 path: /articles/database-internals-chapter-13/
 image: /images/database-internals.jpg
@@ -140,7 +140,7 @@ The downside of this is that if the number of nodes changes, the system is immed
 
 #### Consistent Hashing
 
-In order to mitigate this problem, some DBs employ consistent hashing methods.
+In order to mitigate this problem, some DBs employ <a href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-5/" target="_blank" rel="noopener">consistent hashing</a> methods.
 Hashed values are mapped to a ring, so that after the largest possible value, it wraps around to the smallest value.
 Each node in the ring is responsible for the range of values between its two neighbors in the ring.
 Consistent hashing helps to reduce the number of relocations required for maintaining balance.
