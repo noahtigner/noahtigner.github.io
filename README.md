@@ -84,7 +84,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] [Vol. 1 Chapter 3 - A Framework for System Design Interviews](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-3/)
   - [x] [Vol. 1 Chapter 4 - Design a Rate Limiter](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-4/)
   - [x] [Vol. 1 Chapter 5 - Design Consistent Hashing](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-5/)
-  - [ ] Vol. 1 Chapter 6 - Design a Key-Value Store
+  - [x] [Vol. 1 Chapter 6 - Design a Key-Value Store](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-6/)
   - [ ] Vol. 1 Chapter 7 - Design a Unique ID Generator in Distributed Systems
   - [ ] Vol. 1 Chapter 8 - Design a URL Shortener
   - [ ] Vol. 1 Chapter 9 - Design a Web Crawler

@@ -17,15 +17,13 @@ collection:
   order: 2
 ---
 
-## System Design Interview - Vol. 1 Ch. 2 - Back-of-the-Envelope Estimation
-
 <p class="subtitle">10 minute read • April 10, 2026</p>
 
 This post contains my notes on Chapter 2 of <a target="_blank" rel="noopener" href="https://a.co/d/06Zho5r7">_System Design Interview_</a> by Alex Xu and the ByteByteGo course and videos that accompany it. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
 
 ---
 
-### Introduction
+## Introduction
 
 A critical part of the system design interview is "back-of-the-envelope" estimation.
 It is important to be familiar with several statistics, conversions, and formulae in order to make ballpark assumptions and estimations when designing and evaluating our systems.
@@ -33,7 +31,7 @@ In several places I have used updated measurements or supplemented the book's co
 
 ---
 
-### Power of Two
+## Power of Two
 
 Binary powers show up everywhere in systems work: memory addressing, page sizes, cache lines, Bloom filters, sharding, and quick storage estimates.
 It is also worth keeping the naming straight: hardware, operating systems, and low-level programming often use binary units such as KiB, MiB, and GiB, while storage vendors and network throughput numbers are often quoted in decimal KB, MB, and GB.
@@ -52,7 +50,7 @@ It is also worth keeping the naming straight: hardware, operating systems, and l
 
 ---
 
-### Latency Numbers Every Programmer Should Know
+## Latency Numbers Every Programmer Should Know
 
 Jeff Dean's classic <a target="_blank" rel="noopener" class="ital" href="https://brenocon.com/dean_perf.html">Latency Numbers Every Programmer Should Know</a> list is still the best baseline for building intuition about orders of magnitude.
 The key lesson is that modern systems are usually not bottlenecked by CPU arithmetic, but by cache misses, context switches, storage, and network hops.
@@ -97,7 +95,7 @@ The <a target="_blank" rel="noopener" class="ital" href="https://github.com/siru
 
 ---
 
-### Availability Numbers
+## Availability Numbers
 
 Availability is usually expressed in "nines": the percentage of time a system is expected to remain available over some period.
 The higher the target, the more expensive the engineering tradeoffs become, because each additional nine removes a large chunk of allowable downtime.
@@ -112,7 +110,7 @@ The higher the target, the more expensive the engineering tradeoffs become, beca
 
 <p class="subtitle">Downtime budgets for 2-6 nines, assuming a 30-day month and 365-day year</p>
 
-#### SLAs and Latency Metrics
+### SLAs and Latency Metrics
 
 Organizations often operate under service-level agreements (SLAs), which prescribe the maximum amount of time a system may be down.
 The SLA may also dictate latency and performance standards for API requests.
@@ -123,7 +121,7 @@ These measurements are useful for describing latency distributions and extreme o
 
 ---
 
-### Example: Video Streaming Platform QPS & Storage Requirements
+## Example: Video Streaming Platform QPS & Storage Requirements
 
 The book gives an example for a system like Twitter.
 I have gone through a similar exercise for a video streaming platform like YouTube.
@@ -179,7 +177,7 @@ I have gone through a similar exercise for a video streaming platform like YouTu
 
 ---
 
-### Interview Checklist
+## Interview Checklist
 
 When doing back-of-the-envelope estimation in an interview, I find it useful to follow the same sequence every time:
 
@@ -191,7 +189,7 @@ When doing back-of-the-envelope estimation in an interview, I find it useful to 
 
 ---
 
-### General Tips
+## General Tips
 
 > [!TIP]
 > Prefer order-of-magnitude accuracy over fake precision (and round your numbers)

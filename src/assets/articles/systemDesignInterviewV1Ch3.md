@@ -17,15 +17,13 @@ collection:
   order: 3
 ---
 
-## System Design Interview - Vol. 1 Ch. 3 - A Framework for System Design Interviews
-
 <p class="subtitle">3 minute read • April 11, 2026</p>
 
 This post contains my notes on Chapter 3 of <a target="_blank" rel="noopener" href="https://a.co/d/06Zho5r7">_System Design Interview_</a> by Alex Xu and the ByteByteGo course and videos that accompany it. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
 
 ---
 
-### Introduction
+## Introduction
 
 System design interviews are open-ended and full of ambiguity.
 They simulate real-world problem solving and collaboration, allowing you to demonstrate your critical-thinking and communication skills.
@@ -33,29 +31,29 @@ In general, you want to signal to the interviewer that you are capable of managi
 
 ---
 
-### A 4-Step Process for Effective System Design Interviews
+## A 4-Step Process for Effective System Design Interviews
 
-#### 1. Understand the Problem and Establish Design Scope
+### 1. Understand the Problem and Establish Design Scope
 
 - Don't jump straight to a solution
 - Ask clarifying questions and verify your assumptions
 - Come to an agreement on goals and scope
 - Write things down
 
-#### 2. Propose High-Level Design and Get Buy-In
+### 2. Propose High-Level Design and Get Buy-In
 
 - Propose and diagram a high-level design blueprint
 - Iteratively ask for and incorporate feedback into your design
 - Do <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-2/">back-of-the-envelope calculations</a> to check if your system scales and satisfies the problem statement
 - Run through a few concrete use cases and follow data as it flows through your system
 
-#### 3. Design Deep Dive
+### 3. Design Deep Dive
 
 - Work with the interviewer to identify and prioritize components in the system
 - Look for hints on where to focus and go into more detail
 - Discuss the most critical parts of the system
 
-#### 4. Wrap Up
+### 4. Wrap Up
 
 - Recap the design
 - Discuss bottlenecks, tradeoffs, and potential error cases
@@ -63,7 +61,7 @@ In general, you want to signal to the interviewer that you are capable of managi
 
 ---
 
-### Time Allocation on Each Step
+## Time Allocation on Each Step
 
 Time management is a crucial part of system design interviews.
 The following is a general rule of thumb for each step:
@@ -75,7 +73,7 @@ The following is a general rule of thumb for each step:
 
 ---
 
-### Dos and Don'ts
+## Dos and Don'ts
 
 > [!TIP]
 > Ask clarifying questions and understand the problem requirements

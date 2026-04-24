@@ -126,8 +126,8 @@ export function Layout({ children }: { children: ReactNode }) {
         <ScrollRestoration />
         <Scripts />
         <noscript>
-          <h1>Noah Tigner&apos;s portfolio and digital résumé</h1>
-          <h2>Contact:</h2>
+          <p>Noah Tigner&apos;s portfolio and digital résumé</p>
+          <p>Contact:</p>
           <ul>
             <li>
               <a href="mailto:noahzanetigner@gmail.com">

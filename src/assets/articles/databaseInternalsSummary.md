@@ -18,8 +18,6 @@ collection:
   order: 15
 ---
 
-## Database Internals - Summary & Review
-
 <p class="subtitle">10 minute read • March 29, 2026</p>
 
 This post contains my summary and review of <a href="https://www.oreilly.com/library/view/database-internals/9781492040330/" target="_blank" rel="noopener">_Database Internals_</a> by Alex Petrov. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
@@ -28,9 +26,9 @@ The <a href="https://noahtigner.com/articles/database-internals/" target="_blank
 
 ---
 
-### Part I - Storage Engines
+## Part I - Storage Engines
 
-#### B-Trees and LSM Trees
+### B-Trees and LSM Trees
 
 Storage engines are shaped less by asymptotic complexity than by hardware behavior, access patterns, and operational tradeoffs.
 <a href="https://noahtigner.com/articles/database-internals-chapter-2/" target="_blank" rel="noopener">B-Trees</a> and <a href="https://noahtigner.com/articles/database-internals-chapter-7/#lsm-trees" target="_blank" rel="noopener">LSM Trees</a> are the clearest example of this.
@@ -62,7 +60,7 @@ One especially useful connection is that B-Trees and related structures often st
 
 <p class="subtitle">Buffering, immutability, and ordering properties of discussed storage structures</p>
 
-#### Transactions
+### Transactions
 
 <a href="https://noahtigner.com/articles/database-internals-chapter-5/#introduction" target="_blank" rel="noopener">Transactions</a> are the indivisible logical unit of work in database management systems.
 They allow us to represent multiple operations in a single step.
@@ -74,7 +72,7 @@ Pages are cached in memory to reduce the number of disk accesses.
 Page replacement algorithms use eviction policies such as FIFO, LRU, CLOCK, and LFU.
 These policies have various tradeoffs surrounding precision (hit rate), overhead, and complexity.
 
-#### Recovery
+### Recovery
 
 The <a href="https://noahtigner.com/articles/database-internals-chapter-5/#recovery" target="_blank" rel="noopener">WAL</a> is an append-only auxiliary on-disk structure used for crash and transaction recovery. It has several functions:
 
@@ -86,7 +84,7 @@ The WAL is usually coupled with a primary storage structure by the interface tha
 Checkpoints tell the log system that log records up to a certain point aren’t required anymore.
 “Fuzzy checkpointing” allows this to happen asynchronously and is a more practical approach.
 
-#### Concurrency Control
+### Concurrency Control
 
 <a href="https://noahtigner.com/articles/database-internals-chapter-5/#optimistic-concurrency-control" target="_blank" rel="noopener">Concurrency control</a> is a set of techniques for handling interactions between concurrently executing transactions. They can be grouped into three buckets:
 
@@ -101,7 +99,7 @@ Serializable schedules allow us to execute transactions concurrently while maint
 
 Isolation levels specify how and when parts of the transaction should become visible to other concurrent transactions.
 
-#### Read & Write Anomalies
+### Read & Write Anomalies
 
 Read anomalies include:
 
@@ -126,9 +124,9 @@ Write anomalies include:
 
 ---
 
-### Part II - Distributed Systems
+## Part II - Distributed Systems
 
-#### Distributed Algorithms
+### Distributed Algorithms
 
 Distributed algorithms serve many purposes, such as:
 
@@ -137,14 +135,14 @@ Distributed algorithms serve many purposes, such as:
 - Dissemination - process cooperating in spreading the information to all interested parties
 - Consensus - achieving agreement among multiple processes
 
-#### Two Generals, FLP Impossibility, and Byzantine Failures
+### Two Generals, FLP Impossibility, and Byzantine Failures
 
 The <a href="https://noahtigner.com/articles/database-internals-chapter-8/#two-generals-problem" target="_blank" rel="noopener">Two Generals problem</a> is a thought experiment that shows that it is impossible to achieve an agreement between two parties if communication is asynchronous and links fail.
 <a href="https://noahtigner.com/articles/database-internals-chapter-8/#flp-impossibility" target="_blank" rel="noopener">FLP Impossibility</a> shows that deterministic consensus cannot guarantee both safety and termination in a completely asynchronous system if even one process may fail.
 <a href="https://noahtigner.com/articles/database-internals-chapter-8/#arbitrary-faults" target="_blank" rel="noopener">Arbitrary</a> (a.k.a. “Byzantine”) faults are where a process continues executing algorithm steps, but in a way that contradicts the algorithm.
 These can be caused by software bugs, malicious actors, etc.
 
-#### Failure Detection
+### Failure Detection
 
 <a href="https://noahtigner.com/articles/database-internals-chapter-9/" target="_blank" rel="noopener">Failures</a> can occur at the link level or at the process level.
 There are always tradeoffs between wrongly suspecting alive processes of being dead (false-positives) and giving dead processes the benefit of doubt (false-negatives).
@@ -159,13 +157,13 @@ Gossip collects and distributes the state of neighboring processes, with unrespo
 It increases the number of messages in the system, but allows info to spread more reliably.
 In addition to failure detection, gossip is used for information propagation and dissemination.
 
-#### Leader Election
+### Leader Election
 
 To reduce synchronous overhead and the number of message round-trips required to reach a decision, some algorithms <a href="https://noahtigner.com/articles/database-internals-chapter-10/" target="_blank" rel="noopener">elect a leader process</a>.
 The leader is responsible for executing and coordinating steps of a distributed algorithm.
 Possible solutions include the Bully algorithm, Invitation algorithm, and Ring algorithm.
 
-#### Replication & Consistency
+### Replication & Consistency
 
 The <a href="https://noahtigner.com/articles/database-internals-chapter-11/#infamous-cap" target="_blank" rel="noopener">CAP conjecture</a> describes the tradeoffs between consistency <em>C</em>, availability <em>A</em>, and partition tolerance <em>P</em>.
 The conjecture states that a system can only choose between consistency and availability when a partition occurs.
@@ -180,7 +178,7 @@ Consistency models include strict consistency, linearizability, sequential consi
 Some systems opt for eventual consistency and use tunable parameters that follow the CAP conjecture.
 Strong eventual consistency is gaining traction with <a href="https://noahtigner.com/articles/database-internals-chapter-11/#strong-eventual-consistency-and-crdts" target="_blank" rel="noopener">Conflict-Free Replicated Data Types (CRDTs)</a>.
 
-#### Distributed Transactions
+### Distributed Transactions
 
 To make multiple (possibly remote) operations appear atomic, we need to use a class of algorithm called <a href="https://noahtigner.com/articles/database-internals-chapter-13/#making-operations-appear-atomic" target="_blank" rel="noopener">“atomic commitment”</a>.
 These algorithms disallow disagreements between participants by not committing if even one participant voted against it.
@@ -192,7 +190,7 @@ Unlike Calvin, Spanner uses 2PC over consensus groups per partition (shard).
 It uses Paxos for consistent transaction log replication, 2PC for cross-shard transactions, and TrueTime for deterministic transaction ordering.
 This means that multi-partition transactions have a higher cost compared to Calvin, but Spanner usually wins in terms of availability.
 
-#### Consensus
+### Consensus
 
 <a href="https://noahtigner.com/articles/database-internals-chapter-14/" target="_blank" rel="noopener">Consensus algorithms</a> in distributed systems allow multiple processes to reach an agreement on a value.
 Atomic broadcast algorithms such as <a href="https://noahtigner.com/articles/database-internals-chapter-14/#zookeeper-atomic-broadcast-zab" target="_blank" rel="noopener">ZooKeeper</a> ensure a total order of events and the atomic delivery necessary to maintain consistency between replica states.
@@ -201,22 +199,22 @@ In adversarial environments, Byzantine fault-tolerant algorithms like <a href="h
 
 ---
 
-### Review & Thoughts
+## Review & Thoughts
 
-#### Overall Review
+### Overall Review
 
 I found this book to be a great deep-dive into database internals, storage engines and building blocks, and distributed systems.
 The first half of the book offered unique depth into structures like B-Trees and LSM Trees.
 I found the second half more interesting (and more applicable to my work), but it seems to overlap heavily with books like <em>Designing Data-Intensive Applications</em>.
 
-#### Who Would I Recommend This To?
+### Who Would I Recommend This To?
 
 Naturally, I would recommend this book to anyone interested in building or modifying their own storage engines.
 I would also recommend it to any software engineers tasked with tuning existing systems, or picking the right tool for the job when building from the ground up.
 I would <em>not</em> recommend this for engineers early in their career, and/or those studying for system design interviews.
 Those readers would be better served by something much higher-level like Alex Xu's <em>System Design Interview</em>.
 
-#### Useful Tidbits
+### Useful Tidbits
 
 This book introduced me to several data structures and algorithms that I would like to study further:
 

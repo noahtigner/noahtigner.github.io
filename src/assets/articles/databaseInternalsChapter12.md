@@ -18,15 +18,13 @@ collection:
   order: 12
 ---
 
-## Database Internals - Ch. 12 - Anti-Entropy and Dissemination
-
 <p class="subtitle">7 minute read • March 21, 2026</p>
 
 This post contains my notes on Chapter 12 of <a href="https://www.oreilly.com/library/view/database-internals/9781492040330/" target="_blank" rel="noopener">_Database Internals_</a> by Alex Petrov. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
 
 ---
 
-### Introduction
+## Introduction
 
 Some updates need to be propagated among nodes as quickly and reliably as possible. These can include cluster-wide metadata, node states, failures, schema changes, etc. Such updates can generally be propagated to all nodes in the cluster using one of three broad approaches:
 
@@ -42,7 +40,7 @@ To keep nodes in sync, background or foreground processes compare and reconcile 
 
 ---
 
-### Read Repair
+## Read Repair
 
 It is easy to detect divergence between replicas during reads, since at that point the coordinator node can contact replicas, request the queried state from them, and compare the responses. This mechanism is called "read repair". Some DBs avoid contacting <em>all</em> replicas and use tunable consistency levels instead. Read repair can be implemented as blocking or async operations. Blocking read repair ensures <a href="https://noahtigner.com/articles/database-internals-chapter-11/#session-models" target="_blank" rel="noopener">monotonicity</a> for <a href="https://noahtigner.com/articles/database-internals-chapter-11/#tunable-consistency" target="_blank" rel="noopener">quorum reads</a>, but at the cost of availability.
 
@@ -50,13 +48,13 @@ Instead of issuing a full read request to each node, the coordinator can issue j
 
 ---
 
-### Hinted Handoff
+## Hinted Handoff
 
 "Hinted handoff" is a write-side repair mechanism. If the target node fails to acknowledge the write, the write coordinator or one of the replicas stores a special "hint" record. This hint is relayed to the target node as soon as it comes back up. Some DBs use "sloppy quorums" alongside hinted handoff. Sloppy quorums improve availability at the cost of consistency.
 
 ---
 
-### Merkle Trees
+## Merkle Trees
 
 Since read repair only fixes inconsistencies on currently queried data, we need to use different mechanisms to find and repair inconsistencies in the rest of the data. Merkle Trees compose a compact hashed representation of the local data, building a tree of hashes. The lowest levels of the tree consist of hashes of the table's record ranges. Higher levels consist of hashes of the combined lower-level hashes. This allows us to quickly detect inconsistencies by comparing hashes and following the tree nodes recursively to narrow down the inconsistent ranges. This can be done by exchanging and comparing entire trees or just subtrees. Since these trees are constructed from the bottom-up, entire subtrees must be recomputed when data changes. There's also a tradeoff between tree size and precision.
 
@@ -72,35 +70,35 @@ Since read repair only fixes inconsistencies on currently queried data, we need 
 
 ---
 
-### Bitmap Version Vectors
+## Bitmap Version Vectors
 
 Bitmap Version Vectors offer a compact means of resolving data conflicts based on recency. Each node keeps a per-peer log of operations that have occurred locally or were replicated. During anti-entropy, logs are compared and missing data is replicated to the target node. An advantage of this approach is that it captures the causal relation between the writes and allows nodes to precisely identify the data points missing on other nodes. One possible downside is that logs cannot be truncated by peers when a node is temporarily down.
 
 ---
 
-### Gossip Dissemination
+## Gossip Dissemination
 
 <a href="https://noahtigner.com/articles/database-internals-chapter-9/#gossip-and-failure-detection" target="_blank" rel="noopener">Gossip protocols</a> propagate updates with the reach of a broadcast and the reliability of anti-entropy. They are probabilistic communication procedures that work like rumors and diseases in human societies. A process that holds info that needs to be spread around is called "infective", and nodes that haven't yet received the news are "susceptible". Infective nodes spread the info to <em>random</em> neighbors. Gossip can be used for asynchronous message delivery, and is useful in systems with high "churn", where nodes come and go frequently.
 
-#### Gossip Mechanics
+### Gossip Mechanics
 
 Gossip has several tunable parameters, such as fanout (f) and message redundancy. These protocols offer "convergent consistency", meaning that there's a higher probability of consistency the further back in time we go.
 
-#### Overlay Networks
+### Overlay Networks
 
 Gossip is highly scalable, but it comes with inherent message duplication. Selecting nodes at random improves robustness but leads to redundant messages being sent. A middle ground between randomized gossip and top-down centralized coordination is to construct a temporary fixed topology in a gossip system. An overlay network of peers can be used to help nodes select peers based on proximity (latency). This system can form spanning trees where messages can be distributed in a fixed number of steps. One downside is that "islands" can form. We can combine approaches, using fixed topologies and tree-based broadcasts when the system is stable, and falling back to gossip during failover and system recovery.
 
-#### Hybrid Gossip
+### Hybrid Gossip
 
 "Push/lazy-push multicast trees", a.k.a. "Plumtrees", offer a middle ground between epidemic and tree-based primitives. A spanning tree tells nodes where to actively send messages. If one node is not connected to another node by the tree, it just sends it the message's ID. If a node receives an ID for a message it has not received, it queries its neighbors for the message contents. One advantage of this approach is that it tends to generate trees with minimal latency when working in a system with constant load. Since nodes can fail without warning, gossip must be used to spot issues with the tree and initiate repairs.
 
-#### Partial Views
+### Partial Views
 
 If the churn is high, maintaining a full view of the cluster can get expensive. Gossip protocols often use a peer sampling service to avoid this. This service maintains overlapping partial views of the clusters, which are periodically refreshed via gossip.
 
 ---
 
-### Other Resources
+## Other Resources
 
 Greg Schoeninger of <a href="https://oxen.ai/" target="_blank" rel="noopener">oxen.ai</a> has a great blog post called <em><a href="https://ghost.oxen.ai/merkle-tree-101/" target="_blank" rel="noopener">Merkle Tree 101</a></em>
 

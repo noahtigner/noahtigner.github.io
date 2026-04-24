@@ -11,7 +11,7 @@ import ForceDirectedGraph, {
   type ForceDirectedGraphProps,
 } from '~/components/ForceDirectedGraph';
 import TableOfContents from '~/components/Articles/TableOfContents';
-import type { TocHeading } from '~/utils/shared/headings';
+import { getArticleTitleId, type TocHeading } from '~/utils/shared/headings';
 import { type ArticleAttributes } from '~/utils/vite/markdown';
 
 const ImgBox = styled.img`
@@ -22,6 +22,14 @@ const ImgBox = styled.img`
   @media (max-width: 600px) {
     height: 60px;
   }
+`;
+
+const ArticleTitle = styled.h1`
+  font-weight: 300;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin: 0;
+  margin-top: 1rem !important;
 `;
 
 export const SIDENAV_WIDTH = 250;
@@ -185,7 +193,7 @@ export default function ArticleContainer({
   articleAttributes: ArticleAttributes;
   children: ReactNode;
 }) {
-  const titleId = `article-title-${articleAttributes.path.replace(/\//g, '-')}`;
+  const titleId = getArticleTitleId(articleAttributes.path);
 
   return (
     <article
@@ -203,6 +211,11 @@ export default function ArticleContainer({
           title={articleAttributes.title}
           imgSrc={articleAttributes.image}
         />
+        <ArticleTitle id={titleId}>
+          <a className="header-anchor" href={`#${titleId}`}>
+            {articleAttributes.title}
+          </a>
+        </ArticleTitle>
       </header>
       <section aria-label="Article body">{children}</section>
     </article>

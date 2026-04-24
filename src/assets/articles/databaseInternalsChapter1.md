@@ -18,15 +18,13 @@ collection:
   order: 1
 ---
 
-## Database Internals - Ch. 1 - Storage Engines Intro & Overview
-
 <p class="subtitle">5 minute read • January 31, 2026</p>
 
 This post contains my notes on Chapter 1 of <a href="https://www.oreilly.com/library/view/database-internals/9781492040330/" target="_blank" rel="noopener">_Database Internals_</a> by Alex Petrov. The chapter provides an overview of DBMS architecture, storage engine tradeoffs and considerations, and a brief summary of things to come in later chapters. Ben Dicken of PlanetScale recorded a <a href="https://www.youtube.com/live/HibHalGlIes?si=at8Pf0qPTGNp3Vv0" target="_blank" rel="noopener">great summary of the chapter</a>. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
 
 ---
 
-### Introduction
+## Introduction
 
 Database Management Systems typically fall into one of three buckets:
 
@@ -36,7 +34,7 @@ Database Management Systems typically fall into one of three buckets:
 
 ---
 
-### DBMS Architecture
+## DBMS Architecture
 
 DBMS use client/server architectures where applications are clients and nodes (database instances) are the servers. Concerns are typically separated as follows:
 
@@ -53,35 +51,35 @@ DBMS use client/server architectures where applications are clients and nodes (d
 
 ---
 
-### Memory vs. Disk-Based DBMS
+## Memory vs. Disk-Based DBMS
 
 In-memory, or "main memory," systems store data primarily in memory and use disks for recovery and logging. Disk-based systems hold most data on disk and use memory for caching. Memory is much faster than disk, and although it is getting cheaper, it is still much more expensive. Memory is also volatile (less durable).
 
-#### Durability in Memory-Based Stores
+### Durability in Memory-Based Stores
 
 Memory-based systems back up data to disks based on the operations logs. These updates are often asynchronous and batched. This is where snapshotting and checkpointing come into play. In general, in-memory stores are better for variable-sized data (variable number of fields per record, sparse datasets, etc.).
 
 ---
 
-### Column vs. Row-Oriented DBMS
+## Column vs. Row-Oriented DBMS
 
 Both Row and Column-oriented layouts have their tradeoffs. To assess which layout meets your needs, you need to assess your access patterns.
 
-#### Row-Oriented Data Layout
+### Row-Oriented Data Layout
 
 Examples of row-oriented DBMS include MySQL and Postgres. This layout is akin to tabular data representations (think spreadsheets). Since data is often accessed by row, storing entire rows together helps with spatial locality. This layout is less optimal when fetching individual fields of many records, i.e., the phone number of every user in the table.
 
-#### Column-Oriented Data Layout
+### Column-Oriented Data Layout
 
 Column-oriented systems partition data vertically instead of horizontally. This layout is best for analytical workloads. Data can still be organized in a tabular manner, but values of the same column are stored closely together.
 
-#### Wide Column Stores
+### Wide Column Stores
 
 Wide Column Stores are essentially maps with grouped column "families". Inside each column family, data is stored row-wise. This layout is best for retrieving data by key.
 
 ---
 
-### Data Files and Index Files
+## Data Files and Index Files
 
 There are several reasons why specialized file organizations are used over flat files:
 
@@ -95,7 +93,7 @@ Index files are typically separated from data files and are usually smaller. Bot
 
 Tombstones are used to mark data for garbage collection rather than removing deleted records synchronously.
 
-#### Data Files
+### Data Files
 
 Data files can be implemented in one of three ways:
 
@@ -103,17 +101,17 @@ Data files can be implemented in one of three ways:
 - heap-organized files (heap files), which don't require ordering but require additional indexes for searching
 - hash-organized files (hash files), which store records in keyed buckets
 
-#### Index Files
+### Index Files
 
 Indexes are data structures that organize records on disk for efficient retrieval operations. Primary indexes are indexes on the primary data file, typically built on primary keys. These files can be clustered or unclustered.
 
-#### Primary Index as an Indirection
+### Primary Index as an Indirection
 
 There is ongoing debate over whether records should be referenced directly through file offsets or via primary key indexes. Direct reference requires fewer disk seeks, but data updates require pointer updates, as does routine maintenance. Indirection reduces the cost of pointer updates but results in higher read costs.
 
 ---
 
-### Buffering, Immutability, and Ordering
+## Buffering, Immutability, and Ordering
 
 Storage structures have to make three broad decisions: whether or not to support buffering (or to what extent), whether data is mutable or immutable, and whether values should be stored in order or not.
 

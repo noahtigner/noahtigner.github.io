@@ -12,19 +12,17 @@ tags:
   - '404'
 ---
 
-## Custom Github Pages 404 Page with React Router
-
 <p class="subtitle">12 minute read • November 3, 2025</p>
 
 <a href="https://docs.github.com/en/pages/quickstart" target="_blank" rel="noopener">Github Pages</a> is one of the most straightforward ways of hosting a static website for free. With <a href="https://github.com/actions/upload-pages-artifact" target="_blank" rel="noopener" class="ital">upload-pages-artifact</a> and <a href="https://github.com/actions/deploy-pages" target="_blank" rel="noopener"  class="ital">deploy-pages</a>, developers can commit and merge their changes and have them deployed in minutes or even seconds. This makes Github Pages an obvious choice for deploying and hosting Single-Page Applications (SPAs) built with React.
 
-### The Problem: Routing
+## The Problem: Routing
 
 The most commonly faced issue when deploying React applications to Github Pages stems from routing. Many users find that while React Router's client-side routing works well locally, it is not necessarily supported by Github Pages. Most client-side routing libraries require that all page requests are sent to _index.html_, which is not supported by Github Pages. Instead, requesting any route other than the index will result in a 404.
 
 ---
 
-### Legacy Workarounds
+## Legacy Workarounds
 
 Prior to React Router v6.4, the most common workaround was to use a `HashRouter`, which was heavily discouraged in the <a href="https://reactrouter.com/6.30.1/router-components/hash-router" target="_blank" rel="noopener">v6 documentation</a>:
 
@@ -37,13 +35,13 @@ Both `HashRouter` and `createHashRouter` are suboptimal for several reasons. Usi
 
 ---
 
-### React Router v7
+## React Router v7
 
 React Router v7 (A.K.A Remix v3) offers three strategies or <a href="https://reactrouter.com/start/modes" target="_blank" rel="noopener">"modes"</a> for routing. The modes are called "Declarative", "Data", and "Framework", with each successively adding more features. "Declarative" mode will be the most easily recognizable to users of prior versions of React Router, offering the fewest features but the easiest configuration. "Data" mode mirrors the additions made in v6.4, offering loaders, actions, etc. "Framework" mode, while the most opinionated, offers the most features, many of which are entirely new to React Router. Within "Framework" mode, users have <a href="https://reactrouter.com/start/framework/rendering" target="_blank" rel="noopener">three rendering strategies</a> to choose from: client-side rendering, server-side rendering, and static pre-rendering.
 
 Of these three rendering strategies, we can immediately rule out server-side rendering, since Github Pages does not support SSR. Client-side rendering is of course supported, but will lead to the same routing pitfalls as described above. Static Pre-rendering is the answer to all (or at least most) of our problems.
 
-#### Static Pre-Rendering with v7's Framework Mode
+### Static Pre-Rendering with v7's Framework Mode
 
 Static pre-rendering allows us to build individual routes / pages at build time, meaning that the development process feels like that of a React SPA, but the end result includes multiple discrete html files which are easily consumable by static hosts like Github Pages. Static pre-rendering "solves" many of the problems commonly associated with SPAs. <a href="https://reactrouter.com/start/framework/rendering#static-pre-rendering" target="_blank" rel="noopener">The React Router docs</a> describe it as:
 
@@ -56,7 +54,7 @@ While the docs describe static pre-rendering as a third rendering strategy, it c
 
 ---
 
-### Getting Started
+## Getting Started
 
 This article assumes you have a working React application using React Router v7 in "Framework" mode. If you are starting a new project, consider following the <a href="https://reactrouter.com/tutorials/address-book" target="_blank" rel="noopener" class="ital">Address Book</a> example in the docs. For the purposes of this article, our starting point should be an app with SSR disabled. The _react-router-config.ts_ should look something like this:
 
@@ -116,7 +114,7 @@ Once deployed, we'll see something like this when we navigate to any routes that
 
 ---
 
-### Solution: Error Boundaries & the SPA Fallback
+## Solution: Error Boundaries & the SPA Fallback
 
 Every React application should have a top-level error boundary, and this one is no different. Let's create a reusable component called `ErrorView` and return it from the `ErrorBoundary` exported in our _root.tsx_.
 
@@ -283,7 +281,7 @@ There are two issues with this approach:
 
 ---
 
-### Taking It Further: Redirecting to a Dedicated 404 Route
+## Taking It Further: Redirecting to a Dedicated 404 Route
 
 Let's start by creating a dedicated 404 page based on our existing `ErrorPage` component.
 
@@ -336,7 +334,7 @@ export default {
 } satisfies Config;
 ```
 
-#### Differentiating 404s from Other Errors
+### Differentiating 404s from Other Errors
 
 Our last task is to differentiate between 404 errors and other types of errors within our `ErrorBoundary`. First, we can check against React Router's `isRouteErrorResponse`, which tells us if an error is a 4xx/5xx error thrown from an action or loader. If this check returns true, we can also check the error's `status` to see if it matches 404. These two checks are useful, but they will only tell you if a loader or action threw a 404. In the case of a route not existing, a `SingleFetchNoError` is thrown. Frustratingly, there is not a single mention of this error in the documentation. By inspecting the <a href="https://github.com/remix-run/react-router/blob/64f82f1581bd5e72a9312802c60bb61b9278135a/packages/react-router/lib/dom/ssr/single-fetch.tsx#L27" target="_blank" rel="noopener">source code for React Router v7</a>, we can see that `SingleFetchNoResultError` directly extends `Error` without adding any additional properties.
 
@@ -404,7 +402,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
 ---
 
-### Conclusion
+## Conclusion
 
 Once deployed, we can verify that navigating to invalid routes correctly redirects to our dedicated 404 page! Additionally, we preserved context about other types of errors, which will be useful for debugging in development. You could take this approach even further by creating dedicated pages for other types of errors.This 404 redirection strategy also works for slug routes that do not exist, such as /articles/non-existent-article\_. This website was built with this exact approach, so feel free to reference <a href="https://github.com/noahtigner/noahtigner.github.io" target="_blank" rel="noopener">the source code</a>. Thanks for reading!
 
