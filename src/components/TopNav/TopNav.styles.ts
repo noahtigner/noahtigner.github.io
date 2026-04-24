@@ -19,13 +19,15 @@ export const StyledNav = styled(NavigationMenu.Root)`
   box-shadow: var(--shadow-1);
 `;
 
-export const SiteTitle = styled.h1`
+export const SiteTitle = styled.div`
   flex-shrink: 0;
 `;
 
 export const SiteTitleLink = styled(Link)`
   color: inherit;
   text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 300;
 `;
 
 export const StyledNavList = styled(NavigationMenu.List)`

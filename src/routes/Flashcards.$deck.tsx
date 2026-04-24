@@ -33,7 +33,7 @@ export default function FlashcardsDeck({ loaderData }: Route.ComponentProps) {
         title={`${deck.title} - Flashcards - Noah Tigner`}
         description={deck.description}
       />
-      <Divider>{deck.title}</Divider>
+      <Divider asHeading={1}>{deck.title}</Divider>
       <QuizSession decks={[deck]} sessionKey={deck.slug} />
       <LinkInternal
         to="/flashcards/"

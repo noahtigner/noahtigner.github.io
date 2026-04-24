@@ -29,7 +29,9 @@ export default function ErrorPage({
         }}
       >
         <span style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 300 }}>{message}</h2>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 300, margin: 0 }}>
+            {message}
+          </h1>
           <StyledSeparator orientation="vertical" />
           <p style={{ fontSize: '1.5rem', fontWeight: 300 }}>{details}</p>
         </span>

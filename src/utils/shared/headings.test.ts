@@ -63,6 +63,18 @@ describe('extractHeadings', () => {
     expect(headings).toEqual([{ id: 'intro', text: 'Intro', level: 2 }]);
   });
 
+  it('should preserve nested link text when headings use header-anchor links', () => {
+    const html = `
+      <h2 id="overview"><a class="header-anchor" href="#overview">Overview</a></h2>
+      <h3 id="details"><a class="header-anchor" href="#details">Implementation Details</a></h3>
+    `;
+
+    expect(extractHeadings(html)).toEqual([
+      { id: 'overview', text: 'Overview', level: 2 },
+      { id: 'details', text: 'Implementation Details', level: 3 },
+    ]);
+  });
+
   it('should return empty array for empty string', () => {
     expect(extractHeadings('')).toEqual([]);
   });

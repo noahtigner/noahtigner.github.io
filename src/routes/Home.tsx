@@ -8,6 +8,7 @@ import type { Route } from '~/router/routes/+types/Home';
 import MetaTags from '~/components/MetaTags';
 import ArticleCard from '~/components/Articles/ArticleCard';
 import { LinkInternal } from '~/components/Button';
+import VisuallyHidden from '~/components/VisuallyHidden';
 import { publishedArticles } from '~/utils/vite/markdown';
 import { paths } from '~/routes';
 
@@ -59,6 +60,9 @@ export default function Home() {
         description="Noah Tigner's portfolio and résumé. Check out my projects, view my experience, and get in touch. Articles on web development, software engineering, and more."
       />
       <FlexContainer>
+        <VisuallyHidden as="h1">
+          Noah Tigner&apos;s portfolio and digital résumé
+        </VisuallyHidden>
         <Divider>A Few Things I&apos;ve Built</Divider>
         <Portfolio />
         <Divider>Experience</Divider>

@@ -17,15 +17,13 @@ collection:
   order: 1
 ---
 
-## System Design Interview - Vol. 1 Ch. 1 - Scale From Zero to Millions of Users
-
 <p class="subtitle">7 minute read • April 8, 2026</p>
 
 This post contains my notes on Chapter 1 of <a target="_blank" rel="noopener" href="https://a.co/d/06Zho5r7">_System Design Interview_</a> by Alex Xu and the ByteByteGo course and videos that accompany it. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
 
 ---
 
-### Single Server Setup
+## Single Server Setup
 
 We begin with a simple single server setup where everything including the web app, database, cache, etc. run on a single instance.
 
@@ -42,7 +40,7 @@ We begin with a simple single server setup where everything including the web ap
 
 ---
 
-### Vertical Scaling vs Horizontal Scaling
+## Vertical Scaling vs Horizontal Scaling
 
 When a server begins to struggle with its workload, it can be vertically "scaled up" by increasing the CPU and RAM.
 This approach has several limitations, including:
@@ -55,13 +53,13 @@ Instead, systems can be horizontally "scaled up" by introducing additional serve
 
 ---
 
-### Databases
+## Databases
 
 First we must choose between relational database management systems (RDBMS) and non-relational "NoSQL" database systems.
 Row-oriented relational databases such as Postgres are a common choice due to their ubiquity and the ease with which they can model objects and relationships between them.
 Non-relational databases may be a good choice when working with unstructured data or if extremely low-latency is required.
 
-#### Database Replication
+### Database Replication
 
 Databases are often replicated using the leader-follower pattern.
 All writes are written to the leader, which then copies the changes to the followers, which only respond to read requests.
@@ -81,7 +79,7 @@ For more on this topic, see my <a target="_blank" rel="noopener" href="https://n
 
 <p class="subtitle" style="text-align: center">Leader-Follower Database Replication</p>
 
-#### Database Scaling
+### Database Scaling
 
 Like with app servers, databases can be scaled vertically or horizontally, and many of the previously discussed limitations of vertical scaling apply here too.
 
@@ -94,7 +92,7 @@ A common workaround is to de-normalize the database so that queries can be perfo
 
 ---
 
-### Load Balancers
+## Load Balancers
 
 Load balancers attempt to evenly distribute traffic among servers.
 This allows for servers to be dynamically added and removed as needed without changes from the user's perspective.
@@ -113,7 +111,7 @@ Redundancy can be ensured and server failure can be handled gracefully.
 
 ---
 
-### Caches
+## Caches
 
 Distributed caches provide fast short-term storage.
 They store the results of expensive operations and frequently accessed data, deduplicating the work necessary for subsequent accesses.
@@ -142,7 +140,7 @@ There are several things we must consider when using a cache:
 
 ---
 
-### Content Delivery Network (CDN)
+## Content Delivery Network (CDN)
 
 A content delivery network (CDN) is a geographically distributed group of servers that caches content close to end users.
 Applications often use them to store and deliver static content such as HTML, CSS, and JS files, images, videos, music, etc.
@@ -158,7 +156,7 @@ There are several things we must consider when using a CDN:
 
 ---
 
-### Stateless Web Tier
+## Stateless Web Tier
 
 The web tier can be made "stateless" and horizontally scalable by moving state (i.e., session data) out of it and into shared persistent storage.
 A stateful server remembers client data (session) from one request to the next while stateless servers do not.
@@ -167,7 +165,7 @@ This makes the system simpler and more robust and scalable.
 
 ---
 
-### Data Centers
+## Data Centers
 
 Supporting multiple data centers (DCs) improves availability across wider geographic areas and provides high-level fault tolerance in case one DC fails.
 Multi-DC setups introduce several challenges:
@@ -178,7 +176,7 @@ Multi-DC setups introduce several challenges:
 
 ---
 
-### Message Queues
+## Message Queues
 
 Message queues are durable components that support asynchronous workloads and allow for increased decoupling and horizontal scaling granularity.
 These queues work by accepting messages from "producers" (a.k.a. "publishers"), buffering the messages, and providing them to "consumers" (a.k.a. "subscribers" or "workers").
@@ -197,7 +195,7 @@ Both producers and consumers can be scaled independently.
 
 ---
 
-### Logging, Metrics, Automation
+## Logging, Metrics, Automation
 
 It is important to store and monitor error logs to identify and triage problems in the system.
 Collecting metrics allows us to monitor the health of the system and gain useful business insights.
@@ -206,7 +204,7 @@ As systems grow, it is important to automate certain processes with CI/CD, autom
 
 ---
 
-### Millions of Users and Beyond
+## Millions of Users and Beyond
 
 In summary, we can scale from a single server to a system that supports millions of users by:
 
@@ -231,7 +229,7 @@ In summary, we can scale from a single server to a system that supports millions
 
 ---
 
-### Other Resources
+## Other Resources
 
 Cloudflare provides a good high-level <a target="_blank" rel="noopener" href="https://www.cloudflare.com/en-ca/learning/cdn/what-is-a-cdn/">introduction to CDNs</a>.
 

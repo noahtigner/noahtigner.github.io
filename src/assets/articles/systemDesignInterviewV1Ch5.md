@@ -2,7 +2,7 @@
 title: System Design Interview Vol. 1 Ch. 5 - Consistent Hashing
 description: Notes on Chapter 5 of System Design Interview by Alex Xu. Consistent hashing strategies for servers and database shards.
 published: April 20, 2026
-updated: April 20, 2026
+updated: April 24, 2026
 minutesToRead: 6
 path: /articles/system-design-interview-volume-1-chapter-5/
 image: /images/system-design-interview.jpg
@@ -17,8 +17,6 @@ collection:
   order: 5
 ---
 
-## System Design Interview - Vol. 1 Ch. 5 - Consistent Hashing
-
 <p class="subtitle">6 minute read • April 20, 2026</p>
 
 This post contains my notes on Chapter 5 of <a target="_blank" rel="noopener" href="https://a.co/d/06Zho5r7">_System Design Interview_</a> by Alex Xu and the ByteByteGo course and videos that accompany it. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
@@ -27,7 +25,7 @@ Although this started as my notes on the _System Design Interview_ chapter, I en
 
 ---
 
-### Introduction
+## Introduction
 
 When horizontally scaling our API servers or sharding our databases, it becomes important to evenly distribute requests amongst them.
 Similarly, it becomes important to distribute requests not only evenly, but consistently.
@@ -40,7 +38,7 @@ We need an efficient and consistent way of determining which requests map to whi
 
 ---
 
-### The Rehashing Problem
+## The Rehashing Problem
 
 A naive approach would be to hash the key (request ID, user ID, etc.) and modulo it by the number of servers to get the server index; i.e., `server_idx = hash(key) % n`.
 This works well if we have a fixed number of servers but breaks down as soon as we add or remove one.
@@ -60,12 +58,12 @@ The resulting server indexes change completely, leading to cache misses, inconsi
 
 ---
 
-### Consistent Hashing
+## Consistent Hashing
 
 Consistent hashing minimizes the number of keys that need to be remapped when the number of servers changes.
 In the idealized case, only about <em>k/n</em> keys need to be remapped when a node is added or removed, where <em>k</em> is the number of keys and <em>n</em> is the number of nodes.
 
-#### Hash Space and the Hash Ring
+### Hash Space and the Hash Ring
 
 Conceptually, we take the minimum and maximum bounds of our hash space and connect them to form a ring.
 We then map servers to their positions on the ring using their IP addresses or some other identifier.
@@ -87,7 +85,7 @@ Similarly, if a server is removed from the ring, only the keys that mapped to th
 
 <p class="subtitle" style="text-align: center">The Hash Space Represented as a Ring</p>
 
-#### Issues with this Approach
+### Issues with this Approach
 
 With only one position per server, the ring can still be imbalanced.
 Depending on where servers land on the ring, some will end up with more keys mapped to them than others, leading them to hold more data than their peers.
@@ -103,7 +101,7 @@ Depending on where servers land on the ring, some will end up with more keys map
 
 <p class="subtitle" style="text-align: center">The Hash Ring After a Deletion</p>
 
-#### Virtual Nodes
+### Virtual Nodes
 
 Virtual nodes offer a solution to these problems.
 A virtual node is a logical position on the ring that maps back to a real node.
@@ -113,6 +111,13 @@ This results in many more points on the ring than there are real servers, with m
 That means the load from adding or removing a server is spread across many smaller ranges instead of one large contiguous range.
 Importantly, key ownership becomes much more evenly distributed as we increase the ratio of virtual nodes to real nodes.
 This parameter is tunable, with the main tradeoff being additional routing metadata and operational complexity.
+
+#### Heterogeneity
+
+All nodes within our system may or may not be equal.
+If one server has significantly better hardware than others, we should leverage that fact.
+Our consistent hashing system can be heterogeneous, with the amount of virtual nodes for a given server being proportional to the server's capacity.
+This allocates a larger percentage of the key space and load to nodes with higher capacity, meaning that keys and traffic are distributed with capacity in mind.
 
 <img
   src="/images/system-design-interview/sdi-v1-ch5-3.png"
@@ -124,7 +129,7 @@ This parameter is tunable, with the main tradeoff being additional routing metad
 
 <p class="subtitle" style="text-align: center">The Hash Ring (with Virtual Nodes) After a Deletion</p>
 
-#### Addressing Hot Spots
+### Addressing Hot Spots
 
 Even with the much more even distribution of data brought by the use of virtual nodes, hot spots can still occur.
 Consistent hashing evenly distributes keys, not traffic.
@@ -135,7 +140,7 @@ Most real-world distributed database systems use consistent hashing alongside re
 
 ---
 
-### Wrap Up
+## Wrap Up
 
 The benefits of consistent hashing include:
 
@@ -144,7 +149,7 @@ The benefits of consistent hashing include:
 
 ---
 
-### Other Resources
+## Other Resources
 
 ByteByteGo and Hello Interview both have YouTube videos covering this topic.
 

@@ -2,7 +2,7 @@ import { useState, useCallback, useMemo } from 'react';
 import styled from '@emotion/styled';
 import type { Question } from '~/utils/shared/flashcards';
 
-const QuestionText = styled.h3`
+const QuestionText = styled.h2`
   font-size: 1.125rem;
   font-weight: 400;
   line-height: 1.6;

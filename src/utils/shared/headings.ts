@@ -53,3 +53,7 @@ export function extractHeadings(html: string): TocHeading[] {
 
   return headings;
 }
+
+export function getArticleTitleId(articlePath: string) {
+  return `article-title-${articlePath.replace(/\//g, '-')}`;
+}

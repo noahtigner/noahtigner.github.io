@@ -13,7 +13,7 @@ import {
   getMarkdownFileName,
 } from '~/utils/vite/markdown';
 import { generateArticleGraph } from '~/utils/vite/graph';
-import { extractHeadings } from '~/utils/shared/headings';
+import { extractHeadings, getArticleTitleId } from '~/utils/shared/headings';
 import { paths } from '~/routes';
 import type { Route } from '~/router/routes/+types/Articles.$slug';
 
@@ -75,7 +75,14 @@ export async function loader({ params }: Route.LoaderArgs) {
 
   // Extract headings from article HTML for the table of contents
   const html = componentMap[fileName];
-  const headings = html ? extractHeadings(html) : [];
+  const headings = [
+    {
+      id: getArticleTitleId(attributes.path),
+      text: attributes.title,
+      level: 1,
+    },
+    ...(html ? extractHeadings(html) : []),
+  ];
 
   return { fileName, attributes, graphDataSquare, graphDataWide, headings };
 }

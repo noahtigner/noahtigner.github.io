@@ -17,8 +17,6 @@ collection:
   order: 4
 ---
 
-## System Design Interview - Vol. 1 Ch. 4 - Design a Rate Limiter
-
 <p class="subtitle">11 minute read • April 17, 2026</p>
 
 This post contains my notes on Chapter 4 of <a target="_blank" rel="noopener" href="https://a.co/d/06Zho5r7">_System Design Interview_</a> by Alex Xu and the ByteByteGo course and videos that accompany it. These notes are intended as a reference and are not meant as a substitute for the original text. I found <a href="https://timilearning.com/posts/ddia/notes/" target="_blank" rel="noopener">Timilehin Adeniran's notes</a> on <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/" target="_blank" rel="noopener">_Designing Data-Intensive Applications_</a> extremely helpful while reading that book, so I thought I'd try to do the same here.
@@ -27,7 +25,7 @@ Although this started as my notes on the _System Design Interview_ chapter, I en
 
 ---
 
-### Introduction
+## Introduction
 
 Rate limiters control how many requests each client can make within a given timeframe.
 Rate limits are essential to reducing costs and keeping server load manageable.
@@ -48,11 +46,11 @@ Clients can reference these headers to avoid getting throttled or needlessly ret
 
 ---
 
-### Step 1 - Understand the Problem and Establish Design Scope
+## Step 1 - Understand the Problem and Establish Design Scope
 
 We should start by asking several questions and discussing alternatives and tradeoffs.
 
-#### Where Should the Rate Limiter Go?
+### Where Should the Rate Limiter Go?
 
 The book starts by discussing client-vs-server-side rate limiting.
 In practice, the interview will almost always cover server-side rate limiting.
@@ -60,7 +58,7 @@ Client-side rate limiting is a good practice to reduce server load, but it can b
 Client-side rate limiting often just involves well-thought-out client-side caching, responsible polling intervals, and gradual backoff for request retries.
 In practice, interviews usually cover server-side rate limiting; either handled within the API servers themselves or as "middleware" within the API gateway or load balancer.
 
-#### How Should Clients be Identified?
+### How Should Clients be Identified?
 
 One of the most important things to consider is how the rate limiter should identify clients.
 We could use IP addresses, which is the most flexible option, especially if the API is public.
@@ -68,7 +66,7 @@ If an API key is required, we could use that instead.
 If the endpoint or resource is only available to authenticated users within our own system, we could use their user ID or organization ID.
 Many systems support a mixture of keys, using the user ID or API key if available and falling back to the IP address otherwise.
 
-#### Other Questions to Consider
+### Other Questions to Consider
 
 - Should the system work in a distributed environment?\
   <span class="subtitle">↳ Let's assume that it should.</span>
@@ -85,7 +83,7 @@ Many systems support a mixture of keys, using the user ID or API key if availabl
 
 ---
 
-### Step 2 - Propose a High-Level Design and Get Buy-In
+## Step 2 - Propose a High-Level Design and Get Buy-In
 
 Let's assume that the interviewer expects this to be a distributed system with multiple API servers.
 That pushes us towards handling rate limiting within the API gateway (or other middleware like a load balancer).
@@ -104,7 +102,7 @@ Sticking with our AI API example, let's assume that our system is only open to a
 Our system should support dynamic rule changes.
 For example, we may want to offer more generous quotas during a new AI model's launch week.
 
-#### Rate Limiting Algorithms
+### Rate Limiting Algorithms
 
 The <a target="_blank" rel="noopener" href="https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-rate-limiter#fixed-window-counter">Fixed Window Counter</a> algorithm counts requests within the given fixed window, resetting the count to 0 at the start of each new window.
 This is the simplest and most memory-efficient algorithm and can be implemented with just a hash table.
@@ -135,7 +133,7 @@ The bucket size and outflow rate are both tunable, but outflow rate can depend o
 This algorithm is great for consistent traffic patterns.
 It also has a "smoothing" effect on bursts of traffic, which can be beneficial for downstream systems, but can increase latency if the queue is nearly full.
 
-#### High-Level Architecture
+### High-Level Architecture
 
 In-memory caches such as Redis are often used for rate limiting since they are much faster than databases.
 
@@ -152,27 +150,27 @@ In-memory caches such as Redis are often used for rate limiting since they are m
 
 ---
 
-### Step 3 - Design Deep Dive
+## Step 3 - Design Deep Dive
 
 Our high-level design is a good start, but several questions are still unanswered.
 
-#### How Can We Reduce Request Latency?
+### How Can We Reduce Request Latency?
 
 <a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/premier-developer/the-art-of-http-connection-pooling-how-to-optimize-your-connections-for-peak-performance/">Connection pooling</a> maintains a pool of persistent connections instead of needing to establish a new TCP connection for each request.
 This is done by default for most Redis clients but may need to be tuned.
 
 Deploying the infrastructure geographically close to the user can reduce latency significantly, but it comes with additional consistency and complexity challenges.
 
-#### How Can We Handle Hot Keys?
+### How Can We Handle Hot Keys?
 
 We can handle legitimate high-volume traffic with client-side rate limiting and caching, request batching, and dedicated infrastructure for certain users or organizations.
 For example, if we have a massive contract with a Fortune 500 company, it may make sense to have a dedicated API gateway, Redis cluster, etc. for them.
 
-#### How Can We Handle Abusive Traffic?
+### How Can We Handle Abusive Traffic?
 
 We can handle abusive traffic patterns with automated blocking and DDoS protection from a cloud provider such as Cloudflare or AWS.
 
-#### How Are Rate Limit Rules Created, Stored, and Retrieved?
+### How Are Rate Limit Rules Created, Stored, and Retrieved?
 
 One approach is to store rule configuration in a database, cache, or dedicated service.
 The rate limiting service can then poll periodically for rule changes and adjust accordingly.
@@ -185,7 +183,7 @@ This approach provides much faster rule updates at the cost of added complexity.
 We will assume that it is acceptable for rule changes to take up to 30 seconds to take effect, and will opt for a pull-based approach due to its simplicity.
 We can tune the polling interval to find a good balance between polling overhead and immediacy.
 
-#### How Can We Scale the System?
+### How Can We Scale the System?
 
 Our goal is to handle 1 million RPS.
 A typical Redis instance can handle 100,000 - 200,000 <em>operations</em> per second.
@@ -195,14 +193,14 @@ Our shard keys will need to match our rate limiting keys (i.e., user ID or API k
 We'll need to use consistent hashing so that every request a user sends gets routed to the same shard; otherwise, they could exceed their quota.
 In practice, many systems use <a target="_blank" rel="noopener" href="https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/">Redis Cluster</a> to scale horizontally.
 
-#### Fail Open or Fail Closed?
+### Fail Open or Fail Closed?
 
 We need to consider what happens when a Redis shard (or the whole rate limiting system) becomes unavailable.
 Since allowing users to exceed their AI usage quota could cost us greatly, it is imperative that our system "fails closed", with all requests being dropped if our rate limiter is unresponsive.
 This obviously hurts our availability and fault tolerance, but the tradeoff is acceptable in this case.
 If we were designing for something like a blog or news feed, it would make more sense to fail open.
 
-#### Detailed Design
+### Detailed Design
 
 <img
   src="/images/system-design-interview/sdi-v1-ch4-2.png"
@@ -217,7 +215,7 @@ If we were designing for something like a blog or news feed, it would make more 
 
 ---
 
-### Step 4 - Wrap Up
+## Step 4 - Wrap Up
 
 First, we started by understanding the problem and clarifying our assumptions.
 Next, we discussed the various rate limiting algorithms and their tradeoffs.
@@ -230,7 +228,7 @@ While wrapping up the interview, we should discuss failure scenarios, limitation
 
 ---
 
-### Other Resources
+## Other Resources
 
 <a target="_blank" rel="noopener" href="https://blog.cloudflare.com/counting-things-a-lot-of-different-things/">Cloudflare's original blog post</a> about rate limiting from 2017 remains a great high-level resource.
 

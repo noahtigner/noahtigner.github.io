@@ -7,6 +7,7 @@ import { LinkInternal } from '~/components/Button';
 import DeckCard from '~/components/Flashcards/DeckCard';
 import CollectionDeckCard from '~/components/Flashcards/CollectionDeckCard';
 import QuizSession from '~/components/Flashcards/QuizSession';
+import VisuallyHidden from '~/components/VisuallyHidden';
 import {
   clearAllProgress,
   useDeckProgressMap,
@@ -261,7 +262,7 @@ export default function Flashcards() {
           title="Flashcards - Noah Tigner"
           description="Test your knowledge with interactive quiz decks on database internals, web fundamentals, and more."
         />
-        <Divider>
+        <Divider asHeading={1}>
           {selectedDecks.length === 1
             ? selectedDecks[0].title
             : `${selectedDecks.length} Decks`}
@@ -282,28 +283,33 @@ export default function Flashcards() {
         title="Flashcards - Noah Tigner"
         description="Test your knowledge with interactive quiz decks on database internals, web fundamentals, and more."
       />
-      <Divider>Flashcards</Divider>
-      <DeckList>
-        {deckItems.map((item) =>
-          item.type === 'standalone' ? (
-            <DeckCard
-              key={item.deck.slug}
-              {...item.deck}
-              selectable
-              selected={selectedSlugs.has(item.deck.slug)}
-              onToggle={() => toggleDeck(item.deck.slug)}
-            />
-          ) : (
-            <CollectionDeckCard
-              key={item.group.slug}
-              group={item.group}
-              selectedSlugs={selectedSlugs}
-              onToggleDeck={toggleDeck}
-              onToggleCollection={toggleCollection}
-            />
-          )
-        )}
-      </DeckList>
+      <Divider asHeading={1}>Flashcards</Divider>
+      <section aria-labelledby="flashcard-list-heading">
+        <VisuallyHidden as="h2" id="flashcard-list-heading">
+          Flashcard decks
+        </VisuallyHidden>
+        <DeckList>
+          {deckItems.map((item) =>
+            item.type === 'standalone' ? (
+              <DeckCard
+                key={item.deck.slug}
+                {...item.deck}
+                selectable
+                selected={selectedSlugs.has(item.deck.slug)}
+                onToggle={() => toggleDeck(item.deck.slug)}
+              />
+            ) : (
+              <CollectionDeckCard
+                key={item.group.slug}
+                group={item.group}
+                selectedSlugs={selectedSlugs}
+                onToggleDeck={toggleDeck}
+                onToggleCollection={toggleCollection}
+              />
+            )
+          )}
+        </DeckList>
+      </section>
       <SelectionFooter>
         <SliderGroup $disabled={!hasSelection}>
           <SliderLabel htmlFor="question-limit">
