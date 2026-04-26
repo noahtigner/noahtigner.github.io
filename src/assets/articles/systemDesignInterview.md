@@ -35,7 +35,7 @@ Although I will be using both the printed books and the online course, I will al
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-4/">Chapter 4 - Design a Rate Limiter</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-5/">Chapter 5 - Design Consistent Hashing</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-6/">Chapter 6 - Design a Key-Value Store</a>
-- [ ] Chapter 7 - Design a Unique ID Generator in Distributed Systems
+- [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-7/">Chapter 7 - Design a Unique ID Generator in Distributed Systems</a>
 - [ ] Chapter 8 - Design a URL Shortener
 - [ ] Chapter 9 - Design a Web Crawler
 - [ ] Chapter 10 - Design a Notification System
