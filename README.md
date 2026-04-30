@@ -86,7 +86,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] [Vol. 1 Chapter 5 - Design Consistent Hashing](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-5/)
   - [x] [Vol. 1 Chapter 6 - Design a Key-Value Store](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-6/)
   - [x] [Vol. 1 Chapter 7 - Design a Unique ID Generator in Distributed Systems](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-7/)
-  - [ ] Vol. 1 Chapter 8 - Design a URL Shortener
+  - [x] [Vol. 1 Chapter 8 - Design a URL Shortener](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-8/)
   - [ ] Vol. 1 Chapter 9 - Design a Web Crawler
   - [ ] Vol. 1 Chapter 10 - Design a Notification System
   - [ ] Vol. 1 Chapter 11 - Design a News Feed System

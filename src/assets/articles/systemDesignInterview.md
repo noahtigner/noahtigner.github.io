@@ -2,7 +2,7 @@
 title: System Design Interview Notes - Introduction & Motivation
 description: An overview of my collection of notes on System Design Interview by Alex Xu.
 published: April 8, 2026
-updated: April 20, 2026
+updated: April 29, 2026
 minutesToRead: 3
 path: /articles/system-design-interview/
 image: /images/system-design-interview.jpg
@@ -36,7 +36,7 @@ Although I will be using both the printed books and the online course, I will al
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-5/">Chapter 5 - Design Consistent Hashing</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-6/">Chapter 6 - Design a Key-Value Store</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-7/">Chapter 7 - Design a Unique ID Generator in Distributed Systems</a>
-- [ ] Chapter 8 - Design a URL Shortener
+- [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-8/">Chapter 8 - Design a URL Shortener</a>
 - [ ] Chapter 9 - Design a Web Crawler
 - [ ] Chapter 10 - Design a Notification System
 - [ ] Chapter 11 - Design a News Feed System
