@@ -1,5 +1,5 @@
 ---
-title: System Design Interview Vol. 1 Ch. 8 - Design A URL Shortener
+title: System Design Interview Vol. 1 Ch. 8 - Design a URL Shortener
 description: Notes on Chapter 8 of System Design Interview by Alex Xu. Designing a URL shortener like bit.ly or TinyURL.
 published: April 29, 2026
 updated: April 29, 2026
@@ -12,7 +12,7 @@ tags:
 collection:
   slug: system-design-interview
   title: System Design Interview
-  shortTitle: Vol. 1 Ch. 8 - Design A URL Shortener
+  shortTitle: Vol. 1 Ch. 8 - Design a URL Shortener
   shortDescription: Designing a URL shortener like bit.ly or TinyURL.
   order: 8
 ---
