@@ -37,7 +37,7 @@ Although I will be using both the printed books and the online course, I will al
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-6/">Chapter 6 - Design a Key-Value Store</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-7/">Chapter 7 - Design a Unique ID Generator in Distributed Systems</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-8/">Chapter 8 - Design a URL Shortener</a>
-- [ ] Chapter 9 - Design a Web Crawler
+- [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-9/">Chapter 9 - Design a Web Crawler</a>
 - [ ] Chapter 10 - Design a Notification System
 - [ ] Chapter 11 - Design a News Feed System
 - [ ] Chapter 12 - Design a Chat System

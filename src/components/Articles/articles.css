@@ -16,8 +16,10 @@ code,
 .article-container {
   h1 {
     font-weight: 300;
-    font-size: 2.5rem;
+    font-size: 2rem;
+    line-height: 1.2;
     margin: 0;
+    margin-top: 1rem !important;
   }
   h2 {
     font-weight: 400;

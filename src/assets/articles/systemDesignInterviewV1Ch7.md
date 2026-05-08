@@ -1,5 +1,5 @@
 ---
-title: System Design Interview Vol. 1 Ch. 7 - Design A Unique ID Generator
+title: System Design Interview Vol. 1 Ch. 7 - Design a Unique ID Generator
 description: Notes on Chapter 7 of System Design Interview by Alex Xu. Various approaches to distributed ID generation, including UUID, Ticket Server, Snowflake IDs, etc.
 published: April 26, 2026
 updated: April 26, 2026
@@ -12,7 +12,7 @@ tags:
 collection:
   slug: system-design-interview
   title: System Design Interview
-  shortTitle: Vol. 1 Ch. 7 - Design A Unique ID Generator
+  shortTitle: Vol. 1 Ch. 7 - Design a Unique ID Generator
   shortDescription: Various approaches to distributed ID generation, including UUID, Ticket Server, Snowflake IDs, etc.
   order: 7
 ---
