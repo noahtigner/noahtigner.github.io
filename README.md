@@ -88,7 +88,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] [Vol. 1 Chapter 7 - Design a Unique ID Generator in Distributed Systems](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-7/)
   - [x] [Vol. 1 Chapter 8 - Design a URL Shortener](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-8/)
   - [x] [Vol. 1 Chapter 9 - Design a Web Crawler](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-9/)
-  - [ ] Vol. 1 Chapter 10 - Design a Notification System
+  - [x] [Vol. 1 Chapter 10 - Design a Notification System](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-10/)
   - [ ] Vol. 1 Chapter 11 - Design a News Feed System
   - [ ] Vol. 1 Chapter 12 - Design a Chat System
   - [ ] Vol. 1 Chapter 13 - Design a Search Autocomplete System
