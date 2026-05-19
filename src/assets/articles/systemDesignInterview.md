@@ -38,8 +38,8 @@ Although I will be using both the printed books and the online course, I will al
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-7/">Chapter 7 - Design a Unique ID Generator in Distributed Systems</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-8/">Chapter 8 - Design a URL Shortener</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-9/">Chapter 9 - Design a Web Crawler</a>
-- [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-9/">Chapter 10 - Design a Notification System</a>
-- [ ] Chapter 11 - Design a News Feed System
+- [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-10/">Chapter 10 - Design a Notification System</a>
+- [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-11/">Chapter 11 - Design a News Feed System</a>
 - [ ] Chapter 12 - Design a Chat System
 - [ ] Chapter 13 - Design a Search Autocomplete System
 - [ ] Chapter 14 - Design YouTube
