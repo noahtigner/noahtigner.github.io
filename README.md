@@ -90,7 +90,7 @@ Noah Tigner's [Portfolio Website](https://noahtigner.com)
   - [x] [Vol. 1 Chapter 9 - Design a Web Crawler](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-9/)
   - [x] [Vol. 1 Chapter 10 - Design a Notification System](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-10/)
   - [x] [Vol. 1 Chapter 11 - Design a News Feed System](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-11/)
-  - [ ] Vol. 1 Chapter 12 - Design a Chat System
+  - [x] [Vol. 1 Chapter 12 - Design a Chat System](https://noahtigner.com/articles/system-design-interview-volume-1-chapter-12/)
   - [ ] Vol. 1 Chapter 13 - Design a Search Autocomplete System
   - [ ] Vol. 1 Chapter 14 - Design YouTube
   - [ ] Vol. 1 Chapter 15 - Design Google Drive
