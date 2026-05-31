@@ -41,7 +41,7 @@ Although I will be using both the printed books and the online course, I will al
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-10/">Chapter 10 - Design a Notification System</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-11/">Chapter 11 - Design a News Feed System</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-12/">Chapter 12 - Design a Chat System</a>
-- [ ] Chapter 13 - Design a Search Autocomplete System
+- [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-13/">Chapter 13 - Design a Search Autocomplete System</a>
 - [ ] Chapter 14 - Design YouTube
 - [ ] Chapter 15 - Design Google Drive
 
