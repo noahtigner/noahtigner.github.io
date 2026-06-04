@@ -2,7 +2,7 @@
 title: System Design Interview Notes - Introduction & Motivation
 description: An overview of my collection of notes on System Design Interview by Alex Xu.
 published: April 8, 2026
-updated: April 29, 2026
+updated: June 5, 2026
 minutesToRead: 3
 path: /articles/system-design-interview/
 image: /images/system-design-interview.jpg
@@ -42,7 +42,7 @@ Although I will be using both the printed books and the online course, I will al
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-11/">Chapter 11 - Design a News Feed System</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-12/">Chapter 12 - Design a Chat System</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-13/">Chapter 13 - Design a Search Autocomplete System</a>
-- [ ] Chapter 14 - Design YouTube
+- [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-14/">Chapter 14 - Design YouTube</a>
 - [ ] Chapter 15 - Design Google Drive
 
 ### Volume 2

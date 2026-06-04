@@ -1,8 +1,8 @@
 ---
-title: System Design Interview Vol. 1 Ch. 13 - Design A Search Autocomplete System
+title: System Design Interview Vol. 1 Ch. 13 - Design a Search Autocomplete System
 description: Notes on Chapter 13 of System Design Interview by Alex Xu. Designing a search autocomplete system like the Google search bar.
 published: May 30, 2026
-updated: May 30, 2026
+updated: June 5, 2026
 minutesToRead: 8
 path: /articles/system-design-interview-volume-1-chapter-13/
 image: /images/system-design-interview.jpg
@@ -12,7 +12,7 @@ tags:
 collection:
   slug: system-design-interview
   title: System Design Interview
-  shortTitle: Vol. 1 Ch. 13 - Design A Search Autocomplete System
+  shortTitle: Vol. 1 Ch. 13 - Design a Search Autocomplete System
   shortDescription: Designing a search autocomplete system like the Google search bar.
   order: 13
 ---
