@@ -2,9 +2,9 @@
 title: System Design Interview Notes - Introduction & Motivation
 description: An overview of my collection of notes on System Design Interview by Alex Xu.
 published: April 8, 2026
-updated: June 5, 2026
+updated: June 11, 2026
 minutesToRead: 3
-path: /articles/system-design-interview/
+path: /articles/system-design-interview-volume-1/
 image: /images/system-design-interview.jpg
 tags:
   - 'reading notes'
@@ -19,15 +19,13 @@ collection:
 
 <p class="subtitle">3 minute read • April 8, 2026</p>
 
-This is a collection of my notes on <a href="https://a.co/d/06Zho5r7" target="_blank" rel="noopener">_System Design Interview_</a> by Alex Xu, <a href="https://a.co/d/02ltx83O" target="_blank" rel="noopener">_System Design Interview - Volume 2_</a> by Alex Xu and Sahn Lam, and the <a href="https://bytebytego.com/" target="_blank" rel="noopener">online course by the same name</a> from the ByteByteGo team. I also heavily reference the <a href="https://www.youtube.com/ByteByteGo" target="_blank" rel="noopener">ByteByteGo YouTube channel</a>. These resources provide high-level strategies and examples for system design interviews.
+This is a collection of my notes on <a href="https://a.co/d/06Zho5r7" target="_blank" rel="noopener">_System Design Interview_</a> by Alex Xu and the ByteByteGo team's <a href="https://bytebytego.com/" target="_blank" rel="noopener">online course</a> by the same name.
+I also heavily reference <a href="https://www.hellointerview.com/learn/system-design" target="_blank" rel="noopener">HelloInterview's walkthroughs</a> and videos.
+These resources provide high-level strategies and examples for system design interviews.
 
 ---
 
 ## Chapter Notes
-
-Although I will be using both the printed books and the online course, I will align the organization of my notes with that of the books. Chapter 1 of volume 1 maps to section 2 in the course, and chapter 1 of volume 2 maps to section 17. I skip to section 2 (vol. 1 ch. 1) since section 0 and 1 are just the foreword and links to the community Discord.
-
-### Volume 1
 
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-1/">Chapter 1 - Scale From Zero to Millions of Users</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-2/">Chapter 2 - Back-of-the-Envelope Estimation</a>
@@ -43,27 +41,12 @@ Although I will be using both the printed books and the online course, I will al
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-12/">Chapter 12 - Design a Chat System</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-13/">Chapter 13 - Design a Search Autocomplete System</a>
 - [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-14/">Chapter 14 - Design YouTube</a>
-- [ ] Chapter 15 - Design Google Drive
-
-### Volume 2
-
-- [ ] Chapter 1 - Proximity Services
-- [ ] Chapter 2 - Nearby Friends
-- [ ] Chapter 3 - Google Maps
-- [ ] Chapter 4 - Distributed Message Queues
-- [ ] Chapter 5 - Metrics Monitoring and Alerting Systems
-- [ ] Chapter 6 - Ad Click Event Aggregation
-- [ ] Chapter 7 - Hotel Reservation System
-- [ ] Chapter 8 - Distributed Email Service
-- [ ] Chapter 9 - S3-like Object Storage
-- [ ] Chapter 10 - Real-time Gaming Leaderboard
-- [ ] Chapter 11 - Payment System
-- [ ] Chapter 12 - Digital Wallet
-- [ ] Chapter 13 - Stock Exchange
+- [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/articles/system-design-interview-volume-1-chapter-15/">Chapter 15 - Design Google Drive</a>
 
 ### Summary, Review, and Flash Cards
 
 - [ ] Summary & Review
+- [ ] Flash Cards
 
 ---
 
@@ -86,5 +69,3 @@ I do not use AI of any form while writing these notes. I do however use GitHub C
 ## Attribution
 
 _System Design Interview - An Insider's Guide_ by Alex Xu. Copyright 2020 Byte Code LLC
-
-_System Design Interview - An Insider's Guide (Volume 2)_ by Alex Xu and Sahn Lam. Copyright 2022 Byte Code LLC
