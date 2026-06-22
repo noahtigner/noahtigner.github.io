@@ -1847,5 +1847,1415 @@
         "multiSelect": false
       }
     ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-1",
+    "title": "Vol. 1 Ch. 1 - Scale From Zero to Millions of Users",
+    "description": "Horizontal scaling, caching, stateless web tiers, CDNs, etc.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-1/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 1
+    },
+    "questions": [
+      {
+        "id": "sdi-1",
+        "question": "Why is a stateless web tier easier to scale horizontally?",
+        "options": [
+          "Any web server can handle any request because session state is externalized",
+          "It removes the need for a database",
+          "It guarantees every request is served from a CDN",
+          "It makes vertical scaling unnecessary for all components"
+        ],
+        "answer": 0,
+        "explanation": "When session state is stored outside the web server, load balancers can route each request to any healthy instance. This simplifies autoscaling, failover, and deployments.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-2",
+        "question": "Which components commonly reduce load on origin servers in an early high-scale architecture? (Select all that apply)",
+        "options": [
+          "Cache",
+          "Content delivery network",
+          "Load balancer",
+          "Single writable database primary"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Caches absorb repeated data reads, CDNs serve static assets near users, and load balancers distribute traffic across web instances. A single primary database can become a bottleneck instead of reducing origin load.",
+        "multiSelect": true
+      },
+      {
+        "id": "sdi-3",
+        "question": "What is the main tradeoff of database replication with a primary-replica setup?",
+        "options": [
+          "It improves read scalability and failover, but replicas can lag behind the primary",
+          "It eliminates the need for backups",
+          "It makes every read strongly consistent by default",
+          "It prevents schema changes"
+        ],
+        "answer": 0,
+        "explanation": "Read replicas improve read throughput and availability, but asynchronous replication introduces replica lag. Reads from replicas may be stale unless the design accounts for consistency requirements.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-4",
+        "question": "When should a system usually introduce a message queue?",
+        "options": [
+          "When work can be processed asynchronously to decouple producers from consumers",
+          "When every request must complete synchronously before returning",
+          "When static files need to be cached globally",
+          "When database indexes need to be dropped"
+        ],
+        "answer": 0,
+        "explanation": "Queues smooth traffic spikes, isolate slow downstream work, and let workers retry background jobs independently of user-facing request latency.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-5",
+        "question": "What is a common downside of caching data aggressively?",
+        "options": [
+          "Cache invalidation and stale reads become harder to reason about",
+          "The database can no longer store persistent data",
+          "Every cache hit must be slower than a database hit",
+          "Load balancers stop working"
+        ],
+        "answer": 0,
+        "explanation": "Caches improve latency and reduce database load, but introduce freshness and invalidation problems. Designs need TTLs, explicit invalidation, or write-through/write-around choices.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-6",
+        "question": "Why are multiple data centers useful in large-scale systems?",
+        "options": [
+          "They reduce disaster risk and can place traffic closer to users",
+          "They remove all consistency tradeoffs",
+          "They make every database write local to every user",
+          "They eliminate the need for monitoring"
+        ],
+        "answer": 0,
+        "explanation": "Multi-data-center designs improve disaster recovery and geographic latency, but add replication, routing, failover, and consistency complexity.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-2",
+    "title": "Vol. 1 Ch. 2 - Back-of-the-Envelope Estimation",
+    "description": "Statistics, conversions, and estimation strategies every software engineer should know.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-2/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 2
+    },
+    "questions": [
+      {
+        "id": "sdi-7",
+        "question": "Why are powers of two useful in capacity estimation?",
+        "options": [
+          "They map naturally to binary storage units such as KB, MB, GB, and TB",
+          "They guarantee exact user growth forecasts",
+          "They remove the need to estimate traffic",
+          "They make latency independent of network distance"
+        ],
+        "answer": 0,
+        "explanation": "Storage and memory are commonly discussed in binary units, so powers of two help convert quickly between bytes, kilobytes, megabytes, gigabytes, and terabytes.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-8",
+        "question": "Which latency rule of thumb is most useful in system design interviews?",
+        "options": [
+          "Memory access is fast, disk and network access are much slower",
+          "All storage media have roughly equal latency",
+          "Cross-region network calls are always faster than local memory reads",
+          "Sequential and random disk I/O have identical performance"
+        ],
+        "answer": 0,
+        "explanation": "Knowing relative latency orders of magnitude helps decide when to cache, batch, avoid cross-region calls, or prefer sequential I/O.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-9",
+        "question": "What does 99.9% availability roughly imply over a year?",
+        "options": [
+          "About 8.8 hours of allowed downtime",
+          "About 8.8 seconds of allowed downtime",
+          "Zero downtime",
+          "One month of allowed downtime"
+        ],
+        "answer": 0,
+        "explanation": "Three nines availability allows roughly 0.1% downtime per year, which is about 8.8 hours. More nines sharply reduce the error budget.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-10",
+        "question": "Why should estimates usually separate QPS, storage, bandwidth, and cache size?",
+        "options": [
+          "Each dimension stresses different parts of the system",
+          "They are always numerically identical",
+          "Only storage matters for distributed systems",
+          "Separating them prevents horizontal scaling"
+        ],
+        "answer": 0,
+        "explanation": "QPS affects compute and databases, storage affects persistence, bandwidth affects networking/CDN cost, and cache size affects memory needs. Treating them separately exposes bottlenecks.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-11",
+        "question": "What is the practical value of an SLA in design discussions?",
+        "options": [
+          "It turns reliability expectations into an explicit availability or latency target",
+          "It replaces monitoring and alerting",
+          "It guarantees no failures can happen",
+          "It defines the exact database schema"
+        ],
+        "answer": 0,
+        "explanation": "An SLA clarifies what the system must achieve and helps drive redundancy, fallback, monitoring, and error-budget decisions.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-12",
+        "question": "Which approach is best when an estimate is uncertain in an interview?",
+        "options": [
+          "State assumptions clearly and carry them through the calculation",
+          "Avoid estimating any number",
+          "Choose the largest possible value without explanation",
+          "Switch to implementation details immediately"
+        ],
+        "answer": 0,
+        "explanation": "The interviewer is usually evaluating reasoning. Clear assumptions make the estimate debuggable and let the design adjust if a premise changes.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-3",
+    "title": "Vol. 1 Ch. 3 - A Framework for System Design Interviews",
+    "description": "A 4-step process for system design interviews, plus tips and tricks.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-3/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 3
+    },
+    "questions": [
+      {
+        "id": "sdi-13",
+        "question": "What is the main goal of the first step in a system design interview?",
+        "options": [
+          "Clarify requirements, constraints, users, and scope before designing",
+          "Draw the final architecture immediately",
+          "Choose a programming language",
+          "Write production-ready code"
+        ],
+        "answer": 0,
+        "explanation": "Clarifying the problem prevents overbuilding the wrong system and establishes which functional and non-functional requirements matter most.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-14",
+        "question": "Why should high-level design come before deep-dive details?",
+        "options": [
+          "It gets alignment on the main components and data flows before optimizing internals",
+          "It avoids discussing tradeoffs",
+          "It proves the database schema is irrelevant",
+          "It guarantees the system is complete"
+        ],
+        "answer": 0,
+        "explanation": "A shared high-level design gives the interviewer a chance to steer. The deep dive can then focus on the most important bottlenecks and tradeoffs.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-15",
+        "question": "Which topics are usually worth clarifying early? (Select all that apply)",
+        "options": [
+          "Functional requirements",
+          "Scale and traffic assumptions",
+          "Consistency and availability needs",
+          "CSS color palette"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Requirements, scale, and reliability constraints shape architecture. Visual styling is usually irrelevant unless the interview is specifically about frontend design.",
+        "multiSelect": true
+      },
+      {
+        "id": "sdi-16",
+        "question": "What is a good sign that a design deep dive is productive?",
+        "options": [
+          "It focuses on the highest-risk bottleneck or ambiguity in the proposed design",
+          "It rewrites every component from scratch",
+          "It ignores the stated requirements",
+          "It spends all remaining time on unrelated technologies"
+        ],
+        "answer": 0,
+        "explanation": "The deep dive should stress-test the parts most likely to fail at scale, such as data partitioning, hot keys, consistency, or retry behavior.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-17",
+        "question": "Why is it useful to wrap up with bottlenecks and follow-ups?",
+        "options": [
+          "It shows awareness of remaining risks and future improvements",
+          "It avoids discussing tradeoffs",
+          "It changes the requirements retroactively",
+          "It removes the need for monitoring"
+        ],
+        "answer": 0,
+        "explanation": "A concise wrap-up demonstrates judgment: what the design handles, what it does not, and which tradeoffs would be revisited with more time.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-18",
+        "question": "Which behavior is usually a design-interview anti-pattern?",
+        "options": [
+          "Jumping into implementation details before validating requirements",
+          "Asking clarifying questions",
+          "Explaining tradeoffs",
+          "Estimating traffic"
+        ],
+        "answer": 0,
+        "explanation": "Premature implementation details can solve the wrong problem. Good interviews usually begin with scope and requirements.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-4",
+    "title": "Vol. 1 Ch. 4 - Design a Rate Limiter",
+    "description": "High-level design breakdown and tradeoffs for distributed rate limiters.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-4/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 4
+    },
+    "questions": [
+      {
+        "id": "sdi-19",
+        "question": "Why is client-side rate limiting insufficient as the main abuse-control mechanism?",
+        "options": [
+          "Clients can bypass or modify client-side controls",
+          "It is always more expensive than server-side limiting",
+          "It cannot reduce polling frequency",
+          "It requires every client to use Redis"
+        ],
+        "answer": 0,
+        "explanation": "Client-side throttling is helpful for cooperative clients, but adversarial clients can ignore it. Enforcement belongs on the server, API gateway, or load balancer path.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-20",
+        "question": "What is the key behavior of a token bucket rate limiter?",
+        "options": [
+          "Tokens refill over time and each accepted request consumes a token",
+          "Every request waits in a FIFO queue forever",
+          "Only requests in the previous fixed calendar minute are counted",
+          "The limiter stores a full log of every request body"
+        ],
+        "answer": 0,
+        "explanation": "Token buckets support controlled average rate with burst allowance up to bucket capacity. They are common because they are simple and flexible.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-21",
+        "question": "Which rate limiting algorithms can smooth bursts better than a plain fixed window? (Select all that apply)",
+        "options": [
+          "Sliding window log",
+          "Sliding window counter",
+          "Token bucket",
+          "Naive fixed window only"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Sliding windows reduce boundary spikes, and token buckets regulate average rate while allowing bounded bursts. A naive fixed window can double-count bursts around window edges.",
+        "multiSelect": true
+      },
+      {
+        "id": "sdi-22",
+        "question": "Why is Redis often used for distributed rate limiting?",
+        "options": [
+          "It provides fast shared counters with TTLs and atomic operations",
+          "It guarantees unlimited memory",
+          "It replaces all API servers",
+          "It makes user identification unnecessary"
+        ],
+        "answer": 0,
+        "explanation": "A distributed limiter needs shared state across servers. Redis supports low-latency increments, expirations, and Lua scripts for atomic multi-step checks.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-23",
+        "question": "What is the fail-open vs fail-closed tradeoff in a rate limiter?",
+        "options": [
+          "Fail-open preserves availability but may allow abuse; fail-closed protects capacity but may block valid users",
+          "Fail-open disables all logging; fail-closed enables all logging",
+          "Fail-open is always strongly consistent; fail-closed is eventually consistent",
+          "They only differ in response body formatting"
+        ],
+        "answer": 0,
+        "explanation": "If the limiter dependency fails, a product must choose whether to allow traffic through or reject it. The right choice depends on risk, revenue, and abuse tolerance.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-24",
+        "question": "How can hot keys affect a distributed rate limiter?",
+        "options": [
+          "A single popular client or endpoint can overload one shard of limiter state",
+          "They make all requests anonymous",
+          "They eliminate the need for counters",
+          "They only affect static assets"
+        ],
+        "answer": 0,
+        "explanation": "If a heavily used key maps to one Redis shard or process, that shard can bottleneck. Mitigations include key splitting, local pre-aggregation, and careful sharding.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-5",
+    "title": "Vol. 1 Ch. 5 - Consistent Hashing",
+    "description": "Consistent hashing strategies for servers and database shards.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-5/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 5
+    },
+    "questions": [
+      {
+        "id": "sdi-25",
+        "question": "What problem does consistent hashing solve compared with hash(key) % N?",
+        "options": [
+          "It reduces the amount of key movement when nodes are added or removed",
+          "It removes the need for replication",
+          "It guarantees perfect balance for all workloads",
+          "It prevents hot keys from existing"
+        ],
+        "answer": 0,
+        "explanation": "Modulo hashing remaps many keys whenever N changes. Consistent hashing confines most movement to neighboring ranges on the ring.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-26",
+        "question": "What are virtual nodes used for in a consistent hash ring?",
+        "options": [
+          "Improving load balance by giving each physical node multiple positions on the ring",
+          "Encrypting object keys",
+          "Replacing replicas with caches",
+          "Forcing all traffic to one primary node"
+        ],
+        "answer": 0,
+        "explanation": "Virtual nodes spread each physical server across the ring, which smooths uneven hash-space ownership and simplifies capacity weighting.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-27",
+        "question": "How can a consistent hash ring support heterogeneous servers?",
+        "options": [
+          "Assign stronger servers more virtual nodes",
+          "Disable replication on stronger servers",
+          "Hash only small objects",
+          "Use a fixed window counter"
+        ],
+        "answer": 0,
+        "explanation": "Weighted virtual nodes let larger servers own more ranges while smaller servers own fewer. This is a practical way to reflect different capacities.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-28",
+        "question": "What remains a problem even with consistent hashing?",
+        "options": [
+          "Hot keys can still overload the nodes responsible for them",
+          "Keys can no longer be found",
+          "Adding nodes becomes impossible",
+          "Replication is mathematically forbidden"
+        ],
+        "answer": 0,
+        "explanation": "Consistent hashing balances key ranges, not access frequency. A single extremely popular key still needs mitigation such as replication, caching, or request coalescing.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-29",
+        "question": "Which operations are most directly affected by node joins and leaves in consistent hashing? (Select all that apply)",
+        "options": [
+          "Range ownership transfer",
+          "Replica placement",
+          "Cache warmup",
+          "HTML rendering in clients"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Membership changes move ownership for affected ranges, alter replica sets, and can create cold caches. Client-side rendering is unrelated.",
+        "multiSelect": true
+      },
+      {
+        "id": "sdi-30",
+        "question": "Why is a hash ring often paired with replication?",
+        "options": [
+          "So data remains available when the owner node fails",
+          "So all writes become single-threaded",
+          "So keys become human-readable",
+          "So the ring no longer needs membership tracking"
+        ],
+        "answer": 0,
+        "explanation": "Replication stores copies on additional nodes, improving availability and durability when a node or range owner fails.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-6",
+    "title": "Vol. 1 Ch. 6 - Design a Key-Value Store",
+    "description": "Considerations when designing a highly available distributed key-value store.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-6/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 6
+    },
+    "questions": [
+      {
+        "id": "sdi-31",
+        "question": "In a distributed key-value store, what does quorum tuning control?",
+        "options": [
+          "The number of replicas that must acknowledge reads and writes",
+          "The number of keys in a JSON object",
+          "The number of CPU cores on each client",
+          "The visual layout of monitoring dashboards"
+        ],
+        "answer": 0,
+        "explanation": "Quorum parameters such as N, R, and W trade latency and availability against consistency. Higher R or W usually improves consistency but costs more latency and failure sensitivity.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-32",
+        "question": "What does the condition R + W > N usually provide in quorum systems?",
+        "options": [
+          "Read and write quorums overlap, increasing the chance of reading the latest write",
+          "All replicas are guaranteed Byzantine fault tolerant",
+          "Writes never need to be replicated",
+          "Reads can ignore every replica"
+        ],
+        "answer": 0,
+        "explanation": "If read and write quorums overlap, at least one read replica should have seen the latest successful write in a healthy quorum-based system.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-33",
+        "question": "Why are vector clocks useful in eventually consistent key-value stores?",
+        "options": [
+          "They help detect concurrent conflicting versions that cannot be ordered causally",
+          "They synchronize physical clocks across data centers",
+          "They compress values before storage",
+          "They replace all replication protocols"
+        ],
+        "answer": 0,
+        "explanation": "Vector clocks track version causality across replicas. If neither version descends from the other, the system can expose a conflict for resolution.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-34",
+        "question": "What is hinted handoff designed to handle?",
+        "options": [
+          "Temporary replica unavailability by storing a write on another node until the target recovers",
+          "Permanent deletion of all replicas",
+          "Schema migrations in relational databases",
+          "Client-side image compression"
+        ],
+        "answer": 0,
+        "explanation": "When a target replica is unavailable, another node can temporarily accept the write with a hint and deliver it later. This improves availability but may weaken immediate consistency.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-35",
+        "question": "How do Merkle trees help anti-entropy repair?",
+        "options": [
+          "They compare hashes of key ranges so replicas can find divergent data efficiently",
+          "They route HTTP requests to API gateways",
+          "They assign globally unique IDs",
+          "They enforce rate limits"
+        ],
+        "answer": 0,
+        "explanation": "Merkle trees summarize ranges with hashes. Replicas compare tree branches and only exchange the ranges that differ, avoiding full dataset scans.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-36",
+        "question": "Which mechanisms are commonly part of Dynamo-style key-value stores? (Select all that apply)",
+        "options": [
+          "Consistent hashing",
+          "Quorum reads/writes",
+          "Gossip membership",
+          "Single-node-only storage"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Dynamo-style systems combine partitioning via consistent hashing, tunable quorum operations, and gossip-based cluster membership/failure detection.",
+        "multiSelect": true
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-7",
+    "title": "Vol. 1 Ch. 7 - Design a Unique ID Generator",
+    "description": "Various approaches to distributed ID generation, including UUID, Ticket Server, Snowflake IDs, etc.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-7/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 7
+    },
+    "questions": [
+      {
+        "id": "sdi-37",
+        "question": "Why are auto-increment IDs difficult in multi-master systems?",
+        "options": [
+          "Independent writers can generate the same number without coordination",
+          "They cannot be stored in databases",
+          "They are always longer than UUIDs",
+          "They prevent indexing"
+        ],
+        "answer": 0,
+        "explanation": "If several masters allocate IDs independently, they need coordination or partitioned ID ranges to avoid collisions.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-38",
+        "question": "What is a major advantage of UUIDs for distributed ID generation?",
+        "options": [
+          "They can be generated independently with extremely low collision probability",
+          "They are always time-sortable",
+          "They are shorter than 64-bit integers",
+          "They encode the shard location by default"
+        ],
+        "answer": 0,
+        "explanation": "UUIDs avoid a central coordinator and work across machines and regions, but their size and poor locality can be downsides.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-39",
+        "question": "What is the core weakness of a ticket server for ID generation?",
+        "options": [
+          "It can become a single point of failure and throughput bottleneck",
+          "It cannot issue numeric IDs",
+          "It makes IDs globally unique without coordination",
+          "It prevents batching"
+        ],
+        "answer": 0,
+        "explanation": "A central ticket server is simple and can issue sequential IDs, but it must be highly available and scalable or the whole system's writes are affected.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-40",
+        "question": "What fields are typically combined in a Snowflake-style ID?",
+        "options": [
+          "Timestamp, machine or data-center identifier, and sequence number",
+          "User password, URL path, and cache TTL",
+          "Primary key, foreign key, and SQL query plan",
+          "Image size, MIME type, and CDN region"
+        ],
+        "answer": 0,
+        "explanation": "Snowflake IDs usually pack time, worker identity, and an incrementing sequence into a sortable fixed-width integer.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-41",
+        "question": "Why must Snowflake-style systems handle clock rollback carefully?",
+        "options": [
+          "A backward clock can cause duplicate or non-monotonic IDs on the same worker",
+          "It makes all IDs shorter",
+          "It disables network routing",
+          "It turns integer IDs into UUIDs"
+        ],
+        "answer": 0,
+        "explanation": "If a worker's timestamp moves backward, it may reuse a previous timestamp and sequence range. Systems usually wait, reject, or use logical safeguards.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-42",
+        "question": "Which ID generation approaches avoid a central service on the write path? (Select all that apply)",
+        "options": [
+          "UUIDs",
+          "Snowflake-style workers",
+          "A single ticket server",
+          "Database auto-increment on one primary"
+        ],
+        "answer": [0, 1],
+        "explanation": "UUIDs and Snowflake-style workers can generate IDs locally. Ticket servers and single-primary auto-increment schemes centralize ID allocation.",
+        "multiSelect": true
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-8",
+    "title": "Vol. 1 Ch. 8 - Design a URL Shortener",
+    "description": "Designing a URL shortener like bit.ly or TinyURL.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-8/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 8
+    },
+    "questions": [
+      {
+        "id": "sdi-43",
+        "question": "Why is Base62 commonly used for short URLs?",
+        "options": [
+          "It compactly encodes IDs using digits, uppercase letters, and lowercase letters",
+          "It encrypts URLs end to end",
+          "It prevents all hash collisions",
+          "It requires only decimal digits"
+        ],
+        "answer": 0,
+        "explanation": "Base62 provides a URL-friendly alphabet with 62 characters, letting large numeric IDs be represented in short strings.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-44",
+        "question": "What is the main issue with hash-based short URL generation?",
+        "options": [
+          "Different long URLs can collide on the same shortened hash prefix",
+          "It cannot produce fixed-length strings",
+          "It requires a global counter",
+          "It makes redirects impossible"
+        ],
+        "answer": 0,
+        "explanation": "Hash prefixes are compact but can collide. Collision handling usually checks the database and retries with a longer hash or salt.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-45",
+        "question": "What is a practical advantage of counter + Base62 over hashing?",
+        "options": [
+          "It naturally creates unique short codes if the counter is unique",
+          "It hides all business volume by default",
+          "It requires no database lookup on redirect",
+          "It guarantees no one can enumerate links"
+        ],
+        "answer": 0,
+        "explanation": "A unique counter maps cleanly to a unique Base62 code. The tradeoff is that sequential codes can expose volume and are easier to enumerate unless mitigated.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-46",
+        "question": "When is a 301 redirect usually preferable for a short URL?",
+        "options": [
+          "When the mapping is permanent and client/browser caching is acceptable",
+          "When every click must be counted at the origin",
+          "When the long URL changes every second",
+          "When caching must be disabled"
+        ],
+        "answer": 0,
+        "explanation": "A 301 is permanent and can be cached by clients, reducing load. A 302 is better when analytics or mutable mappings require requests to keep reaching the service.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-47",
+        "question": "Which data is typically stored for a shortened URL? (Select all that apply)",
+        "options": [
+          "Short code",
+          "Original long URL",
+          "Creation or expiration metadata",
+          "Every user's password"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "The service needs the code-to-URL mapping and operational metadata such as owner, creation time, expiration, and analytics counters. User passwords are unrelated and should not be stored in mapping rows.",
+        "multiSelect": true
+      },
+      {
+        "id": "sdi-48",
+        "question": "Why is caching valuable in URL redirecting?",
+        "options": [
+          "Popular short codes can be resolved without hitting the primary database",
+          "It makes all redirects strongly consistent",
+          "It removes the need to store the original URL",
+          "It prevents HTTP redirects from being cached by browsers"
+        ],
+        "answer": 0,
+        "explanation": "Redirect traffic is read-heavy and skewed. Caching hot mappings cuts database load and lowers redirect latency.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-9",
+    "title": "Vol. 1 Ch. 9 - Design a Web Crawler",
+    "description": "Designing a Web Crawler for text extraction and LLM training data.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-9/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 9
+    },
+    "questions": [
+      {
+        "id": "sdi-49",
+        "question": "Why do many crawlers use breadth-first search as a baseline?",
+        "options": [
+          "It explores pages by link distance from seeds and avoids going too deep into one site",
+          "It guarantees every page has equal priority",
+          "It eliminates duplicate URLs",
+          "It makes robots.txt unnecessary"
+        ],
+        "answer": 0,
+        "explanation": "BFS is a reasonable starting point for broad coverage, though production crawlers add priority, politeness, freshness, and deduplication controls.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-50",
+        "question": "What does crawler politeness protect against?",
+        "options": [
+          "Overloading a target website with too many requests too quickly",
+          "Hash collisions in short URLs",
+          "Duplicate Snowflake IDs",
+          "Slow image transcoding"
+        ],
+        "answer": 0,
+        "explanation": "Politeness enforces per-host delays and robots.txt rules so the crawler does not harm the sites it visits.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-51",
+        "question": "What is the URL frontier responsible for?",
+        "options": [
+          "Managing which URLs should be crawled next and when",
+          "Storing user sessions",
+          "Issuing TLS certificates",
+          "Rendering frontend pages"
+        ],
+        "answer": 0,
+        "explanation": "The frontier is the scheduler for crawl work. It balances priority, politeness, freshness, and distributed worker assignment.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-52",
+        "question": "Which crawler mechanisms improve efficiency? (Select all that apply)",
+        "options": [
+          "URL deduplication",
+          "Content fingerprinting",
+          "Per-host scheduling",
+          "Retrying every failed URL forever without backoff"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Deduplication avoids repeated work, fingerprints detect duplicate content, and per-host scheduling improves politeness. Infinite retries can waste capacity.",
+        "multiSelect": true
+      },
+      {
+        "id": "sdi-53",
+        "question": "Why does freshness matter in web crawling?",
+        "options": [
+          "Pages change over time, so important pages should be revisited on an appropriate schedule",
+          "It ensures every URL is crawled exactly once",
+          "It removes the need for parsers",
+          "It prevents DNS failures"
+        ],
+        "answer": 0,
+        "explanation": "A crawler needs recrawl policies so stale index data is updated without wasting resources on pages that rarely change.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-54",
+        "question": "How can a crawler be made extensible?",
+        "options": [
+          "Use modular fetchers, parsers, extractors, and storage pipelines",
+          "Hard-code all logic into a single worker",
+          "Disable content-type detection",
+          "Avoid queues"
+        ],
+        "answer": 0,
+        "explanation": "A modular pipeline makes it easier to add new content types, parsers, ranking signals, and storage sinks without rewriting the whole crawler.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-10",
+    "title": "Vol. 1 Ch. 10 - Design a Notification System",
+    "description": "Designing a notification system that supports push notifications, SMS, and email.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-10/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 10
+    },
+    "questions": [
+      {
+        "id": "sdi-55",
+        "question": "Why do notification systems usually integrate with third-party providers?",
+        "options": [
+          "Mobile push, SMS, and email delivery depend on external platforms and carriers",
+          "They cannot store templates locally",
+          "They must use a single database table for every channel",
+          "They avoid all delivery failures"
+        ],
+        "answer": 0,
+        "explanation": "APNs/FCM, email providers, and SMS gateways are specialized delivery channels. The system must abstract over their APIs, quotas, errors, and retries.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-56",
+        "question": "What is the purpose of notification templates?",
+        "options": [
+          "Provide reusable, localized, and consistently formatted message bodies",
+          "Replace user preferences",
+          "Guarantee delivery through SMS carriers",
+          "Shard the user table"
+        ],
+        "answer": 0,
+        "explanation": "Templates keep notification content consistent, easier to localize, and safer to update without changing core delivery code.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-57",
+        "question": "Which features help prevent notification spam? (Select all that apply)",
+        "options": [
+          "User preferences",
+          "Rate limiting",
+          "Deduplication or batching",
+          "Unlimited retries with no backoff"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Preferences, rate limits, deduplication, and batching reduce unwanted or excessive notifications. Unbounded retries can amplify spam and provider load.",
+        "multiSelect": true
+      },
+      {
+        "id": "sdi-58",
+        "question": "Why is a queue useful between notification creation and provider delivery?",
+        "options": [
+          "It decouples producers from provider latency and supports retry workers",
+          "It proves delivery succeeded",
+          "It removes the need for provider credentials",
+          "It makes every notification synchronous"
+        ],
+        "answer": 0,
+        "explanation": "Queues absorb bursts, isolate slow providers, and let workers retry or route messages without blocking user-facing requests.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-59",
+        "question": "What should monitoring track in a notification system?",
+        "options": [
+          "Delivery success rates, provider errors, queue lag, and latency",
+          "Only database CPU",
+          "Only template character count",
+          "Only frontend paint time"
+        ],
+        "answer": 0,
+        "explanation": "Delivery systems need visibility into queue backlog, channel-specific success/failure rates, provider throttling, and end-to-end latency.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-60",
+        "question": "Why is guaranteed notification delivery hard?",
+        "options": [
+          "External providers and devices can fail, throttle, or be offline",
+          "Templates cannot be cached",
+          "Users cannot have multiple devices",
+          "Every provider has identical semantics"
+        ],
+        "answer": 0,
+        "explanation": "The system can guarantee durable enqueueing and retries, but final delivery depends on provider behavior, device state, user settings, and channel semantics.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-11",
+    "title": "Vol. 1 Ch. 11 - Design a News Feed",
+    "description": "Designing a news feed system like the Facebook or Twitter timeline.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-11/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 11
+    },
+    "questions": [
+      {
+        "id": "sdi-61",
+        "question": "What is fanout on write in a news feed system?",
+        "options": [
+          "Precomputing and pushing a new post into followers' feed inboxes when it is published",
+          "Computing every user's feed only when they open the app",
+          "Sending notifications through SMS only",
+          "Hashing URLs into short codes"
+        ],
+        "answer": 0,
+        "explanation": "Fanout on write shifts work to publish time, making reads fast for ordinary users but expensive for authors with many followers.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-62",
+        "question": "What is fanout on read?",
+        "options": [
+          "Building the feed at read time by pulling recent posts from followed users",
+          "Writing every post to all follower inboxes",
+          "Storing only image thumbnails",
+          "Sending every feed item through a rate limiter"
+        ],
+        "answer": 0,
+        "explanation": "Fanout on read avoids massive write amplification for high-follower accounts, but read latency and query complexity increase.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-63",
+        "question": "Why do many feed systems use a hybrid fanout strategy?",
+        "options": [
+          "Normal users use fanout on write, while celebrities or high-fanout users are pulled at read time",
+          "All users are always handled by one SQL query",
+          "It removes the need for caching",
+          "It guarantees chronological ordering only"
+        ],
+        "answer": 0,
+        "explanation": "Hybrid fanout keeps reads fast for most relationships while avoiding huge publish-time work for accounts with very large follower sets.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-64",
+        "question": "Which stores are commonly involved in a feed design? (Select all that apply)",
+        "options": [
+          "Post/object store",
+          "User graph or follower store",
+          "Feed cache/inbox store",
+          "DNS zone file as the primary database"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Feeds need post content, social graph data, and low-latency feed materialization/caching. DNS is not a primary feed data store.",
+        "multiSelect": true
+      },
+      {
+        "id": "sdi-65",
+        "question": "Why is caching important for feed retrieval?",
+        "options": [
+          "Feed reads are frequent and latency-sensitive",
+          "It removes the need to store posts durably",
+          "It prevents users from following others",
+          "It makes all ranking algorithms unnecessary"
+        ],
+        "answer": 0,
+        "explanation": "Users read feeds far more often than they publish. Caching feed IDs, post objects, and user profiles reduces latency and backend load.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-66",
+        "question": "What problem does a celebrity user create for fanout on write?",
+        "options": [
+          "A single post may require writes to millions of follower feeds",
+          "The user cannot publish text posts",
+          "The user bypasses all databases",
+          "The user's feed must be deleted"
+        ],
+        "answer": 0,
+        "explanation": "Very high follower counts cause write amplification and queue spikes. Systems often treat these users specially with pull-time merge or delayed fanout.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-12",
+    "title": "Vol. 1 Ch. 12 - Design a Chat System",
+    "description": "Designing a chat system like Slack or WhatsApp.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-12/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 12
+    },
+    "questions": [
+      {
+        "id": "sdi-67",
+        "question": "Why are persistent connections important for chat systems?",
+        "options": [
+          "They allow servers to push new messages to online clients in near real time",
+          "They remove the need for message storage",
+          "They guarantee every message is read",
+          "They make all clients stateless"
+        ],
+        "answer": 0,
+        "explanation": "WebSocket-like persistent connections let the server deliver messages without client polling, improving latency and efficiency.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-68",
+        "question": "What does a chat service need service discovery for?",
+        "options": [
+          "Finding which chat server owns or currently holds a user's connection",
+          "Converting text into video",
+          "Generating Base62 URLs",
+          "Computing CDN cache TTLs"
+        ],
+        "answer": 0,
+        "explanation": "In a distributed chat system, routing services need to know where a user's active connection lives so messages can be delivered to the right server.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-69",
+        "question": "Why is layer 4 load balancing often relevant for chat connections?",
+        "options": [
+          "It can distribute long-lived TCP connections without terminating application protocols",
+          "It stores chat history",
+          "It guarantees message ordering across all conversations",
+          "It replaces mobile push notifications"
+        ],
+        "answer": 0,
+        "explanation": "Chat uses long-lived connections. L4 load balancers can distribute connections efficiently while chat servers manage protocol-level state.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-70",
+        "question": "What storage pattern is useful for one-to-one chat history?",
+        "options": [
+          "Partition messages by conversation or participant pair and order by message time/ID",
+          "Store every message only in browser memory",
+          "Use a CDN as the primary message database",
+          "Store messages under random keys with no ordering"
+        ],
+        "answer": 0,
+        "explanation": "Conversation-based partitioning and ordered message IDs make recent history retrieval efficient and preserve message order within a chat.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-71",
+        "question": "Which mechanisms support offline users in chat? (Select all that apply)",
+        "options": [
+          "Durable message storage",
+          "Push notifications",
+          "Unread state",
+          "Dropping all messages sent while offline"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Offline delivery requires messages to be stored, unread state to be tracked, and push notifications to wake devices when appropriate.",
+        "multiSelect": true
+      },
+      {
+        "id": "sdi-72",
+        "question": "Why are presence indicators challenging at scale?",
+        "options": [
+          "Online/offline status changes frequently and must be fanned out to interested users",
+          "They require video transcoding",
+          "They cannot use heartbeats",
+          "They are always strongly consistent globally"
+        ],
+        "answer": 0,
+        "explanation": "Presence depends on heartbeats and connection state. Frequent updates must be aggregated and selectively distributed to avoid overwhelming the system.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-13",
+    "title": "Vol. 1 Ch. 13 - Design a Search Autocomplete System",
+    "description": "Designing a search autocomplete system like the Google search bar.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-13/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 13
+    },
+    "questions": [
+      {
+        "id": "sdi-73",
+        "question": "Why is a trie useful for autocomplete?",
+        "options": [
+          "It organizes strings by prefix, making prefix lookup efficient",
+          "It stores videos in multiple bitrates",
+          "It guarantees eventual consistency",
+          "It encrypts search terms"
+        ],
+        "answer": 0,
+        "explanation": "A trie lets the service traverse characters in the prefix and then retrieve candidate completions from that prefix node.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-74",
+        "question": "What is usually stored at trie nodes to serve autocomplete quickly?",
+        "options": [
+          "Top-k suggestions or references for that prefix",
+          "Full user session cookies",
+          "Every video transcoding job",
+          "Rate-limit headers"
+        ],
+        "answer": 0,
+        "explanation": "Precomputing top-k suggestions at each prefix node makes serving requests fast, at the cost of update and storage complexity.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-75",
+        "question": "Why are autocomplete frequency updates often batched?",
+        "options": [
+          "Immediate trie updates for every query can be too expensive and noisy",
+          "Batches make suggestions impossible to cache",
+          "Users only type in batches",
+          "Batching prevents ranking changes forever"
+        ],
+        "answer": 0,
+        "explanation": "Aggregating search frequencies in logs or streams and updating periodically reduces write load and smooths short-lived noise.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-76",
+        "question": "Which factors can influence autocomplete ranking? (Select all that apply)",
+        "options": [
+          "Query frequency",
+          "Freshness or trending signals",
+          "User locale/language",
+          "Disk block checksum only"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Popularity, recency, personalization, and locale often affect ranking. Storage checksums are not ranking signals.",
+        "multiSelect": true
+      },
+      {
+        "id": "sdi-77",
+        "question": "Why is caching especially effective for autocomplete?",
+        "options": [
+          "Many users request the same short prefixes repeatedly",
+          "Every query is globally unique",
+          "It removes the need to rank suggestions",
+          "It guarantees no stale suggestions"
+        ],
+        "answer": 0,
+        "explanation": "Short prefixes such as one or two characters are extremely hot. Caching prefix results can absorb substantial read traffic.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-78",
+        "question": "What is a tradeoff of storing top-k suggestions at every trie node?",
+        "options": [
+          "Low read latency but higher storage and update cost",
+          "No storage overhead but slow reads",
+          "Perfect personalization with no complexity",
+          "No need for ranking data"
+        ],
+        "answer": 0,
+        "explanation": "Materialized top-k lists make serving fast, but every ranking update may affect many prefix nodes and consume more memory/storage.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-14",
+    "title": "Vol. 1 Ch. 14 - Design a Video Sharing Platform",
+    "description": "Designing a video sharing platform like YouTube.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-14/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 14
+    },
+    "questions": [
+      {
+        "id": "sdi-79",
+        "question": "Why do video platforms transcode uploaded videos?",
+        "options": [
+          "To produce formats, resolutions, and bitrates suitable for different devices and networks",
+          "To make every file smaller than one byte",
+          "To avoid storing metadata",
+          "To replace CDNs"
+        ],
+        "answer": 0,
+        "explanation": "Transcoding creates multiple playable representations so clients can stream smoothly across devices, browsers, and network conditions.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-80",
+        "question": "What is adaptive bitrate streaming designed to do?",
+        "options": [
+          "Switch video quality based on available bandwidth and playback conditions",
+          "Force every user to watch the highest bitrate",
+          "Disable buffering entirely",
+          "Store videos only in a relational database"
+        ],
+        "answer": 0,
+        "explanation": "Adaptive streaming lets clients choose among encoded segments at different bitrates, improving playback stability under changing network conditions.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-81",
+        "question": "Why are pre-signed URLs useful for large video uploads?",
+        "options": [
+          "Clients can upload directly to object storage without proxying bytes through application servers",
+          "They remove all authentication",
+          "They transcode video in the browser",
+          "They guarantee every upload completes"
+        ],
+        "answer": 0,
+        "explanation": "Direct-to-object-storage uploads reduce app server bandwidth and make large upload paths more scalable while preserving scoped authorization.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-82",
+        "question": "What makes resumable uploads important for video systems?",
+        "options": [
+          "Large uploads are likely to be interrupted and should resume from uploaded chunks",
+          "Small files cannot use HTTP",
+          "They prevent the need for object storage",
+          "They make encoding unnecessary"
+        ],
+        "answer": 0,
+        "explanation": "Videos can be large, so chunked/resumable uploads avoid restarting from zero after transient network or client failures.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-83",
+        "question": "Which components are commonly in a video processing pipeline? (Select all that apply)",
+        "options": [
+          "Upload storage",
+          "Encoding/transcoding workers",
+          "Metadata database",
+          "Autocomplete trie"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Video systems store originals, run asynchronous processing workers, and track metadata/status. Autocomplete tries are unrelated.",
+        "multiSelect": true
+      },
+      {
+        "id": "sdi-84",
+        "question": "Why do video streaming systems rely heavily on CDNs?",
+        "options": [
+          "Video traffic is bandwidth-heavy and benefits from edge caching near viewers",
+          "CDNs are required to generate unique IDs",
+          "CDNs replace all upload processing",
+          "CDNs guarantee every video is popular"
+        ],
+        "answer": 0,
+        "explanation": "Serving video from edge locations reduces origin load, bandwidth cost, and playback latency for geographically distributed users.",
+        "multiSelect": false
+      }
+    ]
+  },
+  {
+    "slug": "system-design-interview-volume-1-chapter-15",
+    "title": "Vol. 1 Ch. 15 - Design Google Drive",
+    "description": "Designing a file storage service like Google Drive or Dropbox.",
+    "image": "/images/system-design-interview.jpg",
+    "relatedArticles": [
+      "/articles/system-design-interview-volume-1-chapter-15/"
+    ],
+    "collection": {
+      "slug": "system-design-interview",
+      "title": "System Design Interview",
+      "order": 15
+    },
+    "questions": [
+      {
+        "id": "sdi-85",
+        "question": "Why do cloud storage systems split large files into blocks?",
+        "options": [
+          "Blocks support resumable uploads, deduplication, checksums, and partial retries",
+          "Blocks remove the need for metadata",
+          "Blocks make all files exactly the same size",
+          "Blocks prevent clients from downloading files"
+        ],
+        "answer": 0,
+        "explanation": "Block-level storage lets the system retry only failed chunks, verify integrity, sync changed portions, and potentially deduplicate repeated content.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-86",
+        "question": "What does the metadata database track in a Google Drive-like system?",
+        "options": [
+          "File ownership, versions, block references, sync state, and permissions metadata",
+          "Raw bytes for every file block only",
+          "Video transcoding bitrates only",
+          "Global rate limit headers only"
+        ],
+        "answer": 0,
+        "explanation": "Object/block storage holds file bytes, while metadata stores the logical file model, versions, ownership, paths, and references to blocks.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-87",
+        "question": "Why are checksums important in a file sync service?",
+        "options": [
+          "They verify block integrity and detect corrupted or mismatched data",
+          "They replace authentication",
+          "They make conflicts impossible",
+          "They choose the nearest data center"
+        ],
+        "answer": 0,
+        "explanation": "Checksums allow clients and servers to confirm that uploaded/downloaded blocks match expected content and to identify changed blocks.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-88",
+        "question": "What causes sync conflicts in cloud file storage?",
+        "options": [
+          "Multiple devices edit the same file while not seeing each other's latest version",
+          "A file is downloaded once",
+          "A CDN caches a static image",
+          "A user logs in from one device only"
+        ],
+        "answer": 0,
+        "explanation": "Availability-oriented sync allows offline or concurrent edits. If versions diverge, the system must detect conflicts and preserve user data.",
+        "multiSelect": false
+      },
+      {
+        "id": "sdi-89",
+        "question": "Which features help support large file uploads? (Select all that apply)",
+        "options": [
+          "Chunking",
+          "Resumable upload sessions",
+          "Parallel block upload",
+          "Single request with no retry state"
+        ],
+        "answer": [0, 1, 2],
+        "explanation": "Chunking and resumable sessions let large uploads recover from failures, and parallel block upload can improve throughput. A single untracked request is fragile.",
+        "multiSelect": true
+      },
+      {
+        "id": "sdi-90",
+        "question": "What is a cost-saving technique for old or rarely accessed files?",
+        "options": [
+          "Move cold data to cheaper storage tiers",
+          "Store every file only in memory",
+          "Disable checksums",
+          "Keep all replicas in the most expensive region"
+        ],
+        "answer": 0,
+        "explanation": "Lifecycle policies can move cold blocks to lower-cost storage while keeping metadata and hot data readily accessible.",
+        "multiSelect": false
+      }
+    ]
   }
 ]
