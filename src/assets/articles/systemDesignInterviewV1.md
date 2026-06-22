@@ -46,7 +46,7 @@ These resources provide high-level strategies and examples for system design int
 ### Summary, Review, and Flash Cards
 
 - [ ] Summary & Review
-- [ ] Flash Cards
+- [x] <a target="_blank" rel="noopener" href="https://noahtigner.com/flashcards/">Flash Cards</a>
 
 ---
 
