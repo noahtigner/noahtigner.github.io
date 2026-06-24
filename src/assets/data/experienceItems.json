@@ -3,34 +3,35 @@
     "title": "Senior Software Engineer",
     "organization": "Alteryx",
     "description": [
-      "Collaborated with stakeholders to shape the design and implementation of several client-facing systems, 3 of which generated $1.8M, $1.4M, and $6.5M in annual recurring revenue (ARR)",
-      "Spearheaded various initiatives, including the creation of a shared component library, the implementation of linting and formatting guidelines, unit and end-to-end testing, CI/CD pipelines, feature flags, etc.",
-      "Guided and onboarded new hires while serving as a subject matter expert (SME) in critical areas"
+      "Partnered with product managers, designers, and engineers to deliver customer-facing applications using React, TypeScript, and Python, contributing to products generating $1.8M, $1.4M, and $6.5M ARR",
+      "Led engineering initiatives including shared component libraries, feature flags, CI/CD pipelines, linting standards, and automated testing practices",
+      "Designed and implemented rate limiting and quota systems for critical services and AI endpoints, improving reliability and protecting expensive resources",
+      "Integrated third-party AI services and delivered customer-facing chat experiences built on an internal AI platform leveraging RAG, embeddings, vector search, tool calling, and specialized agents"
     ]
   },
   {
     "title": "Cloud Services Developer (SWE II)",
     "organization": "HP",
     "description": [
-      "Solely maintained an internal software service; optimized the Django backend to reduce average API latency by 20% while simultaneously introducing a React frontend",
-      "Improved system scalability and resilience through containerization, distributed multitasking, etc.",
-      "Implemented cloud-based services that seamlessly integrated with platforms and organizations across HP"
+      "Assumed ownership of a distributed test automation platform built with Django, Celery, RabbitMQ, PostgreSQL, Docker, and AWS, supporting validation workflows across HP's printer ecosystem",
+      "Reduced average API latency by 20% through backend optimizations and performance improvements while supporting large asynchronous workloads via distributed task processing",
+      "Introduced a React dashboard that replaced manual Postman and CLI workflows for test engineers"
     ]
   },
   {
     "title": "Software Engineering Intern",
     "organization": "Air-Weigh",
     "description": [
-      "Designed and developed a full-stack cloud application using Django, React, MySQL, and AWS",
-      "Maintained a SaaS solution built with Java Spring Boot, JavaScript, MySQL, Apache Tomcat, and AWS",
-      "Developed a microservices prototype with Flask, PostgreSQL, React, and Redux"
+      "Maintained and enhanced a customer-facing fleet management platform built with Spring Boot, MySQL, Apache Tomcat, and AWS",
+      "Developed a microservice prototype with Flask, PostgreSQL, React, and Redux",
+      "Designed and delivered a production administrative platform using Django REST Framework, React, AWS Cognito, and MySQL"
     ]
   },
   {
     "title": "Software Engineering Intern",
     "organization": "TDS Telecom",
     "description": [
-      "Developed ETL pipelines using Python and SQL for network diagnostics and capacity reporting",
+      "Developed ETL pipelines in Python and SQL to support network diagnostics and capacity reporting",
       "Optimized automated processes, resulting in reduced server load and enhanced performance",
       "Followed Test-Driven Development (TDD) to integrate coding, testing, and design into a unified process"
     ]
