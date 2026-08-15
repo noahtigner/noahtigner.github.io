@@ -47,14 +47,12 @@ import {
   SubmenuPanel,
 } from './TopNav.styles';
 import { paths } from '~/routes';
-import { groupDecksByCollection, allDecks } from '~/utils/vite/flashcards';
 import {
   groupArticlesByCollection,
   publishedArticles,
 } from '~/utils/vite/markdown';
 
 const articleMenu = groupArticlesByCollection(publishedArticles);
-const flashcardMenu = groupDecksByCollection(allDecks);
 
 type SectionTriggerProps = {
   children: string;
@@ -131,10 +129,6 @@ function ContactNavLink({ href, children }: ContactNavLinkProps) {
   );
 }
 
-function getFlashcardPath(slug: string) {
-  return paths.flashcardDeck.replace(':deck', slug);
-}
-
 // ---------------------------------------------------------------------------
 // Mobile Drawer
 // ---------------------------------------------------------------------------
@@ -142,10 +136,9 @@ function getFlashcardPath(slug: string) {
 type DrawerView =
   | { level: 'root' }
   | { level: 'articles' }
-  | { level: 'flashcards' }
   | {
       level: 'collection';
-      parent: 'articles' | 'flashcards';
+      parent: 'articles';
       title: string;
       links: CollectionSubmenuLink[];
     };
@@ -204,9 +197,7 @@ function MobileDrawer() {
       ? 'Menu'
       : view.level === 'articles'
         ? 'Articles'
-        : view.level === 'flashcards'
-          ? 'Flashcards'
-          : view.title;
+        : view.title;
 
   return (
     <>
@@ -266,10 +257,6 @@ function MobileDrawer() {
                 Articles
                 <ChevronRightIcon />
               </DrawerDrillBtn>
-              <DrawerDrillBtn onClick={() => setView({ level: 'flashcards' })}>
-                Flashcards
-                <ChevronRightIcon />
-              </DrawerDrillBtn>
             </>
           )}
 
@@ -307,45 +294,6 @@ function MobileDrawer() {
                   onClick={close}
                 >
                   {article.title}
-                </DrawerLink>
-              ))}
-            </>
-          )}
-
-          {view.level === 'flashcards' && (
-            <>
-              <DrawerLink to={paths.flashcards} onClick={close}>
-                All Flashcards
-              </DrawerLink>
-              <DrawerDivider />
-              {flashcardMenu.collections.map((group) => (
-                <DrawerDrillBtn
-                  key={group.slug}
-                  onClick={() =>
-                    setView({
-                      level: 'collection',
-                      parent: 'flashcards',
-                      title: group.title,
-                      links: group.decks.map((deck) => ({
-                        key: deck.slug,
-                        to: getFlashcardPath(deck.slug),
-                        label: deck.title,
-                      })),
-                    })
-                  }
-                >
-                  {group.title}
-                  <ChevronRightIcon />
-                </DrawerDrillBtn>
-              ))}
-              {flashcardMenu.standalone.length > 0 && <DrawerDivider />}
-              {flashcardMenu.standalone.map((deck) => (
-                <DrawerLink
-                  key={deck.slug}
-                  to={getFlashcardPath(deck.slug)}
-                  onClick={close}
-                >
-                  {deck.title}
                 </DrawerLink>
               ))}
             </>
@@ -438,86 +386,6 @@ function ArticlesPanel() {
   );
 }
 
-function FlashcardsPanel() {
-  return (
-    <>
-      <MenuSection>
-        <CompactLinkList>
-          <li>
-            <CompactInternalLink to={paths.flashcards}>
-              All Flashcards
-            </CompactInternalLink>
-          </li>
-        </CompactLinkList>
-      </MenuSection>
-
-      <StyledSeparator />
-
-      {flashcardMenu.collections.length > 0 ? (
-        <>
-          <MenuSection>
-            <NestedMenuRoot orientation="vertical">
-              <NestedMenuList>
-                {flashcardMenu.collections.map((group) => (
-                  <CollectionSubmenu
-                    key={group.slug}
-                    label={group.title}
-                    links={group.decks.map((deck) => {
-                      const deckPath = getFlashcardPath(deck.slug);
-
-                      return {
-                        key: deck.slug,
-                        to: deckPath,
-                        label: deck.title,
-                      };
-                    })}
-                  />
-                ))}
-              </NestedMenuList>
-
-              <NavigationMenu.Portal>
-                <StyledPositioner
-                  side="left"
-                  align="start"
-                  sideOffset={12}
-                  collisionPadding={{
-                    top: 5,
-                    bottom: 5,
-                    left: 16,
-                    right: 16,
-                  }}
-                >
-                  <StyledPopup>
-                    <StyledViewport />
-                  </StyledPopup>
-                </StyledPositioner>
-              </NavigationMenu.Portal>
-            </NestedMenuRoot>
-          </MenuSection>
-        </>
-      ) : null}
-
-      {flashcardMenu.standalone.length > 0 ? (
-        <MenuSection>
-          <CompactLinkList>
-            {flashcardMenu.standalone.map((deck) => {
-              const deckPath = getFlashcardPath(deck.slug);
-
-              return (
-                <li key={deck.slug}>
-                  <CompactInternalLink to={deckPath}>
-                    {deck.title}
-                  </CompactInternalLink>
-                </li>
-              );
-            })}
-          </CompactLinkList>
-        </MenuSection>
-      ) : null}
-    </>
-  );
-}
-
 export default function TopNav() {
   return (
     <StyledNav delay={75} closeDelay={100}>
@@ -532,16 +400,6 @@ export default function TopNav() {
           <StyledNavContent>
             <SectionPanel>
               <ArticlesPanel />
-            </SectionPanel>
-          </StyledNavContent>
-        </DesktopOnlyNavItem>
-
-        <DesktopOnlyNavItem>
-          <SectionTrigger>Flashcards</SectionTrigger>
-
-          <StyledNavContent>
-            <SectionPanel>
-              <FlashcardsPanel />
             </SectionPanel>
           </StyledNavContent>
         </DesktopOnlyNavItem>
