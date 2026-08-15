@@ -140,59 +140,6 @@ const popupStyles = css`
   }
 `;
 
-const menuLinkStyles = css`
-  position: relative;
-  z-index: 0;
-  display: flex;
-  padding-block: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
-  color: var(--color-gray-900);
-  font-size: 0.875rem;
-  line-height: 1rem;
-  text-decoration: none;
-  outline: 0;
-  user-select: none;
-  cursor: pointer !important;
-  white-space: normal;
-  word-wrap: break-word;
-  hyphens: auto;
-
-  @media (hover: hover) {
-    &:hover {
-      color: var(--color-gray-50);
-    }
-
-    &:hover::before {
-      content: '';
-      z-index: -1;
-      position: absolute;
-      inset-block: 0;
-      inset-inline: 0.25rem;
-      border-radius: 0.25rem;
-      background-color: var(--color-gray-900);
-    }
-  }
-
-  @media (max-width: 768px) {
-    line-height: 1.25rem;
-  }
-
-  &[data-highlighted] {
-    color: var(--color-gray-50);
-  }
-
-  &[data-highlighted]::before {
-    content: '';
-    z-index: -1;
-    position: absolute;
-    inset-block: 0;
-    inset-inline: 0.25rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
-  }
-`;
-
 const compactLinkStyles = css`
   display: block;
   padding: 0.45rem 0.75rem;
@@ -267,7 +214,7 @@ const nestedTriggerStyles = css`
 `;
 
 export const StyledNavTrigger = styled(NavigationMenu.Trigger)(triggerStyles);
-export const StyledContactLink = styled(NavigationMenu.Link)(menuLinkStyles);
+export const StyledContactLink = styled(NavigationMenu.Link)(compactLinkStyles);
 export const StyledCompactLink = styled(NavigationMenu.Link)(compactLinkStyles);
 export const StyledNestedTrigger = styled(NavigationMenu.Trigger)(
   nestedTriggerStyles
