@@ -3,47 +3,42 @@
     "title": "Senior Software Engineer",
     "organization": "Alteryx",
     "description": [
-      "Partnered with product managers, designers, and engineers to deliver customer-facing applications using React, TypeScript, and Python, contributing to products generating $1.8M, $1.4M, and $6.5M ARR",
-      "Led engineering initiatives including shared component libraries, feature flags, CI/CD pipelines, linting standards, and automated testing practices",
+      "Partnered with product managers, designers, and engineers to deliver customer-facing applications using React, TypeScript, and Python, including products that generated $1.8M and $1.4M ARR",
+      "Led engineering initiatives including feature flags, A/B experiments, gradual feature rollouts, user- and account-level overrides, CI/CD pipelines, and automated testing standards",
       "Designed and implemented rate limiting and quota systems for critical services and AI endpoints, improving reliability and protecting expensive resources",
-      "Integrated third-party AI services and delivered customer-facing chat experiences built on an internal AI platform leveraging RAG, embeddings, vector search, tool calling, and specialized agents"
+      "Helped build and maintain an internal AI platform powering customer-facing chat, email drafting, and instant recommendations using RAG, vector search, tool calling, and specialized agents"
     ]
   },
   {
     "title": "Cloud Services Developer (SWE II)",
     "organization": "HP",
     "description": [
-      "Assumed ownership of a distributed test automation platform built with Django, Celery, RabbitMQ, PostgreSQL, Docker, and AWS, supporting validation workflows across HP's printer ecosystem",
-      "Reduced average API latency by 20% through backend optimizations and performance improvements while supporting large asynchronous workloads via distributed task processing",
-      "Introduced a React dashboard that replaced manual Postman and CLI workflows for test engineers"
+      "Owned a distributed test automation platform built with Django, Celery, RabbitMQ, PostgreSQL, Docker, and AWS, supporting validation workflows across HP's printer ecosystem",
+      "Reduced average API latency by 20% through backend optimizations; supported large asynchronous workloads with distributed task processing",
+      "Built a React dashboard that replaced manual Postman and CLI workflows for test engineers"
     ]
   },
   {
     "title": "Software Engineering Intern",
     "organization": "Air-Weigh",
     "description": [
-      "Maintained and enhanced a customer-facing fleet management platform built with Spring Boot, MySQL, Apache Tomcat, and AWS",
-      "Developed a microservice prototype with Flask, PostgreSQL, React, and Redux",
-      "Designed and delivered a production administrative platform using Django REST Framework, React, AWS Cognito, and MySQL"
+      "Prototyped a Flask/PostgreSQL microservices platform and helped deliver its production implementation with Django REST Framework, AWS, and MySQL",
+      "Maintained a customer-facing fleet management platform built with Spring Boot and MySQL on AWS"
     ]
   },
   {
     "title": "Software Engineering Intern",
     "organization": "TDS Telecom",
     "description": [
-      "Developed ETL pipelines in Python and SQL to support network diagnostics and capacity reporting",
-      "Optimized automated processes, resulting in reduced server load and enhanced performance",
-      "Followed Test-Driven Development (TDD) to integrate coding, testing, and design into a unified process"
+      "Maintained and optimized Python, SQL, and shell-based ETL pipelines supporting network diagnostics and capacity reporting, improving data availability and reducing server load"
     ]
   },
   {
     "title": "Education",
     "organization": "University of Oregon",
     "description": [
-      "B.S. in Computer Science (Departmental Honors) - Software Development Track",
-      "B.S. in Spatial Data Science (Departmental Honors)",
-      "Minor in Music Technology",
-      "Phi Beta Kappa Honor Society"
+      "Bachelor of Science with Honors",
+      "Majors: Computer Science & Spatial Data Science"
     ]
   }
 ]
