@@ -158,6 +158,22 @@ const menuLinkStyles = css`
   word-wrap: break-word;
   hyphens: auto;
 
+  @media (hover: hover) {
+    &:hover {
+      color: var(--color-gray-50);
+    }
+
+    &:hover::before {
+      content: '';
+      z-index: -1;
+      position: absolute;
+      inset-block: 0;
+      inset-inline: 0.25rem;
+      border-radius: 0.25rem;
+      background-color: var(--color-gray-900);
+    }
+  }
+
   @media (max-width: 768px) {
     line-height: 1.25rem;
   }
