@@ -2,7 +2,7 @@
 title: System Design Interview Vol. 1 Ch. 2 - Back-of-the-Envelope Estimation
 description: Notes on Chapter 2 of System Design Interview by Alex Xu. Statistics, conversions, and estimation strategies every software engineer should know
 published: April 10, 2026
-updated: April 10, 2026
+updated: August 21, 2026
 minutesToRead: 10
 path: /articles/system-design-interview-volume-1-chapter-2/
 image: /images/system-design-interview.jpg
@@ -158,7 +158,7 @@ I have gone through a similar exercise for a video streaming platform like YouTu
 
 > [!TIP]
 > When calculating QPS and working with DAU, it is easiest to multiply by 100,000
-> since 24 hours _ 60 minutes _ 60 seconds = 86,400
+> since 24 hours \* 60 minutes \* 60 seconds = 86,400
 
 > [!NOTE]
 > **QPS vs. Concurrent Streams:**
