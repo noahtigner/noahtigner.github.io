@@ -181,6 +181,7 @@ CDNs can be used automatically when based on factors like view thresholds, uploa
 Articles:
 
 - The Hello Interview team has a great article walking through <a target="_blank" rel="noopener" href="https://www.cloudflare.com/learning/video/what-is-adaptive-bitrate-streaming/">handling large files</a>
+- Use PracHub's <a target="_blank" rel="noopener" href="https://prachub.com/resources/system-design-interview-rubric-by-level-mid-level-vs-senior-vs-staff">system design interview rubric by level</a> to compare the same design against mid-level, senior, and staff expectations.
 
 Videos:
 
