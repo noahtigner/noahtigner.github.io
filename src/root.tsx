@@ -1,4 +1,5 @@
-import { StrictMode, type ReactNode } from 'react';
+import { StrictMode, type ReactNode, useState } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   isRouteErrorResponse,
   Navigate,
@@ -181,11 +182,15 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 }
 
 export default function App() {
+  const [queryClient] = useState(() => new QueryClient());
+
   useScrollToHash();
 
   return (
     <StrictMode>
-      <Outlet />
+      <QueryClientProvider client={queryClient}>
+        <Outlet />
+      </QueryClientProvider>
     </StrictMode>
   );
 }
