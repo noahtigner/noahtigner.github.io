@@ -2,6 +2,7 @@ import { type RouteConfig, index, route } from '@react-router/dev/routes';
 
 export const paths = {
   home: '/',
+  autocomplete: '/autocomplete/',
   articles: '/articles/',
   article: '/articles/:slug/',
   flashcards: '/flashcards/',
@@ -11,6 +12,7 @@ export const paths = {
 
 export default [
   index('routes/Home.tsx'),
+  route(paths.autocomplete, './routes/Autocomplete.tsx'),
   route(paths.articles, './routes/Articles.tsx'),
   route(paths.article, './routes/Articles.$slug.tsx'),
   route(paths.flashcards, './routes/Flashcards.tsx'),

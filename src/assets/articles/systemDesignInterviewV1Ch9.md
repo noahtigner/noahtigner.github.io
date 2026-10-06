@@ -59,9 +59,9 @@ I will deviate slightly from the book, settling on LLM training data generation 
 - Need to process 1B pages / month
 - Average page size = 2 MB
 - QPS = 1B / 30 / 24 / 3600 = 33.3M / 24 / 3600 = 33.3M / ~100,000 = ~333
-- Peak QPS = QPS _ 2 = 333 _ 2 = 666
+- Peak QPS = QPS \* 2 = 333 \* 2 = 666
 - Storage per month = 1B \* 2 MB = 2 PB
-- Total storage requirements = 2PB _ 12 _ 5 = 120 PB
+- Total storage requirements = 2PB \* 12 \* 5 = 120 PB
 
 ---
 
