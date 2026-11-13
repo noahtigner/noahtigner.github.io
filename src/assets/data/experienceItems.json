@@ -1,19 +1,27 @@
 [
   {
-    "title": "Senior Software Engineer",
+    "title": "Senior Software Engineer - Platform Engineering",
     "organization": "Alteryx",
     "description": [
-      "Partnered with product managers, designers, and engineers to deliver customer-facing applications using React, TypeScript, and Python, including products that generated $1.8M and $1.4M ARR",
+      "Extended an SRE CLI to support a new cloud infrastructure service, achieving parity with the legacy integration and enabling migration off the legacy service",
+      "Delivered cross-service CMEK support across 4+ data-plane services, integrating PostgreSQL, Debezium CDC, Kafka/Avro event flows, and Terraform-based infrastructure provisioning"
+    ]
+  },
+  {
+    "title": "Senior Software Engineer - GTM Systems",
+    "organization": "Alteryx",
+    "description": [
+      "Partnered with GTM, product, design, and engineering stakeholders to deliver customer-facing applications using React, TypeScript, and Python, including products that generated $1.8M and $1.4M ARR",
       "Led engineering initiatives including feature flags, A/B experiments, gradual feature rollouts, user- and account-level overrides, CI/CD pipelines, and automated testing standards",
       "Designed and implemented rate limiting and quota systems for critical services and AI endpoints, improving reliability and protecting expensive resources",
-      "Helped build and maintain an internal AI platform powering customer-facing chat, email drafting, and instant recommendations using RAG, vector search, tool calling, and specialized agents"
+      "Helped maintain an internal AI platform powering customer-facing chat, email drafting, and instant recommendations using RAG, vector search, tool calling, and specialized agents"
     ]
   },
   {
     "title": "Cloud Services Developer (SWE II)",
     "organization": "HP",
     "description": [
-      "Owned a distributed test automation platform built with Django, Celery, RabbitMQ, PostgreSQL, Docker, and AWS, supporting validation workflows across HP's printer ecosystem",
+      "Owned a distributed workflow execution platform built with Django, Celery, RabbitMQ, PostgreSQL, Docker, and AWS, supporting validation workflows across HP's printer ecosystem",
       "Reduced average API latency by 20% through backend optimizations; supported large asynchronous workloads with distributed task processing",
       "Built a React dashboard that replaced manual Postman and CLI workflows for test engineers"
     ]
